@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">
+                Skills
+              <div class="col-md-1 col-sm-1 col-xs-1 pull-right">
+                <button class="btn btn-info btn-rounded pull-right" title="Add Skill" (click)="showEditForm()">+ Add</button>
+              </div>
+            </h3>
+            
+            <p class="text-muted m-b-30">Skills for employees and applicants.</p>
+            <div class="table-responsive">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="display">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Field of Skill</th>
+                            <th class="text-nowrap">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let skill of skills" (click)="selectSkill(skill)" [class.selected]="skill === selectedSkill">
+                            <td>{{ skill.code }}</td>
+                            <td>{{ skill.name }}</td>
+                            <td>{{ skill.description }}</td>
+                            <td>{{ skill.field }}</td>
+                            <td>
+                                <a href="#" (click)="showEditForm(skill, false)" data-toggle="tooltip" data-original-title="Edit" title='Edit'>
+                                    <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                </a>
+                                <a href="#" (click)="showEditForm(skill, true)" data-toggle="tooltip" data-original-title="Delete" title="Delete">
+                                    <i class="fa fa-close text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr *ngIf='skills.length === 0'>
+                            <td colspan="5">
+                                No data found.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- form for data editing -->
+<div #editForm class="mfp-hide white-popup-block">
+    <h1 *ngIf="!isDeleteSkill && selectedSkill">Edit Skill</h1>
+    <h1 *ngIf="!isDeleteSkill && !selectedSkill">New Skill</h1>
+    <h1 *ngIf="isDeleteSkill">Delete Skill</h1>
+    <fieldset style="border:0;">
+        <div class="form-group">
+            <label class="control-label" for="inputCode">Code</label>
+            <input [disabled]="isDeleteSkill" #codeField type="text" class="form-control" id="inputCode" name="code" placeholder="Code" required="">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="inputName">Name</label>
+            <input [disabled]="isDeleteSkill" #nameField type="text" class="form-control" id="inputName" name="name" placeholder="Name" required="">
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="descriptionArea">Description</label>
+            <br>
+            <textarea [disabled]="isDeleteSkill" #descriptionArea class="form-control" id="descriptionArea" name="description"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="inputField">Field of Skill</label>
+            <input [disabled]="isDeleteSkill" #fieldField type="text" class="form-control" id="inputField" name="field" placeholder="Field of Skill">
+        </div>
+        <div class="form-group">
+            <button *ngIf="!isDeleteSkill" class="btn btn-info" type="button" 
+                (click)="saveSkill(selectedSkill?.id, codeField.value, nameField.value, descriptionArea.value, fieldField.value); codeField.value=''; nameField.value=''; descriptionArea.value=''; fieldField.value='';">Save</button>
+            <button *ngIf="isDeleteSkill" class="btn btn-danger" type="button" 
+                (click)="delete(selectedSkill); codeField.value=''; nameField.value=''; descriptionArea.value=''; fieldField.value='';">Delete</button>
+            <button class="btn btn-default" type="button" 
+                (click)="closeEditForm(); codeField.value=''; nameField.value=''; descriptionArea.value=''; fieldField.value='';">Cancel</button>
+        </div>
+    </fieldset>
+</div>
+<app-skill-grades></app-skill-grades>
