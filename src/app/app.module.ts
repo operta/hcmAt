@@ -12,13 +12,15 @@ import { SkillGradesService } from './rg-skill-grades/skill-grades.service';
 import { SkillsComponent } from './rg-skills/skills.component';
 import { SkillGradesComponent } from './rg-skill-grades/skill-grades.component';
 import { SideMenuComponent } from './ap-side-menu/side-menu.component';
+import { ApplicantComponent } from './at-applicant/applicant.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SkillsComponent,
     SkillGradesComponent,
-    SideMenuComponent
+    SideMenuComponent,
+    ApplicantComponent
   ],
   imports: [
     AppRoutingModule, 
