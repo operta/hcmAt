@@ -13,6 +13,7 @@ import { SkillsComponent } from './rg-skills/skills.component';
 import { SkillGradesComponent } from './rg-skill-grades/skill-grades.component';
 import { SideMenuComponent } from './ap-side-menu/side-menu.component';
 import { ApplicantComponent } from './at-applicant/applicant.component';
+import { ApplicantsComponent } from './at-applicants/applicants.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ApplicantComponent } from './at-applicant/applicant.component';
     SkillsComponent,
     SkillGradesComponent,
     SideMenuComponent,
-    ApplicantComponent
+    ApplicantComponent,
+    ApplicantsComponent
   ],
   imports: [
     AppRoutingModule, 
