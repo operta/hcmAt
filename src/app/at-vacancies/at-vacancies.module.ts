@@ -8,6 +8,7 @@ import { AtVacanciesItemComponent } from './at-vacancies-list/at-vacancies-item/
 import {SharedModule} from '../shared/shared.module';
 import { AtVacanciesDetailComponent } from './at-vacancies-detail/at-vacancies-detail.component';
 import { AtVacanciesEditComponent } from './at-vacancies-edit/at-vacancies-edit.component';
+import { AtVacanciesAddComponent } from './at-vacancies-add/at-vacancies-add.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { AtVacanciesEditComponent } from './at-vacancies-edit/at-vacancies-edit.
     AtVacanciesListComponent,
     AtVacanciesItemComponent,
     AtVacanciesDetailComponent,
-    AtVacanciesEditComponent
+    AtVacanciesEditComponent,
+    AtVacanciesAddComponent
   ],
   imports: [
     CommonModule,
