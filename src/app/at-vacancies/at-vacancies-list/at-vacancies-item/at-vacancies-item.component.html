@@ -1,0 +1,59 @@
+<!--
+
+<td><a routerLink="/applicant"><i></i></a></td>
+<td>{{ vacancy.name }}</td>
+<td> {{vacancy.code}}</td>
+<td>{{vacancy.region.name}}</td>
+<td>{{vacancy.workPlace.name}}</td>
+<td>{{vacancy.date_from}}</td>
+<td>{{vacancy.date_to}}</td>
+<td>{{vacancy.description}}</td>
+<td>{{vacancy.updated_at}}</td>
+<td>fdfd</td>
+-->
+<a [routerLink]="[vacancy.id]">
+
+<div class="comment-body" style="width: 100%;">
+  <div class="user-img text-center"> <i class="fa fa-2x fa-building"></i></div>
+  <div class="mail-contnet">
+    <h5>{{vacancy.name}}</h5>
+    <div class="pull-right">
+      <a [routerLink]="['edit', vacancy.id]" class="action btn">Edit</a>
+    </div>
+
+    <span class="mail-desc" style="height:100px;">
+      <div class="row">
+        <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
+          <i class="fa fa-map-marker"></i> {{vacancy.region.name}}
+        </div>
+        <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
+          <b>Division:</b> {{vacancy.workPlace.name}}
+        </div>
+
+        <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
+        </div>
+        <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
+          <i class="fa fa-clock-o"></i> {{vacancy.date_from | date:'dd-MM-yyyy'}} - {{vacancy.date_to | date:'dd-MM-yyyy'}}
+        </div>
+        <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+
+        </div>
+        <div class="col-lg-12 m-t-5">
+          {{vacancy.description}}
+        </div>
+      </div>
+    </span>
+    <span class="time pull-right"><b>Last update:</b> {{vacancy.updated_at | date:'dd-MM-yyyy HH:mm'}}</span>
+  </div>
+</div>
+
+
+</a>
+
+
+
+
+
+

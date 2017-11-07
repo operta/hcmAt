@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 declare  let $:any;
 
@@ -10,7 +11,7 @@ declare  let $:any;
 export class SideMenuComponent implements OnInit, AfterViewInit {
   @ViewChild('sideMenu') sideMenu: ElementRef;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }

@@ -14,6 +14,9 @@ import { SkillGradesComponent } from './rg-skill-grades/skill-grades.component';
 import { SideMenuComponent } from './ap-side-menu/side-menu.component';
 import { ApplicantComponent } from './at-applicant/applicant.component';
 import { ApplicantsComponent } from './at-applicants/applicants.component';
+import {AtVacanciesModule} from './at-vacancies/at-vacancies.module';
+import {VacanciesService} from './services/vacancies.service';
+import {SharedModule} from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -25,13 +28,15 @@ import { ApplicantsComponent } from './at-applicants/applicants.component';
     ApplicantsComponent
   ],
   imports: [
-    AppRoutingModule, 
-    BrowserModule, 
+    AppRoutingModule,
+    BrowserModule,
     DataTablesModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AtVacanciesModule,
+    SharedModule
   ],
-  providers: [ SkillsService, SkillGradesService ],
+  providers: [ SkillsService, SkillGradesService, VacanciesService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

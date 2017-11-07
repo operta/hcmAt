@@ -1,0 +1,147 @@
+<!--
+NAPRAVITI BOXOVE VACANCY DA SU UVIJEK MAX SIZE
+-->
+
+
+<div class="row m-b-20 p-l-5 p-r-10">
+  <div class="col-lg-12">
+    <div class="panel panel-default m-b-10">
+      <div>
+        <span>Search</span>
+        <select>
+          <option>Title</option>
+        </select>
+        <input type="text">
+        <button type="button" class="btn btn-default m-b-5">Search</button>
+        <div class="panel-action">
+          <a href="#" data-perform="panel-collapse">[<i class="ti-plus"></i>] Advanced Search</a>
+        </div>
+      </div>
+      <div class="panel-wrapper collapse out">
+        <div class="panel-body p-l-0 p-r-0">
+          <div class="row">
+            <div class="col-sm-12 col-xs-12">
+              <form>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="asName">Name</label>
+                      <input type="text" class="form-control" id="asName">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="asGender">Gender</label>
+                      <select class="form-control" id="asGender">
+                        <option></option>
+                        <option value="F">Female</option>
+                        <option value="M">Male</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="asGender">Password</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Password</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <div class="checkbox checkbox-success">
+                        <input id="checkbox1" type="checkbox">
+                        <label for="checkbox1"> Remember me </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Advanced Search</button>
+                <button type="button" class="btn btn-default waves-effect waves-light">Clear Search</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- gotov search-->
+
+<div class="row m-b-20 p-l-5 p-r-10">
+  <div class="col-lg-12">
+    <div class="pull-right">
+      <button routerLink="addVacancy" class="btn">Add Vacancy</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- page number i item number -->
+<div class="row">
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
+    Show
+    <select [(ngModel)]="resultCount">
+      <option *ngFor="let option of options">{{option}}</option>
+    </select>
+    results per page.
+  </div>
+
+
+  <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 m-r-0 m-l-0">
+    <div class="pull-right">
+      <ul class="pagination m-b-0" ([ngModel])="page">
+        <li [ngClass]="{noClick: page === 1}"> <a (click)="setPage(page-1)"><i class="fa fa-angle-left"></i></a> </li>
+        <li [ngClass]="{active: pageIterator===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator)">{{pageIterator}}</a></li>
+        <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(pageIterator+1)" ><i class="fa fa-angle-right"></i></a> </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- gotov page number i item number -->
+
+
+
+<!-- vacancy list -->
+<div class="row">
+  <div class="col-xs-12">
+    <div class="comment-center">
+      <app-at-vacancies-item *ngFor="let vacancy of vacancies | slice:start():end();" [vacancy]="vacancy"></app-at-vacancies-item>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- page number i item number -->
+<div class="row">
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
+    Show
+    <select [(ngModel)]="resultCount">
+      <option *ngFor="let option of options">{{option}}</option>
+    </select>
+    results per page.
+  </div>
+
+
+  <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 m-r-0 m-l-0">
+    <div class="pull-right">
+      <ul class="pagination m-b-0" ([ngModel])="page">
+        <li [ngClass]="{noClick: page === 1}"> <a (click)="setPage(page-1)"><i class="fa fa-angle-left"></i></a> </li>
+        <li [ngClass]="{active: pageIterator===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator)">{{pageIterator}}</a></li>
+        <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(pageIterator+1)" ><i class="fa fa-angle-right"></i></a> </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- gotov page number i item number -->

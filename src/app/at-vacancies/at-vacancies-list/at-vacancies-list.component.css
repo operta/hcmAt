@@ -1,0 +1,6 @@
+.noClick {
+  pointer-events: none;
+}
+li {
+  cursor: pointer;
+}
