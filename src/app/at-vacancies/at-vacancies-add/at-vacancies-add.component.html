@@ -1,3 +1,118 @@
-<p>
-  at-vacancies-add works!
-</p>
+ <div class="row bg-title">
+
+      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <h3>Add New Vacancy</h3>
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+    <!-- /row -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="white-box">
+          <h3 class="box-title">Basic Information</h3>
+          <form [formGroup]="newVacForm" (ngSubmit)="onSubmit()" class="form-material form-horizontal m-t-30">
+            <div class="form-group">
+              <label class="col-md-12" for="example-text">Vacancy Name
+              </label>
+              <div class="col-md-12">
+                <input formControlName="name" type="text" id="example-text" name="example-text" class="form-control" placeholder="enter vacancy name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12" for="bdate">Vacancy Code
+              </label>
+              <div class="col-md-12">
+                <input formControlName="code" type="text" id="bdate" name="bdate" class="form-control mydatepicker" placeholder="enter vacancy code">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Description</label>
+              <div class="col-md-12">
+                <textarea formControlName="description" class="form-control" rows="3"></textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-12">Region</label>
+              <div class="col-sm-12">
+                <select formControlName="region" class="form-control">
+                  <option *ngFor="let region of regions" value="{{region.id}}">{{region.name}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-12" for="url">Work Place
+              </label>
+              <div class="col-md-12">
+                <input formControlName="workPlace" type="text" id="url" name="url" class="form-control" placeholder="enter work place">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Submit</button>
+            <button type="submit" class="btn btn-inverse waves-effect waves-light">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+   <!-- <div class="row">
+      <div class="col-sm-6">
+        <div class="white-box">
+          <h3 class="box-title">Leads's Account Information</h3>
+          <form class="form-material form-horizontal m-t-30">
+            <div class="form-group">
+              <label class="col-md-12" for="example-email">Email
+              </label>
+              <div class="col-md-12">
+                <input type="email" id="example-email" name="example-email" class="form-control" placeholder="enter your email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12" for="example-phone">Phone
+              </label>
+              <div class="col-md-12">
+                <input type="text" id="example-phone" name="example-phone" class="form-control" placeholder="enter your phone" data-mask="(999) 999-9999">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Address
+              </label>
+              <div class="col-md-12">
+                <textarea class="form-control" place-holder=""></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Submit</button>
+            <button type="submit" class="btn btn-inverse waves-effect waves-light">Cancel</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="white-box">
+          <h3 class="box-title">Leads's Social Information</h3>
+          <form class="form-material form-horizontal m-t-30">
+            <div class="form-group">
+              <label class="col-md-12" for="furl">Facebook URL
+              </label>
+              <div class="col-md-12">
+                <input type="text" id="furl" name="furl" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12" for="turl">Twitter URL
+              </label>
+              <div class="col-md-12">
+                <input type="text" id="turl" name="turl" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12" for="inurl">LinkedIN URL
+              </label>
+              <div class="col-md-12">
+                <input type="text" id="inurl" name="inurl" class="form-control">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Submit</button>
+            <button type="submit" class="btn btn-inverse waves-effect waves-light">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>-->

@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Vacancy} from '../vacancy.model';
+import {Vacancy} from '../../models/vacancy.model';
 import {Subscription} from 'rxjs/Subscription';
 import {VacanciesService} from '../../services/vacancies.service';
 import {ActivatedRoute, Params} from '@angular/router';

@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import {Vacancy} from '../at-vacancies/vacancy.model';
-import { Http, Response } from '@angular/http';
+import {Vacancy} from '../models/vacancy.model';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
 export class VacanciesService {
 
-  vacancies: Vacancy[];
   vacanciesURL = 'http://localhost:8080/vacancies';
 
   constructor(private http: Http) { }
 
-  getVacancies(){
+  getVacancies() {
     return this.http.get(this.vacanciesURL).map(
       (response: Response) => {
         const vacancies: Vacancy[] = response.json();
@@ -26,6 +26,20 @@ export class VacanciesService {
         const vacancy: Vacancy = response.json();
         return vacancy;
       }
+    );
+  }
+
+  saveVacancy(vacancy: Vacancy) {
+    const headers = new Headers({'Content-type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
+    console.log(this.vacanciesURL + '/add');
+    console.log(vacancy);
+    this.http.post(this.vacanciesURL + '/add', JSON.stringify(vacancy), options).map(
+      (response: Response) => {
+        console.log(response);
+      }
+    ).subscribe(
+      response => console.log(response)
     );
   }
 }

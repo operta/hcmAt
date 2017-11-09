@@ -21,17 +21,13 @@
     <span class="mail-desc" style="height:100px;">
       <div class="row">
         <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
-          <i class="fa fa-map-marker"></i> {{vacancy.region.name}}
+          <i class="fa fa-map-marker"></i> <!--{{vacancy.id_location.name}}-->
         </div>
         <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
-          <b>Division:</b> {{vacancy.workPlace.name}}
+          <b>Division:</b> <!--{{vacancy.id_work_place.name}}-->
         </div>
 
-        <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
-          <a [routerLink]="['edit', vacancy.id]" class="pull-right">
-            <b>Edit</b>
-          </a>
-        </div>
+
         <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
           <i class="fa fa-clock-o"></i> {{vacancy.date_from | date:'dd-MM-yyyy'}} - {{vacancy.date_to | date:'dd-MM-yyyy'}}
         </div>
@@ -51,6 +47,8 @@
 
 
 </a>
+
+
 
 
 

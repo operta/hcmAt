@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Vacancy} from '../../vacancy.model';
+import {Vacancy} from '../../../models/vacancy.model';
 
 @Component({
   selector: 'app-at-vacancies-item',

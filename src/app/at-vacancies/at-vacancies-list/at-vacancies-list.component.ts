@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Vacancy} from '../vacancy.model';
+import {Vacancy} from '../../models/vacancy.model';
 import {VacanciesService} from '../../services/vacancies.service';
 import {Subscription} from 'rxjs/Subscription';
 
