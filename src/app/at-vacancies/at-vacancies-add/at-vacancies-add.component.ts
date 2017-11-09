@@ -56,6 +56,20 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
     const region = this.newVacForm.value.region;
     const workPlace = this.newVacForm.value.workPlace;
     console.log('region:' + region);
-
+    const vacancy = new VacancyModel(
+      '13',
+      name,
+      code,
+      description,
+      region,
+      '2017-11-16',
+      '1111',
+      workPlace,
+      '1111',
+      '',
+      '',
+      ''
+    );
+    this.vacancyService.saveVacancy(vacancy);
   }
 }
