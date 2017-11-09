@@ -6,6 +6,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {VacancyModel} from '../../models/vacancy.model';
 import {VacanciesService} from '../../services/vacancies.service';
 import {WorkPlaceModel} from '../../models/workPlace.model';
+import {WorkPlacesService} from '../../services/work-places.service';
 
 @Component({
   selector: 'app-at-vacancies-add',
@@ -18,23 +19,34 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
   regions: RegionModel[];
   workPlaces: WorkPlaceModel[];
   subscription1: Subscription;
+  subscription2: Subscription;
 
-  constructor(private regionsService: RegionsService, private vacancyService: VacanciesService) { }
+  constructor(private regionsService: RegionsService, private vacancyService: VacanciesService, private workPlacesService: WorkPlacesService) { }
 
   ngOnInit() {
-
-    this.subscription1 = this.regionsService.getRegions().subscribe(
-      (data: RegionModel[]) => {
-        this.regions = data;
-    }
-    );
-
+    this.initData();
     this.initForm();
 
   }
 
   ngOnDestroy() {
     this.subscription1.unsubscribe();
+    this.subscription2.unsubscribe();
+  }
+
+
+  initData() {
+    this.subscription1 = this.regionsService.getRegions().subscribe(
+      (data: RegionModel[]) => {
+        this.regions = data;
+      }
+    );
+
+    this.subscription2 = this.workPlacesService.getWorkPlaces().subscribe(
+      (data: WorkPlaceModel[]) => {
+        this.workPlaces = data;
+      }
+    );
   }
 
 
@@ -55,6 +67,7 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
     const description = this.newVacForm.value.description;
     const region = this.newVacForm.value.region;
     const workPlace = this.newVacForm.value.workPlace;
-    console.log('region:' + region);
+    console.log('REGIONS:' + this.regions);
+    console.log('WORK PLACES:' + this.workPlaces);
   }
 }

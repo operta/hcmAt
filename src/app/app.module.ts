@@ -18,6 +18,7 @@ import {AtVacanciesModule} from './at-vacancies/at-vacancies.module';
 import {VacanciesService} from './services/vacancies.service';
 import {SharedModule} from './shared/shared.module';
 import {RegionsService} from './services/regions.service';
+import {WorkPlacesService} from './services/work-places.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import {RegionsService} from './services/regions.service';
     AtVacanciesModule,
     SharedModule
   ],
-  providers: [ SkillsService, SkillGradesService, VacanciesService, RegionsService ],
+  providers: [ SkillsService, SkillGradesService, VacanciesService, RegionsService, WorkPlacesService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

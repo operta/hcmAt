@@ -12,7 +12,9 @@ export class RegionsService {
   getRegions() {
     return this.http.get(this.regionsURL).map(
       (response: Response) => {
+
         const regions: RegionModel[] = response.json();
+        console.log(regions);
         return regions;
       }
     );
