@@ -1,0 +1,9 @@
+.floating-labels .bar:after, .floating-labels .bar:before{
+  background: gray;
+}
+.floating-labels .form-control:focus~label, .floating-labels .form-control:valid~label{
+  color: black;
+}
+.green-border{
+  border: 1px solid green;
+}

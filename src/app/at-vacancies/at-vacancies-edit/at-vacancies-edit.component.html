@@ -1,1 +1,70 @@
-<p> edit works </p>
+<div class="row out green-border" [hidden]="submitted" >
+  <div class="col-sm-12">
+    <div class="white-box p-l-20 p-r-20">
+      <h3 class="box-title m-b-30">EDIT VACANCY FORM</h3>
+      <div class="row">
+        <div class="col-md-12">
+          <form class="floating-labels" (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <div class="row">
+              <div class="form-group m-b-40 col-md-6">
+                <input type="text" class="form-control" id="input1" name="name"
+                       [(ngModel)]="vacancy && vacancy.name"><span class="highlight"></span><span class="bar"></span>
+                <label for="input1">Name</label>
+              </div>
+              <div class="form-group m-b-40 col-md-6">
+                <input type="text" class="form-control" id="input2" name="code"
+                       [(ngModel)]="vacancy && vacancy.code"><span class="highlight"></span><span class="bar"></span>
+                <label for="input2">Code</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group m-b-40 col-md-12">
+                <textarea class="form-control" id="input3" name="description"
+                          [(ngModel)]="vacancy && vacancy.description"></textarea><span class="highlight"></span> <span
+                class="bar"></span>
+                <label for="input3">Description</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group m-b-40 col-md-6">
+                <input type="date" class="form-control" id="input4" name="date_from"
+                       [(ngModel)]="vacancy && vacancy.date_from"><span class="highlight"></span><span
+                class="bar"></span>
+                <label for="input4">Date from:</label>
+              </div>
+              <div class="form-group m-b-40 col-md-6">
+                <input type="date" class="form-control" id="input5" name="date_to"
+                       [(ngModel)]="vacancy && vacancy.date_to"><span class="highlight"></span><span class="bar"></span>
+                <label for="input5">Date to:</label>
+              </div>
+            </div>
+
+            <!--<div class="form-group m-b-40 col-md-6">-->
+              <!--<select class="form-control p-0" id="input6" name="region" [(ngModel)]="vacancy && vacancy.region">-->
+                <!--<option [value]="vacancy.region">{{vacancy.region}}</option>-->
+                <!--<option [value]="1">1</option>-->
+                <!--<option [value]="2">2</option>-->
+                <!--<option [value]="3">3</option>-->
+                <!--<option [value]="4">4</option>-->
+              <!--</select><span class="highlight"></span> <span class="bar"></span>-->
+              <!--<label for="input6">Region Select</label>-->
+            <!--</div>-->
+
+            <!--<div class="form-group m-b-40 col-md-6">-->
+              <!--<select class="form-control p-0" id="input6" name="region" [(ngModel)]="vacancy && vacancy.workPlace">-->
+                <!--<option [value]="vacancy.workPlace">{{vacancy.workPlace}}</option>-->
+                <!--<option [value]="1">1</option>-->
+                <!--<option [value]="2">2</option>-->
+                <!--<option [value]="3">3</option>-->
+                <!--<option [value]="4">4</option>-->
+              <!--</select><span class="highlight"></span> <span class="bar"></span>-->
+              <!--<label for="input6">Workplace Select</label>-->
+            <!--</div>-->
+
+            <button class="pull-right btn btn-lg btn-success" type="submit">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

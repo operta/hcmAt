@@ -12,41 +12,52 @@
 <td>fdfd</td>
 -->
 <a [routerLink]="[vacancy.id]">
+  <div class="comment-body col-sm-12 col-md-12 col-lg-12">
+    <div class="user-img text-center"><i class="fa fa-2x fa-building"></i></div>
+    <div class="mail-content">
+      <h5>{{vacancy.name}}</h5>
 
-<div class="comment-body" style="width: 100%;">
-  <div class="user-img text-center"> <i class="fa fa-2x fa-building"></i></div>
-  <div class="mail-contnet">
-    <h5>{{vacancy.name}}</h5>
+      <span class="mail-desc" style="height:100px;">
+        <div class="row">
+          <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
+            <i class="fa fa-map-marker"></i>
+          </div>
+          <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
+            <b>Division:</b>
+          </div>
 
-    <span class="mail-desc" style="height:100px;">
-      <div class="row">
-        <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
-          <i class="fa fa-map-marker"></i> <!--{{vacancy.id_location.name}}-->
-        </div>
-        <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
-          <b>Division:</b> <!--{{vacancy.id_work_place.name}}-->
-        </div>
+          <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
+            <i class="fa fa-clock-o"></i>
+          </div>
+          <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 
+          </div>
+          <div class="col-lg-12 m-t-5">
+            {{vacancy.description}}
+          </div>
+        </div>
+        <span class="time pull-right"><b>Last update:</b></span>
 
-        <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
-          <i class="fa fa-clock-o"></i> {{vacancy.date_from | date:'dd-MM-yyyy'}} - {{vacancy.date_to | date:'dd-MM-yyyy'}}
-        </div>
-        <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+      </span>
 
-        </div>
-        <div class="col-lg-12 m-t-5">
-          {{vacancy.description}}
-        </div>
-      </div>
-    </span>
-    <span class="time pull-right"><b>Last update:</b> {{vacancy.updated_at | date:'dd-MM-yyyy HH:mm'}}</span>
+    </div>
+  </div>
+</a>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="text-center">
+    <!--<button class="btn btn-success waves-effect waves-light m-r-10" data-toggle="collapse" data-target="#demo">-->
+    <button class="btn btn-success" (click)="editVacancyButton()">
+      <b>Edit Vacancy</b>
+      <i class="fa fa-angle-down fa-lg" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div *ngIf="editVacancy">
+    <app-at-vacancies-edit [vacancy]="vacancy"></app-at-vacancies-edit>
   </div>
 </div>
 
-
-</a>
 
 
 
