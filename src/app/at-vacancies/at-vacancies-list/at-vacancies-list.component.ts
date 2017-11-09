@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Vacancy} from '../../models/vacancy.model';
+import {VacancyModel} from '../../models/vacancy.model';
 import {VacanciesService} from '../../services/vacancies.service';
 import {Subscription} from 'rxjs/Subscription';
 
@@ -14,7 +14,7 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
   resultCount = 15;
   page = 1;
   subscription: Subscription;
-  private vacancies: Vacancy[];
+  private vacancies: VacancyModel[];
 
 
 
@@ -22,7 +22,7 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.vacanciesService.getVacancies().subscribe(
-      (data: Vacancy[]) => {
+      (data: VacancyModel[]) => {
         this.vacancies = data;
       }
     );

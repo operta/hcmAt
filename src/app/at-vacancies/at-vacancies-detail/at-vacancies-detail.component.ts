@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Vacancy} from '../../models/vacancy.model';
+import {VacancyModel} from '../../models/vacancy.model';
 import {VacanciesService} from '../../services/vacancies.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
@@ -10,7 +10,7 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./at-vacancies-detail.component.css']
 })
 export class AtVacanciesDetailComponent implements OnInit, OnDestroy {
-  vacancy: Vacancy;
+  vacancy: VacancyModel;
   id: string;
   subscriptionParams: Subscription;
   subscriptionVacancy: Subscription;
@@ -24,7 +24,7 @@ export class AtVacanciesDetailComponent implements OnInit, OnDestroy {
       }
     );
     this.subscriptionVacancy = this.vacancyService.getVacancy(this.id).subscribe(
-      (data: Vacancy) => {
+      (data: VacancyModel) => {
         this.vacancy = data;
         console.log(this.vacancy);
       }

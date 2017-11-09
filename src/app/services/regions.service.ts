@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Region} from '../models/region.model';
+import {RegionModel} from '../models/region.model';
 import {Http, Response} from '@angular/http';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class RegionsService {
   getRegions() {
     return this.http.get(this.regionsURL).map(
       (response: Response) => {
-        const regions: Region[] = response.json();
+        const regions: RegionModel[] = response.json();
         return regions;
       }
     );

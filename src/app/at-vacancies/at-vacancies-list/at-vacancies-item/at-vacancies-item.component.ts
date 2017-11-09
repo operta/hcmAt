@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Vacancy} from '../../../models/vacancy.model';
+import {VacancyModel} from '../../../models/vacancy.model';
 
 @Component({
   selector: 'app-at-vacancies-item',
@@ -8,7 +8,7 @@ import {Vacancy} from '../../../models/vacancy.model';
 })
 export class AtVacanciesItemComponent implements OnInit {
 
-  @Input() vacancy: Vacancy;
+  @Input() vacancy: VacancyModel;
 
   constructor() { }
 
