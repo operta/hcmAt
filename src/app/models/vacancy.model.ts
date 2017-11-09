@@ -1,4 +1,5 @@
 import {WorkPlaceModel} from './workPlace.model';
+import {RegionModel} from './region.model';
 
 export class VacancyModel {
 

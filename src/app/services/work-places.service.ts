@@ -13,7 +13,7 @@ export class WorkPlacesService {
       (response: Response) => {
         const workPlaces: WorkPlaceModel[] = response.json();
         console.log(workPlaces);
-        return workPlaces;
+        return response.json();
       }
     );
   }

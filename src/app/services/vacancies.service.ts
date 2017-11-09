@@ -39,7 +39,7 @@ export class VacanciesService {
         console.log(response);
       }
     ).subscribe(
-      response => console.log(response)
+      response => console.log('RESPONSE:' + response)
     );
   }
 }
