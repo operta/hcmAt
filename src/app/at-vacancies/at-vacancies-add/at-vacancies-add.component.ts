@@ -21,7 +21,6 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
   subscription1: Subscription;
   subscription2: Subscription;
 
-  workString: string;
 
   constructor(private regionsService: RegionsService, private vacancyService: VacanciesService, private workPlacesService: WorkPlacesService) { }
 
@@ -45,8 +44,9 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
     );
 
     this.subscription2 = this.workPlacesService.getWorkPlaces().subscribe(
-      (data: string) => {
-        this.workString = data;
+      (data: WorkPlaceModel[]) => {
+        this.workPlaces = data;
+        console.log(this.workPlaces);
       }
     );
   }
@@ -68,9 +68,12 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
     const code = this.newVacForm.value.code;
     const description = this.newVacForm.value.description;
     const region = this.newVacForm.value.region;
-    const workPlace = JSON.stringify(this.workPlaces[0]);
+    const workPlace = this.workPlaces[0];
     console.log('REGiONS:' + this.regions);
-    console.log('WORK PLACE:' + workPlace);
+    console.log(this.newVacForm.value.workPlace);
+    console.log(this.workPlaces[0]);
+    console.log(JSON.stringify(this.workPlaces[0]));
+    console.log(workPlace);
     const vacancy = new VacancyModel(
       '932183',
       name,

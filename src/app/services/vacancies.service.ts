@@ -34,7 +34,7 @@ export class VacanciesService {
     const options = new RequestOptions({headers: headers});
     console.log(this.vacanciesURL + '/add');
     console.log(vacancy);
-    this.http.post(this.vacanciesURL + '/add', JSON.stringify(vacancy), options).map(
+    this.http.post(this.vacanciesURL + '/add', vacancy, options).map(
       (response: Response) => {
         console.log(response);
       }
