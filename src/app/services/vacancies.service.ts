@@ -41,5 +41,14 @@ export class VacanciesService {
     ).subscribe(
       response => console.log('RESPONSE:' + response)
     );
+
+
+  }
+
+  updateVacancy(vacancy: VacancyModel) {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const body = JSON.stringify(vacancy);
+    return this.http.put(this.vacanciesURL, body, {headers: headers})
+      .map((response: Response) => response.json());
   }
 }

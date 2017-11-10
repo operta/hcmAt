@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {VacancyModel} from '../../../models/vacancy.model';
+import {VacanciesService} from "../../../services/vacancies.service";
 
 @Component({
   selector: 'app-at-vacancies-item',
@@ -10,11 +11,16 @@ export class AtVacanciesItemComponent implements OnInit {
 
   @Input() vacancy: VacancyModel;
 
-  constructor() { }
+  editVacancy: boolean;
+
+  constructor(private vacancyService: VacanciesService) { }
 
   ngOnInit() {
+    this.editVacancy = false;
   }
 
-
+  editVacancyButton() {
+    this.editVacancy = !this.editVacancy;
+  }
 
 }

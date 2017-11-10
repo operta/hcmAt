@@ -1,10 +1,10 @@
 export class RegionModel {
-  private id: string;
-  private code: string;
-  private name: string;
-  private description: string;
-  private type: string;
-  private parent: string;
+  public id: string;
+  public code: string;
+  public name: string;
+  public description: string;
+  public type: string;
+  public parent: string;
   public created_by: string;
   public created_at: Date;
   public updated_by: string;
