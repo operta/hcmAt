@@ -6,6 +6,8 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {NgForm} from "@angular/forms";
 import {RegionModel} from "../../models/region.model";
 import {RegionsService} from "../../services/regions.service";
+import {WorkPlaceModel} from "../../models/workPlace.model";
+import {WorkPlacesService} from "../../services/work-places.service";
 
 @Component({
   selector: 'app-at-vacancies-edit',
@@ -16,23 +18,32 @@ export class AtVacanciesEditComponent implements OnInit, OnDestroy {
 
   @Input() vacancy: VacancyModel;
   regions: RegionModel[] = [];
+  workplaces: WorkPlaceModel[] = [];
 
 
   id: string;
   subscriptionVacancy: Subscription;
   submitted: boolean;
   subscriptionRegions: Subscription;
+  subscriptionWorkplaces: Subscription;
   selectedRegion = null;
+  selectedWorkplace = null;
 
-  constructor(private vacancyService: VacanciesService, private regionsService: RegionsService) {
+  constructor(private vacancyService: VacanciesService, private regionsService: RegionsService, private workplacesService: WorkPlacesService) {
   }
 
   ngOnInit() {
+    this.selectedWorkplace = this.vacancy.id_work_place;
     this.selectedRegion = this.vacancy.id_location;
     this.submitted = false;
     this.subscriptionRegions = this.regionsService.getRegions().subscribe(
       (data: RegionModel[]) => {
         this.regions = data;
+      }
+    );
+    this.subscriptionWorkplaces = this.workplacesService.getWorkPlaces().subscribe(
+      (data: WorkPlaceModel[]) => {
+        this.workplaces = data;
       }
     );
   }
@@ -49,6 +60,7 @@ export class AtVacanciesEditComponent implements OnInit, OnDestroy {
     this.vacancy.date_from = form.value.date_from;
     this.vacancy.date_to = form.value.date_to;
     this.vacancy.id_location = this.selectedRegion;
+    this.vacancy.id_work_place = this.selectedWorkplace
 
 
     console.log(this.vacancy);

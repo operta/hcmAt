@@ -1,4 +1,4 @@
-<div class="row out green-border" [hidden]="submitted" >
+<div class="row out gray-border" [hidden]="submitted" >
   <div class="col-sm-12">
     <div class="white-box p-l-20 p-r-20">
       <h3 class="box-title m-b-30">EDIT VACANCY FORM</h3>
@@ -46,6 +46,13 @@
               <label for="input6">Region Select</label>
             </div>
 
+            <div class="form-group m-b-40 col-md-6">
+              <select class="form-control p-0" id="input7" [(ngModel)]="selectedWorkplace" name="selectedWorkplace">
+                <option *ngFor="let workplace of workplaces" [selected]="workplace.name == selectedWorkplace.name" [ngValue]="workplace">{{workplace.name}}</option>
+              </select><span class="highlight"></span> <span class="bar"></span>
+              <label for="input6">Workplace Select</label>
+            </div>
+
             <!--<div class="form-group m-b-40 col-md-6">-->
               <!--<select class="form-control p-0" id="input6" name="region" [(ngModel)]="vacancy && vacancy.workPlace">-->
                 <!--<option [value]="vacancy.workPlace">{{vacancy.workPlace}}</option>-->
@@ -57,7 +64,7 @@
               <!--<label for="input6">Workplace Select</label>-->
             <!--</div>-->
 
-            <button class="pull-right btn btn-lg btn-success" type="submit">Save</button>
+            <button class="pull-right btn btn-success" type="submit">Save</button>
           </form>
         </div>
       </div>

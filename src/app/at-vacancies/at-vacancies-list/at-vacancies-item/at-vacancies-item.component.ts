@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {VacancyModel} from '../../../models/vacancy.model';
 import {VacanciesService} from "../../../services/vacancies.service";
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-at-vacancies-item',

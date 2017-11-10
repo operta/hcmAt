@@ -1,3 +1,16 @@
 a {
   color: inherit;
 }
+.icon-font{
+  font-size: 3em;
+}
+.horizontal-center{
+  text-align: center !important;
+  vertical-align: middle;
+}
+.icon-box{
+  width:60px;
+}
+.pd-l-5{
+  padding-left: 5px !important;
+}
