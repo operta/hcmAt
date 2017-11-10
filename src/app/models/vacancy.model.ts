@@ -7,7 +7,7 @@ export class VacancyModel {
   public code: string;
   public name: string;
   public description: string;
-  public id_location: string;
+  public id_location: RegionModel;
   public date_from: Date;
   public date_to: Date;
   public id_work_place: WorkPlaceModel;
@@ -17,7 +17,7 @@ export class VacancyModel {
   public updated_at: Date;
 
 
-  constructor(id: string, code: string, name: string, description: string, id_location: string, date_from: Date, date_to: Date, id_work_place: WorkPlaceModel, created_by: string, created_at: Date, updated_by: string, updated_at: Date) {
+  constructor(id: string, code: string, name: string, description: string, id_location: RegionModel, date_from: Date, date_to: Date, id_work_place: WorkPlaceModel, created_by: string, created_at: Date, updated_by: string, updated_at: Date) {
     this.id = id;
     this.code = code;
     this.name = name;

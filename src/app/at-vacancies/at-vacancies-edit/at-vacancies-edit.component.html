@@ -39,16 +39,12 @@
               </div>
             </div>
 
-            <!--<div class="form-group m-b-40 col-md-6">-->
-              <!--<select class="form-control p-0" id="input6" name="region" [(ngModel)]="vacancy && vacancy.region">-->
-                <!--<option [value]="vacancy.region">{{vacancy.region}}</option>-->
-                <!--<option [value]="1">1</option>-->
-                <!--<option [value]="2">2</option>-->
-                <!--<option [value]="3">3</option>-->
-                <!--<option [value]="4">4</option>-->
-              <!--</select><span class="highlight"></span> <span class="bar"></span>-->
-              <!--<label for="input6">Region Select</label>-->
-            <!--</div>-->
+            <div class="form-group m-b-40 col-md-6">
+              <select class="form-control p-0" id="input6" [(ngModel)]="selectedRegion" name="selectedRegion">
+                <option *ngFor="let region of regions" [selected]="region.name == selectedRegion.name" [ngValue]="region">{{region.name}}</option>
+              </select><span class="highlight"></span> <span class="bar"></span>
+              <label for="input6">Region Select</label>
+            </div>
 
             <!--<div class="form-group m-b-40 col-md-6">-->
               <!--<select class="form-control p-0" id="input6" name="region" [(ngModel)]="vacancy && vacancy.workPlace">-->
