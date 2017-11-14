@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {VacancyModel} from '../models/vacancy.model';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 
 @Injectable()

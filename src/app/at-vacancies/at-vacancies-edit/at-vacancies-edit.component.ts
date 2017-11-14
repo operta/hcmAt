@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {VacancyModel} from '../../models/vacancy.model';
 import {Subscription} from 'rxjs/Subscription';
 import {VacanciesService} from '../../services/vacancies.service';
@@ -17,13 +17,14 @@ import {WorkPlacesService} from "../../services/work-places.service";
 export class AtVacanciesEditComponent implements OnInit, OnDestroy {
 
   @Input() vacancy: VacancyModel;
+  @Output() onUpdate = new EventEmitter();
   regions: RegionModel[] = [];
   workplaces: WorkPlaceModel[] = [];
 
 
   id: string;
   subscriptionVacancy: Subscription;
-  submitted: boolean;
+  //submitted: boolean;
   subscriptionRegions: Subscription;
   subscriptionWorkplaces: Subscription;
   selectedRegion = null;
@@ -35,7 +36,7 @@ export class AtVacanciesEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.selectedWorkplace = this.vacancy.id_work_place;
     this.selectedRegion = this.vacancy.id_location;
-    this.submitted = false;
+    //this.submitted = false;
     this.subscriptionRegions = this.regionsService.getRegions().subscribe(
       (data: RegionModel[]) => {
         this.regions = data;
@@ -68,7 +69,8 @@ export class AtVacanciesEditComponent implements OnInit, OnDestroy {
       .subscribe(
         result => console.log(result)
       );
-    this.submitted = true;
+    //this.submitted = true;
+    this.onUpdate.emit();
 
 
   }

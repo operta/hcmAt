@@ -11,8 +11,9 @@
 <td>{{vacancy.updated_at}}</td>
 <td>fdfd</td>
 -->
-<a [routerLink]="[vacancy.id]">
-  <div class="comment-body col-sm-12 col-md-12 col-lg-12 pd-l-5">
+<div (mouseenter) ="toggleEditButton()"  (mouseleave) ="toggleEditButton()">
+<a [routerLink]="[vacancy.id]" >
+  <div class="comment-body col-sm-12 col-md-12 col-lg-12 pd-l-5" style="margin-bottom: 10px">
     <div class="user-img text-center horizontal-center icon-box"><div data-icon="&#xe019;" class="linea-icon linea-basic icon-font"></div></div>
     <div class="mail-content">
       <h5><b>{{vacancy.name}}</b></h5>
@@ -45,17 +46,18 @@
     </div>
   </div>
 </a>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top:-20px">
-  <div class="text-center">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+  <div class="text-center" style="margin-top:-42px">
     <!--<button class="btn btn-success waves-effect waves-light m-r-10" data-toggle="collapse" data-target="#demo">-->
-    <button class="btn btn-default" (click)="editVacancyButton()">
-      <b>Edit Vacancy</b>
+    <button class="btn btn-default" *ngIf="isItemHovered || editVacancy" (click)="editVacancyButton()">
+      <b>Edit</b>
       <i class="fa fa-angle-down fa-lg" aria-hidden="true"></i>
     </button>
   </div>
   <div *ngIf="editVacancy">
-    <app-at-vacancies-edit [vacancy]="vacancy"></app-at-vacancies-edit>
+    <app-at-vacancies-edit [vacancy]="vacancy"  (onUpdate)="onUpdate($event)"></app-at-vacancies-edit>
   </div>
+</div>
 </div>
 
 

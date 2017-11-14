@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {VacancyModel} from '../../../models/vacancy.model';
 import {VacanciesService} from "../../../services/vacancies.service";
 import {DatePipe} from '@angular/common';
@@ -11,17 +11,40 @@ import {DatePipe} from '@angular/common';
 export class AtVacanciesItemComponent implements OnInit {
 
   @Input() vacancy: VacancyModel;
-
   editVacancy: boolean;
+  isItemHovered: boolean;
+  @Output() onEdit = new EventEmitter();
+
 
   constructor(private vacancyService: VacanciesService) { }
 
   ngOnInit() {
-    this.editVacancy = false;
+    this.isItemHovered = false;
+    this.closeEdit();
   }
 
   editVacancyButton() {
-    this.editVacancy = !this.editVacancy;
+    if(this.editVacancy == true){
+      this.onEdit.emit();
+    }
+    else{
+      this.onEdit.emit();
+      this.editVacancy = !this.editVacancy
+    }
+
+
+  }
+
+  onUpdate(){
+    this.editVacancy = false;
+  }
+
+  closeEdit(){
+    this.editVacancy = false;
+  }
+
+  toggleEditButton(){
+      this.isItemHovered = !this.isItemHovered;
   }
 
 }
