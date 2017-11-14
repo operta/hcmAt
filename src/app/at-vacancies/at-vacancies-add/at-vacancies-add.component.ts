@@ -7,6 +7,7 @@ import {VacancyModel} from '../../models/vacancy.model';
 import {VacanciesService} from '../../services/vacancies.service';
 import {WorkPlaceModel} from '../../models/workPlace.model';
 import {WorkPlacesService} from '../../services/work-places.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-at-vacancies-add',
@@ -22,7 +23,7 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
   subscription2: Subscription;
 
 
-  constructor(private regionsService: RegionsService, private vacancyService: VacanciesService, private workPlacesService: WorkPlacesService) { }
+  constructor(private route: ActivatedRoute, private regionsService: RegionsService, private vacancyService: VacanciesService, private workPlacesService: WorkPlacesService, private router: Router) { }
 
   ngOnInit() {
     this.initData();
@@ -46,7 +47,6 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
     this.subscription2 = this.workPlacesService.getWorkPlaces().subscribe(
       (data: WorkPlaceModel[]) => {
         this.workPlaces = data;
-        console.log(this.workPlaces);
       }
     );
   }
@@ -58,30 +58,29 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
       'code': new FormControl(''),
       'description': new FormControl(''),
       'region': new FormControl(''),
-      'workPlace': new FormControl('')
+      'workPlace': new FormControl(''),
+      'date_from': new FormControl(''),
+      'date_to': new FormControl('')
     })
   }
 
   onSubmit() {
-    console.log('blalba');
     const name = this.newVacForm.value.name;
     const code = this.newVacForm.value.code;
     const description = this.newVacForm.value.description;
     const region = this.newVacForm.value.region;
-    const workPlace = this.workPlaces[0];
-    console.log('REGiONS:' + this.regions);
-    console.log(this.newVacForm.value.workPlace);
-    console.log(this.workPlaces[0]);
-    console.log(JSON.stringify(this.workPlaces[0]));
-    console.log(workPlace);
+    const workPlace = this.newVacForm.value.workPlace;
+    const date_from = this.newVacForm.value.date_from;
+    const date_to = this.newVacForm.value.date_to;
+
     const vacancy = new VacancyModel(
       '932183',
       name,
       code,
       description,
       region,
-      new Date,
-      new Date,
+      date_from,
+      date_to,
       workPlace,
       '',
       new Date,
@@ -89,5 +88,11 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
       new Date
     );
     this.vacancyService.saveVacancy(vacancy);
+    this.router.navigate(['../'], {relativeTo: this.route});
+  }
+
+  redirect() {
+    console.log(this.router.url);
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 }

@@ -2,6 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {VacancyModel} from '../../models/vacancy.model';
 import {VacanciesService} from '../../services/vacancies.service';
 import {Subscription} from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-at-vacancies-list',
@@ -13,7 +14,7 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
   pages: number[] = [1, 2, 3, 4, 5];
   resultCount = 15;
   page = 1;
-  subscription: Subscription;
+/*  subscription: Subscription;*/
   private vacancies: VacancyModel[];
 
 
@@ -21,15 +22,22 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
   constructor(private vacanciesService: VacanciesService) { }
 
   ngOnInit() {
-    this.subscription = this.vacanciesService.getVacancies().subscribe(
+    /*this.subscription =*/
+    this.vacanciesService.getVacancies();
+    this.vacanciesService.vacancyChange.subscribe(
       (data: VacancyModel[]) => {
         this.vacancies = data;
       }
-    );
+    )
+    /*.subscribe(
+      (data: VacancyModel[]) => {
+        this.vacancies = data;
+        console.log(this.vacancies);
+      }
+    );*/
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   setResultCount(num: number) {

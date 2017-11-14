@@ -1,24 +1,35 @@
 import { Injectable } from '@angular/core';
 import {VacancyModel} from '../models/vacancy.model';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/Rx';
 
 @Injectable()
 export class VacanciesService {
+  private vacancies: VacancyModel[];
+  vacancyChange= new Subject<VacancyModel[]>();
 
   vacanciesURL = 'http://localhost:8080/vacancies';
 
   constructor(private http: Http) { }
 
+
+
+
   getVacancies() {
-    return this.http.get(this.vacanciesURL).map(
+    this.http.get(this.vacanciesURL).map(
       (response: Response) => {
         const vacancies: VacancyModel[] = response.json();
         return vacancies;
       }
+    ).subscribe(
+      (data: VacancyModel[]) => {
+        this.vacancies = data;
+        this.vacancyChange.next(this.vacancies.slice());
+      }
     );
   }
+
 
   getVacancy(id: string) {
     return this.http.get(this.vacanciesURL + '/' + id).map(
@@ -39,9 +50,12 @@ export class VacanciesService {
         console.log(response);
       }
     ).subscribe(
-      response => console.log('RESPONSE:' + response)
+      response => {
+        console.log('RESPONSE:' + response);
+        this.vacancies.push(vacancy);
+        this.vacancyChange.next(this.vacancies.slice());
+      }
     );
-
 
   }
 

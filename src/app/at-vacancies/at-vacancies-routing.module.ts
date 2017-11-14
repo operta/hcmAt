@@ -8,8 +8,11 @@ import {AtVacanciesAddComponent} from './at-vacancies-add/at-vacancies-add.compo
 
 const recipeRoutes: Routes = [
   { path: '', component: AtVacanciesComponent, children: [
-    { path: 'addVacancy', component: AtVacanciesAddComponent },
-    { path: 'edit/:id', component: AtVacanciesEditComponent },
+    { path: 'vacancyList', component: AtVacanciesListComponent, children: [
+      { path: 'addVacancy', component: AtVacanciesAddComponent },
+      { path: 'edit/:id', component: AtVacanciesEditComponent },
+      { path: ':id', component: AtVacanciesDetailComponent }
+    ]},
     { path: ':id', component: AtVacanciesDetailComponent }
   ] }
 ];

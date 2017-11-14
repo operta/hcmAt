@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {VacancyModel} from '../../../models/vacancy.model';
 import {VacanciesService} from "../../../services/vacancies.service";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-at-vacancies-item',
@@ -13,7 +14,7 @@ export class AtVacanciesItemComponent implements OnInit {
 
   editVacancy: boolean;
 
-  constructor(private vacancyService: VacanciesService) { }
+  constructor(private vacancyService: VacanciesService, private router: Router) { }
 
   ngOnInit() {
     this.editVacancy = false;
@@ -21,6 +22,10 @@ export class AtVacanciesItemComponent implements OnInit {
 
   editVacancyButton() {
     this.editVacancy = !this.editVacancy;
+  }
+
+  vacDetailOpen() {
+    this.router.navigate(['vacancies/', this.vacancy.id]);
   }
 
 }
