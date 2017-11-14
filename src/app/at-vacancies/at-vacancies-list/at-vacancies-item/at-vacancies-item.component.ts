@@ -1,7 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {VacancyModel} from '../../../models/vacancy.model';
 import {VacanciesService} from "../../../services/vacancies.service";
+<<<<<<< HEAD
 import {Router} from '@angular/router';
+=======
+import {DatePipe} from '@angular/common';
+>>>>>>> 49d1fa4f7b2d11d9ac389a13ec67d9f6226a40c9
 
 @Component({
   selector: 'app-at-vacancies-item',
@@ -11,17 +15,40 @@ import {Router} from '@angular/router';
 export class AtVacanciesItemComponent implements OnInit {
 
   @Input() vacancy: VacancyModel;
-
   editVacancy: boolean;
+  isItemHovered: boolean;
+  @Output() onEdit = new EventEmitter();
+
 
   constructor(private vacancyService: VacanciesService, private router: Router) { }
 
   ngOnInit() {
-    this.editVacancy = false;
+    this.isItemHovered = false;
+    this.closeEdit();
   }
 
   editVacancyButton() {
-    this.editVacancy = !this.editVacancy;
+    if(this.editVacancy == true){
+      this.onEdit.emit();
+    }
+    else{
+      this.onEdit.emit();
+      this.editVacancy = !this.editVacancy
+    }
+
+
+  }
+
+  onUpdate(){
+    this.editVacancy = false;
+  }
+
+  closeEdit(){
+    this.editVacancy = false;
+  }
+
+  toggleEditButton(){
+      this.isItemHovered = !this.isItemHovered;
   }
 
   vacDetailOpen() {

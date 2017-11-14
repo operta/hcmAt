@@ -11,11 +11,18 @@
 <td>{{vacancy.updated_at}}</td>
 <td>fdfd</td>
 -->
+<<<<<<< HEAD
 <a (click)="vacDetailOpen()">
   <div class="comment-body col-sm-12 col-md-12 col-lg-12">
     <div class="user-img text-center"><i class="fa fa-2x fa-building"></i></div>
+=======
+<div (mouseenter) ="toggleEditButton()"  (mouseleave) ="toggleEditButton()">
+<a [routerLink]="[vacancy.id]" >
+  <div class="comment-body col-sm-12 col-md-12 col-lg-12 pd-l-5" style="margin-bottom: 10px">
+    <div class="user-img text-center horizontal-center icon-box"><div data-icon="&#xe019;" class="linea-icon linea-basic icon-font"></div></div>
+>>>>>>> 49d1fa4f7b2d11d9ac389a13ec67d9f6226a40c9
     <div class="mail-content">
-      <h5>{{vacancy.name}}</h5>
+      <h5><b>{{vacancy.name}}</b></h5>
 
       <span class="mail-desc" style="height:100px;">
         <div class="row">
@@ -23,11 +30,19 @@
             <i class="fa fa-map-marker"></i> {{vacancy.id_location.name}}
           </div>
           <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
+<<<<<<< HEAD
             <b>Division: </b> {{vacancy.id_work_place.name}}
           </div>
 
           <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
             <i class="fa fa-clock-o"></i> {{vacancy.date_from | date:'dd-MM-yyyy'}} - {{vacancy.date_to | date:'dd-MM-yyyy'}}
+=======
+            <b>Division:</b> {{vacancy.id_work_place.name}}
+          </div>
+
+          <div class="col-xs-12 col.sm-6 col-md-6 col-lg-6">
+            <i class="fa fa-clock-o"></i> {{vacancy.date_from | date: 'dd/MM/yyyy'}} - {{vacancy.date_to | date: 'dd/MM/yyyy'}}
+>>>>>>> 49d1fa4f7b2d11d9ac389a13ec67d9f6226a40c9
           </div>
           <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
           </div>
@@ -38,24 +53,29 @@
             <p>{{vacancy.description}}</p>
           </div>
         </div>
+<<<<<<< HEAD
         <span class="time pull-right"><b>Last update: </b>{{vacancy.updated_at | date:'dd-MM-yyyy HH:mm'}}</span>
+=======
+        <span class="time pull-right"><b>Last update:</b>{{vacancy.updated_at | date: 'dd/MM/yyyy'}}</span>
+>>>>>>> 49d1fa4f7b2d11d9ac389a13ec67d9f6226a40c9
 
       </span>
 
     </div>
   </div>
 </a>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-  <div class="text-center">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+  <div class="text-center" style="margin-top:-42px">
     <!--<button class="btn btn-success waves-effect waves-light m-r-10" data-toggle="collapse" data-target="#demo">-->
-    <button class="btn btn-success" (click)="editVacancyButton()">
-      <b>Edit Vacancy</b>
+    <button class="btn btn-default" *ngIf="isItemHovered || editVacancy" (click)="editVacancyButton()">
+      <b>Edit</b>
       <i class="fa fa-angle-down fa-lg" aria-hidden="true"></i>
     </button>
   </div>
   <div *ngIf="editVacancy">
-    <app-at-vacancies-edit [vacancy]="vacancy"></app-at-vacancies-edit>
+    <app-at-vacancies-edit [vacancy]="vacancy"  (onUpdate)="onUpdate($event)"></app-at-vacancies-edit>
   </div>
+</div>
 </div>
 
 

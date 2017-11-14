@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {VacancyModel} from '../../models/vacancy.model';
 import {Subscription} from 'rxjs/Subscription';
 import {VacanciesService} from '../../services/vacancies.service';
@@ -6,6 +6,8 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {NgForm} from "@angular/forms";
 import {RegionModel} from "../../models/region.model";
 import {RegionsService} from "../../services/regions.service";
+import {WorkPlaceModel} from "../../models/workPlace.model";
+import {WorkPlacesService} from "../../services/work-places.service";
 
 @Component({
   selector: 'app-at-vacancies-edit',
@@ -15,24 +17,34 @@ import {RegionsService} from "../../services/regions.service";
 export class AtVacanciesEditComponent implements OnInit, OnDestroy {
 
   @Input() vacancy: VacancyModel;
+  @Output() onUpdate = new EventEmitter();
   regions: RegionModel[] = [];
+  workplaces: WorkPlaceModel[] = [];
 
 
   id: string;
   subscriptionVacancy: Subscription;
-  submitted: boolean;
+  //submitted: boolean;
   subscriptionRegions: Subscription;
+  subscriptionWorkplaces: Subscription;
   selectedRegion = null;
+  selectedWorkplace = null;
 
-  constructor(private vacancyService: VacanciesService, private regionsService: RegionsService) {
+  constructor(private vacancyService: VacanciesService, private regionsService: RegionsService, private workplacesService: WorkPlacesService) {
   }
 
   ngOnInit() {
+    this.selectedWorkplace = this.vacancy.id_work_place;
     this.selectedRegion = this.vacancy.id_location;
-    this.submitted = false;
+    //this.submitted = false;
     this.subscriptionRegions = this.regionsService.getRegions().subscribe(
       (data: RegionModel[]) => {
         this.regions = data;
+      }
+    );
+    this.subscriptionWorkplaces = this.workplacesService.getWorkPlaces().subscribe(
+      (data: WorkPlaceModel[]) => {
+        this.workplaces = data;
       }
     );
   }
@@ -49,6 +61,7 @@ export class AtVacanciesEditComponent implements OnInit, OnDestroy {
     this.vacancy.date_from = form.value.date_from;
     this.vacancy.date_to = form.value.date_to;
     this.vacancy.id_location = this.selectedRegion;
+    this.vacancy.id_work_place = this.selectedWorkplace
 
 
     console.log(this.vacancy);
@@ -56,7 +69,8 @@ export class AtVacanciesEditComponent implements OnInit, OnDestroy {
       .subscribe(
         result => console.log(result)
       );
-    this.submitted = true;
+    //this.submitted = true;
+    this.onUpdate.emit();
 
 
   }

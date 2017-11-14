@@ -119,7 +119,7 @@ NAPRAVITI BOXOVE VACANCY DA SU UVIJEK MAX SIZE
 <div class="row">
   <div class="col-xs-12">
     <div class="comment-center">
-      <app-at-vacancies-item *ngFor="let vacancy of vacancies | slice:start():end();" [vacancy]="vacancy"></app-at-vacancies-item>
+      <app-at-vacancies-item *ngFor="let vacancy of vacancies | slice:start():end();" [vacancy]="vacancy" (onEdit)="onEdit($event)"></app-at-vacancies-item>
     </div>
   </div>
 </div>
