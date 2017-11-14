@@ -1,7 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {VacancyModel} from '../../../models/vacancy.model';
 import {VacanciesService} from "../../../services/vacancies.service";
+<<<<<<< HEAD
+import {Router} from '@angular/router';
+=======
 import {DatePipe} from '@angular/common';
+>>>>>>> 49d1fa4f7b2d11d9ac389a13ec67d9f6226a40c9
 
 @Component({
   selector: 'app-at-vacancies-item',
@@ -16,7 +20,7 @@ export class AtVacanciesItemComponent implements OnInit {
   @Output() onEdit = new EventEmitter();
 
 
-  constructor(private vacancyService: VacanciesService) { }
+  constructor(private vacancyService: VacanciesService, private router: Router) { }
 
   ngOnInit() {
     this.isItemHovered = false;
@@ -45,6 +49,10 @@ export class AtVacanciesItemComponent implements OnInit {
 
   toggleEditButton(){
       this.isItemHovered = !this.isItemHovered;
+  }
+
+  vacDetailOpen() {
+    this.router.navigate(['vacancies/', this.vacancy.id]);
   }
 
 }
