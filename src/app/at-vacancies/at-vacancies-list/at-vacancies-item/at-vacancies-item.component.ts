@@ -1,11 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {VacancyModel} from '../../../models/vacancy.model';
-import {VacanciesService} from "../../../services/vacancies.service";
-<<<<<<< HEAD
+import {VacanciesService} from '../../../services/vacancies.service';
 import {Router} from '@angular/router';
-=======
-import {DatePipe} from '@angular/common';
->>>>>>> 49d1fa4f7b2d11d9ac389a13ec67d9f6226a40c9
 
 @Component({
   selector: 'app-at-vacancies-item',
@@ -28,10 +24,10 @@ export class AtVacanciesItemComponent implements OnInit {
   }
 
   editVacancyButton() {
-    if(this.editVacancy == true){
+    if (this.editVacancy === true){
       this.onEdit.emit();
     }
-    else{
+    else {
       this.onEdit.emit();
       this.editVacancy = !this.editVacancy
     }

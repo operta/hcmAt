@@ -3,9 +3,8 @@ import {VacancyModel} from '../../models/vacancy.model';
 import {VacanciesService} from '../../services/vacancies.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
-=======
-import {AtVacanciesItemComponent} from "./at-vacancies-item/at-vacancies-item.component";
->>>>>>> 49d1fa4f7b2d11d9ac389a13ec67d9f6226a40c9
+import {AtVacanciesItemComponent} from './at-vacancies-item/at-vacancies-item.component';
+
 
 
 @Component({
@@ -62,7 +61,7 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
     return this.resultCount * this.page;
   }
 
-  onEdit(){
+  onEdit() {
       this.allAtVacanciesItemComponents.forEach((atVacanciesItemComponent) => atVacanciesItemComponent.closeEdit());
   }
 
