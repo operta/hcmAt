@@ -6803,7 +6803,7 @@ jQuery.extend({
 		if ( !elem || elem.nodeType === 3 || elem.nodeType === 8 || !elem.style ) {
 			return;
 		}
-		
+
 		// Make sure that we're working with the right name
 		var ret, type, hooks,
 			origName = jQuery.camelCase( name ),
@@ -8485,7 +8485,7 @@ if ( xhrSupported ) {
 						xhr = s.xhr();
 
 					// Open the socket
-					// Passing null username, generates a login popup on Opera (#2865)
+					// Passing null username, generates a s popup on Opera (#2865)
 					if ( s.username ) {
 						xhr.open( s.type, s.url, s.async, s.username, s.password );
 					} else {
@@ -9585,7 +9585,7 @@ window.jQuery = window.$ = jQuery;
 // specifying define.amd.jQuery = true. Register as a named module,
 // since jQuery can be concatenated with other files that may use define,
 // but not use a proper concatenation script that understands anonymous
-// AMD modules. A named AMD is safest and most robust way to register.
+// AMD modules. A named AMD is safest and most robust way to s.
 // Lowercase jquery is used because AMD module names are derived from
 // file names, and jQuery is normally delivered in a lowercase file name.
 // Do this after creating the global so that if an AMD module wants to call

@@ -19,6 +19,8 @@ import {VacanciesService} from './services/vacancies.service';
 import {SharedModule} from './shared/shared.module';
 import {RegionsService} from './services/regions.service';
 import {WorkPlacesService} from './services/work-places.service';
+import { LoginComponent } from './authentication/login/login.component';
+import { RegisterComponent } from './authentication/register/register.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import {WorkPlacesService} from './services/work-places.service';
     SkillGradesComponent,
     SideMenuComponent,
     ApplicantComponent,
-    ApplicantsComponent
+    ApplicantsComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     AppRoutingModule,
