@@ -3,6 +3,9 @@ import {VacancyModel} from '../../models/vacancy.model';
 import {VacanciesService} from '../../services/vacancies.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
+import {isNumber} from 'util';
+import {ApplicantModel} from '../../models/applicant.model';
+import {JobApplicationModel} from '../../models/jobApplication.model';
 
 @Component({
   selector: 'app-at-vacancies-detail',
@@ -11,6 +14,7 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class AtVacanciesDetailComponent implements OnInit, OnDestroy {
   vacancy: VacancyModel;
+  jobApplications: JobApplicationModel[];
   id: string;
   subscriptionParams: Subscription;
   subscriptionVacancy: Subscription;
@@ -21,11 +25,15 @@ export class AtVacanciesDetailComponent implements OnInit, OnDestroy {
     this.subscriptionParams = this.route.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
-      }
-    );
-    this.subscriptionVacancy = this.vacancyService.getVacancy(this.id).subscribe(
-      (data: VacancyModel) => {
-        this.vacancy = data;
+        // this.vacancy = this.vacancyService.getVacancy(+this.id);
+        this.vacancyService.getVacancy(this.id).subscribe(
+          (data: VacancyModel) => {
+            this.vacancy = data;
+            this.jobApplications = this.vacancy.jobApplications;
+            console.log(this.jobApplications);
+          }
+        )
+
       }
     );
   }

@@ -12,8 +12,7 @@ const recipeRoutes: Routes = [
       { path: 'addVacancy', component: AtVacanciesAddComponent },
       { path: 'edit/:id', component: AtVacanciesEditComponent },
       { path: ':id', component: AtVacanciesDetailComponent }
-    ]},
-    { path: ':id', component: AtVacanciesDetailComponent }
+    ]}
   ] }
 ];
 

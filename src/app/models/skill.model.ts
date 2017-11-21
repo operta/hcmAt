@@ -1,4 +1,4 @@
-export class Skill {
+export class SkillModel {
   id: number;
   code: string;
   name: string;

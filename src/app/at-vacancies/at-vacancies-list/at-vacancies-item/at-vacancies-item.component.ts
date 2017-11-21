@@ -35,15 +35,15 @@ export class AtVacanciesItemComponent implements OnInit {
 
   }
 
-  onUpdate(){
+  onUpdate() {
     this.editVacancy = false;
   }
 
-  closeEdit(){
+  closeEdit() {
     this.editVacancy = false;
   }
 
-  toggleEditButton(){
+  toggleEditButton() {
       this.isItemHovered = !this.isItemHovered;
   }
 

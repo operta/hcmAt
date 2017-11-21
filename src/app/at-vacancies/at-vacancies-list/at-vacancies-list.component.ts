@@ -6,7 +6,6 @@ import {Observable} from 'rxjs/Observable';
 import {AtVacanciesItemComponent} from './at-vacancies-item/at-vacancies-item.component';
 
 
-
 @Component({
   selector: 'app-at-vacancies-list',
   templateUrl: './at-vacancies-list.component.html',
@@ -32,6 +31,7 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
     this.vacanciesService.vacancyChange.subscribe(
       (data: VacancyModel[]) => {
         this.vacancies = data;
+        console.log(this.vacancies);
       }
     )
     /*.subscribe(

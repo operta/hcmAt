@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Class, Injectable} from '@angular/core';
 import {VacancyModel} from '../models/vacancy.model';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/Rx';
+import {JsogService, JsonProperty} from 'jsog-typescript';
 
 @Injectable()
 export class VacanciesService {
@@ -11,15 +12,17 @@ export class VacanciesService {
 
   vacanciesURL = 'http://localhost:8080/vacancies';
 
-  constructor(private http: Http) { }
-
+  constructor(private http: Http, private jsog: JsogService) { }
 
 
 
   getVacancies() {
     this.http.get(this.vacanciesURL).map(
-      (response: Response) => {
-        const vacancies: VacancyModel[] = response.json();
+      (response: Response) => {/*        console.log(this.jsog.deserialize(response.json()));
+        const vac = this.jsog.deserialize(response.json(), typeof "VacancyModel");*/
+        console.log(<VacancyModel[]>this.jsog.deserialize(response.json()));
+        const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json()));
+        console.log(vacancies);
         return vacancies;
       }
     ).subscribe(
@@ -30,9 +33,10 @@ export class VacanciesService {
     );
   }
 
-
+  // made for getting vacancy detail
   getVacancy(id: string) {
-    return this.http.get(this.vacanciesURL + '/' + id).map(
+    /*return this.vacancies.find( vacancy => vacancy.id === id);*/
+    return this.http.get(this.vacanciesURL + '/' + id ).map(
       (response: Response) => {
         const vacancy: VacancyModel = response.json();
         return vacancy;
