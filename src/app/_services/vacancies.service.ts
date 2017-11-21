@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {VacancyModel} from '../models/vacancy.model';
+import {VacancyModel} from '../_models/vacancy.model';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/Rx';

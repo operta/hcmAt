@@ -1,48 +1,54 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-
-import { DataTablesModule } from 'angular-datatables';
-
+import {Http, HttpModule} from '@angular/http';
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { SkillsService } from './rg-skills/skills.service';
-import { SkillGradesService } from './rg-skill-grades/skill-grades.service';
-import { SkillsComponent } from './rg-skills/skills.component';
-import { SkillGradesComponent } from './rg-skill-grades/skill-grades.component';
-import { SideMenuComponent } from './ap-side-menu/side-menu.component';
-import { ApplicantComponent } from './at-applicant/applicant.component';
-import { ApplicantsComponent } from './at-applicants/applicants.component';
-import {AtVacanciesModule} from './at-vacancies/at-vacancies.module';
-import {VacanciesService} from './services/vacancies.service';
-import {SharedModule} from './shared/shared.module';
-import {RegionsService} from './services/regions.service';
-import {WorkPlacesService} from './services/work-places.service';
+import {SharedModule} from './_shared/shared.module';
 import { LoginComponent } from './authentication/login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
+import {DashboardModule} from "./dashboard/dashboard.module";
+import {AppRoutingModule} from "./app-routing.module";
+import {TOKEN_NAME} from "./_services/auth.constant";
+import {AuthConfig, AuthHttp} from 'angular2-jwt';
+import {AuthenticationService} from "./_services/authentication.service";
+import {UserService} from "./_services/user.service";
+import {UserStatusService} from "./_services/userStatus.service";
+import {AuthGuard} from "./_services/auth-guard.service";
+import {AdminAuthGuard} from "./_services/admin-auth-guard.service";
+
+export function authHttpServiceFactory(http: Http) {
+  return new AuthHttp(new AuthConfig({
+    headerPrefix: 'Bearer',
+    tokenName: TOKEN_NAME,
+    globalHeaders: [{'Content-Type': 'application/json'}],
+    noJwtError: false,
+    noTokenScheme: true,
+    tokenGetter: (() => localStorage.getItem(TOKEN_NAME))
+  }), http);
+}
 
 @NgModule({
   declarations: [
     AppComponent,
-    SkillsComponent,
-    SkillGradesComponent,
-    SideMenuComponent,
-    ApplicantComponent,
-    ApplicantsComponent,
     LoginComponent,
     RegisterComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
-    DataTablesModule,
     FormsModule,
     HttpModule,
-    AtVacanciesModule,
-    SharedModule
+    SharedModule,
+    DashboardModule
   ],
-  providers: [ SkillsService, SkillGradesService, VacanciesService, RegionsService, WorkPlacesService ],
+  providers: [
+    {provide: AuthHttp, useFactory: authHttpServiceFactory, deps: [Http]},
+    AuthenticationService,
+    UserService,
+    UserStatusService,
+    AuthGuard,
+    AdminAuthGuard
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

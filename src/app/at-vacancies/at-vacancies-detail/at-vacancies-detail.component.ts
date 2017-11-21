@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {VacancyModel} from '../../models/vacancy.model';
-import {VacanciesService} from '../../services/vacancies.service';
+import {VacancyModel} from '../../_models/vacancy.model';
+import {VacanciesService} from '../../_services/vacancies.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 

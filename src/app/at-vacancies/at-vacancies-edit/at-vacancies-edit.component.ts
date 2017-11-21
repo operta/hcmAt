@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {VacancyModel} from '../../models/vacancy.model';
+import {VacancyModel} from '../../_models/vacancy.model';
 import {Subscription} from 'rxjs/Subscription';
-import {VacanciesService} from '../../services/vacancies.service';
+import {VacanciesService} from '../../_services/vacancies.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {NgForm} from "@angular/forms";
-import {RegionModel} from "../../models/region.model";
-import {RegionsService} from "../../services/regions.service";
-import {WorkPlaceModel} from "../../models/workPlace.model";
-import {WorkPlacesService} from "../../services/work-places.service";
+import {RegionModel} from "../../_models/region.model";
+import {RegionsService} from "../../_services/regions.service";
+import {WorkPlaceModel} from "../../_models/workPlace.model";
+import {WorkPlacesService} from "../../_services/work-places.service";
 
 @Component({
   selector: 'app-at-vacancies-edit',

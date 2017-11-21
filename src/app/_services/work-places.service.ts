@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {WorkPlaceModel} from '../models/workPlace.model';
+import {WorkPlaceModel} from '../_models/workPlace.model';
 
 @Injectable()
 export class WorkPlacesService {

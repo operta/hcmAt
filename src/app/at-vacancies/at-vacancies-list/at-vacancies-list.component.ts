@@ -1,9 +1,10 @@
 import {Component, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {VacancyModel} from '../../models/vacancy.model';
-import {VacanciesService} from '../../services/vacancies.service';
+import {VacancyModel} from '../../_models/vacancy.model';
+import {VacanciesService} from '../../_services/vacancies.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import {AtVacanciesItemComponent} from './at-vacancies-item/at-vacancies-item.component';
+import {UserService} from "../../_services/user.service";
 
 
 
@@ -20,13 +21,15 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
   pages: number[] = [1, 2, 3, 4, 5];
   resultCount = 15;
   page = 1;
+  isAdmin: boolean
 /*  subscription: Subscription;*/
   private vacancies: VacancyModel[];
 
 
-  constructor(private vacanciesService: VacanciesService) { }
+  constructor(private vacanciesService: VacanciesService, private userService: UserService) { }
 
   ngOnInit() {
+    this.isAdmin = this.userService.isAdminUser();
     /*this.subscription =*/
     this.vacanciesService.getVacancies();
     this.vacanciesService.vacancyChange.subscribe(

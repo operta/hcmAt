@@ -80,13 +80,12 @@ NAPRAVITI BOXOVE VACANCY DA SU UVIJEK MAX SIZE
 <router-outlet></router-outlet>
 
 
-<div class="row m-b-20 p-l-5 p-r-10">
+<div *ngIf="isAdmin" class="row m-b-20 p-l-5 p-r-10">
   <div class="col-lg-12">
     <div class="pull-right">
       <button routerLink="addVacancy" class="btn">Add Vacancy</button>
     </div>
   </div>
-
 </div>
 
 <!-- page number i item number -->
@@ -117,7 +116,7 @@ NAPRAVITI BOXOVE VACANCY DA SU UVIJEK MAX SIZE
 
 <!-- vacancy list -->
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-xs-12 col-lg-12">
     <div class="comment-center">
       <app-at-vacancies-item *ngFor="let vacancy of vacancies | slice:start():end();" [vacancy]="vacancy" (onEdit)="onEdit($event)"></app-at-vacancies-item>
     </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {UserService} from "../_services/user.service";
+import {UserModel} from "../_models/user.model";
 
 declare  var $:any;
 
@@ -13,7 +15,21 @@ export class ApplicantComponent implements OnInit {
   @ViewChild('editForm2') editForm2: ElementRef;
   @ViewChild('editForm3') editForm3: ElementRef;
 
-  constructor() { }
+  userId: string;
+
+  constructor(private userService: UserService) {
+    this.userService.getUser(this.userService.userUsername).subscribe(
+      (data: UserModel) =>{
+        this.userId = data.id;
+        console.log(data);
+        console.log(this.userId);
+      }
+
+
+    );
+  }
+
+
 
   showEditForm() {
     $.magnificPopup.open({

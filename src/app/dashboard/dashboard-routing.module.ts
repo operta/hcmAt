@@ -1,0 +1,48 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes} from '@angular/router';
+import {SkillsComponent} from "app/rg-skills/skills.component";
+import {ApplicantComponent} from "../at-applicant/applicant.component";
+import {ApplicantsComponent} from "../at-applicants/applicants.component";
+import {DashboardComponent} from "./dashboard.component";
+import {AuthGuard} from "../_services/auth-guard.service";
+import {AdminAuthGuard} from "../_services/admin-auth-guard.service";
+
+
+const dashboardRoutes: Routes = [
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '',
+        pathMatch: 'full',
+        redirectTo: 'vacancies'
+      },
+      {
+        path: 'vacancies',
+        canActivate: [AuthGuard],
+        loadChildren: '../at-vacancies/at-vacancies.module#AtVacanciesModule',
+      },
+      {
+        path: 'skills',
+        component: SkillsComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
+      {
+        path: 'applicant',
+        component: ApplicantComponent,
+        canActivate: [AuthGuard]
+      },
+      { path: 'applicants',
+        component: ApplicantsComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
+  ] }
+];
+
+@NgModule({
+  imports: [ RouterModule.forChild(dashboardRoutes) ],
+  exports: [ RouterModule]
+})
+export class DashboardRoutingModule {
+}
