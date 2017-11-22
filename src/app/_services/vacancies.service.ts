@@ -12,15 +12,15 @@ export class VacanciesService {
 
   vacanciesURL = 'http://localhost:8080/vacancies';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private jsog: JsogService) { }
 
 
 
   getVacancies() {
     this.http.get(this.vacanciesURL).map(
       (response: Response) => {
-        // const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json()));
-        const vacancies: VacancyModel[] = response.json();
+         const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json()));
+        //const vacancies: VacancyModel[] = response.json();
 
         return vacancies;
       }

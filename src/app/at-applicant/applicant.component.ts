@@ -42,9 +42,9 @@ export class ApplicantComponent implements OnInit {
     this.applicant.gender = form.value.gender;
     this.applicant.birthdate = form.value.birthdate;
     this.applicant.marital_status = form.value.marital_status;
-    this.applicant.id_city = form.value.id_city;
-    this.applicant.id_country = form.value.id_country;
-    this.applicant.id_region = form.value.id_region;
+    this.applicant.id_city = this.selectedCity;
+    this.applicant.id_country = this.selectedCountry;
+    this.applicant.id_region = this.selectedRegion;
     console.log(this.applicant);
 
     this.applicantService.updateApplicant(this.applicant).subscribe(
@@ -66,59 +66,12 @@ export class ApplicantComponent implements OnInit {
 
 
 
-  showEditForm() {
-    $.magnificPopup.open({
-        items: {
-            src: this.editForm.nativeElement
-        },
-        type: 'inline',
-        closeOnBgClick: false,
-
-    });
-    return false;
-  }
-
-  showEditForm1() {
-    $.magnificPopup.open({
-        items: {
-            src: this.editForm1.nativeElement
-        },
-        type: 'inline',
-        closeOnBgClick: false,
-
-    });
-    return false;
-  }
-
-  showEditForm2() {
-    $.magnificPopup.open({
-        items: {
-            src: this.editForm2.nativeElement
-        },
-        type: 'inline',
-        closeOnBgClick: false,
-
-    });
-    return false;
-  }
-
-  showEditForm3() {
-    $.magnificPopup.open({
-        items: {
-            src: this.editForm3.nativeElement
-        },
-        type: 'inline',
-        closeOnBgClick: false,
-
-    });
-    return false;
-  }
-
   getApplicant(){
     this.applicantService.getApplicant(this.userId).subscribe(
       (data: ApplicantModel) => {
-        console.log(data);
+
         this.applicant = data;
+        console.log(this.applicant);
       },
       error => {
         console.log(error);
@@ -238,6 +191,56 @@ export class ApplicantComponent implements OnInit {
                 self.addClass('active');
             }
         });
+  }
+
+
+
+  showEditForm() {
+    $.magnificPopup.open({
+      items: {
+        src: this.editForm.nativeElement
+      },
+      type: 'inline',
+      closeOnBgClick: false,
+
+    });
+    return false;
+  }
+
+  showEditForm1() {
+    $.magnificPopup.open({
+      items: {
+        src: this.editForm1.nativeElement
+      },
+      type: 'inline',
+      closeOnBgClick: false,
+
+    });
+    return false;
+  }
+
+  showEditForm2() {
+    $.magnificPopup.open({
+      items: {
+        src: this.editForm2.nativeElement
+      },
+      type: 'inline',
+      closeOnBgClick: false,
+
+    });
+    return false;
+  }
+
+  showEditForm3() {
+    $.magnificPopup.open({
+      items: {
+        src: this.editForm3.nativeElement
+      },
+      type: 'inline',
+      closeOnBgClick: false,
+
+    });
+    return false;
   }
 
 }

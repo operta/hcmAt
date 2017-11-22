@@ -43,7 +43,7 @@ export function authHttpServiceFactory(http: Http) {
     DashboardModule
   ],
   providers: [
-    //JsogService,
+    JsogService,
     {provide: AuthHttp, useFactory: authHttpServiceFactory, deps: [Http]},
     AuthenticationService,
     UserService,
