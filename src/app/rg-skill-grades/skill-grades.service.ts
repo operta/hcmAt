@@ -3,7 +3,7 @@ import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
-import { SkillModel } from '../models/skill.model';
+import { SkillModel } from '../_models/skill.model';
 import { SkillGrade } from './skill-grade';
 
 @Injectable()

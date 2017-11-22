@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {VacancyModel} from '../../models/vacancy.model';
-import {VacanciesService} from '../../services/vacancies.service';
+import {VacancyModel} from '../../_models/vacancy.model';
+import {VacanciesService} from '../../_services/vacancies.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {isNumber} from 'util';
-import {ApplicantModel} from '../../models/applicant.model';
-import {JobApplicationModel} from '../../models/jobApplication.model';
+import {ApplicantModel} from '../../_models/applicant.model';
+import {JobApplicationModel} from '../../_models/jobApplication.model';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-at-vacancies-detail',
@@ -25,15 +26,15 @@ export class AtVacanciesDetailComponent implements OnInit, OnDestroy {
     this.subscriptionParams = this.route.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
-        // this.vacancy = this.vacancyService.getVacancy(+this.id);
-        this.vacancyService.getVacancy(this.id).subscribe(
+        this.vacancy = this.vacancyService.getVacancy(+this.id);
+        this.jobApplications = this.vacancy.jobApplications;
+/*        this.subscriptionVacancy = this.vacancyService.getVacancy(this.id).subscribe(
           (data: VacancyModel) => {
             this.vacancy = data;
+            console.log(this.vacancy);
             this.jobApplications = this.vacancy.jobApplications;
-            console.log(this.jobApplications);
           }
-        )
-
+        );*/
       }
     );
   }

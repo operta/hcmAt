@@ -3,7 +3,7 @@ import 'rxjs/add/operator/toPromise';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 
-import { SkillModel} from '../models/skill.model';
+import { SkillModel} from '../_models/skill.model';
 
 @Injectable()
 export class SkillsService {

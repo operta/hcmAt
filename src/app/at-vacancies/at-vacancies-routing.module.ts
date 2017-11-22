@@ -7,13 +7,12 @@ import {AtVacanciesEditComponent} from './at-vacancies-edit/at-vacancies-edit.co
 import {AtVacanciesAddComponent} from './at-vacancies-add/at-vacancies-add.component';
 
 const recipeRoutes: Routes = [
-  { path: '', component: AtVacanciesComponent, children: [
-    { path: 'vacancyList', component: AtVacanciesListComponent, children: [
-      { path: 'addVacancy', component: AtVacanciesAddComponent },
-      { path: 'edit/:id', component: AtVacanciesEditComponent },
-      { path: ':id', component: AtVacanciesDetailComponent }
-    ]}
-  ] }
+  { path: '', component: AtVacanciesListComponent, children: [
+    { path: 'addVacancy', component: AtVacanciesAddComponent },
+    { path: 'edit/:id', component: AtVacanciesEditComponent },
+
+  ] },
+  { path: ':id', component: AtVacanciesDetailComponent }
 ];
 
 @NgModule({

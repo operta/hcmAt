@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {VacancyModel} from '../../models/vacancy.model';
-import {VacanciesService} from '../../services/vacancies.service';
+import {VacancyModel} from '../../_models/vacancy.model';
+import {VacanciesService} from '../../_services/vacancies.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import {AtVacanciesItemComponent} from './at-vacancies-item/at-vacancies-item.component';

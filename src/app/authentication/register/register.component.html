@@ -1,0 +1,70 @@
+<!-- Preloader -->
+<!--<div class="preloader">-->
+  <!--<div class="cssload-speeding-wheel"></div>-->
+<!--</div>-->
+<section id="wrapper" class="login-register">
+  <div class="login-box login-sidebar">
+    <div class="white-box">
+      <form class="form-horizontal form-material" name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm">
+        <b>
+          <img src="assets/images/is-logo.png" alt="home" class="light-logo" />
+          <img src="assets/images/eliteadmin-logo-dark.png" alt="home" class="light-logo" />
+        </b>
+        <span class="hidden-xs">
+            <img src="assets/images/is-logo-text.png" alt="home" class="dark-logo" />
+            <img src="assets/images/eliteadmin-text-dark.png" alt="home" class="light-logo" />
+          </span>
+        <h3 class="box-title m-t-40 m-b-0">Register Now</h3><small>Create your account</small>
+
+        <div class="form-group m-t-20" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+          <div class="col-xs-12">
+            <input type="text" class="form-control" name="name" [(ngModel)]="model.name" #name="ngModel"
+                   required placeholder="Name"/>
+            <div *ngIf="f.submitted && !name.valid" class="help-block">Name is required</div>
+          </div>
+        </div>
+
+        <div class="form-group m-t-20" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+          <div class="col-xs-12">
+            <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel"
+                   required placeholder="Email"/>
+            <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+          <div class="col-xs-12">
+            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel"
+                   required placeholder="Password"/>
+            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !passwordc.valid }">
+          <div class="col-xs-12">
+            <input type="password" class="form-control" name="passwordc" [(ngModel)]="model.passwordc" #passwordc="ngModel"
+                   required placeholder="Confirm Password"/>
+            <div *ngIf="f.submitted && !passwordc.valid" class="help-block">Password confirmation is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-12">
+            <div class="checkbox checkbox-primary p-t-0">
+              <input id="checkbox-signup" type="checkbox">
+              <label for="checkbox-signup"> I agree to all <a href="#">Terms</a></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group text-center m-t-20">
+          <div class="col-xs-12">
+            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" [disabled]="loading">Sign Up</button>
+          </div>
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+        <div class="form-group m-b-0">
+          <div class="col-sm-12 text-center">
+            <p>Already have an account? <a [routerLink]="['/login']" class="text-primary m-l-5"><b>Sign In</b></a></p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

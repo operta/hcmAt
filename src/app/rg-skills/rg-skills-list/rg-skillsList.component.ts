@@ -2,8 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { SkillModel} from '../../models/skill.model';
-import { SkillsService } from '../../services/skills.service';
+import { SkillModel} from '../../_models/skill.model';
+import { SkillsService } from '../../_services/skills.service';
 
 
 @Component({

@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Rx';
 import { DataTableDirective } from 'angular-datatables';
 import { SkillGrade } from './skill-grade';
 import { SkillGradesService } from './skill-grades.service';
-import { SkillsService } from '../services/skills.service';
+import { SkillsService } from '../_services/skills.service';
 
 
 @Component({
