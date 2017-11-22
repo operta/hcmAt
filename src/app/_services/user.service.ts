@@ -42,7 +42,7 @@ export class UserService {
       const options = new RequestOptions({headers: headers});
       this.http.post(this.usersURL + '/add', newUser, headers).map(
         (response: Response) => {
-          console.log(response);
+          // console.log(response);
         }
       ).subscribe(
         response => {
@@ -68,18 +68,24 @@ export class UserService {
     return this.accessToken && !this.isAdmin;
   }
 
+  getUsername(): string {
+    const decodedToken = this.jwtHelper.decodeToken(localStorage.getItem('access_token'));
+    return decodedToken.user_name;
+  }
+
   getUsers() {
     this.http.get(this.usersURL).map(res => res.json());
   }
 
-  getUser(username: string) {
-    console.log(this.authenticationService.getToken());
+  getUser() {
+    const username = this.getUsername();
+    // console.log(this.authenticationService.getToken());
     const headers = this.headers;
     const options = new RequestOptions({headers: headers});
     return this.http.get(this.usersURL + '/' + username, options).map(
     (response: Response) => {
-      const user: UserModel = response.json();
-      return user;
+        const user: UserModel = response.json();
+        return user;
     });
   }
 }

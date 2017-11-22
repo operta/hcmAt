@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/Rx';
+import {AuthenticationService} from "./authentication.service";
 import {ApplicantModel} from "../_models/applicant.model";
 
 @Injectable()
@@ -9,10 +10,14 @@ export class ApplicantsService {
   private applicants: ApplicantModel[];
   applicantChange= new Subject<ApplicantModel[]>();
 
-
   applicantsURL = 'http://localhost:8080/applicants';
 
-  constructor(private http: Http) { }
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
+
+  constructor(private http: Http, private authenticationService: AuthenticationService) { }
 
   getApplicants() {
     this.http.get(this.applicantsURL).map(
@@ -31,8 +36,8 @@ export class ApplicantsService {
   getApplicant(id: string) {
     return this.http.get(this.applicantsURL + '/' + id).map(
       (response: Response) => {
-        const applicant: ApplicantModel = response.json();
-        return applicant;
+          const applicant: ApplicantModel = response.json();
+          return applicant;
       }
     );
   }
@@ -57,9 +62,10 @@ export class ApplicantsService {
   }
 
   updateApplicant(applicant: ApplicantModel) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.authHeaders;
+    const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(applicant);
-    return this.http.put(this.applicantsURL, body, {headers: headers})
+    return this.http.put(this.applicantsURL, body, options)
       .map((response: Response) => response.json());
   }
 }

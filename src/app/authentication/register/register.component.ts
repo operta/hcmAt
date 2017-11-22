@@ -61,8 +61,6 @@ export class RegisterComponent implements OnInit {
       this.userService.register(newUser);
       this.navigateAfterSuccess();
     }
-
-
   }
 
   private navigateAfterSuccess() {

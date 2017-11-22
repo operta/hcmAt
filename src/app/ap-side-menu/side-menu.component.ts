@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {UserService} from "../_services/user.service";
 
 declare  let $:any;
 
@@ -10,10 +11,12 @@ declare  let $:any;
 })
 export class SideMenuComponent implements OnInit, AfterViewInit {
   @ViewChild('sideMenu') sideMenu: ElementRef;
+  isAdmin: boolean;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
+    this.isAdmin = this.userService.isAdminUser();
   }
 
   ngAfterViewInit() {

@@ -21,7 +21,7 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
   pages: number[] = [1, 2, 3, 4, 5];
   resultCount = 15;
   page = 1;
-  isAdmin: boolean
+  isAdmin: boolean;
 /*  subscription: Subscription;*/
   private vacancies: VacancyModel[];
 

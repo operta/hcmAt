@@ -1,6 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {UserService} from "../_services/user.service";
 import {UserModel} from "../_models/user.model";
+import {ApplicantsService} from "../_services/applicants.service";
+import {ApplicantModel} from "../_models/applicant.model";
+import {NgForm} from "@angular/forms";
+import {RegionModel} from "../_models/region.model";
+import {RegionsService} from "../_services/regions.service";
 
 declare  var $:any;
 
@@ -16,17 +21,47 @@ export class ApplicantComponent implements OnInit {
   @ViewChild('editForm3') editForm3: ElementRef;
 
   userId: string;
-
-  constructor(private userService: UserService) {
-    this.userService.getUser(this.userService.userUsername).subscribe(
-      (data: UserModel) =>{
-        this.userId = data.id;
-        console.log(data);
-        console.log(this.userId);
-      }
+  applicant: ApplicantModel;
+  isEditPersonal: boolean;
+  regions: RegionModel[];
+  selectedRegion: RegionModel;
+  selectedCountry: RegionModel;
+  selectedCity: RegionModel;
 
 
+  constructor(private userService: UserService, private applicantService: ApplicantsService, private regionsService: RegionsService) {
+    this.isEditPersonal = false;
+
+  }
+
+  onSubmit(form: NgForm) {
+    this.applicant.name = form.value.name;
+    this.applicant.surname = form.value.surname;
+    this.applicant.middle_name = form.value.middle_name;
+    this.applicant.maiden_name = form.value.maiden_name;
+    this.applicant.gender = form.value.gender;
+    this.applicant.birthdate = form.value.birthdate;
+    this.applicant.marital_status = form.value.marital_status;
+    this.applicant.id_city = form.value.id_city;
+    this.applicant.id_country = form.value.id_country;
+    this.applicant.id_region = form.value.id_region;
+    console.log(this.applicant);
+
+    this.applicantService.updateApplicant(this.applicant).subscribe(
+      result => console.log(result)
     );
+
+    this.isEditPersonal = false;
+
+    // console.log(this.vacancy);
+    // this.subscriptionVacancy = this.vacancyService.updateVacancy(this.vacancy)
+    //   .subscribe(
+    //     result => console.log(result)
+    //   );
+    // //this.submitted = true;
+    // this.onUpdate.emit();
+
+
   }
 
 
@@ -79,7 +114,40 @@ export class ApplicantComponent implements OnInit {
     return false;
   }
 
+  getApplicant(){
+    this.applicantService.getApplicant(this.userId).subscribe(
+      (data: ApplicantModel) => {
+        console.log(data);
+        this.applicant = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   ngOnInit() {
+
+    this.userService.getUser().subscribe(
+      (data: UserModel) =>{
+        this.userId = data.id;
+        this.getApplicant();
+
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+
+
+    this.regionsService.getRegions().subscribe(
+      (data: RegionModel[]) => {
+        this.regions = data;
+      }
+    );
+
+
     $('#dataScroll').slimScroll({
         height: ''
     });

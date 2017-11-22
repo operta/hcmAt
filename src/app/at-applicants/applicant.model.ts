@@ -11,8 +11,9 @@ export class Applicant {
   public industry: string;
   public employed: string;
 
-  constructor(id: number, name: string, gender: string, dateOfBirth: string, address: string, 
-               city: string, state: string, country: string, qualification: string, 
+
+  constructor(id: number, name: string, gender: string, dateOfBirth: string, address: string,
+               city: string, state: string, country: string, qualification: string,
                industry: string, employed: string) {
     this.id = id;
     this.name = name;
