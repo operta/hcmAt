@@ -74,9 +74,9 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
     const date_to = this.newVacForm.value.date_to;
 
     const vacancy = new VacancyModel(
-      '932183',
-      name,
+      0,
       code,
+      name,
       description,
       region,
       date_from,
@@ -85,7 +85,8 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
       '',
       new Date,
       '',
-      new Date
+      new Date,
+      []
     );
     this.vacancyService.saveVacancy(vacancy);
     this.router.navigate(['../'], {relativeTo: this.route});

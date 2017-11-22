@@ -3,17 +3,17 @@ import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
-import { Skill } from '../rg-skills/skill';
+import { SkillModel } from '../_models/skill.model';
 import { SkillGrade } from './skill-grade';
 
 @Injectable()
 export class SkillGradesService {
   private skillGradesUrl = 'http://localhost:8080/rgSkills';  //URL to web api
   private headers = new Headers({'Content-Type': 'application/json'});
-  
+
   constructor(private http: Http) { }
-  
-  getSkillGrades(selectedSkill: Skill): Promise<SkillGrade[]> {
+
+  getSkillGrades(selectedSkill: SkillModel): Promise<SkillGrade[]> {
     if (selectedSkill.id) {
       const url = `${this.skillGradesUrl}/${selectedSkill.id}/rgSkillGrades`;
       return this.http.get(url)
@@ -23,7 +23,7 @@ export class SkillGradesService {
     }
   }
 
-  getSkill(selectedSkill: Skill, id: number): Promise<SkillGrade> {
+  getSkill(selectedSkill: SkillModel, id: number): Promise<SkillGrade> {
     if (selectedSkill) {
       const url = `${this.skillGradesUrl}/${selectedSkill.id}/rgSkillGrades/${id}`;
       return this.http.get(url)
@@ -32,8 +32,8 @@ export class SkillGradesService {
           .catch(this.handleError);
     }
   }
-    
-  update(selectedSkill: Skill, skillGrade: SkillGrade): Promise<SkillGrade> {
+
+  update(selectedSkill: SkillModel, skillGrade: SkillGrade): Promise<SkillGrade> {
     if (selectedSkill) {
       const url = `${this.skillGradesUrl}/${selectedSkill.id}/rgSkillGrades/${skillGrade.id}`;
       return this.http
@@ -48,7 +48,7 @@ export class SkillGradesService {
     if (idSkill) {
       const url = `${this.skillGradesUrl}/${idSkill}/rgSkillGrades`;
       return this.http
-        .post(url, JSON.stringify({code: code, name: name, description: description, grade: grade, 
+        .post(url, JSON.stringify({code: code, name: name, description: description, grade: grade,
             numerical: numerical, idSkill: idSkill}), {headers: this.headers})
         .toPromise()
         .then(res => res.json() as SkillGrade)
@@ -56,7 +56,7 @@ export class SkillGradesService {
     }
   }
 
-  delete(selectedSkill: Skill, id: number): Promise<void> {
+  delete(selectedSkill: SkillModel, id: number): Promise<void> {
     if (selectedSkill) {
       const url = `${this.skillGradesUrl}/${selectedSkill.id}/rgSkillGrades/${id}`;
       return this.http.delete(url, {headers: this.headers})

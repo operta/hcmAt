@@ -15,6 +15,7 @@ import {UserService} from "./_services/user.service";
 import {UserStatusService} from "./_services/userStatus.service";
 import {AuthGuard} from "./_services/auth-guard.service";
 import {AdminAuthGuard} from "./_services/admin-auth-guard.service";
+import {JsogService} from "jsog-typescript";
 
 export function authHttpServiceFactory(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -42,12 +43,14 @@ export function authHttpServiceFactory(http: Http) {
     DashboardModule
   ],
   providers: [
+    //JsogService,
     {provide: AuthHttp, useFactory: authHttpServiceFactory, deps: [Http]},
     AuthenticationService,
     UserService,
     UserStatusService,
     AuthGuard,
-    AdminAuthGuard
+    AdminAuthGuard,
+
   ],
   bootstrap: [ AppComponent ]
 })

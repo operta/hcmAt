@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from '@angular/router';
-import {SkillsComponent} from "app/rg-skills/skills.component";
-import {ApplicantComponent} from "../at-applicant/applicant.component";
-import {ApplicantsComponent} from "../at-applicants/applicants.component";
-import {DashboardComponent} from "./dashboard.component";
-import {AuthGuard} from "../_services/auth-guard.service";
-import {AdminAuthGuard} from "../_services/admin-auth-guard.service";
+import {RgSkillsComponent} from 'app/rg-skills/rg-skills.component';
+import {ApplicantComponent} from '../at-applicant/applicant.component';
+import {ApplicantsComponent} from '../at-applicants/applicants.component';
+import {DashboardComponent} from './dashboard.component';
+import {AuthGuard} from '../_services/auth-guard.service';
+import {AdminAuthGuard} from '../_services/admin-auth-guard.service';
 
 
 const dashboardRoutes: Routes = [
@@ -25,7 +25,7 @@ const dashboardRoutes: Routes = [
       },
       {
         path: 'skills',
-        component: SkillsComponent,
+        component: RgSkillsComponent,
         canActivate: [AuthGuard, AdminAuthGuard]
       },
       {

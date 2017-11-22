@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {JwtHelper} from 'angular2-jwt';
-import {TOKEN_NAME} from "./auth.constant";
+import {TOKEN_NAME} from './auth.constant';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {UserModel} from "../_models/user.model";
-import {UserStatus} from "../_models/userStatus.model";
-import {UserStatusService} from "./userStatus.service";
-import {AuthenticationService} from "./authentication.service";
+import {UserModel} from '../_models/user.model';
+import {UserStatus} from '../_models/userStatus.model';
+import {UserStatusService} from './userStatus.service';
+import {AuthenticationService} from './authentication.service';
 
 
 
@@ -37,10 +37,10 @@ export class UserService {
   }
 
 
-  register(newUser : UserModel){
+  register(newUser: UserModel) {
       const headers = new Headers({'Content-type': 'application/json'});
       const options = new RequestOptions({headers: headers});
-      this.http.post(this.usersURL + '/add', newUser, headers).map(
+      this.http.post(this.usersURL + '/add', newUser, options ).map(
         (response: Response) => {
           // console.log(response);
         }

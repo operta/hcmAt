@@ -5,29 +5,15 @@ import {AtVacanciesDetailComponent} from './at-vacancies-detail/at-vacancies-det
 import {AtVacanciesListComponent} from './at-vacancies-list/at-vacancies-list.component';
 import {AtVacanciesEditComponent} from './at-vacancies-edit/at-vacancies-edit.component';
 import {AtVacanciesAddComponent} from './at-vacancies-add/at-vacancies-add.component';
-import {AuthGuard} from "../_services/auth-guard.service";
-import {AdminAuthGuard} from "../_services/admin-auth-guard.service";
 
 const recipeRoutes: Routes = [
-  {
-    path: '',
-    component: AtVacanciesComponent,
-    children: [
-      {
-        path: 'addVacancy',
-        component: AtVacanciesAddComponent,
-        canActivate: [AuthGuard, AdminAuthGuard]
-      },
-      {
-        path: 'edit/:id',
-        component: AtVacanciesEditComponent,
-        canActivate: [AuthGuard, AdminAuthGuard]
-      },
-      {
-        path: ':id',
-        component: AtVacanciesDetailComponent
-      }
-  ] }
+  { path: '', component: AtVacanciesComponent, children: [
+    { path: '', component: AtVacanciesListComponent, children: [
+      { path: 'addVacancy', component: AtVacanciesAddComponent },
+      { path: 'edit/:id', component: AtVacanciesEditComponent },
+
+    ] }
+  ]},
 ];
 
 @NgModule({

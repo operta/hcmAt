@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {VacancyModel} from '../_models/vacancy.model';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/Rx';
+import {JsogService} from 'jsog-typescript';
 
 @Injectable()
 export class VacanciesService {
@@ -15,11 +16,12 @@ export class VacanciesService {
 
 
 
-
   getVacancies() {
     this.http.get(this.vacanciesURL).map(
       (response: Response) => {
+        // const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json()));
         const vacancies: VacancyModel[] = response.json();
+
         return vacancies;
       }
     ).subscribe(
@@ -30,14 +32,15 @@ export class VacanciesService {
     );
   }
 
-
-  getVacancy(id: string) {
-    return this.http.get(this.vacanciesURL + '/' + id).map(
+  // made for getting vacancy detail
+  getVacancy(id: number) {
+    return this.vacancies.find( vacancy => vacancy.id === id);
+/*    return this.http.get(this.vacanciesURL + '/' + id ).map(
       (response: Response) => {
         const vacancy: VacancyModel = response.json();
         return vacancy;
       }
-    );
+    );*/
   }
 
   saveVacancy(vacancy: VacancyModel) {
