@@ -16,7 +16,7 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
 
 
   options: number[] = [1, 10, 15, 20, 25, 30];
-  pages: number[] = [1, 2, 3, 4, 5];
+  pages = 0;
   resultCount = 15;
   page = 1;
 /*  subscription: Subscription;*/
@@ -31,7 +31,7 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
     this.vacanciesService.vacancyChange.subscribe(
       (data: VacancyModel[]) => {
         this.vacancies = data;
-        console.log(this.vacancies);
+        this.pages = this.vacancies.length;
       }
     )
     /*.subscribe(

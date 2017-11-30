@@ -96,7 +96,7 @@
       <ul class="pagination m-b-0" ([ngModel])="page">
         <li [ngClass]="{noClick: page === 1}"> <a (click)="setPage(page-1)"><i class="fa fa-angle-left"></i></a> </li>
         <li [ngClass]="{active: pageIterator===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator)">{{pageIterator}}</a></li>
-        <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(pageIterator+1)" ><i class="fa fa-angle-right"></i></a> </li>
+        <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(page+1)" ><i class="fa fa-angle-right"></i></a> </li>
       </ul>
     </div>
   </div>
