@@ -54,8 +54,8 @@ export class ApplicantsService {
     ).subscribe(
       response => {
         console.log('RESPONSE:' + response);
-        this.applicants.push(applicant);
-        this.applicantChange.next(this.applicants.slice());
+        // this.applicants.push(applicant);
+        // this.applicantChange.next(this.applicants.slice());
       }
     );
 

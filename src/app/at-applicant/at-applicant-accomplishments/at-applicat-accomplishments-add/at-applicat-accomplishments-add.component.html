@@ -1,0 +1,114 @@
+<div class="row">
+  <div class="col-md-12">
+    <form class="form-horizontal" role="form" (ngSubmit)="onSubmit(formAccomplishment)" #formAccomplishment="ngForm">
+
+      <div class="form-body">
+        <div class="box-title p-b-10 p-t-10 p-r-10">
+          <span class="section-title section-title-at">{{selectedAccomplishmentType?.name}}</span>
+        </div>
+        <hr class="m-t-5 m-b-10">
+        <div class="p-l-20">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">{{selectedAccomplishmentType?.name}} name:</label>
+                <div class="col-md-9">
+                  <input type="text" class="form-control" id="title" name="title" ngModel>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="selectedAccomplishmentType.name != 'Language'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Link:</label>
+                <div class="col-md-9">
+                  <input type="text" class="form-control" id="link" name="link" ngModel>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="selectedAccomplishmentType.name == 'Language'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Proficiency:</label>
+                <div class="col-md-9">
+                  <input type="text" class="form-control" id="proficiency" name="proficiency" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div *ngIf="selectedAccomplishmentType.name == 'Project' || selectedAccomplishmentType.name == 'Course' || selectedAccomplishmentType.name == 'Certification'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">From:</label>
+                <div class="col-md-9">
+                  <input type="date" class="form-control" id="date_from" name="date_from" ngModel>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="selectedAccomplishmentType.name == 'Publication' || selectedAccomplishmentType.name == 'Honor and Award'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Date:</label>
+                <div class="col-md-9">
+                  <input type="date" class="form-control" id="date_from2" name="date_from" ngModel>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="selectedAccomplishmentType.name == 'Project' || selectedAccomplishmentType.name == 'Course' || selectedAccomplishmentType.name == 'Certification'" class="col-md-6">
+              <div *ngIf="!ongoing" class="form-group">
+                <label class="control-label col-md-3">To:</label>
+                <div class="col-md-9">
+                  <input type="date" class="form-control" id="date_to" name="date_to" ngModel>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="selectedAccomplishmentType.name == 'Project' || selectedAccomplishmentType.name == 'Certification'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Present</label>
+                <div class="col-md-9">
+                  <input type="checkbox" [(ngModel)]="ongoing" (change)="ongoing = !ongoing" name="ongoing">
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="row">
+            <div *ngIf="selectedAccomplishmentType.name != 'Language' && selectedAccomplishmentType.name != 'Certification'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Description:</label>
+                <div class="col-md-9">
+                  <input type="text" class="form-control" id="description" name="description" ngModel>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="selectedAccomplishmentType.name == 'Project'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Ocupation:</label>
+                <div class="col-md-9">
+                  <input type="text" class="form-control" id="occupation" name="occupation" ngModel>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="selectedAccomplishmentType.name == 'Certification'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Licence number:</label>
+                <div class="col-md-9">
+                  <input type="text" class="form-control" id="licence_number" name="licence_number" ngModel>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="selectedAccomplishmentType.name == 'Certification'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Certification Authority:</label>
+                <div class="col-md-9">
+                  <input type="text" class="form-control" id="association" name="association" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button  class="pull-right btn btn-success" type="submit">Add</button>
+    </form>
+  </div>
+</div>
+<hr>
+

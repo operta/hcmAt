@@ -19,4 +19,31 @@ export class RegionsService {
       }
     );
   }
+
+  getCities() {
+    return this.http.get(this.regionsURL + '/cities').map(
+      (response: Response) => {
+        const regions: RegionModel[] = response.json();
+        return regions;
+      }
+    );
+  }
+
+  getCountries() {
+    return this.http.get(this.regionsURL + '/countries').map(
+      (response: Response) => {
+        const regions: RegionModel[] = response.json();
+        return regions;
+      }
+    );
+  }
+
+  getRRegions() {
+    return this.http.get(this.regionsURL + '/regions').map(
+      (response: Response) => {
+        const regions: RegionModel[] = response.json();
+        return regions;
+      }
+    );
+  }
 }

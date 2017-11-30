@@ -1,0 +1,99 @@
+
+<form class="form-horizontal" role="form" (ngSubmit)="onSubmit(formEducation)" #formEducation="ngForm">
+  <div class="form-body">
+    <div class="box-title p-b-10 p-t-10 p-r-10">
+      <span  class="section-title">{{applicantSchool?.id_school.name}}</span>
+      <div class="pull-right">
+        <a *ngIf="!isEdit" class="popup-with-form" (click)="isEdit=true">
+          <i class="fa fa-pencil action-button-at"></i>
+        </a>
+        <button *ngIf="isEdit" class="saveButton pull-right btn btn-success" type="submit">Save</button>
+      </div>
+    </div>
+    <hr class="m-t-0 m-b-40">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="control-label col-md-3">Degree:</label>
+          <div class="col-md-9">
+            <select *ngIf="isEdit" class="form-control p-0" id="selectedQualification" [(ngModel)]="selectedQualification" name="selectedQualificaiton">
+              <option *ngFor="let qualification of qualifications" [selected]="qualification?.id == selectedQualification?.id" [ngValue]="qualification">{{qualification?.name}}</option>
+            </select><span class="highlight"></span> <span class="bar"></span>
+            <p *ngIf="!isEdit" class="form-control-static">{{applicantSchool?.id_qualification.name}} </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="control-label col-md-3">Field of study:</label>
+          <div class="col-md-9">
+            <p *ngIf="!isEdit" class="form-control-static"> {{applicantSchool?.major}}</p>
+            <input *ngIf="isEdit"  type="text" class="form-control" id="major" name="major"
+                   [(ngModel)]="applicantSchool && applicantSchool.major"><span class="highlight"></span><span class="bar"></span>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="control-label col-md-3">From year:</label>
+          <div class="col-md-9">
+            <p *ngIf="!isEdit" class="form-control-static"> {{applicantSchool?.date_from}}</p>
+            <input *ngIf="isEdit"  type="date" class="form-control" id="date_from" name="date_from"
+                   [(ngModel)]="applicantSchool && applicantSchool.date_from"><span class="highlight"></span><span class="bar"></span>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="control-label col-md-3">To year <br>(or expected):</label>
+          <div class="col-md-9">
+            <p *ngIf="!isEdit" class="form-control-static"> {{applicantSchool?.date_to}}</p>
+            <input *ngIf="isEdit"  type="text" class="form-control" id="date_to" name="date_to"
+                   [(ngModel)]="applicantSchool && applicantSchool.date_to"><span class="highlight"></span><span class="bar"></span>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="control-label col-md-3">Grade:</label>
+          <div class="col-md-9">
+            <p *ngIf="!isEdit" class="form-control-static"> {{applicantSchool?.grade}}</p>
+            <input *ngIf="isEdit"  type="number" class="form-control" id="grade" name="grade"
+                   [(ngModel)]="applicantSchool && applicantSchool.grade"><span class="highlight"></span><span class="bar"></span>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="control-label col-md-3">Description:</label>
+          <div class="col-md-9">
+            <p *ngIf="!isEdit" class="form-control-static"> {{applicantSchool?.description}}</p>
+            <input *ngIf="isEdit"  type="text" class="form-control" id="description" name="description"
+                   [(ngModel)]="applicantSchool && applicantSchool.description"><span class="highlight"></span><span class="bar"></span>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="control-label col-md-3">Link:</label>
+          <div class="col-md-9">
+            <p *ngIf="!isEdit" class="form-control-static"> {{applicantSchool?.link}}</p>
+            <input *ngIf="isEdit"  type="text" class="form-control" id="link" name="link"
+                   [(ngModel)]="applicantSchool && applicantSchool.link"><span class="highlight"></span><span class="bar"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

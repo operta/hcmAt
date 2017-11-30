@@ -1,0 +1,40 @@
+
+  <div class="box-title p-b-10 p-t-10 p-r-10">
+    <i class="fa icon-badge m-r-5 m-l-15 section-icon-at"></i>
+    <span class="section-title section-title-at">Certifications</span>
+  </div>
+  <app-at-applicant-accomplishments-item *ngFor="let accomplishment of applicantAccomplishments | accomplishmentTypePipe:'Certification'" [applicantAccomplishment]="accomplishment"></app-at-applicant-accomplishments-item>
+
+
+  <div class="box-title p-b-10 p-t-10 p-r-10">
+    <i class="fa icon-notebook m-r-5 m-l-15 section-icon-at"></i>
+    <span class="section-title section-title-at">Courses</span>
+  </div>
+  <app-at-applicant-accomplishments-item *ngFor="let accomplishment of applicantAccomplishments | accomplishmentTypePipe:'Course'" [applicantAccomplishment]="accomplishment"></app-at-applicant-accomplishments-item>
+
+
+  <div class="box-title p-b-10 p-t-10 p-r-10">
+    <i class="fa icon-trophy m-r-5 m-l-15 section-icon-at"></i>
+    <span class="section-title section-title-at">Honours and Awards</span>
+  </div>
+  <app-at-applicant-accomplishments-item *ngFor="let accomplishment of applicantAccomplishments | accomplishmentTypePipe:'Honor and Award'" [applicantAccomplishment]="accomplishment"></app-at-applicant-accomplishments-item>
+
+
+  <div class="box-title p-b-10 p-t-10 p-r-10">
+    <i class="fa ti-announcement m-r-5 m-l-15 section-icon-at"></i>
+    <span class="section-title section-title-at">Languages</span>
+  </div>
+  <app-at-applicant-accomplishments-item *ngFor="let accomplishment of applicantAccomplishments | accomplishmentTypePipe:'Language'" [applicantAccomplishment]="accomplishment"></app-at-applicant-accomplishments-item>
+
+  <div class="box-title p-b-10 p-t-10 p-r-10">
+    <i class="fa ti-blackboard m-r-5 m-l-15 section-icon-at"></i>
+    <span class="section-title section-title-at">Projects</span>
+  </div>
+  <app-at-applicant-accomplishments-item *ngFor="let accomplishment of applicantAccomplishments | accomplishmentTypePipe:'Project'" [applicantAccomplishment]="accomplishment"></app-at-applicant-accomplishments-item>
+
+
+  <div class="box-title p-b-10 p-t-10 p-r-10">
+    <i class="fa ti-write m-r-5 m-l-15 section-icon-at"></i>
+    <span class="section-title section-title-at">Publications</span>
+  </div>
+  <app-at-applicant-accomplishments-item *ngFor="let accomplishment of applicantAccomplishments | accomplishmentTypePipe:'Publication'" [applicantAccomplishment]="accomplishment"></app-at-applicant-accomplishments-item>

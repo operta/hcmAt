@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="white-box-at">
-                    <h3 *ngIf="!applicant">CREATE YOUR APPLICANT PROFILE HERE</h3>
+                    <!--<h3 *ngIf="!applicant">CREATE YOUR APPLICANT PROFILE HERE</h3>-->
                     <h3>{{applicant?.name}} {{applicant?.surname}}</h3>
                     <div class="row">
                         <div class="col-sm-3">
@@ -13,7 +13,7 @@
                             </div>
                             <h5><b>Information Systems Developer at Info Studio d.o.o. &middot; Sarajevo</b></h5>
                             <h5><b>School of Economics and Business &middot; Sarajevo</b></h5>
-                            <h5><b>Sarajevo &middot; Bosnia and Herzegovina</b></h5>
+                            <h5><b>{{applicant?.id_city.name}} &middot; {{applicant?.id_country.name}}</b></h5>
                         </div>
                         <div class="col-sm-9">
                             <div>
@@ -24,17 +24,18 @@
                                         <i class="icon-user m-r-5 heading-icon-at"></i>
                                         <span class="heading-at">PERSON INFO</span>
                                         <div class="pull-right">
-                                          <a *ngIf="!isEditPersonal; else editPersonal" (click)="isEditPersonal=true">
-                                            <i class="fa fa-pencil action-button-at"></i>
+                                          <a *ngIf="!addApplicant && this.applicant == null" (click)="addApplicant=true; isEditPersonal=true">
+                                            <i class="fa fa-plus action-button-at"></i>
                                           </a>
-                                          <ng-template #editPersonal>
-                                            <button class="saveButton pull-right btn btn-success" type="submit">Save</button>
-                                          </ng-template>
+                                            <a *ngIf="!isEditPersonal && this.applicant !=null" (click)="isEditPersonal=true">
+                                              <i class="fa fa-pencil action-button-at"></i>
+                                            </a>
+                                          <button *ngIf="isEditPersonal || addApplicant" class="saveButton pull-right btn btn-success" type="submit">Save</button>
 
                                         </div>
                                     </div>
 
-                                    <div class="form-body">
+                                    <div *ngIf="this.applicant !=null || addApplicant" class="form-body">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -90,8 +91,8 @@
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.gender}} </p>
                                                         <select  *ngIf="isEditPersonal" class="form-control p-0" id="gender"  [(ngModel)]="applicant && applicant.gender" name="gender">
-                                                          <option [selected]="applicant.gender == 'Male'" value="Male">Male</option>
-                                                          <option [selected]="applicant.gender == 'Female'" value="Female">Female</option>
+                                                          <option [selected]="applicant?.gender == 'Male'" value="Male">Male</option>
+                                                          <option [selected]="applicant?.gender == 'Female'" value="Female">Female</option>
                                                         </select><span class="highlight"></span> <span class="bar"></span>
                                                     </div>
                                                 </div>
@@ -115,8 +116,8 @@
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.marital_status}} </p>
                                                       <select  *ngIf="isEditPersonal" class="form-control p-0" id="marital_status"  [(ngModel)]="applicant && applicant.marital_status" name="marital_status">
-                                                        <option [selected]="applicant.marital_status == 'Married'" value="Married">Married</option>
-                                                        <option [selected]="applicant.marital_status == 'Unmarried'" value="Unmarried">Unmarried</option>
+                                                        <option [selected]="applicant?.marital_status == 'Married'" value="Married">Married</option>
+                                                        <option [selected]="applicant?.marital_status == 'Unmarried'" value="Unmarried">Unmarried</option>
                                                       </select><span class="highlight"></span> <span class="bar"></span>
                                                     </div>
                                                 </div>
@@ -137,46 +138,47 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">City:</label>
-                                                    <div class="col-md-9">
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label class="control-label col-md-3">Region:</label>
+                                              <div class="col-md-9">
+                                                <select *ngIf="isEditPersonal" class="form-control p-0" id="id_region" [(ngModel)]="selectedRegion"  (ngModelChange)="onSelectRegion($event)" name="selectedRegion">
+                                                  <option *ngFor="let region of regions"  [selected]="region?.id == selectedRegion?.id" [ngValue]="region">{{region?.name}}</option>
+                                                </select><span class="highlight"></span> <span class="bar"></span>
+                                                <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_region.name}} </p>
 
-                                                      <select *ngIf="isEditPersonal" class="form-control p-0" id="id_city" [(ngModel)]="selectedCity" name="selectedCity">
-                                                        <option *ngFor="let region of regions" [selected]="region.name == selectedCity?.name" [ngValue]="region">{{region?.name}}</option>
-                                                      </select><span class="highlight"></span> <span class="bar"></span>
-                                                        <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_city.name}} </p>
-
-                                                    </div>
-                                                </div>
+                                              </div>
                                             </div>
+                                          </div>
+
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">State/REGION??:</label>
-                                                    <div class="col-md-9">
 
-                                                      <select *ngIf="isEditPersonal" class="form-control p-0" id="id_region" [(ngModel)]="selectedRegion" name="selectedRegion">
-                                                        <option *ngFor="let region of regions" [selected]="region.name == selectedRegion?.name" [ngValue]="region">{{region?.name}}</option>
-                                                      </select><span class="highlight"></span> <span class="bar"></span>
-                                                      <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_region.name}} </p>
-
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Country:</label>
+
                                                     <div class="col-md-9">
-                                                      <select *ngIf="isEditPersonal" class="form-control p-0" id="id_region" [(ngModel)]="selectedCountry" name="selectedCountry">
-                                                        <option *ngFor="let region of regions" [selected]="region.name == selectedCountry?.name" [ngValue]="region">{{region?.name}}</option>
+                                                      <select *ngIf="isEditPersonal" class="form-control p-0" id="id_country" [(ngModel)]="selectedCountry" (ngModelChange)="onSelectCountry($event)" name="selectedCountry">
+                                                        <option *ngFor="let country of filteredCountries" [selected]="country?.id == selectedCountry?.id" [ngValue]="country">{{country?.name}}</option>
                                                       </select><span class="highlight"></span> <span class="bar"></span>
                                                       <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_country.name}} </p>
-
                                                     </div>
                                                 </div>
                                             </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                              <label class="control-label col-md-3">City:</label>
+                                              <div class="col-md-9">
+
+                                                <select *ngIf="isEditPersonal" class="form-control p-0" id="id_city" [(ngModel)]="selectedCity" name="selectedCity">
+                                                  <option *ngFor="let city of filteredCities" [selected]="city?.id == selectedCity?.id" [ngValue]="city">{{city?.name}}</option>
+                                                </select><span class="highlight"></span> <span class="bar"></span>
+                                                <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_city.name}} </p>
+
+                                              </div>
+                                            </div>
+                                          </div>
 
                                         </div>
                                         <h3 class="box-title">Qualification & Job</h3>
@@ -186,7 +188,10 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Qualification:</label>
                                                     <div class="col-md-9">
-                                                        <p *ngIf="!isEditPersonal" class="form-control-static"> Master Degree </p>
+                                                        <select *ngIf="isEditPersonal" class="form-control p-0" id="selectedQualification" [(ngModel)]="selectedQualification" name="selectedQualificaiton">
+                                                          <option *ngFor="let qualification of qualifications" [selected]="qualification?.id == selectedQualification?.id" [ngValue]="qualification">{{qualification?.name}}</option>
+                                                        </select><span class="highlight"></span> <span class="bar"></span>
+                                                        <p *ngIf="!isEditPersonal" class="form-control-static">{{applicant?.id_qualification.name}} </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -194,7 +199,10 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Industry:</label>
                                                     <div class="col-md-9">
-                                                        <p *ngIf="!isEditPersonal" class="form-control-static"> Information Technologies and Services </p>
+                                                        <p *ngIf="!isEditPersonal" class="form-control-static">{{applicant?.industry}}</p>
+                                                        <input *ngIf="isEditPersonal"  type="text" class="form-control" id="industry" name="industry"
+                                                               [(ngModel)]="applicant && applicant.industry"><span class="highlight"></span><span class="bar"></span>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -204,7 +212,11 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Currently employed:</label>
                                                     <div class="col-md-9">
-                                                        <p *ngIf="!isEditPersonal" class="form-control-static"> Yes </p>
+                                                        <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.employed}} </p>
+                                                      <select  *ngIf="isEditPersonal" class="form-control p-0" id="employed"  [(ngModel)]="applicant && applicant.employed" name="employed">
+                                                        <option [selected]="applicant?.employed == 'Yes'" value="Yes">Yes</option>
+                                                        <option [selected]="applicant?.employed == 'No'" value="No">No</option>
+                                                      </select><span class="highlight"></span> <span class="bar"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -212,7 +224,9 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Employment position:</label>
                                                     <div class="col-md-9">
-                                                        <p *ngIf="!isEditPersonal" class="form-control-static"> Information Systems Developer </p>
+                                                        <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.employment_position}} </p>
+                                                      <input *ngIf="isEditPersonal"  type="text" class="form-control" id="employment_position" name="employment_position"
+                                                             [(ngModel)]="applicant && applicant.employment_position"><span class="highlight"></span><span class="bar"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -222,977 +236,150 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Description:</label>
                                                     <div class="col-md-9">
-                                                        <p *ngIf="!isEditPersonal" class="form-control-static">
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                                            Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat.
-                                                            Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar. </p>
+                                                        <p *ngIf="!isEditPersonal" class="form-control-static">{{applicant?.description}}</p>
+                                                      <input *ngIf="isEditPersonal"  type="text" class="form-control" id="description" name="description"
+                                                             [(ngModel)]="applicant && applicant.description"><span class="highlight"></span><span class="bar"></span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                </form>
                                   <!-- PERSONAL INFO END ----------->
 
-                                  <!-- EXPERIENCE ------------->
-                                    <div class="panel-footer p-b-20 p-t-20 m-b-10">
-                                        <i class="icon-book-open m-r-5 heading-icon-at"></i>
-                                        <span class="heading-at">EXPERIENCE</span>
-                                        <div class="pull-right">
-                                            <a class="popup-with-form" (click)="showEditForm1()">
-                                                <i class="fa fa-plus action-button-at"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="form-body">
-                                        <div class="box-title p-b-10 p-t-10 p-r-10">
-                                            <span class="section-title">Information Systems Developer</span>
-                                            <div class="pull-right">
-                                                <a class="popup-with-form" (click)="showEditForm2()">
-                                                    <i class="fa fa-pencil action-button-at"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <hr class="m-t-0 m-b-40">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Company:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> Info Studio d.o.o. </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Location:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> Sarajevo </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">From:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> September 2006 </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">To:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> Present </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--/row-->
-                                        <div class="box-title p-b-10 p-t-10 p-r-10">
-                                            <span class="section-title">Information Systems Developer</span>
-                                            <div class="pull-right">
-                                                <a class="popup-with-form" (click)="showEditForm2()">
-                                                    <i class="fa fa-pencil action-button-at"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <hr class="m-t-0 m-b-40">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Company:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> Info Studio d.o.o. </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Location:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> Sarajevo </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">From:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> September 2006 </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">To:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> Present </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel-footer p-b-20 p-t-20 m-b-10">
-                                        <i class="icon-graduation m-r-5 heading-icon-at"></i>
-                                        <span class="heading-at">EDUCATION</span>
-                                        <div class="pull-right">
-                                            <a class="popup-with-form" (click)="showEditForm3()">
-                                                <i class="fa fa-plus action-button-at"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="form-body">
-                                        <div class="box-title p-b-10 p-t-10 p-r-10">
-                                            <span class="section-title">School of Economics and Business Sarajevo</span>
-                                            <div class="pull-right">
-                                                <a class="popup-with-form" (click)="showEditForm3()">
-                                                    <i class="fa fa-pencil action-button-at"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <hr class="m-t-0 m-b-40">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Degree:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> Master's degree </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Field of study:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> Strategic Information Management </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">From year:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> 2010 </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">To year <br>(or expected):</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> 2015 </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Grade:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static">  </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Description:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> Join Master programme with Faculty of Economics of University in Zagreb "MA + 1" </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--/row-->
-                                        <div class="box-title p-b-10 p-t-10 p-r-10">
-                                            <span class="section-title">School of Economics and Business Sarajevo</span>
-                                            <div class="pull-right">
-                                                <a class="popup-with-form" (click)="showEditForm3()">
-                                                    <i class="fa fa-pencil action-button-at"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <hr class="m-t-0 m-b-40">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Degree:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> Master's degree </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Field of study:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> Strategic Information Management </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">From year:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> 2010 </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">To year <br>(or expected):</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> 2015 </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Grade:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static">  </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-md-3">Description:</label>
-                                                    <div class="col-md-9">
-                                                        <p class="form-control-static"> Join Master programme with Faculty of Economics of University in Zagreb "MA + 1" </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel-footer p-b-20 p-t-20 m-b-10">
-                                        <i class="ti-check-box m-r-5 heading-icon-at"></i>
-                                        <span class="heading-at">ACCOMPLISHMENTS</span>
-                                        <div class="dropdown user-pro-body pull-right">
-                                            <a href="#" class="u-dropdown" data-toggle="dropdown"
-                                                role="button" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fa fa-plus action-button-at"></i>
-                                            </a>
-                                            <ul class="dropdown-menu animated fadeIn">
-                                                <li><a href="#"><i class="icon-badge"></i> Certification</a></li>
-                                                <li><a href="#"><i class="icon-notebook"></i> Course</a></li>
-                                                <li><a href="#"><i class="icon-trophy"></i> Honor and Award</a></li>
-                                                <li><a href="#"><i class="ti-announcement"></i> Language</a></li>
-                                                <li><a href="#"><i class="ti-blackboard"></i> Project</a></li>
-                                                <li><a href="#"><i class="ti-write"></i> Publication</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="form-body">
-                                        <div class="box-title p-b-10 p-t-10 p-r-10">
-                                            <i class="fa ti-blackboard m-r-5 m-l-15 section-icon-at"></i>
-                                            <span class="section-title section-title-at">Projects</span>
-                                        </div>
-                                        <hr class="m-t-5 m-b-10">
-                                        <div class="box-title p-r-10">
-                                            <span>&nbsp;</span>
-                                            <div class="pull-right">
-                                                <a class="popup-with-form" (click)="showEditForm3()">
-                                                    <i class="fa fa-pencil action-button-at"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="p-l-20">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Project name:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> POS (Point Of Sale) </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Link:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> <a href="https:\\www.google.ba" alt="Link to: POS (Point Of Sale)" target="_blank">https:\\www.google.ba</a> </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">From:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> September 2006 </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">To:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> Present </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Description:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                                                Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat.
-                                                                Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar. </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Ocupation:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> Information Systems Developer at Info Studio d.o.o. </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr class="m-t-5 m-b-10">
-                                            <div class="box-title p-r-10">
-                                                <span>&nbsp;</span>
-                                                <div class="pull-right">
-                                                    <a class="popup-with-form" (click)="showEditForm3()">
-                                                        <i class="fa fa-pencil action-button-at"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Project name:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> POS (Point Of Sale) </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Link:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> <a href="https:\\www.google.ba" alt="Link to: POS (Point Of Sale)" target="_blank">https:\\www.google.ba</a> </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">From:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> September 2006 </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">To:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> Present </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Description:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                                                Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat.
-                                                                Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar. </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Ocupation:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> Information Systems Developer at Info Studio d.o.o. </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr class="m-t-5 m-b-10">
-                                            <div class="box-title p-r-10">
-                                                <span>&nbsp;</span>
-                                                <div class="pull-right">
-                                                    <a class="popup-with-form" (click)="showEditForm3()">
-                                                        <i class="fa fa-pencil action-button-at"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Project name:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> POS (Point Of Sale) </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Link:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> <a href="https:\\www.google.ba" alt="Link to: POS (Point Of Sale)" target="_blank">https:\\www.google.ba</a> </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">From:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> September 2006 </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">To:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> Present </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Description:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                                                Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat.
-                                                                Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar. </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Ocupation:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> Information Systems Developer at Info Studio d.o.o. </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="box-title p-b-10 p-t-10 p-r-10">
-                                            <i class="fa ti-announcement m-r-5 m-l-15 section-icon-at"></i>
-                                            <span class="section-title section-title-at">Languages</span>
-                                        </div>
-                                        <hr class="m-t-5 m-b-10">
-                                        <div class="box-title p-r-10">
-                                            <span>&nbsp;</span>
-                                            <div class="pull-right">
-                                                <a class="popup-with-form" (click)="showEditForm3()">
-                                                    <i class="fa fa-pencil action-button-at"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="p-l-20">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Language:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> Bosnian </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Proficiency:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static">Native or bilingual proficiency</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr class="m-t-5 m-b-10">
-                                            <div class="box-title p-r-10">
-                                                <span>&nbsp;</span>
-                                                <div class="pull-right">
-                                                    <a class="popup-with-form" (click)="showEditForm3()">
-                                                        <i class="fa fa-pencil action-button-at"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Language:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static">English</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Proficiency:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static">Professional working proficiency</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="box-title p-b-10 p-t-10 p-r-10">
-                                            <i class="fa icon-badge m-r-5 m-l-15 section-icon-at"></i>
-                                            <span class="section-title section-title-at">Certificates</span>
-                                        </div>
-                                        <hr class="m-t-5 m-b-10">
-                                        <div class="box-title p-r-10">
-                                            <span>&nbsp;</span>
-                                            <div class="pull-right">
-                                                <a class="popup-with-form" (click)="showEditForm3()">
-                                                    <i class="fa fa-pencil action-button-at"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="p-l-20">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Certification name:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> Lorem ipsum </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Certification authority:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static">Lorem ipsum dolor sit amet </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">License number:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> 123ABC456-GFH </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Certification URL:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">From:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> October 2004 </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">To:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static">This certification does not expire </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr class="m-t-5 m-b-10">
-                                            <div class="box-title p-r-10">
-                                                <span>&nbsp;</span>
-                                                <div class="pull-right">
-                                                    <a class="popup-with-form" (click)="showEditForm3()">
-                                                        <i class="fa fa-pencil action-button-at"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Certification name:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> Lorem ipsum </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Certification authority:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static">Lorem ipsum dolor sit amet </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">License number:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> 123ABC456-GFH </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">Certification URL:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">From:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static"> October 2004 </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="control-label col-md-3">To:</label>
-                                                        <div class="col-md-9">
-                                                            <p class="form-control-static">This certification does not expire </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                  <!--&lt;!&ndash; EXPERIENCE -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+                                    <!--<div class="panel-footer p-b-20 p-t-20 m-b-10">-->
+                                        <!--<i class="icon-book-open m-r-5 heading-icon-at"></i>-->
+                                        <!--<span class="heading-at">EXPERIENCE</span>-->
+                                        <!--<div class="pull-right">-->
+                                            <!--<a class="popup-with-form" (click)="showEditForm1()">-->
+                                                <!--<i class="fa fa-plus action-button-at"></i>-->
+                                            <!--</a>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="form-body">-->
+                                        <!--<div class="box-title p-b-10 p-t-10 p-r-10">-->
+                                            <!--<span class="section-title">Information Systems Developer</span>-->
+                                            <!--<div class="pull-right">-->
+                                                <!--<a class="popup-with-form" (click)="showEditForm2()">-->
+                                                    <!--<i class="fa fa-pencil action-button-at"></i>-->
+                                                <!--</a>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<hr class="m-t-0 m-b-40">-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-md-6">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="control-label col-md-3">Company:</label>-->
+                                                    <!--<div class="col-md-9">-->
+                                                        <!--<p class="form-control-static"> Info Studio d.o.o. </p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-6">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="control-label col-md-3">Location:</label>-->
+                                                    <!--<div class="col-md-9">-->
+                                                        <!--<p class="form-control-static"> Sarajevo </p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-md-6">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="control-label col-md-3">From:</label>-->
+                                                    <!--<div class="col-md-9">-->
+                                                        <!--<p class="form-control-static"> September 2006 </p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-6">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="control-label col-md-3">To:</label>-->
+                                                    <!--<div class="col-md-9">-->
+                                                        <!--<p class="form-control-static"> Present </p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--&lt;!&ndash;/row&ndash;&gt;-->
+                                        <!--<div class="box-title p-b-10 p-t-10 p-r-10">-->
+                                            <!--<span class="section-title">Information Systems Developer</span>-->
+                                            <!--<div class="pull-right">-->
+                                                <!--<a class="popup-with-form" (click)="showEditForm2()">-->
+                                                    <!--<i class="fa fa-pencil action-button-at"></i>-->
+                                                <!--</a>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<hr class="m-t-0 m-b-40">-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-md-6">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="control-label col-md-3">Company:</label>-->
+                                                    <!--<div class="col-md-9">-->
+                                                        <!--<p class="form-control-static"> Info Studio d.o.o. </p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-6">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="control-label col-md-3">Location:</label>-->
+                                                    <!--<div class="col-md-9">-->
+                                                        <!--<p class="form-control-static"> Sarajevo </p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-md-6">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="control-label col-md-3">From:</label>-->
+                                                    <!--<div class="col-md-9">-->
+                                                        <!--<p class="form-control-static"> September 2006 </p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-6">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="control-label col-md-3">To:</label>-->
+                                                    <!--<div class="col-md-9">-->
+                                                        <!--<p class="form-control-static"> Present </p>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+
+                              <!-- EDUCATION START -->
+                              <div *ngIf="this.applicant != null">
+                                <div class="panel-footer p-b-20 p-t-20 m-b-10">
+                                  <i class="icon-graduation m-r-5 heading-icon-at"></i>
+                                  <span class="heading-at">EDUCATION</span>
+                                  <div class="pull-right">
+                                    <a class="popup-with-form" (click)="addEducation=true">
+                                      <i class="fa fa-plus action-button-at"></i>
+                                    </a>
+                                  </div>
+                                </div>
+                                <app-applicant-education-add *ngIf="addEducation" [applicant]="applicant"></app-applicant-education-add>
+                                <app-at-applicant-schools-list [applicant]="applicant"></app-at-applicant-schools-list>
+                               </div>
+                              <!-- EDUCATION END -->
+
+                              <!-- ACCOMPLISHMENTS START -->
+                              <div *ngIf="this.applicant != null">
+                                <app-at-applicant-accomplishments [applicant]="applicant"></app-at-applicant-accomplishments>
+                              </div>
+                              <!-- ACCOMPLISHMENTS END -->
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!--./row-->
-        <form #editForm1 class="mfp-hide edit-data-popup">
-            <div id="edit-div1">
-                <div class="form-body">
-                    <h3 class="box-title">Add Experience</h3>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="expTitle">Title</label>
-                                <input type="text" id="expTitle" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="expCompany">Company</label>
-                                <input type="text" id="expCompany" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="expLocation">Location</label>
-                                <input type="text" id="expLocation" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <!--/row-->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="expFrom">From</label>
-                                <input id="expFrom" type="text" class="form-control" placeholder="dd/mm/yyyy">
-                            </div>
-                        </div>
-                        <!--/span-->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="expTo">To</label>
-                                <input id="expTo" type="text" class="form-control m-b-5" placeholder="dd/mm/yyyy">
-                                <input type="checkbox" class="check" id="expOngoing" data-checkbox="icheckbox_square-red">
-                                <label for="expOngoing">I currently work here</label>
-                            </div>
-                        </div>
-                        <!--/span-->
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="expDescriptionArea">Description</label>
-                                <textarea id="expDescriptionArea" class="edit-area" rows="5"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-                    <button type="button" class="btn btn-default">Cancel</button>
-                </div>
-            </div>
-        </form>
-        <form #editForm2 class="mfp-hide edit-data-popup">
-            <div id="edit-div2">
-                <div class="form-body">
-                    <h3 class="box-title">Edit Experience</h3>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="expTitle2">Title</label>
-                                <input type="text" id="expTitle2" class="form-control" value="Information Systems Developer">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="expCompany2">Company</label>
-                                <input type="text" id="expCompany2" class="form-control" value="Info Studio d.o.o.">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="expLocation2">Location</label>
-                                <input type="text" id="expLocation2" class="form-control" value="Sarajevo">
-                            </div>
-                        </div>
-                    </div>
-                    <!--/row-->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="expFrom2">From</label>
-                                <input id="expFrom2" type="text" class="form-control" placeholder="dd/mm/yyyy" value="September 2006">
-                            </div>
-                        </div>
-                        <!--/span-->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="expTo2">To</label>
-                                <input id="expTo2" type="text" class="form-control m-b-5" placeholder="dd/mm/yyyy" value="" disabled>
-                                <input type="checkbox" class="check" id="expOngoing2" checked data-checkbox="icheckbox_square-red">
-                                <label for="expOngoing2">I currently work here</label>
-                            </div>
-                        </div>
-                        <!--/span-->
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="expDescriptionArea2">Description</label>
-                                <textarea id="expDescriptionArea2" class="edit-area" rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. </textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-                    <button type="button" class="btn btn-default">Cancel</button>
-                </div>
-            </div>
-        </form>
-        <form #editForm3 class="mfp-hide edit-data-popup">
-            <div id="edit-div3">
-                <div class="form-body">
-                    <h3 class="box-title">Empty form</h3>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="expTitle">Title</label>
-                                <input type="text" id="expTitle" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-                    <button type="button" class="btn btn-default">Cancel</button>
-                </div>
-            </div>
-        </form>
-        <form #editForm class="mfp-hide edit-data-popup">
-            <div id="edit-div">
-                <div class="form-body">
-                    <h3 class="box-title">Person Info</h3>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="firstName">First Name</label>
-                                <input type="text" id="firstName" class="form-control" value="John">
-                            </div>
-                        </div>
-                        <!--/span-->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="middleName">Middle Name</label>
-                                <input type="text" id="middleName" class="form-control" value="Johny">
-                            </div>
-                        </div>
-                        <!--/span-->
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="lastName">Last Name</label>
-                                <input type="text" id="lastName" class="form-control" value="Doe">
-                            </div>
-                        </div>
-                        <!--/span-->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="maidenName">Maiden Name</label>
-                                <input type="text" id="maidenName" class="form-control" value="Smith">
-                            </div>
-                            <!--/span-->
-                        </div>
-                    </div>
-                    <!--/row-->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="genderSelect">Gender</label>
-                                <select id="genderSelect" class="form-control">
-                                    <option value=""></option>
-                                    <option value="" selected>Male</option>
-                                    <option value="">Female</option>
-                                </select>
-                                <span class="help-block"> Select your gender </span> </div>
-                        </div>
-                        <!--/span-->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="birthInput">Date of Birth</label>
-                                <input id="birthInput" type="text" class="form-control" placeholder="dd/mm/yyyy" value="11/06/1987">
-                            </div>
-                        </div>
-                        <!--/span-->
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Marital status</label>
-                                <select class="form-control">
-                                    <option value=""></option>
-                                    <option value="Married">Married</option>
-                                    <option value="Unmarried" selected>Unmarried</option>
-                                </select>
-                                <span class="help-block"> Select your marital status </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/row-->
-                    <h3 class="box-title m-t-40">Address</h3>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6 ">
-                            <div class="form-group">
-                                <label class="control-label" for="addressInput">Address</label>
-                                <input id="addressInput" type="text" class="form-control" value="Mehmeda Spahe 26/1">
-                            </div>
-                        </div>
-                        <div class="col-md-6 ">
-                            <div class="form-group">
-                                <label class="control-label" for="cityInput">City</label>
-                                <input id="cityInput" type="text" class="form-control" value="Sarajevo">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="stateInput">State</label>
-                                <input id="stateInput" type="text" class="form-control" value="New York">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="countrySelect">Country</label>
-                                <select id="countrySelect" class="form-control">
-                                    <option>--Select your Country--</option>
-                                    <option value="1">Bosnia and Herzegovina</option>
-                                    <option value="2">Sweden</option>
-                                    <option value="3">USA</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="box-title m-t-40">Qualification & Job</h3>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6 ">
-                            <div class="form-group">
-                                <label class="control-label" for="qualificationInput">Qualification</label>
-                                <input id="qualificationInput" type="text" class="form-control" value="Master Degree">
-                            </div>
-                        </div>
-                        <div class="col-md-6 ">
-                            <div class="form-group">
-                                <label class="control-label" for="industryInput">City</label>
-                                <input id="industryInput" type="text" class="form-control" value="Information Technologies and Services">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="employedSelect">Currently employed</label>
-                                <select id="employedSelect" class="form-control">
-                                    <option></option>
-                                    <option value="Y" selected>Yes</option>
-                                    <option value="N">No</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label" for="positionInput">Employment position</label>
-                                <input id="positionInput" type="text" class="form-control" value="Information Systems Developer">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="descriptionArea">Description</label>
-                                <textarea id="descriptionArea" class="edit-area" rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat. Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar.</textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-                    <button type="button" class="btn btn-default">Cancel</button>
-                </div>
-            </div>
-        </form>
     </div>
     <!-- /.container-fluid -->
 </div>
