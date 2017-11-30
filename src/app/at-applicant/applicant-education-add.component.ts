@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {SchoolsService} from "../_services/schools.service";
 import {SchoolModel} from "../_models/school.model";
@@ -15,7 +15,7 @@ import {ApplicantSchoolsService} from "../_services/applicantSchools.service";
 })
 export class ApplicantEducationAddComponent implements OnInit {
   @Input() applicant: ApplicantModel;
-
+  @Output() onClose = new EventEmitter();
   schools: SchoolModel[];
   selectedSchool: SchoolModel;
   qualifications: QualificationModel[];
@@ -59,9 +59,12 @@ export class ApplicantEducationAddComponent implements OnInit {
      );
 
      this.applicantSchoolsService.addApplicantSchool(applicantSchool);
-     console.log(applicantSchool);
-    console.log(this.selectedSchool);
-    console.log(this.selectedQualification);
+    this.close()
+  }
+
+  close(){
+    console.log("HERE");
+    this.onClose.emit();
   }
 
 

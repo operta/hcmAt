@@ -104,6 +104,10 @@ export class ApplicantComponent implements OnInit {
   }
 
 
+  onClose(){
+    console.log("HERE");
+    this.addEducation = false;
+  }
 
 
 

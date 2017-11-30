@@ -31,6 +31,10 @@ export class AtApplicantAccomplishmentsComponent implements OnInit, OnDestroy {
     console.log(this.selectedAccomplishmentType);
   }
 
+  onClose(){
+    this.addAccomplishment = false;
+  }
+
   ngOnDestroy(){
     this.subscription.unsubscribe();
   }

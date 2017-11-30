@@ -6,6 +6,7 @@ import {UserModel} from '../_models/user.model';
 import {UserStatus} from '../_models/userStatus.model';
 import {UserStatusService} from './userStatus.service';
 import {AuthenticationService} from './authentication.service';
+import {Router} from "@angular/router";
 
 
 
@@ -23,7 +24,7 @@ export class UserService {
   });
 
 
-  constructor(private http: Http, private authenticationService: AuthenticationService) {
+  constructor(private router: Router, private http: Http, private authenticationService: AuthenticationService) {
   }
 
   login(accessToken: string) {
@@ -58,10 +59,14 @@ export class UserService {
     this.accessToken = null;
     this.isAdmin = false;
     localStorage.removeItem(TOKEN_NAME);
+    this.router.navigate(['login']);
   }
 
   isAdminUser(): boolean {
-    return this.isAdmin;
+    this.accessToken = this.authenticationService.getToken().toString();
+    const decodedToken = this.jwtHelper.decodeToken(this.accessToken);
+    this.isAdmin = decodedToken.authorities.some(el => el === 'ADMIN');
+    return this.accessToken &&this.isAdmin;
   }
 
   isUser(): boolean {

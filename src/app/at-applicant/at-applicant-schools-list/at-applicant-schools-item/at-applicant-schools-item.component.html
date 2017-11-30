@@ -8,6 +8,7 @@
           <i class="fa fa-pencil action-button-at"></i>
         </a>
         <button *ngIf="isEdit" class="saveButton pull-right btn btn-success" type="submit">Save</button>
+        <button (click)="isEdit=false;" *ngIf="isEdit" class="saveButton pull-right btn btn-info" type="submit">Cancel</button>
       </div>
     </div>
     <hr class="m-t-0 m-b-40">

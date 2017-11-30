@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ApplicantModel} from "../../../_models/applicant.model";
 import {AccomplishmentTypeModel} from "../../../_models/accomplishmentType.model";
 import {NgForm} from "@angular/forms";
@@ -13,6 +13,7 @@ import {ApplicantAccomplishmentsService} from "../../../_services/applicantAccom
 export class AtApplicatAccomplishmentsAddComponent implements OnInit {
   @Input() selectedAccomplishmentType: AccomplishmentTypeModel;
   @Input() applicant: ApplicantModel;
+  @Output() onClose = new EventEmitter();
   ongoing:boolean;
   ongoingString : string;
 
@@ -53,6 +54,11 @@ export class AtApplicatAccomplishmentsAddComponent implements OnInit {
     );
     console.log(applicantAccomplishment);
     this.applicantAccomplishmentsService.addApplicantAccomplishment(applicantAccomplishment);
+    close()
+  }
+
+  close(){
+    this.onClose.emit();
   }
 
 }
