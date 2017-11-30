@@ -1,5 +1,6 @@
 import {UserModel} from "./user.model";
 import {RegionModel} from "./region.model";
+import {QualificationModel} from "./qualification";
 
 export class ApplicantModel {
   public id: number;
@@ -24,9 +25,11 @@ export class ApplicantModel {
   public id_city: RegionModel;
   public id_region: RegionModel;
   public id_country: RegionModel;
-  public id_user: UserModel;
+  public idUser: UserModel;
+  public id_qualification: QualificationModel;
 
-  constructor(id: number, name: string, surname: string, marital_status: string, middle_name: string, maiden_name: string, gender: string, birthdate: Date, address: string, employed: string, description: string, employment_position: string, industry: string, phone_number: string, email: string, created_by: string, created_at: Date, updated_by: string, updated_at: Date, id_city: RegionModel, id_region: RegionModel, id_country: RegionModel, id_user: UserModel) {
+
+  constructor(id: number, name: string, surname: string, marital_status: string, middle_name: string, maiden_name: string, gender: string, birthdate: Date, address: string, employed: string, description: string, employment_position: string, industry: string, phone_number: string, email: string, created_by: string, created_at: Date, updated_by: string, updated_at: Date, id_city: RegionModel, id_region: RegionModel, id_country: RegionModel, id_user: UserModel, id_qualification: QualificationModel) {
     this.id = id;
     this.name = name;
     this.surname = surname;
@@ -49,6 +52,7 @@ export class ApplicantModel {
     this.id_city = id_city;
     this.id_region = id_region;
     this.id_country = id_country;
-    this.id_user = id_user;
+    this.idUser = id_user;
+    this.id_qualification = id_qualification;
   }
 }

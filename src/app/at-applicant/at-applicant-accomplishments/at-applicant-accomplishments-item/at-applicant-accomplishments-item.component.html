@@ -1,0 +1,147 @@
+<hr class="m-t-5 m-b-10">
+<div class="row">
+  <div class="col-md-12">
+    <form class="form-horizontal" role="form" (ngSubmit)="onSubmit(formAccomplishment)" #formAccomplishment="ngForm">
+      <div class="form-body">
+        <br>
+          <div class="box-title p-b-10 p-t-10 p-r-10">
+            <div class="pull-right">
+              <a *ngIf="!isEdit" class="popup-with-form" (click)="isEdit=true">
+                <i class="fa fa-pencil action-button-at"></i>
+              </a>
+              <button *ngIf="isEdit"  (click)="removeAccomplishment(this.applicantAccomplishment)" class="saveButton pull-right btn btn-danger" type="submit">Delete</button>
+              <button *ngIf="isEdit" (click)="isEdit=false" class="saveButton pull-right btn btn-info" type="submit">Cancel</button>
+              <button *ngIf="isEdit" class="saveButton pull-right btn btn-success" type="submit">Save</button>
+            </div>
+          </div>
+        <hr *ngIf="isEdit">
+      <div class="clear"></div>
+        <div class="p-l-20">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">{{applicantAccomplishment?.id_accomplishment_type.name}} name:</label>
+                <div class="col-md-9">
+                  <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.title}}</p>
+                  <input *ngIf="isEdit"  type="text" class="form-control" id="title" name="title"
+                         [(ngModel)]="applicantAccomplishment && applicantAccomplishment.title"><span class="highlight"></span><span class="bar"></span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="applicantAccomplishment.id_accomplishment_type.name != 'Language'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Link:</label>
+                <div class="col-md-9">
+                  <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.link}}</p>
+                  <input *ngIf="isEdit"  type="text" class="form-control" id="link" name="link"
+                         [(ngModel)]="applicantAccomplishment && applicantAccomplishment.link"><span class="highlight"></span><span class="bar"></span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Language'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Proficiency:</label>
+                <div class="col-md-9">
+                  <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.proficiency}}</p>
+                  <input *ngIf="isEdit"  type="text" class="form-control" id="proficiency" name="proficiency"
+                         [(ngModel)]="applicantAccomplishment && applicantAccomplishment.proficiency"><span class="highlight"></span><span class="bar"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Project' || applicantAccomplishment.id_accomplishment_type.name == 'Course' || applicantAccomplishment.id_accomplishment_type.name == 'Certification'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">From:</label>
+                <div class="col-md-9">
+                  <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.date_from}}</p>
+                  <input *ngIf="isEdit"  type="date" class="form-control" id="date_from" name="date_from"
+                         [(ngModel)]="applicantAccomplishment && applicantAccomplishment.date_from"><span class="highlight"></span><span class="bar"></span>
+
+                </div>
+              </div>
+            </div>
+            <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Publication' || applicantAccomplishment.id_accomplishment_type.name == 'Honor and Award'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Date:</label>
+                <div class="col-md-9">
+                  <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.date_from}}</p>
+                  <input *ngIf="isEdit"  type="date" class="form-control" id="date_from2" name="date_from"
+                         [(ngModel)]="applicantAccomplishment && applicantAccomplishment.date_from"><span class="highlight"></span><span class="bar"></span>
+
+                </div>
+              </div>
+            </div>
+            <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Project' || applicantAccomplishment.id_accomplishment_type.name == 'Course' || applicantAccomplishment.id_accomplishment_type.name == 'Certification'" class="col-md-6">
+              <div *ngIf="!ongoing" class="form-group">
+                <label class="control-label col-md-3">To:</label>
+                <div class="col-md-9">
+                  <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.date_to}}</p>
+                  <input *ngIf="isEdit"  type="date" class="form-control" id="date_to" name="date_to"
+                         [(ngModel)]="applicantAccomplishment && applicantAccomplishment.date_to"><span class="highlight"></span><span class="bar"></span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Project' || applicantAccomplishment.id_accomplishment_type.name == 'Certification'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Present</label>
+                <div class="col-md-9">
+                  <input type="checkbox" [(ngModel)]="ongoing" (change)="ongoing = !ongoing" [disabled]="!isEdit" name="ongoing">
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="row">
+            <div *ngIf="applicantAccomplishment.id_accomplishment_type.name != 'Language' && applicantAccomplishment.id_accomplishment_type.name != 'Certification'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Description:</label>
+                <div class="col-md-9">
+                  <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.description}}</p>
+                  <input *ngIf="isEdit"  type="text" class="form-control" id="description" name="description"
+                         [(ngModel)]="applicantAccomplishment && applicantAccomplishment.description"><span class="highlight"></span><span class="bar"></span>
+
+                </div>
+              </div>
+            </div>
+            <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Project'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Ocupation:</label>
+                <div class="col-md-9">
+                  <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.occupation}}</p>
+                  <input *ngIf="isEdit"  type="text" class="form-control" id="occupation" name="occupation"
+                         [(ngModel)]="applicantAccomplishment && applicantAccomplishment.occupation"><span class="highlight"></span><span class="bar"></span>
+
+                </div>
+              </div>
+            </div>
+            <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Certification'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Licence number:</label>
+                <div class="col-md-9">
+                  <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.licence_number}}</p>
+                  <input *ngIf="isEdit"  type="text" class="form-control" id="licence_number" name="licence_number"
+                         [(ngModel)]="applicantAccomplishment && applicantAccomplishment.licence_number"><span class="highlight"></span><span class="bar"></span>
+
+                </div>
+              </div>
+            </div>
+            <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Certification'" class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Certification Authority:</label>
+                <div class="col-md-9">
+                  <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.association}}</p>
+                  <input *ngIf="isEdit"  type="text" class="form-control" id="association" name="association"
+                         [(ngModel)]="applicantAccomplishment && applicantAccomplishment.association"><span class="highlight"></span><span class="bar"></span>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
