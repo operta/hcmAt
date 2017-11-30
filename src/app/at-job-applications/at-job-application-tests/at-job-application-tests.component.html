@@ -1,0 +1,46 @@
+<div class="comment-body" style="width: 100%;">
+  <div class="user-img text-center">
+    <i class="fa fa-tasks fa-2x"></i>
+  </div>
+  <div class="mail-contnet">
+    <h5>Test</h5>
+    <span class="mail-desc" style="height:100px;">
+                                                            <div class="row">
+                                                                <div class="col-lg-10">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-12 col.sm-6 col-md-6 col-lg-6">
+                                                                            <i class="fa fa-clock-o"></i> {{test.test_date}}
+                                                                        </div>
+                                                                        <div class="col-xs-12 col.sm-6 col-md-6 col-lg-6">
+                                                                            &nbsp;
+                                                                        </div>
+                                                                        <div class="col-xs-12 col.sm-6 col-md-6 col-lg-6">
+                                                                            <i class="fa fa-map-marker"></i> {{test.location_id.name}}
+                                                                        </div>
+                                                                        <div class="col-xs-12 col.sm-6 col-md-6 col-lg-6">
+                                                                            &nbsp;
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        Donec ac condimentum massa. Etiam pellentesque pretium lacus. Phasellus ultricies dictum suscipit.
+                                                                        Aenean commodo dui pellentesque molestie feugiat.Donec ac condimentum massa. Etiam pellentesque
+                                                                        pretium lacus. Phasellus ultricies dictum suscipit. Aenean commodo dui pellentesque molestie feugiat.
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-2">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6">
+
+                                                                        </div>
+                                                                        <div class="col-lg-6">
+                                                                            <div [attr.data-label]="test.score" [ngClass]="getBar(test.score)" class="css-bar css-bar-lg m-b-0 m-r-10 css-bar-info pull-right"></div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </span>
+    <span class="label label-rouded label-default" style="color: black;">. . .</span>
+    <a href="#" style="color: rgb(132, 138, 150);" class="btn pull-right"><i class="fa fa-envelope-o"></i> Send an email</a>
+  </div>
+</div>

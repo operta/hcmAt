@@ -16,7 +16,8 @@ import {DataTablesModule} from 'angular-datatables';
 import {ApplicantsService} from '../_services/applicants.service';
 import {RgSkillsAddComponent} from '../rg-skills/rg-skills-add/rg-skills-add.component';
 import {CommonModule} from '@angular/common';
-import {AtVacanciesModule} from "../at-vacancies/at-vacancies.module";
+import {AtVacanciesModule} from '../at-vacancies/at-vacancies.module';
+import {AtJobApplicationsModule} from '../at-job-applications/at-job-applications.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {AtVacanciesModule} from "../at-vacancies/at-vacancies.module";
     SharedModule,
     DataTablesModule,
     DashboardRoutingModule,
-    AtVacanciesModule
+    AtVacanciesModule,
+    AtJobApplicationsModule
 
   ],
   providers: [ SkillsService, SkillGradesService, VacanciesService, RegionsService, WorkPlacesService, ApplicantsService],

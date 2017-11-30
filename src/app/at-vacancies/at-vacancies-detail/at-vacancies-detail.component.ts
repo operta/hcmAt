@@ -7,6 +7,7 @@ import {isNumber} from 'util';
 import {ApplicantModel} from '../../_models/applicant.model';
 import {JobApplicationModel} from '../../_models/jobApplication.model';
 import {Observable} from 'rxjs/Observable';
+import {AtJobApplicationsService} from "../../_services/at-job-applications.service";
 
 @Component({
   selector: 'app-at-vacancies-detail',
@@ -18,15 +19,17 @@ export class AtVacanciesDetailComponent implements OnInit, OnDestroy {
   jobApplications: JobApplicationModel[];
   id: string;
   subscriptionParams: Subscription;
+  finalGrade: number;
 
-  constructor(private vacancyService: VacanciesService, private route: ActivatedRoute) { }
+  constructor(private vacancyService: VacanciesService, private route: ActivatedRoute, private jobApplicationsService: AtJobApplicationsService) { }
 
   ngOnInit() {
     this.subscriptionParams = this.route.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
         this.vacancy = this.vacancyService.getVacancy(+this.id);
-        this.jobApplications = this.vacancy.jobApplications;
+        this.jobApplicationsService.initJobApplications(this.vacancy);
+        this.jobApplications = this.jobApplicationsService.getJobApplications();
 /*        this.subscriptionVacancy = this.vacancyService.getVacancy(this.id).subscribe(
           (data: VacancyModel) => {
             this.vacancy = data;
@@ -41,5 +44,7 @@ export class AtVacanciesDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptionParams.unsubscribe();
   }
+
+
 
 }
