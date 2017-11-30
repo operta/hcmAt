@@ -18,7 +18,6 @@ import {RgSkillsAddComponent} from '../rg-skills/rg-skills-add/rg-skills-add.com
 import {CommonModule} from '@angular/common';
 import {AtVacanciesModule} from '../at-vacancies/at-vacancies.module';
 import {AtJobApplicationsModule} from '../at-job-applications/at-job-applications.module';
-import {AtVacanciesModule} from "../at-vacancies/at-vacancies.module";
 import {QualificationsService} from "../_services/qualifications.service";
 import {ApplicantEducationAddComponent} from "../at-applicant/applicant-education-add.component";
 import {SchoolsService} from "../_services/schools.service";

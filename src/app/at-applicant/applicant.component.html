@@ -31,7 +31,7 @@
                                               <i class="fa fa-pencil action-button-at"></i>
                                             </a>
                                           <button *ngIf="isEditPersonal || addApplicant" class="saveButton pull-right btn btn-success" type="submit">Save</button>
-
+                                          <button (click)="isEditPersonal=false; addApplicant=false" *ngIf="isEditPersonal || addApplicant" class="saveButton pull-right btn btn-info" type="submit">Cancel</button>
                                         </div>
                                     </div>
 
@@ -363,7 +363,7 @@
                                     </a>
                                   </div>
                                 </div>
-                                <app-applicant-education-add *ngIf="addEducation" [applicant]="applicant"></app-applicant-education-add>
+                                <app-applicant-education-add *ngIf="addEducation" [applicant]="applicant" (onClose)="onClose($event)"></app-applicant-education-add>
                                 <app-at-applicant-schools-list [applicant]="applicant"></app-at-applicant-schools-list>
                                </div>
                               <!-- EDUCATION END -->

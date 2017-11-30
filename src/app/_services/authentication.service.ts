@@ -30,8 +30,6 @@ export class AuthenticationService {
 
   getToken(): String {
     return localStorage.getItem('access_token');
-    // var token = currentUser && currentUser.TOKEN_NAME;
-    // return token ? token : "";
   }
 
 }

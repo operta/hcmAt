@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ApplicantSchoolModel} from "../../../_models/applicantSchool.model";
 import {NgForm} from "@angular/forms";
 import {QualificationModel} from "../../../_models/qualification";
@@ -10,7 +10,7 @@ import {ApplicantSchoolsService} from "../../../_services/applicantSchools.servi
   templateUrl: './at-applicant-schools-item.component.html',
   styleUrls: ['./at-applicant-schools-item.component.css']
 })
-export class AtApplicantSchoolsItemComponent implements OnInit {
+export class AtApplicantSchoolsItemComponent implements OnInit, OnChanges {
   @Input() applicantSchool: ApplicantSchoolModel;
   @Input() qualifications: QualificationModel[];
   @Input() schools: SchoolModel[];
@@ -25,6 +25,11 @@ export class AtApplicantSchoolsItemComponent implements OnInit {
     this.selectedQualification = this.applicantSchool.id_qualification;
     this.isEdit = false;
   }
+
+  ngOnChanges(changes: SimpleChanges){
+    this.applicantSchool = changes.applicantSchool.currentValue;
+  }
+
 
   onSubmit(form: NgForm){
     this.applicantSchool.id_qualification = this.selectedQualification;

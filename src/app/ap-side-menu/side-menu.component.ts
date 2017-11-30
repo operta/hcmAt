@@ -19,6 +19,10 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
     this.isAdmin = this.userService.isAdminUser();
   }
 
+  logout(){
+    this.userService.logout();
+  }
+
   ngAfterViewInit() {
     $(".preloader").fadeOut();
     ($(this.sideMenu.nativeElement)).metisMenu();
