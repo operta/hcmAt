@@ -1,9 +1,9 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {ApplicantSchoolModel} from "../../../_models/applicantSchool.model";
+import {ApplicantSchoolModel} from "../../../../_models/applicantSchool.model";
 import {NgForm} from "@angular/forms";
-import {QualificationModel} from "../../../_models/qualification";
-import {SchoolModel} from "../../../_models/school.model";
-import {ApplicantSchoolsService} from "../../../_services/applicantSchools.service";
+import {QualificationModel} from "../../../../_models/qualification";
+import {SchoolModel} from "../../../../_models/school.model";
+import {ApplicantSchoolsService} from "../../../../_services/applicantSchools.service";
 
 @Component({
   selector: 'app-at-applicant-schools-item',
@@ -30,18 +30,21 @@ export class AtApplicantSchoolsItemComponent implements OnInit, OnChanges {
     this.applicantSchool = changes.applicantSchool.currentValue;
   }
 
-
   onSubmit(form: NgForm){
     this.applicantSchool.id_qualification = this.selectedQualification;
     this.applicantSchool.degree = this.selectedQualification.name;
     this.applicantSchool.major = form.value.major;
-    this.applicantSchool.date_from = form.value.date_from;
+    this.applicantSchool.dateFrom = form.value.dateFrom;
     this.applicantSchool.date_to = form.value.date_to;
     this.applicantSchool.grade = form.value.grade;
     this.applicantSchool.description = form.value.description;
     this.applicantSchool.link = form.value.link;
     this.applicantSchoolService.updateApplicantSchool(this.applicantSchool);
     this.isEdit = false;
+  }
+
+  removeSchool(school: ApplicantSchoolModel){
+    this.applicantSchoolService.removeApplicantSchool(school);
   }
 
 }

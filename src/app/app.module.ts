@@ -19,6 +19,8 @@ import {JsogService} from 'jsog-typescript';
 import {AtJobApplicationsService} from './_services/at-job-applications.service';
 import { AtJobApplicationTestsComponent } from './at-job-applications/at-job-application-tests/at-job-application-tests.component';
 import { AtJobApplicationInterviewsComponent } from './at-job-applications/at-job-application-interviews/at-job-application-interviews.component';
+import {ToastModule} from "ng2-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 export function authHttpServiceFactory(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -40,10 +42,12 @@ export function authHttpServiceFactory(http: Http) {
   imports: [
     AppRoutingModule,
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     SharedModule,
-    DashboardModule
+    DashboardModule,
+    ToastModule.forRoot()
   ],
   providers: [
     JsogService,

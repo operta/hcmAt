@@ -26,6 +26,7 @@
         "../node_modules/icheck/skins/all.css",
         "assets/css/magnific-popup-extensions.css",
         "assets/css/css-chart.css",
+        "assets/css/ng2-toastr.css",
         "styles.css"
       ],
       "scripts": [

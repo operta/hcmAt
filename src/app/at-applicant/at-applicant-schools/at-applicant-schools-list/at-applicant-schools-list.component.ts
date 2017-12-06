@@ -1,11 +1,11 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {ApplicantSchoolsService} from "../../_services/applicantSchools.service";
-import {ApplicantSchoolModel} from "../../_models/applicantSchool.model";
-import {ApplicantModel} from "../../_models/applicant.model";
-import {QualificationsService} from "../../_services/qualifications.service";
-import {SchoolsService} from "../../_services/schools.service";
-import {SchoolModel} from "../../_models/school.model";
-import {QualificationModel} from "../../_models/qualification";
+import {ApplicantSchoolsService} from "../../../_services/applicantSchools.service";
+import {ApplicantSchoolModel} from "../../../_models/applicantSchool.model";
+import {ApplicantModel} from "../../../_models/applicant.model";
+import {QualificationsService} from "../../../_services/qualifications.service";
+import {SchoolsService} from "../../../_services/schools.service";
+import {SchoolModel} from "../../../_models/school.model";
+import {QualificationModel} from "../../../_models/qualification";
 import {Subscription} from "rxjs/Subscription";
 
 @Component({

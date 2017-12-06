@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {ApplicantAccomplishmentModel} from "../../../_models/applicantAccomplishment.model";
 import {NgForm} from "@angular/forms";
 import {ApplicantAccomplishmentsService} from "../../../_services/applicantAccomplishments.service";
+import {Popup} from "ng2-opd-popup";
 
 @Component({
   selector: 'app-at-applicant-accomplishments-item',
@@ -15,6 +16,7 @@ export class AtApplicantAccomplishmentsItemComponent implements OnInit, OnChange
   ongoingString: string;
 
   constructor(private applicantAccomplishmentsService: ApplicantAccomplishmentsService) { }
+
 
   ngOnInit() {
     this.ongoing = false;
@@ -45,7 +47,7 @@ export class AtApplicantAccomplishmentsItemComponent implements OnInit, OnChange
 
     console.log(this.applicantAccomplishment);
 
-    this.applicantAccomplishmentsService.updateApplicantAccomplishment(this.applicantAccomplishment)
+    this.applicantAccomplishmentsService.updateApplicantAccomplishment(this.applicantAccomplishment);
     this.isEdit = false;
 
   }

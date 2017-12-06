@@ -7,6 +7,7 @@ import {DashboardComponent} from './dashboard.component';
 import {AuthGuard} from '../_services/auth-guard.service';
 import {AdminAuthGuard} from '../_services/admin-auth-guard.service';
 import {AtJobApplicationsComponent} from '../at-job-applications/at-job-applications.component';
+import {ProfileComponent} from "../profile/profile.component";
 
 
 const dashboardRoutes: Routes = [
@@ -43,6 +44,11 @@ const dashboardRoutes: Routes = [
         component: ApplicantsComponent,
         canActivate: [AuthGuard, AdminAuthGuard]
       },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [AuthGuard]
+      }
   ] }
 ];
 

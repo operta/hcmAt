@@ -32,4 +32,8 @@ export class AuthenticationService {
     return localStorage.getItem('access_token');
   }
 
+  destroyToken() {
+    localStorage.removeItem('access_token');
+  }
+
 }

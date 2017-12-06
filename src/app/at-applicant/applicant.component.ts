@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, ViewContainerRef} from '@angular/core';
 import {UserService} from "../_services/user.service";
 import {UserModel} from "../_models/user.model";
 import {ApplicantsService} from "../_services/applicants.service";
@@ -9,13 +9,15 @@ import {RegionsService} from "../_services/regions.service";
 import {forEach} from "@angular/router/src/utils/collection";
 import {QualificationModel} from "../_models/qualification";
 import {QualificationsService} from "../_services/qualifications.service";
+import {ToastsManager} from "ng2-toastr";
 
 declare  var $:any;
 
 @Component({
   selector: 'app-applicant',
   templateUrl: './applicant.component.html',
-  styleUrls: ['./applicant.component.css']
+  styleUrls: ['./applicant.component.css',
+    '../../../node_modules/ng2-toastr/bundles/ng2-toastr.min.css']
 })
 export class ApplicantComponent implements OnInit {
 
@@ -36,8 +38,8 @@ export class ApplicantComponent implements OnInit {
   qualifications: QualificationModel[];
   selectedQualification: QualificationModel;
 
-
-  constructor(private userService: UserService,
+  constructor(public toastr: ToastsManager,
+              private userService: UserService,
               private applicantService: ApplicantsService,
               private regionsService: RegionsService,
               private qualificationsService: QualificationsService) {
@@ -105,7 +107,6 @@ export class ApplicantComponent implements OnInit {
 
 
   onClose(){
-    console.log("HERE");
     this.addEducation = false;
   }
 

@@ -1,4 +1,3 @@
-
 import {SchoolModel} from "./school.model";
 import {ApplicantModel} from "./applicant.model";
 import {QualificationModel} from "./qualification";
@@ -8,7 +7,7 @@ export class ApplicantSchoolModel {
   public id_school: SchoolModel;
   public idApplicant: ApplicantModel;
   public school: string;
-  public date_from: Date;
+  public dateFrom: Date;
   public date_to: Date;
   public major: string;
   public degree: string;
@@ -21,12 +20,12 @@ export class ApplicantSchoolModel {
   public updated_by: string;
   public updated_at: Date;
 
-  constructor(id: string, id_school: SchoolModel, idApplicant: ApplicantModel, school: string, date_from: Date, date_to: Date, major: string, degree: string, id_qualification: QualificationModel, grade: number, description: string, link: string, created_by: string, created_at: Date, updated_by: string, updated_at: Date) {
+  constructor(id: string, id_school: SchoolModel, idApplicant: ApplicantModel, school: string, dateFrom: Date, date_to: Date, major: string, degree: string, id_qualification: QualificationModel, grade: number, description: string, link: string, created_by: string, created_at: Date, updated_by: string, updated_at: Date) {
     this.id = id;
     this.id_school = id_school;
     this.idApplicant = idApplicant;
     this.school = school;
-    this.date_from = date_from;
+    this.dateFrom = dateFrom;
     this.date_to = date_to;
     this.major = major;
     this.degree = degree;

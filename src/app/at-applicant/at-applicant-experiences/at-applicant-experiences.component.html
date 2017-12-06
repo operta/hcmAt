@@ -1,0 +1,12 @@
+
+  <div class="panel-footer p-b-20 p-t-20 m-b-10">
+    <i class="icon-book-open m-r-5 heading-icon-at"></i>
+    <span class="heading-at">EXPERIENCE</span>
+    <div class="pull-right">
+      <a class="popup-with-form" (click)="addExperience=true">
+        <i class="fa fa-plus action-button-at"></i>
+      </a>
+    </div>
+  </div>
+  <app-at-applicant-experiences-add *ngIf="addExperience" [applicant]="applicant" (onClose)="onClose($event)"></app-at-applicant-experiences-add>
+  <app-at-applicant-experiences-list [applicant]="applicant" [experiences]="experiences"></app-at-applicant-experiences-list>

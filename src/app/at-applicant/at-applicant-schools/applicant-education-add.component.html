@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <form class="form-horizontal" role="form" (ngSubmit)="onSubmit(formEducation)" #formEducation="ngForm">
+    <form class="form-horizontal" role="form" (ngSubmit)="formEducation.form.valid && onSubmit(formEducation)" #formEducation="ngForm">
       <div class="form-body">
         <div class="row">
           <div class="col-md-6">
@@ -26,46 +26,50 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': formEducation.submitted && !major.valid }">
               <label class="control-label col-md-3">Field of study:</label>
               <div class="col-md-9">
-                <input type="text" class="form-control" id="major" name="major" ngModel>
+                <input required type="text" class="form-control" id="major" name="major" ngModel #major="ngModel">
                 <span class="highlight"></span>
                 <span class="bar"></span>
+                <div *ngIf="formEducation.submitted && !major.valid" class="help-block">Field is required</div>
               </div>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': formEducation.submitted && !dateFrom.valid }">
               <label class="control-label col-md-3">From year:</label>
               <div class="col-md-9">
-                <input type="date" class="form-control" id="date_from" name="date_from" ngModel>
+                <input required type="date" class="form-control" id="dateFrom" name="dateFrom" #dateFrom="ngModel" ngModel>
                 <span class="highlight"></span>
                 <span class="bar"></span>
+                <div *ngIf="formEducation.submitted && !dateFrom.valid" class="help-block">Field is required</div>
               </div>
             </div>
           </div>
           <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': formEducation.submitted && !date_to.valid }">
               <label class="control-label col-md-3">To year <br>(or expected):</label>
               <div class="col-md-9">
-                <input type="date" class="form-control" id="date_to" name="date_to" ngModel="">
+                <input required type="date" class="form-control" id="date_to" name="date_to" #date_to="ngModel" ngModel>
                 <span class="highlight"></span>
                 <span class="bar"></span>
+                <div *ngIf="formEducation.submitted && !date_to.valid" class="help-block">Field is required</div>
               </div>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': formEducation.submitted && !grade.valid }">
               <label class="control-label col-md-3">Grade:</label>
               <div class="col-md-9">
-                <input type="number" class="form-control" id="grade" name="grade" ngModel>
+                <input required type="number" class="form-control" id="grade" name="grade" ngModel #grade="ngModel">
                 <span class="highlight"></span>
                 <span class="bar"></span>
+                <div *ngIf="formEducation.submitted && !grade.valid" class="help-block">Field is required</div>
               </div>
             </div>
           </div>
@@ -93,8 +97,8 @@
           </div>
         </div>
       </div>
-      <button class="pull-right btn btn-success" type="submit">Add</button>
-      <a (click)="close()" class="pull-right btn btn-info">Cancel</a>
+      <button (click)="close()" class="pull-right saveButton btn btn-default">Cancel</button>
+      <button  class="pull-right saveButton btn btn-success" type="submit">Add <i class="fa fa-plus" aria-hidden="true"></i></button>
     </form>
   </div>
 </div>
