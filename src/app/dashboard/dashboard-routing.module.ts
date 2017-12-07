@@ -7,6 +7,7 @@ import {DashboardComponent} from './dashboard.component';
 import {AuthGuard} from '../_services/auth-guard.service';
 import {AdminAuthGuard} from '../_services/admin-auth-guard.service';
 import {AtJobApplicationsComponent} from '../at-job-applications/at-job-applications.component';
+import {AtJobApplicationsAddActivityComponent} from "../at-job-applications/at-job-applications-add-activity/at-job-applications-add-activity.component";
 import {ProfileComponent} from "../profile/profile.component";
 
 
@@ -23,7 +24,13 @@ const dashboardRoutes: Routes = [
       {
         path: 'jobApplication/:id',
         component: AtJobApplicationsComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard], children: [
+          {
+            path: 'add',
+            component: AtJobApplicationsAddActivityComponent,
+            canActivate: [AuthGuard]
+          }
+      ]
       },
       {
         path: 'vacancies',

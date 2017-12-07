@@ -1,0 +1,63 @@
+<div class="row bg-title">
+
+  <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+    <h3>Add New Test</h3>
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+<!-- /row -->
+<div class="row">
+  <div class="col-sm-7">
+    <div class="white-box">
+      <h3 class="box-title">Basic Information</h3>
+      <form [formGroup]="newTestForm" (ngSubmit)="onSubmit()" class="form-material form-horizontal m-t-30">
+        <div class="form-group">
+          <label class="col-md-12" for="score">score
+          </label>
+          <div class="col-md-12">
+            <input formControlName="score" type="text" id="score" name="score" class="form-control" placeholder="Enter score">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-12" for="short_description">Short description
+          </label>
+          <div class="col-md-12">
+            <input formControlName="short_description" type="text" id="short_description" name="short_description" class="form-control" placeholder="Enter short description">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-12">Review</label>
+          <div class="col-md-12">
+            <textarea formControlName="review" class="form-control" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-12">Region</label>
+          <div class="col-sm-12">
+            <select formControlName="region" class="form-control">
+              <option *ngFor="let region of regions" [ngValue]="region">{{region.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group m-b-40 col-md-6">
+              <label for="date" >Date</label>
+              <input formControlName="date" type="date" class="form-control" id="date" name="date" ><span class="highlight"></span><span
+              class="bar"></span>
+            </div>
+          </div>
+        </div>
+
+
+
+        <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Submit</button>
+        <button (click)="redirect()" type="button" class="btn btn-inverse waves-effect waves-light">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>

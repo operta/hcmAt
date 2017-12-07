@@ -18,6 +18,11 @@ import {RgSkillsAddComponent} from '../rg-skills/rg-skills-add/rg-skills-add.com
 import {CommonModule} from '@angular/common';
 import {AtVacanciesModule} from '../at-vacancies/at-vacancies.module';
 import {AtJobApplicationsModule} from '../at-job-applications/at-job-applications.module';
+import {AtJobApplicationsAddActivityComponent} from "../at-job-applications/at-job-applications-add-activity/at-job-applications-add-activity.component";
+import {AtJobApplicationsAddInterviewComponent} from "../at-job-applications/at-job-applications-add-activity/at-job-applications-add-interview/at-job-applications-add-interview.component";
+import {AtJobApplicationsAddTestComponent} from "../at-job-applications/at-job-applications-add-activity/at-job-applications-add-test/at-job-applications-add-test.component";
+import {JobApplicationInterviewService} from "../_services/jobApplicationInterview.service";
+import {JobApplicationTestService} from "../_services/jobApplicationTest.service";
 import {QualificationsService} from "../_services/qualifications.service";
 import {ApplicantEducationAddComponent} from "../at-applicant/at-applicant-schools/applicant-education-add.component";
 import {SchoolsService} from "../_services/schools.service";
@@ -73,6 +78,10 @@ import {ContactTypesService} from "../_services/contactTypes.service";
     AtApplicantAccomplishmentsListComponent,
     AtApplicantAccomplishmentsItemComponent,
     AtApplicatAccomplishmentsAddComponent,
+    AtJobApplicationsAddActivityComponent,
+    AtJobApplicationsAddInterviewComponent,
+    AtJobApplicationsAddTestComponent,
+    AccomplishmentTypePipe,
     AtApplicantExperiencesAddComponent,
     AtApplicantExperiencesComponent,
     AtApplicantExperiencesItemComponent,
@@ -116,6 +125,9 @@ import {ContactTypesService} from "../_services/contactTypes.service";
     ContactTypesService,
     ApplicantSchoolsService,
     AccomplishmentTypesService,
+    ApplicantAccomplishmentsService,
+    JobApplicationInterviewService,
+    JobApplicationTestService,
     ApplicantAccomplishmentsService,
     ApplicantExperiencesService,
     ApplicantContactsService,

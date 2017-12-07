@@ -19,8 +19,7 @@ export class VacanciesService {
   getVacancies() {
     this.http.get(this.vacanciesURL).map(
       (response: Response) => {
-        console.log(response.json());
-         const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json()));
+         const vacancies: VacancyModel[] = response.json();
         // const vacancies: VacancyModel[] = response.json();
 
         return vacancies;
@@ -47,16 +46,14 @@ export class VacanciesService {
   saveVacancy(vacancy: VacancyModel) {
     const headers = new Headers({'Content-type': 'application/json'});
     const options = new RequestOptions({headers: headers});
-    console.log(this.vacanciesURL + '/add');
-    console.log(vacancy);
     this.http.post(this.vacanciesURL + '/add', vacancy, options).map(
       (response: Response) => {
-        console.log(response);
+        return response.json();
       }
     ).subscribe(
       response => {
         console.log('RESPONSE:' + response);
-        this.vacancies.push(vacancy);
+        this.vacancies.push(response);
         this.vacancyChange.next(this.vacancies.slice());
       }
     );
@@ -68,5 +65,13 @@ export class VacanciesService {
     const body = JSON.stringify(vacancy);
     return this.http.put(this.vacanciesURL, body, {headers: headers})
       .map((response: Response) => response.json());
+  }
+
+  deleteVacancy(id: number) {
+    this.http.delete(this.vacanciesURL + '/delete/' + id).subscribe((response: Response) => {
+      console.log(response);
+    });
+    this.vacancies = this.vacancies.filter(vacancy => vacancy.id !== id);
+    this.vacancyChange.next(this.vacancies.slice());
   }
 }

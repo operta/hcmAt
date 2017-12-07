@@ -8,28 +8,28 @@
               <div class="col-lg-6">
                 <a>
                   <div class="user-img">
-                    <img src="../plugins/images/users/pawandeep.jpg" alt="user" class="img-circle">
+                    <img src="#" alt="user" class="img-circle">
                   </div>
                   <div class="mail-contnet">
-                    <h5>{{jobApplication.id_applicant.name}} <span style="color: #848a96;">- {{jobApplication.id_applicant.employment_position}}Junior Technician Author</span></h5>
+                    <h5>{{jobApplication.applicantid.name}} <span style="color: #848a96;">- {{jobApplication.applicantid.employment_position}}</span></h5>
                     <span class="mail-desc m-b-0" style="height: auto">
-                                            <i class="ti-calendar" style="color: black"></i> {{jobApplication.id_applicant.birthdate | date}}
-                                            <i class="ti-email m-l-15" style="color: black"></i> {{jobApplication.id_applicant.email}}
-                                            <i class="ti-mobile m-l-15" style="color: black"></i> {{jobApplication.id_applicant.phone_number}}
+                                            <i class="ti-calendar" style="color: black"></i> {{jobApplication.applicantid.birthdate | date}}
+                                            <i class="ti-email m-l-15" style="color: black"></i> {{jobApplication.applicantid.email}}
+                                            <i class="ti-mobile m-l-15" style="color: black"></i> {{jobApplication.applicantid.phone_number}}
                     </span>
                   </div>
                 </a>
               </div>
               <div class="col-lg-6 text-right">
-                <a [routerLink]="['../../vacancies/',jobApplication.id_vacancies.id]">
+                <a [routerLink]="['../../vacancies/',jobApplication.vacancyid.id]">
                 <div class="user-img text-right pull-right">
                   <i class="fa fa-2x fa-building"></i>
                 </div>
                 <div class="mail-contnet pull-right">
-                  <h5>{{jobApplication.id_vacancies.name}}</h5>
+                  <h5>{{jobApplication.vacancyid.name}}</h5>
                   <span class="mail-desc m-b-0" style="height: auto">
-                                                <i class="ti-calendar" style="color: black"></i> {{jobApplication.id_vacancies.created_at | date}}
-                                                <i class="fa fa-map-marker m-l-15" style="color: black"></i> {{jobApplication.id_vacancies.id_location.name}}
+                                                <i class="ti-calendar" style="color: black"></i> {{jobApplication.vacancyid.created_at | date}}
+                                                <i class="fa fa-map-marker m-l-15" style="color: black"></i> locationplaceholder
                                             </span>
                 </div>
                 </a>
@@ -45,10 +45,10 @@
     <div class="row">
       <div class="col-md-12">
         <div class="white-box">
-          <a href="#" class="btn btn-circle btn-success pull-right"><i class="fa fa-plus"></i></a>
+          <a (click)="navigate(state)" class="btn btn-circle btn-success pull-right"><i class="fa fa-plus"></i></a>
           <ul class="nav customtab nav-tabs" role="tablist">
             <li role="presentation" class="nav-item">
-              <a href="#interviews" class="nav-link" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">
+              <a [class.active]="state == 'interview'" (click)="state='interview'; resetLink();"  href="#interviews" class="nav-link" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">
                                         <span class="visible-xs">
                                             <i class="ti-home"></i>
                                         </span>
@@ -56,7 +56,7 @@
               </a>
             </li>
             <li role="presentation" class="nav-item">
-              <a href="#tests" class="nav-link" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">
+              <a [class.active]="state == 'test'" (click)="state='test'; resetLink();" href="#tests" class="nav-link" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">
                                         <span class="visible-xs">
                                             <i class="ti-user"></i>
                                         </span>
@@ -73,20 +73,21 @@
             </li>
           </ul>
           <div class="tab-content">
+            <router-outlet></router-outlet>
             <div role="tabpanel" class="tab-pane fade in active" id="interviews" aria-expanded="true">
               <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-12 col-lg-12 col-md-12">
                   <div class="comment-center">
-                    <app-at-job-application-interviews *ngFor="let interview of jobApplication.interview" [interview]="interview"></app-at-job-application-interviews>
+                    <app-at-job-application-interviews *ngFor="let interview of interviews" [interview]="interview"></app-at-job-application-interviews>
                   </div>
                 </div>
               </div>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="tests" aria-expanded="false">
               <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-12 col-lg-12 col-md-12">
                   <div class="comment-center">
-                    <app-at-job-application-tests *ngFor="let test of jobApplication.test" [test]="test"></app-at-job-application-tests>
+                    <app-at-job-application-tests *ngFor="let test of tests" [test]="test"></app-at-job-application-tests>
                   </div>
                 </div>
               </div>
@@ -106,284 +107,7 @@
       </div>
     </div>
     <!--./row-->
-    <form id="edit-form1" class="mfp-hide edit-data-popup">
-      <div id="edit-div1">
-        <div class="form-body">
-          <h3 class="box-title">Add Experience</h3>
-          <hr>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label class="control-label" for="expTitle">Title</label>
-                <input type="text" id="expTitle" class="form-control">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="expCompany">Company</label>
-                <input type="text" id="expCompany" class="form-control">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="expLocation">Location</label>
-                <input type="text" id="expLocation" class="form-control">
-              </div>
-            </div>
-          </div>
-          <!--/row-->
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="expFrom">From</label>
-                <input id="expFrom" type="text" class="form-control" placeholder="dd/mm/yyyy">
-              </div>
-            </div>
-            <!--/span-->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="expTo">To</label>
-                <input id="expTo" type="text" class="form-control m-b-5" placeholder="dd/mm/yyyy">
-                <input type="checkbox" class="check" id="expOngoing" data-checkbox="icheckbox_square-red">
-                <label for="expOngoing">I currently work here</label>
-              </div>
-            </div>
-            <!--/span-->
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label class="control-label" for="expDescriptionArea">Description</label>
-                <textarea id="expDescriptionArea" class="edit-area" rows="5"></textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-actions">
-          <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-          <button type="button" class="btn btn-default">Cancel</button>
-        </div>
-      </div>
-    </form>
-    <form id="edit-form2" class="mfp-hide edit-data-popup">
-      <div id="edit-div2">
-        <div class="form-body">
-          <h3 class="box-title">Edit Experience</h3>
-          <hr>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label class="control-label" for="expTitle2">Title</label>
-                <input type="text" id="expTitle2" class="form-control" value="Information Systems Developer">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="expCompany2">Company</label>
-                <input type="text" id="expCompany2" class="form-control" value="Info Studio d.o.o.">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="expLocation2">Location</label>
-                <input type="text" id="expLocation2" class="form-control" value="Sarajevo">
-              </div>
-            </div>
-          </div>
-          <!--/row-->
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="expFrom2">From</label>
-                <input id="expFrom2" type="text" class="form-control" placeholder="dd/mm/yyyy" value="September 2006">
-              </div>
-            </div>
-            <!--/span-->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="expTo2">To</label>
-                <input id="expTo2" type="text" class="form-control m-b-5" placeholder="dd/mm/yyyy" value="" disabled>
-                <input type="checkbox" class="check" id="expOngoing2" checked data-checkbox="icheckbox_square-red">
-                <label for="expOngoing2">I currently work here</label>
-              </div>
-            </div>
-            <!--/span-->
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label class="control-label" for="expDescriptionArea2">Description</label>
-                <textarea id="expDescriptionArea2" class="edit-area" rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. </textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-actions">
-          <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-          <button type="button" class="btn btn-default">Cancel</button>
-        </div>
-      </div>
-    </form>
-    <form id="edit-form" class="mfp-hide edit-data-popup">
-      <div id="edit-div">
-        <div class="form-body">
-          <h3 class="box-title">Person Info</h3>
-          <hr>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="firstName">First Name</label>
-                <input type="text" id="firstName" class="form-control" value="John">
-              </div>
-            </div>
-            <!--/span-->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="middleName">Middle Name</label>
-                <input type="text" id="middleName" class="form-control" value="Johny">
-              </div>
-            </div>
-            <!--/span-->
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="lastName">Last Name</label>
-                <input type="text" id="lastName" class="form-control" value="Doe">
-              </div>
-            </div>
-            <!--/span-->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="maidenName">Maiden Name</label>
-                <input type="text" id="maidenName" class="form-control" value="Smith">
-              </div>
-              <!--/span-->
-            </div>
-          </div>
-          <!--/row-->
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="genderSelect">Gender</label>
-                <select id="genderSelect" class="form-control">
-                  <option value=""></option>
-                  <option value="" selected>Male</option>
-                  <option value="">Female</option>
-                </select>
-                <span class="help-block"> Select your gender </span> </div>
-            </div>
-            <!--/span-->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="birthInput">Date of Birth</label>
-                <input id="birthInput" type="text" class="form-control" placeholder="dd/mm/yyyy" value="11/06/1987">
-              </div>
-            </div>
-            <!--/span-->
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label">Marital status</label>
-                <select class="form-control">
-                  <option value=""></option>
-                  <option value="Married">Married</option>
-                  <option value="Unmarried" selected>Unmarried</option>
-                </select>
-                <span class="help-block"> Select your marital status </span>
-              </div>
-            </div>
-          </div>
-          <!--/row-->
-          <h3 class="box-title m-t-40">Address</h3>
-          <hr>
-          <div class="row">
-            <div class="col-md-6 ">
-              <div class="form-group">
-                <label class="control-label" for="addressInput">Address</label>
-                <input id="addressInput" type="text" class="form-control" value="Mehmeda Spahe 26/1">
-              </div>
-            </div>
-            <div class="col-md-6 ">
-              <div class="form-group">
-                <label class="control-label" for="cityInput">City</label>
-                <input id="cityInput" type="text" class="form-control" value="Sarajevo">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="stateInput">State</label>
-                <input id="stateInput" type="text" class="form-control" value="New York">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="countrySelect">Country</label>
-                <select id="countrySelect" class="form-control">
-                  <option>--Select your Country--</option>
-                  <option value="1">Bosnia and Herzegovina</option>
-                  <option value="2">Sweden</option>
-                  <option value="3">USA</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <h3 class="box-title m-t-40">Qualification & Job</h3>
-          <hr>
-          <div class="row">
-            <div class="col-md-6 ">
-              <div class="form-group">
-                <label class="control-label" for="qualificationInput">Qualification</label>
-                <input id="qualificationInput" type="text" class="form-control" value="Master Degree">
-              </div>
-            </div>
-            <div class="col-md-6 ">
-              <div class="form-group">
-                <label class="control-label" for="industryInput">City</label>
-                <input id="industryInput" type="text" class="form-control" value="Information Technologies and Services">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="employedSelect">Currently employed</label>
-                <select id="employedSelect" class="form-control">
-                  <option></option>
-                  <option value="Y" selected>Yes</option>
-                  <option value="N">No</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label" for="positionInput">Employment position</label>
-                <input id="positionInput" type="text" class="form-control" value="Information Systems Developer">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label class="control-label" for="descriptionArea">Description</label>
-                <textarea id="descriptionArea" class="edit-area" rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat. Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar.</textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-actions">
-          <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-          <button type="button" class="btn btn-default">Cancel</button>
-        </div>
-      </div>
-    </form>
+
   </div>
   <!-- /.container-fluid -->
 </div>

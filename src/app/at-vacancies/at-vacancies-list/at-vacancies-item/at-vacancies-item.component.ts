@@ -26,8 +26,7 @@ export class AtVacanciesItemComponent implements OnInit {
   editVacancyButton() {
     if (this.editVacancy === true){
       this.onEdit.emit();
-    }
-    else {
+    } else {
       this.onEdit.emit();
       this.editVacancy = !this.editVacancy
     }
@@ -49,6 +48,13 @@ export class AtVacanciesItemComponent implements OnInit {
 
   vacDetailOpen() {
     this.router.navigate(['vacancies/', this.vacancy.id]);
+  }
+
+  delete(vacancyName: string) {
+    if (confirm('Are you sure to delete ' + vacancyName)) {
+      this.vacancyService.deleteVacancy(this.vacancy.id);
+      console.log('uslo u delete');
+    }
   }
 
 }

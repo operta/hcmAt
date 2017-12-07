@@ -60,7 +60,7 @@ export class AtJobApplicationInterviewsComponent implements OnInit {
       return 'css-bar-85';
     } else if (grade <= 90) {
       return 'css-bar-90';
-    } else if (grade <= 100) {
+    } else if (grade < 100) {
       return 'css-bar-95';
     } else if (grade === 100) {
       return 'css-bar-100';

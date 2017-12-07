@@ -18,6 +18,6 @@ export class AtJobApplicationsService {
   }
 
   getJobApplicationById(id: number) {
-    return this.jobApplications.find(jobApplication => jobApplication.id === id);
+    return this.jobApplications.find(jobApplication => +jobApplication.id === id);
   }
 }
