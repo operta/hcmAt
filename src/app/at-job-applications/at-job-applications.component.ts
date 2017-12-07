@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AtJobApplicationsService} from '../_services/at-job-applications.service';
 import {JobApplicationModel} from "../_models/jobApplication.model";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 
 @Component({
   selector: 'app-at-job-applications',
@@ -13,8 +13,9 @@ export class AtJobApplicationsComponent implements OnInit {
   jobApplication: JobApplicationModel;
   id: number;
   active: string;
+  state = 'interview';
 
-  constructor(private route: ActivatedRoute, private jobApplicationsService: AtJobApplicationsService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private jobApplicationsService: AtJobApplicationsService) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -25,5 +26,13 @@ export class AtJobApplicationsComponent implements OnInit {
       }
     )
 
+  }
+
+  navigate(state: string) {
+    this.router.navigate(['add'], {relativeTo: this.route, queryParams: {add: this.state}});
+  }
+
+  resetLink() {
+    this.router.navigate(['dashboard', 'jobApplication', this.id]);
   }
 }

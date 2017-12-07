@@ -16,7 +16,7 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
 
 
   options: number[] = [1, 10, 15, 20, 25, 30];
-  pages = 0;
+  pages: number[] = [1, 2, 3, 4, 5];
   resultCount = 15;
   page = 1;
 /*  subscription: Subscription;*/
@@ -31,7 +31,7 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
     this.vacanciesService.vacancyChange.subscribe(
       (data: VacancyModel[]) => {
         this.vacancies = data;
-        this.pages = this.vacancies.length;
+        console.log(this.vacancies);
       }
     )
     /*.subscribe(
@@ -51,6 +51,13 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
 
   setPage(num: number) {
     this.page = num;
+/*    if (num === this.pages.length) {
+      this.pages.forEach(x => x = x + 2);
+    }
+
+    if (num === this.pages[0]) {
+      this.pages.forEach(x => x = x - 2);
+    }*/
   }
 
   start() {
@@ -63,6 +70,10 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
 
   onEdit() {
       this.allAtVacanciesItemComponents.forEach((atVacanciesItemComponent) => atVacanciesItemComponent.closeEdit());
+  }
+
+  movePages() {
+    this.pages.forEach(x => x = x + 2);
   }
 
 

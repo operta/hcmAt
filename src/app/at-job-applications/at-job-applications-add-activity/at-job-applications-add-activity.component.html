@@ -1,0 +1,7 @@
+<p>
+  {{id}}
+  {{add}}
+</p>
+
+<app-at-job-applications-add-interview [id]="id" *ngIf="add=='interview'"></app-at-job-applications-add-interview>
+<app-at-job-applications-add-test [id]="id" *ngIf="add=='test'"></app-at-job-applications-add-test>

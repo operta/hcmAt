@@ -61,7 +61,7 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
       'workPlace': new FormControl(''),
       'date_from': new FormControl(''),
       'date_to': new FormControl('')
-    })
+    });
   }
 
   onSubmit() {
@@ -85,8 +85,7 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
       '',
       new Date,
       '',
-      new Date,
-      []
+      new Date
     );
     this.vacancyService.saveVacancy(vacancy);
     this.router.navigate(['../'], {relativeTo: this.route});

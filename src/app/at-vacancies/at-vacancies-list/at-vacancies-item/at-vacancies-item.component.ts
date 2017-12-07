@@ -26,8 +26,7 @@ export class AtVacanciesItemComponent implements OnInit {
   editVacancyButton() {
     if (this.editVacancy === true){
       this.onEdit.emit();
-    }
-    else {
+    } else {
       this.onEdit.emit();
       this.editVacancy = !this.editVacancy
     }

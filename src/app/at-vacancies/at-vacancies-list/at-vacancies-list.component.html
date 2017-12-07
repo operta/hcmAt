@@ -108,7 +108,7 @@
 
 <!-- vacancy list -->
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-xs-12 col-lg-12 col-md-12">
     <div class="comment-center">
       <app-at-vacancies-item *ngFor="let vacancy of vacancies | slice:start():end();" [vacancy]="vacancy" (onEdit)="onEdit($event)"></app-at-vacancies-item>
     </div>

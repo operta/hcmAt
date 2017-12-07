@@ -19,6 +19,9 @@ import {JsogService} from 'jsog-typescript';
 import {AtJobApplicationsService} from './_services/at-job-applications.service';
 import { AtJobApplicationTestsComponent } from './at-job-applications/at-job-application-tests/at-job-application-tests.component';
 import { AtJobApplicationInterviewsComponent } from './at-job-applications/at-job-application-interviews/at-job-application-interviews.component';
+import { AtJobApplicationsAddActivityComponent } from './at-job-applications/at-job-applications-add-activity/at-job-applications-add-activity.component';
+import { AtJobApplicationsAddInterviewComponent } from './at-job-applications/at-job-applications-add-activity/at-job-applications-add-interview/at-job-applications-add-interview.component';
+import { AtJobApplicationsAddTestComponent } from './at-job-applications/at-job-applications-add-activity/at-job-applications-add-test/at-job-applications-add-test.component';
 
 export function authHttpServiceFactory(http: Http) {
   return new AuthHttp(new AuthConfig({

@@ -19,8 +19,7 @@ export class VacanciesService {
   getVacancies() {
     this.http.get(this.vacanciesURL).map(
       (response: Response) => {
-        console.log(response.json());
-         const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json()));
+         const vacancies: VacancyModel[] = response.json();
         // const vacancies: VacancyModel[] = response.json();
 
         return vacancies;
@@ -47,8 +46,6 @@ export class VacanciesService {
   saveVacancy(vacancy: VacancyModel) {
     const headers = new Headers({'Content-type': 'application/json'});
     const options = new RequestOptions({headers: headers});
-    console.log(this.vacanciesURL + '/add');
-    console.log(vacancy);
     this.http.post(this.vacanciesURL + '/add', vacancy, options).map(
       (response: Response) => {
         console.log(response);
