@@ -14,7 +14,6 @@ export class WorkPlaceModel {
   public updated_by: string;
   public updated_at: Date;
 
-
   constructor(id: number, code: string, name: string, description: string, id_parent: WorkPlaceModel, id_organization: OrganizationModel, id_work_place_type: WorkPlaceTypeModel, created_by: string, created_at: Date, updated_by: string, updated_at: Date) {
     this.id = id;
     this.code = code;

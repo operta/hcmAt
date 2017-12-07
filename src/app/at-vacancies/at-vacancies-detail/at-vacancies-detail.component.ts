@@ -26,25 +26,25 @@ export class AtVacanciesDetailComponent implements OnInit, OnDestroy {
   constructor(private applicantsService: ApplicantsService, private vacancyService: VacanciesService, private route: ActivatedRoute, private jobApplicationsService: AtJobApplicationsService) { }
 
   ngOnInit() {
-    this.subscriptionParams = this.route.params.subscribe(
-      (params: Params) => {
-        this.id = params['id'];
-        this.vacancy = this.vacancyService.getVacancy(+this.id);
-        this.jobApplicationsService.getJobApplicationsByVacancy(+this.id).subscribe(
-          (data: JobApplicationModel[]) => {
-            this.jobApplications = data;
-            console.log(this.jobApplications);
-          }
-        );
-/*        this.subscriptionVacancy = this.vacancyService.getVacancy(this.id).subscribe(
-          (data: VacancyModel) => {
-            this.vacancy = data;
-            console.log(this.vacancy);
-            this.jobApplications = this.vacancy.jobApplications;
-          }
-        );*/
-      }
-    );
+//     this.subscriptionParams = this.route.params.subscribe(
+//       (params: Params) => {
+//         this.id = params['id'];
+//         this.vacancy = this.vacancyService.getVacancy(+this.id);
+//         // this.jobApplicationsService.getJobApplicationsByVacancy(+this.id).subscribe(
+//         //   (data: JobApplicationModel[]) => {
+//         //     this.jobApplications = data;
+//         //     console.log(this.jobApplications);
+//         //   }
+//         // );
+// /*        this.subscriptionVacancy = this.vacancyService.getVacancy(this.id).subscribe(
+//           (data: VacancyModel) => {
+//             this.vacancy = data;
+//             console.log(this.vacancy);
+//             this.jobApplications = this.vacancy.jobApplications;
+//           }
+//         );*/
+//       }
+//     );
   }
 
   ngOnDestroy() {

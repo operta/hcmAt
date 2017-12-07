@@ -1,6 +1,6 @@
 import {ApplicantModel} from "./applicant.model";
 import {SkillModel} from "./skill.model";
-import {SkillGrade} from "../rg-skill-grades/skill-grade";
+import { SkillGradeModel} from "./skill-grade.model";
 
 export class ApplicantSkillModel {
   public id: string;
@@ -8,13 +8,14 @@ export class ApplicantSkillModel {
   public id_skill: SkillModel;
   public skill: string;
   public date_skill: Date;
-  public id_grade: SkillGrade;
+  public id_grade: SkillGradeModel;
   public created_by: string;
   public created_at: Date;
   public updated_by: string;
   public updated_at: Date;
 
-  constructor(id: string, idApplicant: ApplicantModel, id_skill: SkillModel, skill: string, date_skill: Date, id_grade: SkillGrade, created_by: string, created_at: Date, updated_by: string, updated_at: Date) {
+
+  constructor(id: string, idApplicant: ApplicantModel, id_skill: SkillModel, skill: string, date_skill: Date, id_grade: SkillGradeModel, created_by: string, created_at: Date, updated_by: string, updated_at: Date) {
     this.id = id;
     this.idApplicant = idApplicant;
     this.id_skill = id_skill;

@@ -20,6 +20,7 @@ export class AtApplicantSchoolsListComponent implements OnInit, OnDestroy {
   qualifications: QualificationModel[];
   schools: SchoolModel[];
   subscription: Subscription;
+  subscription2: Subscription;
 
   applicantSchools: ApplicantSchoolModel[];
 
@@ -39,7 +40,8 @@ export class AtApplicantSchoolsListComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.qualificationsService.getQualifications().subscribe(
+    this.qualificationsService.getQualifications();
+    this.subscription2 = this.qualificationsService.qualificationsObserver.subscribe(
       (data: QualificationModel[]) => {
         this.qualifications = data;
       }
@@ -48,6 +50,7 @@ export class AtApplicantSchoolsListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.subscription.unsubscribe();
+    this.subscription2.unsubscribe();
   }
 
 }

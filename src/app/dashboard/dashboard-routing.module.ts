@@ -9,6 +9,8 @@ import {AdminAuthGuard} from '../_services/admin-auth-guard.service';
 import {AtJobApplicationsComponent} from '../at-job-applications/at-job-applications.component';
 import {AtJobApplicationsAddActivityComponent} from "../at-job-applications/at-job-applications-add-activity/at-job-applications-add-activity.component";
 import {ProfileComponent} from "../profile/profile.component";
+import {RgQualificationsComponent} from "../rg-qualifications/rg-qualifications.component";
+import {RgRegionsComponent} from "../rg-regions/rg-regions.component";
 
 
 const dashboardRoutes: Routes = [
@@ -40,6 +42,16 @@ const dashboardRoutes: Routes = [
       {
         path: 'skills',
         component: RgSkillsComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
+      {
+        path: 'qualifications',
+        component: RgQualificationsComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
+      {
+        path: 'regions',
+        component: RgRegionsComponent,
         canActivate: [AuthGuard, AdminAuthGuard]
       },
       {

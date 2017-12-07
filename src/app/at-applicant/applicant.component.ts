@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ElementRef, ViewContainerRef} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {UserService} from "../_services/user.service";
 import {UserModel} from "../_models/user.model";
 import {ApplicantsService} from "../_services/applicants.service";
@@ -6,13 +6,13 @@ import {ApplicantModel} from "../_models/applicant.model";
 import {NgForm} from "@angular/forms";
 import {RegionModel} from "../_models/region.model";
 import {RegionsService} from "../_services/regions.service";
-import {forEach} from "@angular/router/src/utils/collection";
 import {QualificationModel} from "../_models/qualification";
 import {QualificationsService} from "../_services/qualifications.service";
 import {ToastsManager} from "ng2-toastr";
 import {ApplicantSchoolsService} from "../_services/applicantSchools.service";
 import {ApplicantSchoolModel} from "../_models/applicantSchool.model";
 import {ApplicantExperienceModel} from "../_models/applicantExperience.model";
+import {Subscription} from "rxjs/Subscription";
 
 declare  var $:any;
 
@@ -22,7 +22,7 @@ declare  var $:any;
   styleUrls: ['./applicant.component.css',
     '../../../node_modules/ng2-toastr/bundles/ng2-toastr.min.css']
 })
-export class ApplicantComponent implements OnInit {
+export class ApplicantComponent implements OnInit, OnDestroy {
 
   userId: string;
   user: UserModel;
@@ -42,6 +42,7 @@ export class ApplicantComponent implements OnInit {
   selectedQualification: QualificationModel;
   currentSchool: ApplicantSchoolModel;
   currentExperience: ApplicantExperienceModel;
+  subscription: Subscription;
 
   constructor(public toastr: ToastsManager,
               private userService: UserService,
@@ -78,12 +79,17 @@ export class ApplicantComponent implements OnInit {
     this.regionsService.getRRegions().subscribe(
       (data: RegionModel[]) => this.regions = data);
 
-    this.qualificationsService.getQualifications().subscribe(
+    this.qualificationsService.getQualifications();
+    this.subscription = this.qualificationsService.qualificationsObserver.subscribe(
       (data: QualificationModel[]) => {
         this.qualifications = data;
       }
     );
 
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 
 

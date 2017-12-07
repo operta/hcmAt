@@ -10,7 +10,7 @@ export class AtJobApplicationsService {
   constructor() { }
 
   initJobApplications(vacancy: VacancyModel) {
-    this.jobApplications = vacancy.jobApplications;
+    //this.jobApplications = vacancy.jobApplications;
   }
 
   getJobApplications() {

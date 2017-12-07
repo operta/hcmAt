@@ -9,12 +9,11 @@ import {SharedModule} from '../_shared/shared.module';
 import {WorkPlacesService} from '../_services/work-places.service';
 import {RegionsService} from '../_services/regions.service';
 import {VacanciesService} from '../_services/vacancies.service';
-import {SkillGradesService} from '../rg-skill-grades/skill-grades.service';
+import {SkillGradesService} from '../_services/skill-grades.service';
 import {SkillsService} from '../_services/skills.service';
 import {DashboardRoutingModule} from './dashboard-routing.module';
 import {DataTablesModule} from 'angular-datatables';
 import {ApplicantsService} from '../_services/applicants.service';
-import {RgSkillsAddComponent} from '../rg-skills/rg-skills-add/rg-skills-add.component';
 import {CommonModule} from '@angular/common';
 import {AtVacanciesModule} from '../at-vacancies/at-vacancies.module';
 import {AtJobApplicationsModule} from '../at-job-applications/at-job-applications.module';
@@ -61,10 +60,13 @@ import {ApplicantDocumentsService} from "../_services/applicantDocuments.service
 import {DocumentTypesService} from "../_services/documentTypes.service";
 import {DocumentLinksService} from "../_services/documentLinks.service";
 import {ContactTypesService} from "../_services/contactTypes.service";
+import {RgQualificationsComponent} from "../rg-qualifications/rg-qualifications.component";
+import {RgRegionsComponent} from "../rg-regions/rg-regions.component";
+import {RgRegionTypesComponent} from "../rg-region-types/rg-region-types.component";
+import {RegionTypesService} from "../_services/regionTypes.service";
 
 @NgModule({
   declarations: [
-    RgSkillsAddComponent,
     RgSkillsComponent,
     SkillGradesComponent,
     SideMenuComponent,
@@ -100,7 +102,10 @@ import {ContactTypesService} from "../_services/contactTypes.service";
     AtApplicantSkillsItemComponent,
     AccomplishmentTypePipe,
     ProfileComponent,
-    ModalComponent
+    ModalComponent,
+    RgQualificationsComponent,
+    RgRegionsComponent,
+    RgRegionTypesComponent
   ],
   imports: [
     CommonModule,
@@ -116,6 +121,7 @@ import {ContactTypesService} from "../_services/contactTypes.service";
     SkillGradesService,
     VacanciesService,
     RegionsService,
+    RegionTypesService,
     WorkPlacesService,
     ApplicantsService,
     QualificationsService,
