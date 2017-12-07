@@ -36,6 +36,7 @@ export class UserService {
     this.accessToken = accessToken;
 
     localStorage.setItem(TOKEN_NAME, accessToken);
+    console.log("LOGGING IN")
   }
 
 

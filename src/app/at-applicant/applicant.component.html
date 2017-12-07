@@ -4,22 +4,24 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="white-box-at">
-                    <!--<h3 *ngIf="!applicant">CREATE YOUR APPLICANT PROFILE HERE</h3>-->
+                    <h3 *ngIf="!applicant">Create your CV here. Start by adding personal information</h3>
                     <h3>{{applicant?.name}} {{applicant?.surname}}</h3>
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="at-img-align m-b-30">
                               <img src="assets/images/users/sonu.jpg" class="img-fluid" />
                             </div>
-                            <h5><b>Information Systems Developer at Info Studio d.o.o. &middot; Sarajevo</b></h5>
-                            <h5><b>School of Economics and Business &middot; Sarajevo</b></h5>
-                            <h5><b>{{applicant?.id_city.name}} &middot; {{applicant?.id_country.name}}</b></h5>
+                          <div *ngIf="applicant">
+                            <h5><b>{{currentExperience?.company}} &middot; {{currentExperience?.location}}</b></h5>
+                            <h5><b>{{currentSchool?.school}} &middot; {{currentSchool?.id_school?.id_city?.name}}</b></h5>
+                            <h5><b>{{applicant?.id_city?.name}} &middot; {{applicant?.id_country?.name}}</b></h5>
+                          </div>
                         </div>
                         <div class="col-sm-9">
                             <div>
 
                               <!-- PERSONAL INFO ----------->
-                                <form class="form-horizontal" role="form" (ngSubmit)="onSubmit(formPesonalInformation)" #formPesonalInformation="ngForm">
+                                <form class="form-horizontal" role="form" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm">
                                     <div class="panel-footer p-b-20 p-t-20 m-b-10">
                                         <i class="icon-user m-r-5 heading-icon-at"></i>
                                         <span class="heading-at">PERSON INFO</span>
@@ -30,24 +32,21 @@
                                             <a *ngIf="!isEditPersonal && this.applicant !=null" (click)="isEditPersonal=true">
                                               <i class="fa fa-pencil action-button-at"></i>
                                             </a>
-                                          <button *ngIf="isEditPersonal || addApplicant" class="saveButton pull-right btn btn-success" type="submit">Save</button>
-                                          <button (click)="isEditPersonal=false; addApplicant=false" *ngIf="isEditPersonal || addApplicant" class="saveButton pull-right btn btn-info" type="submit">Cancel</button>
                                         </div>
                                     </div>
 
                                     <div *ngIf="this.applicant !=null || addApplicant" class="form-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="form-group">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !applicant?.name }">
                                                     <label  class="control-label col-md-3">First Name:</label>
                                                     <div class="col-md-9">
-                                                      <!--<p *ngIf="!isEdit" (click)="isEdit=true" class="form-control-static">{{applicant.name}}</p>-->
-                                                      <!--<input *ngIf="isEdit" (keydown.enter)="isEdit=false" type="text" class="form-control" id="name" name="name"-->
-                                                             <!--[(ngModel)]="applicant && applicant.name"><span class="highlight"></span><span class="bar"></span>-->
-                                                      <p *ngIf="!isEditPersonal" class="form-control-static">{{applicant?.name}}</p>
-                                                      <input *ngIf="isEditPersonal"  type="text" class="form-control" id="name" name="name"
+                                                        <p *ngIf="!isEditPersonal" class="form-control-static">{{applicant?.name}}</p>
+                                                      <input required *ngIf="isEditPersonal"  type="text" class="form-control" id="name" name="name"
                                                       [(ngModel)]="applicant && applicant.name"><span class="highlight"></span><span class="bar"></span>
                                                     </div>
+                                                  <div *ngIf="f.submitted && !applicant?.name" class="help-block">Field is required</div>
+
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -63,12 +62,13 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="form-group">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !applicant?.surname }">
                                                     <label class="control-label col-md-3">Last Name:</label>
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.surname}} </p>
-                                                        <input *ngIf="isEditPersonal"  type="text" class="form-control" id="surname" name="surname"
+                                                        <input required *ngIf="isEditPersonal"  type="text" class="form-control" id="surname" name="surname"
                                                                [(ngModel)]="applicant && applicant.surname"><span class="highlight"></span><span class="bar"></span>
+                                                      <div *ngIf="f.submitted && !applicant?.surname" class="help-block">Field is required</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -86,14 +86,15 @@
                                         <!--/row-->
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="form-group">
+                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !applicant?.gender }">
                                                     <label class="control-label col-md-3">Gender:</label>
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.gender}} </p>
                                                         <select  *ngIf="isEditPersonal" class="form-control p-0" id="gender"  [(ngModel)]="applicant && applicant.gender" name="gender">
-                                                          <option [selected]="applicant?.gender == 'Male'" value="Male">Male</option>
+                                                          <option [selected]="applicant?.gender == 'Male' || !applicant?.gender" value="Male">Male</option>
                                                           <option [selected]="applicant?.gender == 'Female'" value="Female">Female</option>
                                                         </select><span class="highlight"></span> <span class="bar"></span>
+                                                      <div *ngIf="f.submitted && !applicant?.gender" class="help-block">Field is required</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -145,7 +146,7 @@
                                                 <select *ngIf="isEditPersonal" class="form-control p-0" id="id_region" [(ngModel)]="selectedRegion"  (ngModelChange)="onSelectRegion($event)" name="selectedRegion">
                                                   <option *ngFor="let region of regions"  [selected]="region?.id == selectedRegion?.id" [ngValue]="region">{{region?.name}}</option>
                                                 </select><span class="highlight"></span> <span class="bar"></span>
-                                                <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_region.name}} </p>
+                                                <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_region?.name}} </p>
 
                                               </div>
                                             </div>
@@ -162,7 +163,7 @@
                                                       <select *ngIf="isEditPersonal" class="form-control p-0" id="id_country" [(ngModel)]="selectedCountry" (ngModelChange)="onSelectCountry($event)" name="selectedCountry">
                                                         <option *ngFor="let country of filteredCountries" [selected]="country?.id == selectedCountry?.id" [ngValue]="country">{{country?.name}}</option>
                                                       </select><span class="highlight"></span> <span class="bar"></span>
-                                                      <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_country.name}} </p>
+                                                      <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_country?.name}} </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -174,7 +175,7 @@
                                                 <select *ngIf="isEditPersonal" class="form-control p-0" id="id_city" [(ngModel)]="selectedCity" name="selectedCity">
                                                   <option *ngFor="let city of filteredCities" [selected]="city?.id == selectedCity?.id" [ngValue]="city">{{city?.name}}</option>
                                                 </select><span class="highlight"></span> <span class="bar"></span>
-                                                <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_city.name}} </p>
+                                                <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_city?.name}} </p>
 
                                               </div>
                                             </div>
@@ -191,7 +192,6 @@
                                                         <select *ngIf="isEditPersonal" class="form-control p-0" id="selectedQualification" [(ngModel)]="selectedQualification" name="selectedQualificaiton">
                                                           <option *ngFor="let qualification of qualifications" [selected]="qualification?.id == selectedQualification?.id" [ngValue]="qualification">{{qualification?.name}}</option>
                                                         </select><span class="highlight"></span> <span class="bar"></span>
-                                                        <p *ngIf="!isEditPersonal" class="form-control-static">{{applicant?.id_qualification.name}} </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -243,6 +243,9 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                      <button *ngIf="isEditPersonal || addApplicant" class="saveButton pull-right btn btn-success" type="submit">Add <i class="fa fa-plus" aria-hidden="true"></i></button>
+                                      <button (click)="isEditPersonal=false; addApplicant=false" *ngIf="isEditPersonal || addApplicant" class="saveButton pull-right btn btn-default" type="submit">Cancel</button>
                                     </div>
 
                                 </form>
@@ -250,7 +253,7 @@
 
                               <!-- EXPERIENCE START ------>
                               <div *ngIf="this.applicant != null">
-                                <app-at-applicant-experiences [applicant]="applicant"></app-at-applicant-experiences>
+                                <app-at-applicant-experiences [applicant]="applicant" (currentExperience)="getCurrentExperience($event)"></app-at-applicant-experiences>
                               </div>
                               <!-- EXPERIENCE END -------->
 
@@ -266,7 +269,7 @@
                                   </div>
                                 </div>
                                 <app-applicant-education-add *ngIf="addEducation" [applicant]="applicant" (onClose)="onClose($event)"></app-applicant-education-add>
-                                <app-at-applicant-schools-list [applicant]="applicant"></app-at-applicant-schools-list>
+                                <app-at-applicant-schools-list [applicant]="applicant" (currentSchool)="getCurrentSchool($event)"></app-at-applicant-schools-list>
                                </div>
                               <!-- EDUCATION END -->
 
@@ -279,6 +282,12 @@
                               <!-- DOCUMENTS START -->
                               <div *ngIf="this.applicant != null">
                                 <app-at-applicant-documents [applicant]="applicant"></app-at-applicant-documents>
+                              </div>
+                              <!-- DOCUMENTS END -->
+
+                              <!-- DOCUMENTS START -->
+                              <div *ngIf="this.applicant != null">
+                                <app-at-applicant-contacts [applicant]="applicant"></app-at-applicant-contacts>
                               </div>
                               <!-- DOCUMENTS END -->
 

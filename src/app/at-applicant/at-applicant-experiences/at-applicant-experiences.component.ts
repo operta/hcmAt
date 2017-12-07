@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ApplicantModel} from "../../_models/applicant.model";
 import {ApplicantExperiencesService} from "../../_services/applicantExperiences.service";
 import {ApplicantExperienceModel} from "../../_models/applicantExperience.model";
@@ -11,6 +11,7 @@ import {Subscription} from "rxjs/Subscription";
 })
 export class AtApplicantExperiencesComponent implements OnInit, OnDestroy {
   @Input() applicant: ApplicantModel;
+  @Output() currentExperience = new EventEmitter<ApplicantExperienceModel>();
   experiences: ApplicantExperienceModel[];
   addExperience: boolean;
   subscription: Subscription;
@@ -20,7 +21,10 @@ export class AtApplicantExperiencesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.applicantExperiencesService.getApplicantExperiences(this.applicant);
     this.subscription = this.applicantExperiencesService.ExperiencesObserver.subscribe(
-      (data: ApplicantExperienceModel[]) => this.experiences = data
+      (data: ApplicantExperienceModel[]) => {
+        this.experiences = data;
+        this.currentExperience.emit(this.experiences[0]);
+      }
     )
   }
 

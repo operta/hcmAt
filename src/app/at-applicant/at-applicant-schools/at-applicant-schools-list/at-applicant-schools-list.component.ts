@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ApplicantSchoolsService} from "../../../_services/applicantSchools.service";
 import {ApplicantSchoolModel} from "../../../_models/applicantSchool.model";
 import {ApplicantModel} from "../../../_models/applicant.model";
@@ -16,6 +16,7 @@ import {Subscription} from "rxjs/Subscription";
 export class AtApplicantSchoolsListComponent implements OnInit, OnDestroy {
 
   @Input() applicant: ApplicantModel;
+  @Output() currentSchool = new EventEmitter<ApplicantSchoolModel>();
   qualifications: QualificationModel[];
   schools: SchoolModel[];
   subscription: Subscription;
@@ -29,6 +30,7 @@ export class AtApplicantSchoolsListComponent implements OnInit, OnDestroy {
     this.subscription = this.applicatSchoolsService.applicantSchoolsObserver.subscribe(
       (data: ApplicantSchoolModel[]) => {
         this.applicantSchools = data;
+        this.currentSchool.emit(this.applicantSchools[0]);
       }
     );
     this.schoolsService.getSchools().subscribe(
