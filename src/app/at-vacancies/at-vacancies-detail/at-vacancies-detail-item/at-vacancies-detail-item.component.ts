@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {JobApplicationModel} from '../../../_models/jobApplication.model';
+import {ApplicantModel} from "../../../_models/applicant.model";
 
 
 @Component({
@@ -10,9 +11,11 @@ import {JobApplicationModel} from '../../../_models/jobApplication.model';
 export class AtVacanciesDetailItemComponent implements OnInit {
 
   @Input() jobApplication: JobApplicationModel;
+  @Input() applicant: ApplicantModel;
   constructor() { }
 
   ngOnInit() {
+    console.log(this.applicant);
   }
 
   // function that dynamically creates the circle for the grade
