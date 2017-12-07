@@ -85,7 +85,8 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
       '',
       new Date,
       '',
-      new Date
+      new Date,
+      []
     );
     this.vacancyService.saveVacancy(vacancy);
     this.router.navigate(['../'], {relativeTo: this.route});

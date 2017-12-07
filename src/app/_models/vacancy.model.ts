@@ -16,9 +16,10 @@ export class VacancyModel {
   public created_at: Date;
   public updated_by: string;
   public updated_at: Date;
+  public jobApplications: JobApplicationModel[];
 
 
-  constructor(id: number, code: string, name: string, description: string, id_location: RegionModel, date_from: Date, date_to: Date, id_work_place: WorkPlaceModel, created_by: string, created_at: Date, updated_by: string, updated_at: Date) {
+  constructor(id: number, code: string, name: string, description: string, id_location: RegionModel, date_from: Date, date_to: Date, id_work_place: WorkPlaceModel, created_by: string, created_at: Date, updated_by: string, updated_at: Date, jobApplications: JobApplicationModel[]) {
     this.id = id;
     this.code = code;
     this.name = name;
@@ -31,5 +32,6 @@ export class VacancyModel {
     this.created_at = created_at;
     this.updated_by = updated_by;
     this.updated_at = updated_at;
+    this.jobApplications = jobApplications;
   }
 }

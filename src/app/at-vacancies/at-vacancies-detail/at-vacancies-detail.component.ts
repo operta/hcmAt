@@ -21,7 +21,6 @@ export class AtVacanciesDetailComponent implements OnInit, OnDestroy {
   id: string;
   subscriptionParams: Subscription;
   finalGrade: number;
-  subscription: Subscription;
 
   constructor(private applicantsService: ApplicantsService, private vacancyService: VacanciesService, private route: ActivatedRoute, private jobApplicationsService: AtJobApplicationsService) { }
 
@@ -30,26 +29,22 @@ export class AtVacanciesDetailComponent implements OnInit, OnDestroy {
       (params: Params) => {
         this.id = params['id'];
         this.vacancy = this.vacancyService.getVacancy(+this.id);
-        this.jobApplicationsService.getJobApplicationsByVacancy(+this.id).subscribe(
-          (data: JobApplicationModel[]) => {
-            this.jobApplications = data;
-            console.log(this.jobApplications);
-          }
-        );
-/*        this.subscriptionVacancy = this.vacancyService.getVacancy(this.id).subscribe(
-          (data: VacancyModel) => {
-            this.vacancy = data;
-            console.log(this.vacancy);
-            this.jobApplications = this.vacancy.jobApplications;
-          }
-        );*/
+        this.jobApplicationsService.initJobApplications(this.vacancy);
+        this.jobApplications = this.jobApplicationsService.getJobApplications();
+
+        /*        this.subscriptionVacancy = this.vacancyService.getVacancy(this.id).subscribe(
+                  (data: VacancyModel) => {
+                    this.vacancy = data;
+                    console.log(this.vacancy);
+                    this.jobApplications = this.vacancy.jobApplications;
+                  }
+                );*/
       }
     );
   }
 
   ngOnDestroy() {
     this.subscriptionParams.unsubscribe();
-    this.subscription.unsubscribe();
   }
 
   getApplicant(id: string) {
