@@ -95,7 +95,7 @@
     <div class="pull-right">
       <ul class="pagination m-b-0" ([ngModel])="page">
         <li [ngClass]="{noClick: page === 1}"> <a (click)="setPage(page-1)"><i class="fa fa-angle-left"></i></a> </li>
-        <li [ngClass]="{active: pageIterator===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator)">{{pageIterator}}</a></li>
+        <li [ngClass]="{active: pageIterator.num===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator.num)">{{pageIterator.num}}</a></li>
         <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(page+1)" ><i class="fa fa-angle-right"></i></a> </li>
       </ul>
     </div>
@@ -108,7 +108,7 @@
 
 <!-- vacancy list -->
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-xs-12 col-lg-12 col-md-12">
     <div class="comment-center">
       <app-at-vacancies-item *ngFor="let vacancy of vacancies | slice:start():end();" [vacancy]="vacancy" (onEdit)="onEdit($event)"></app-at-vacancies-item>
     </div>
@@ -133,8 +133,8 @@
     <div class="pull-right">
       <ul class="pagination m-b-0" ([ngModel])="page">
         <li [ngClass]="{noClick: page === 1}"> <a (click)="setPage(page-1)"><i class="fa fa-angle-left"></i></a> </li>
-        <li [ngClass]="{active: pageIterator===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator)">{{pageIterator}}</a></li>
-        <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(pageIterator+1)" ><i class="fa fa-angle-right"></i></a> </li>
+        <li [ngClass]="{active: pageIterator.num===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator.num)">{{pageIterator.num}}</a></li>
+        <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(page+1)" ><i class="fa fa-angle-right"></i></a> </li>
       </ul>
     </div>
   </div>

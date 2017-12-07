@@ -51,4 +51,11 @@ export class AtVacanciesItemComponent implements OnInit {
     this.router.navigate(['vacancies/', this.vacancy.id]);
   }
 
+  delete(vacancyName: string) {
+    if (confirm('Are you sure to delete ' + vacancyName)) {
+      this.vacancyService.deleteVacancy(this.vacancy.id);
+      console.log('uslo u delete');
+    }
+  }
+
 }

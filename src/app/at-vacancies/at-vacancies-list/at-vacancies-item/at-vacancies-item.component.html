@@ -13,7 +13,7 @@
 -->
 
 <div (mouseenter) ="toggleEditButton()"  (mouseleave) ="toggleEditButton()">
-<a [routerLink]="[vacancy.id]" >
+<a [routerLink]="vacancy.id===null ? [] : [vacancy.id]" >
   <div class="comment-body col-sm-12 col-md-12 col-lg-12 pd-l-5" style="margin-bottom: 10px">
     <div class="user-img text-center horizontal-center icon-box"><div data-icon="&#xe019;" class="linea-icon linea-basic icon-font"></div></div>
     <div class="mail-content">
@@ -55,10 +55,12 @@
       <b>Edit</b>
       <i class="fa fa-angle-down fa-lg" aria-hidden="true"></i>
     </button>
+    <button (click)="delete(vacancy.name)" class="btn">Delete</button>
   </div>
   <div *ngIf="editVacancy">
     <app-at-vacancies-edit [vacancy]="vacancy"  (onUpdate)="onUpdate($event)"></app-at-vacancies-edit>
   </div>
+
 </div>
 </div>
 

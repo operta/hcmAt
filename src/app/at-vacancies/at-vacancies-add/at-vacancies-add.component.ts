@@ -61,7 +61,7 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
       'workPlace': new FormControl(''),
       'date_from': new FormControl(''),
       'date_to': new FormControl('')
-    })
+    });
   }
 
   onSubmit() {
@@ -74,7 +74,7 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
     const date_to = this.newVacForm.value.date_to;
 
     const vacancy = new VacancyModel(
-      0,
+      null,
       code,
       name,
       description,

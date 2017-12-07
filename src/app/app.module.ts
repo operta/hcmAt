@@ -17,8 +17,7 @@ import {AuthGuard} from './_services/auth-guard.service';
 import {AdminAuthGuard} from './_services/admin-auth-guard.service';
 import {JsogService} from 'jsog-typescript';
 import {AtJobApplicationsService} from './_services/at-job-applications.service';
-import { AtJobApplicationTestsComponent } from './at-job-applications/at-job-application-tests/at-job-application-tests.component';
-import { AtJobApplicationInterviewsComponent } from './at-job-applications/at-job-application-interviews/at-job-application-interviews.component';
+
 
 export function authHttpServiceFactory(http: Http) {
   return new AuthHttp(new AuthConfig({
