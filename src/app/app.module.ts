@@ -17,6 +17,8 @@ import {AuthGuard} from './_services/auth-guard.service';
 import {AdminAuthGuard} from './_services/admin-auth-guard.service';
 import {JsogService} from 'jsog-typescript';
 import {AtJobApplicationsService} from './_services/at-job-applications.service';
+import {ToastModule} from "ng2-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 export function authHttpServiceFactory(http: Http) {
@@ -39,10 +41,12 @@ export function authHttpServiceFactory(http: Http) {
   imports: [
     AppRoutingModule,
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     SharedModule,
-    DashboardModule
+    DashboardModule,
+    ToastModule.forRoot()
   ],
   providers: [
     JsogService,

@@ -7,6 +7,7 @@ import {UserStatus} from '../_models/userStatus.model';
 import {UserStatusService} from './userStatus.service';
 import {AuthenticationService} from './authentication.service';
 import {Router} from "@angular/router";
+import {ToastsManager} from "ng2-toastr";
 
 
 
@@ -24,7 +25,7 @@ export class UserService {
   });
 
 
-  constructor(private router: Router, private http: Http, private authenticationService: AuthenticationService) {
+  constructor(private toastr: ToastsManager, private router: Router, private http: Http, private authenticationService: AuthenticationService) {
   }
 
   login(accessToken: string) {
@@ -35,6 +36,7 @@ export class UserService {
     this.accessToken = accessToken;
 
     localStorage.setItem(TOKEN_NAME, accessToken);
+    console.log("LOGGING IN")
   }
 
 
@@ -47,10 +49,10 @@ export class UserService {
         }
       ).subscribe(
         response => {
-          console.log('RESPONSE:' + response);
+          this.toastr.success("Your account was successfully created.")
         },
         error => {
-          console.log(error);
+          this.toastr.success(error.status, "An error occured.")
         }
       );
   }
@@ -59,7 +61,7 @@ export class UserService {
     this.accessToken = null;
     this.isAdmin = false;
     localStorage.removeItem(TOKEN_NAME);
-    this.router.navigate(['login']);
+    this.router.navigate(['/login']);
   }
 
   isAdminUser(): boolean {
@@ -93,4 +95,5 @@ export class UserService {
         return user;
     });
   }
+
 }

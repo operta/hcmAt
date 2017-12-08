@@ -32,6 +32,22 @@ export class VacanciesService {
     );
   }
 
+  getActiveVacancies() {
+    this.http.get(this.vacanciesURL + '/active').map(
+      (response: Response) => {
+        const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json()));
+        // const vacancies: VacancyModel[] = response.json();
+
+        return vacancies;
+      }
+    ).subscribe(
+      (data: VacancyModel[]) => {
+        this.vacancies = data;
+        this.vacancyChange.next(this.vacancies.slice());
+      }
+    );
+  }
+
   // made for getting vacancy detail
   getVacancy(id: number) {
     return this.vacancies.find( vacancy => vacancy.id === id);

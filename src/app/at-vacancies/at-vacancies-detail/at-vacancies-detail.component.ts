@@ -9,6 +9,7 @@ import {JobApplicationModel} from '../../_models/jobApplication.model';
 import {Observable} from 'rxjs/Observable';
 import {AtJobApplicationsService} from "../../_services/at-job-applications.service";
 import {ApplicantsService} from "../../_services/applicants.service";
+import {UserService} from "../../_services/user.service";
 
 @Component({
   selector: 'app-at-vacancies-detail',
@@ -16,40 +17,19 @@ import {ApplicantsService} from "../../_services/applicants.service";
   styleUrls: ['./at-vacancies-detail.component.css']
 })
 export class AtVacanciesDetailComponent implements OnInit, OnDestroy {
-  vacancy: VacancyModel;
-  jobApplications: JobApplicationModel[];
-  id: string;
-  subscriptionParams: Subscription;
-  finalGrade: number;
+  isAdmin = false;
+  isUser = false;
 
-  constructor(private applicantsService: ApplicantsService, private vacancyService: VacanciesService, private route: ActivatedRoute, private jobApplicationsService: AtJobApplicationsService) { }
+  constructor(private userService: UserService) {
 
+  }
   ngOnInit() {
-    this.subscriptionParams = this.route.params.subscribe(
-      (params: Params) => {
-        this.id = params['id'];
-        this.vacancy = this.vacancyService.getVacancy(+this.id);
-        this.jobApplicationsService.initJobApplications(this.vacancy);
-        this.jobApplications = this.jobApplicationsService.getJobApplications();
-
-        /*        this.subscriptionVacancy = this.vacancyService.getVacancy(this.id).subscribe(
-                  (data: VacancyModel) => {
-                    this.vacancy = data;
-                    console.log(this.vacancy);
-                    this.jobApplications = this.vacancy.jobApplications;
-                  }
-                );*/
-      }
-    );
+    this.isAdmin = this.userService.isAdmin;
+    this.isUser = this.userService.isUser();
   }
 
   ngOnDestroy() {
-    this.subscriptionParams.unsubscribe();
-  }
-
-  getApplicant(id: string) {
 
   }
-
 
 }

@@ -10,6 +10,8 @@ import { AtVacanciesDetailComponent } from './at-vacancies-detail/at-vacancies-d
 import { AtVacanciesEditComponent } from './at-vacancies-edit/at-vacancies-edit.component';
 import { AtVacanciesAddComponent } from './at-vacancies-add/at-vacancies-add.component';
 import {AtVacanciesDetailItemComponent} from './at-vacancies-detail/at-vacancies-detail-item/at-vacancies-detail-item.component';
+import {AtVacanciesDetailUserComponent} from "./at-vacancies-detail/at-vacancies-detail-user/at-vacancies-detail-user.component";
+import {AtVacanciesDetailAdminComponent} from "./at-vacancies-detail/at-vacancies-detail-admin/at-vacancies-detail-admin.component";
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import {AtVacanciesDetailItemComponent} from './at-vacancies-detail/at-vacancies
     AtVacanciesDetailComponent,
     AtVacanciesEditComponent,
     AtVacanciesAddComponent,
-    AtVacanciesDetailItemComponent
+    AtVacanciesDetailItemComponent,
+    AtVacanciesDetailUserComponent,
+    AtVacanciesDetailAdminComponent
   ],
   imports: [
     CommonModule,

@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewContainerRef} from '@angular/core';
 import {ApplicantModel} from "../../../_models/applicant.model";
 import {AccomplishmentTypeModel} from "../../../_models/accomplishmentType.model";
 import {NgForm} from "@angular/forms";
 import {ApplicantAccomplishmentModel} from "../../../_models/applicantAccomplishment.model";
 import {ApplicantAccomplishmentsService} from "../../../_services/applicantAccomplishments.service";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-at-applicat-accomplishments-add',
@@ -17,7 +18,11 @@ export class AtApplicatAccomplishmentsAddComponent implements OnInit {
   ongoing:boolean;
   ongoingString : string;
 
-  constructor(private applicantAccomplishmentsService: ApplicantAccomplishmentsService) { }
+
+
+  constructor(public toastr: ToastsManager, private applicantAccomplishmentsService: ApplicantAccomplishmentsService) {
+  }
+
 
   ngOnInit() {
     this.ongoing = false;
@@ -53,8 +58,9 @@ export class AtApplicatAccomplishmentsAddComponent implements OnInit {
       new Date
     );
     console.log(applicantAccomplishment);
+
     this.applicantAccomplishmentsService.addApplicantAccomplishment(applicantAccomplishment);
-    close()
+    this.close();
   }
 
   close(){

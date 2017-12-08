@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {VacancyModel} from '../../../_models/vacancy.model';
 import {VacanciesService} from '../../../_services/vacancies.service';
 import {Router} from '@angular/router';
+import {UserService} from "../../../_services/user.service";
 
 @Component({
   selector: 'app-at-vacancies-item',
@@ -14,11 +15,14 @@ export class AtVacanciesItemComponent implements OnInit {
   editVacancy: boolean;
   isItemHovered: boolean;
   @Output() onEdit = new EventEmitter();
+  isUser = false;
+  isAdmin = false;
 
-
-  constructor(private vacancyService: VacanciesService, private router: Router) { }
+  constructor(private userService: UserService, private vacancyService: VacanciesService, private router: Router) { }
 
   ngOnInit() {
+    this.isAdmin = this.userService.isAdmin;
+    this.isUser = this.userService.isUser();
     this.isItemHovered = false;
     this.closeEdit();
   }

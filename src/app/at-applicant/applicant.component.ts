@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {UserService} from "../_services/user.service";
 import {UserModel} from "../_models/user.model";
 import {ApplicantsService} from "../_services/applicants.service";
@@ -6,18 +6,23 @@ import {ApplicantModel} from "../_models/applicant.model";
 import {NgForm} from "@angular/forms";
 import {RegionModel} from "../_models/region.model";
 import {RegionsService} from "../_services/regions.service";
-import {forEach} from "@angular/router/src/utils/collection";
 import {QualificationModel} from "../_models/qualification";
 import {QualificationsService} from "../_services/qualifications.service";
+import {ToastsManager} from "ng2-toastr";
+import {ApplicantSchoolsService} from "../_services/applicantSchools.service";
+import {ApplicantSchoolModel} from "../_models/applicantSchool.model";
+import {ApplicantExperienceModel} from "../_models/applicantExperience.model";
+import {Subscription} from "rxjs/Subscription";
 
 declare  var $:any;
 
 @Component({
   selector: 'app-applicant',
   templateUrl: './applicant.component.html',
-  styleUrls: ['./applicant.component.css']
+  styleUrls: ['./applicant.component.css',
+    '../../../node_modules/ng2-toastr/bundles/ng2-toastr.min.css']
 })
-export class ApplicantComponent implements OnInit {
+export class ApplicantComponent implements OnInit, OnDestroy {
 
   userId: string;
   user: UserModel;
@@ -35,16 +40,58 @@ export class ApplicantComponent implements OnInit {
   selectedCity: RegionModel;
   qualifications: QualificationModel[];
   selectedQualification: QualificationModel;
+  currentSchool: ApplicantSchoolModel;
+  currentExperience: ApplicantExperienceModel;
+  subscription: Subscription;
 
-
-  constructor(private userService: UserService,
+  constructor(public toastr: ToastsManager,
+              private userService: UserService,
               private applicantService: ApplicantsService,
               private regionsService: RegionsService,
-              private qualificationsService: QualificationsService) {
+              private qualificationsService: QualificationsService,
+              private applicantSchoolsService: ApplicantSchoolsService) {
     this.isEditPersonal = false;
     this.addApplicant = false;
     this.addEducation = false;
   }
+
+
+  ngOnInit() {
+
+    this.userService.getUser().subscribe(
+      (data: UserModel) =>{
+        this.user = data;
+        console.log(this.user);
+        this.userId = data.id;
+        this.getApplicant();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+    this.regionsService.getCities().subscribe(
+      (data: RegionModel[]) => this.cities = data);
+
+    this.regionsService.getCountries().subscribe(
+      (data: RegionModel[]) => this.countries = data);
+
+    this.regionsService.getRRegions().subscribe(
+      (data: RegionModel[]) => this.regions = data);
+
+    this.qualificationsService.getQualifications();
+    this.subscription = this.qualificationsService.qualificationsObserver.subscribe(
+      (data: QualificationModel[]) => {
+        this.qualifications = data;
+      }
+    );
+
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
+
 
   onSubmit(form: NgForm) {
     if(this.applicant != null){
@@ -64,9 +111,7 @@ export class ApplicantComponent implements OnInit {
       this.applicant.industry = form.value.industry;
       this.applicant.employment_position = form.value.employment_position;
       this.applicant.description = form.value.description;
-      this.applicantService.updateApplicant(this.applicant).subscribe(
-        result => console.log(result)
-      );
+      this.applicantService.updateApplicant(this.applicant);
     }
     else{
       var newApplicant = new ApplicantModel(
@@ -95,9 +140,14 @@ export class ApplicantComponent implements OnInit {
         this.user,
         this.selectedQualification
       );
-      console.log(newApplicant);
-      this.applicantService.addApplicant(newApplicant);
-      this.getApplicant();
+      this.applicantService.addApplicant(newApplicant).subscribe(
+        (data: ApplicantModel) => {
+          console.log(data);
+          this.getApplicant();
+        }
+      );
+
+      //this.getApplicant();
       this.addApplicant = false;
     }
     this.isEditPersonal = false;
@@ -105,17 +155,15 @@ export class ApplicantComponent implements OnInit {
 
 
   onClose(){
-    console.log("HERE");
     this.addEducation = false;
   }
-
-
-
 
   getApplicant(){
     this.applicantService.getApplicant(this.userId).subscribe(
       (data: ApplicantModel) => {
+
         this.applicant = data;
+        console.log(this.applicant);
         if(this.applicant != null){
           this.selectedRegion = this.applicant.id_region;
           this.selectedCountry = this.applicant.id_country;
@@ -139,36 +187,16 @@ export class ApplicantComponent implements OnInit {
     this.filteredCities = this.cities.filter((city) => city.id_parent.id == country.id);
   }
 
-
-  ngOnInit() {
-
-    this.userService.getUser().subscribe(
-      (data: UserModel) =>{
-        this.user = data;
-        this.userId = data.id;
-        this.getApplicant();
-      },
-      error => {
-        console.log(error);
-      }
-    );
-
-    this.regionsService.getCities().subscribe(
-      (data: RegionModel[]) => this.cities = data);
-
-    this.regionsService.getCountries().subscribe(
-      (data: RegionModel[]) => this.countries = data);
-
-    this.regionsService.getRRegions().subscribe(
-      (data: RegionModel[]) => this.regions = data);
-
-    this.qualificationsService.getQualifications().subscribe(
-      (data: QualificationModel[]) => {
-        this.qualifications = data;
-      }
-    );
-
+  getCurrentSchool(school){
+    this.currentSchool = school;
+    console.log(this.currentSchool);
   }
+
+  getCurrentExperience(experience){
+    this.currentExperience = experience;
+    console.log(this.currentExperience);
+  }
+
 
 
 }

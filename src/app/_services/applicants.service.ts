@@ -4,6 +4,8 @@ import {Subject} from 'rxjs/Subject';
 import 'rxjs/Rx';
 import {AuthenticationService} from "./authentication.service";
 import {ApplicantModel} from "../_models/applicant.model";
+import {ToastsManager} from "ng2-toastr";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class ApplicantsService {
@@ -17,7 +19,7 @@ export class ApplicantsService {
     'Authorization': 'Bearer ' + this.authenticationService.getToken()
   });
 
-  constructor(private http: Http, private authenticationService: AuthenticationService) { }
+  constructor(private toastr: ToastsManager, private http: Http, private authenticationService: AuthenticationService) { }
 
   getApplicants() {
     this.http.get(this.applicantsURL).map(
@@ -29,6 +31,9 @@ export class ApplicantsService {
       (data: ApplicantModel[]) => {
         this.applicants = data;
         this.applicantChange.next(this.applicants.slice());
+      },
+      error => {
+        this.toastr.error( error.status, "An error occured");
       }
     );
   }
@@ -47,15 +52,19 @@ export class ApplicantsService {
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(applicant);
 
-    this.http.post(this.applicantsURL + '/add', body, options).map(
+    return this.http.post(this.applicantsURL + '/add', body, options).map(
       (response: Response) => {
-        console.log(response);
-      }
-    ).subscribe(
-      response => {
-        console.log('RESPONSE:' + response);
-        // this.applicants.push(applicant);
+
+        //
+        // this.applicants.push(response.json());
         // this.applicantChange.next(this.applicants.slice());
+        this.toastr.success("Applicant profile successfully created.");
+        return response.json();
+      }
+    ).catch(
+      (error: any) => {
+        this.toastr.error( error, "An error occured");
+        return Observable.throw(new Error(error.status));
       }
     );
 
@@ -65,7 +74,17 @@ export class ApplicantsService {
     const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(applicant);
-    return this.http.put(this.applicantsURL, body, options)
-      .map((response: Response) => response.json());
+    return this.http.put(this.applicantsURL, body, options).map(
+      (response: Response) => response.json()
+      ).subscribe(
+        response => {
+          this.applicants.map(item => item.id == applicant.id ? item : applicant);
+          this.applicantChange.next(this.applicants.slice());
+          this.toastr.success("Applicant profile successfully updated.");
+        },
+        error => {
+          this.toastr.error( error.status, "An error occured");
+        }
+      );
   }
 }

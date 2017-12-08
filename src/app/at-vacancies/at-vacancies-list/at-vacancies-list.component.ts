@@ -4,6 +4,7 @@ import {VacanciesService} from '../../_services/vacancies.service';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import {AtVacanciesItemComponent} from './at-vacancies-item/at-vacancies-item.component';
+import {UserService} from "../../_services/user.service";
 
 
 @Component({
@@ -19,20 +20,34 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
   pages = [{num: 1} , {num: 2}, {num: 3}, {num: 4}, {num: 5}];
   resultCount = 15;
   page = 1;
-/*  subscription: Subscription;*/
+  subscription: Subscription;
   private vacancies: VacancyModel[];
+  isUser = false;
+  isAdmin = false;
 
 
-  constructor(private vacanciesService: VacanciesService) { }
+  constructor(private userService: UserService, private vacanciesService: VacanciesService) { }
 
   ngOnInit() {
-    /*this.subscription =*/
-    this.vacanciesService.getVacancies();
-    this.vacanciesService.vacancyChange.subscribe(
-      (data: VacancyModel[]) => {
-        this.vacancies = data;
-      }
-    )
+    this.isAdmin = this.userService.isAdmin;
+    this.isUser = this.userService.isUser();
+    if (this.isAdmin) {
+      this.vacanciesService.getVacancies();
+      this.subscription = this.vacanciesService.vacancyChange.subscribe(
+        (data: VacancyModel[]) => {
+          this.vacancies = data;
+        }
+      );
+    }
+    if (this.isUser) {
+      this.vacanciesService.getActiveVacancies();
+      this.subscription = this.vacanciesService.vacancyChange.subscribe(
+        (data: VacancyModel[]) => {
+          this.vacancies = data;
+        }
+      );
+    }
+
     /*.subscribe(
       (data: VacancyModel[]) => {
         this.vacancies = data;
@@ -42,6 +57,7 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   setResultCount(num: number) {

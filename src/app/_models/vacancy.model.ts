@@ -1,6 +1,7 @@
 import {WorkPlaceModel} from './workPlace.model';
 import {RegionModel} from './region.model';
 import {JobApplicationModel} from './jobApplication.model';
+import {VacanciesStatusModel} from "./vacanciesStatus.model";
 
 export class VacancyModel {
 
@@ -17,9 +18,10 @@ export class VacancyModel {
   public updated_by: string;
   public updated_at: Date;
   public jobApplications: JobApplicationModel[];
+  public status: VacanciesStatusModel;
 
 
-  constructor(id: number, code: string, name: string, description: string, id_location: RegionModel, date_from: Date, date_to: Date, id_work_place: WorkPlaceModel, created_by: string, created_at: Date, updated_by: string, updated_at: Date, jobApplications: JobApplicationModel[]) {
+  constructor(id: number, code: string, name: string, description: string, id_location: RegionModel, date_from: Date, date_to: Date, id_work_place: WorkPlaceModel, created_by: string, created_at: Date, updated_by: string, updated_at: Date, jobApplications: JobApplicationModel[], status: VacanciesStatusModel) {
     this.id = id;
     this.code = code;
     this.name = name;
@@ -33,5 +35,6 @@ export class VacancyModel {
     this.updated_by = updated_by;
     this.updated_at = updated_at;
     this.jobApplications = jobApplications;
+    this.status = status;
   }
 }

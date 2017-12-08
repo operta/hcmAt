@@ -5,6 +5,7 @@ import {AtVacanciesDetailComponent} from './at-vacancies-detail/at-vacancies-det
 import {AtVacanciesListComponent} from './at-vacancies-list/at-vacancies-list.component';
 import {AtVacanciesEditComponent} from './at-vacancies-edit/at-vacancies-edit.component';
 import {AtVacanciesAddComponent} from './at-vacancies-add/at-vacancies-add.component';
+import {AtVacanciesMylistComponent} from "../at-vacancies-mylist/at-vacancies-mylist.component";
 
 const recipeRoutes: Routes = [
   { path: '', component: AtVacanciesComponent, children: [

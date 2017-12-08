@@ -49,5 +49,15 @@
 
 
 .saveButton {
-  margin-top: -9px;
+  margin: 2px;
+
+
+}
+
+.modal {
+  background: rgba(0,0,0,0.6);
+
+}
+.modal-body {
+  display: none !important;
 }

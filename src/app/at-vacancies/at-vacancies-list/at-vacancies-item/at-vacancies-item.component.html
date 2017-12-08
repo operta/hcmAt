@@ -13,11 +13,11 @@
 -->
 
 <div (mouseenter) ="toggleEditButton()"  (mouseleave) ="toggleEditButton()">
-<a [routerLink]="vacancy.id===null ? [] : [vacancy.id]" >
+<a [routerLink]="vacancy?.id===null ? [] : [vacancy?.id]" >
   <div class="comment-body col-sm-12 col-md-12 col-lg-12 pd-l-5" style="margin-bottom: 10px">
     <div class="user-img text-center horizontal-center icon-box"><div data-icon="&#xe019;" class="linea-icon linea-basic icon-font"></div></div>
     <div class="mail-content">
-      <h5><b>{{vacancy.name}}</b></h5>
+      <h5><b>{{vacancy?.name}}</b></h5>
 
       <span class="mail-desc" style="height:100px;">
         <div class="row">
@@ -48,7 +48,7 @@
     </div>
   </div>
 </a>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+<div *ngIf="isAdmin" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
   <div class="text-center" style="margin-top:-42px">
     <!--<button class="btn btn-success waves-effect waves-light m-r-10" data-toggle="collapse" data-target="#demo">-->
     <button class="btn btn-default" *ngIf="isItemHovered || editVacancy" (click)="editVacancyButton()">

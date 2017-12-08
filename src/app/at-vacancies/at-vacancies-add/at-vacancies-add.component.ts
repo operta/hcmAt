@@ -8,6 +8,7 @@ import {VacanciesService} from '../../_services/vacancies.service';
 import {WorkPlaceModel} from '../../_models/workPlace.model';
 import {WorkPlacesService} from '../../_services/work-places.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {VacanciesStatusModel} from '../../_models/vacanciesStatus.model';
 
 @Component({
   selector: 'app-at-vacancies-add',
@@ -86,7 +87,8 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
       new Date,
       '',
       new Date,
-      []
+      [],
+      new VacanciesStatusModel(1, 'ACTIVE')
     );
     this.vacancyService.saveVacancy(vacancy);
     this.router.navigate(['../'], {relativeTo: this.route});

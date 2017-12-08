@@ -29,10 +29,12 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loading = true;
+    console.log(this.loading)
 
     this.authenticationService.login(this.model.username, this.model.password)
       .subscribe(
         (result: any)=> {
+          console.log(result);
           this.loading = false;
 
           if (result) {
