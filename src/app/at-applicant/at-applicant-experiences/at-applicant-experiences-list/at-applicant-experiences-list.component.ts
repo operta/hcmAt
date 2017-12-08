@@ -12,6 +12,7 @@ import {ApplicantExperiencesService} from "../../../_services/applicantExperienc
 export class AtApplicantExperiencesListComponent implements OnInit {
   @Input() applicant: ApplicantModel;
   @Input() experiences: ApplicantExperienceModel[];
+  @Input() editable: boolean;
 
   constructor() { }
 

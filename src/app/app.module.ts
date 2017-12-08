@@ -19,7 +19,7 @@ import {JsogService} from 'jsog-typescript';
 import {AtJobApplicationsService} from './_services/at-job-applications.service';
 import {ToastModule} from "ng2-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-
+import {JobApplicationStatusesService} from "./_services/jobApplicationStatuses.service";
 
 export function authHttpServiceFactory(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -56,7 +56,8 @@ export function authHttpServiceFactory(http: Http) {
     UserStatusService,
     AuthGuard,
     AdminAuthGuard,
-    AtJobApplicationsService
+    AtJobApplicationsService,
+    JobApplicationStatusesService
   ],
   bootstrap: [ AppComponent ]
 })

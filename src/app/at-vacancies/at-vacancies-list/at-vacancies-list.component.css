@@ -4,3 +4,7 @@
 li {
   cursor: pointer;
 }
+
+.comment-center{
+  margin: 0 !important;
+}

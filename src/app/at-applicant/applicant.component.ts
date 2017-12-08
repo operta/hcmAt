@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {UserService} from "../_services/user.service";
 import {UserModel} from "../_models/user.model";
 import {ApplicantsService} from "../_services/applicants.service";
@@ -24,9 +24,10 @@ declare  var $:any;
 })
 export class ApplicantComponent implements OnInit, OnDestroy {
 
+  @Input() applicant: ApplicantModel;
+  @Input() editable: boolean;
   userId: string;
   user: UserModel;
-  applicant: ApplicantModel;
   isEditPersonal: boolean;
   addApplicant: boolean;
   addEducation: boolean;
@@ -58,17 +59,14 @@ export class ApplicantComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.userService.getUser().subscribe(
-      (data: UserModel) =>{
-        this.user = data;
-        console.log(this.user);
-        this.userId = data.id;
-        this.getApplicant();
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    if(this.applicant != null){
+      this.selectedRegion = this.applicant.id_region;
+      this.selectedCountry = this.applicant.id_country;
+      this.selectedCity = this.applicant.id_city;
+      this.selectedQualification = this.applicant.id_qualification;
+    }
+
+
 
     this.regionsService.getCities().subscribe(
       (data: RegionModel[]) => this.cities = data);
@@ -91,6 +89,8 @@ export class ApplicantComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.subscription.unsubscribe();
   }
+
+
 
 
   onSubmit(form: NgForm) {
@@ -142,8 +142,8 @@ export class ApplicantComponent implements OnInit, OnDestroy {
       );
       this.applicantService.addApplicant(newApplicant).subscribe(
         (data: ApplicantModel) => {
-          console.log(data);
-          this.getApplicant();
+        // OVO POPRAVIT STA TREBA
+          // this.getApplicant();
         }
       );
 
@@ -156,26 +156,6 @@ export class ApplicantComponent implements OnInit, OnDestroy {
 
   onClose(){
     this.addEducation = false;
-  }
-
-  getApplicant(){
-    this.applicantService.getApplicant(this.userId).subscribe(
-      (data: ApplicantModel) => {
-
-        this.applicant = data;
-        console.log(this.applicant);
-        if(this.applicant != null){
-          this.selectedRegion = this.applicant.id_region;
-          this.selectedCountry = this.applicant.id_country;
-          this.selectedCity = this.applicant.id_city;
-          this.selectedQualification = this.applicant.id_qualification;
-        }
-
-      },
-      error => {
-        console.log(error);
-      }
-    );
   }
 
   public onSelectRegion(region) {

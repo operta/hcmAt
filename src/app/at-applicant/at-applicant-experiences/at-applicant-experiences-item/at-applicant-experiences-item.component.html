@@ -4,7 +4,7 @@
     <form class="form-horizontal" role="form" (ngSubmit)="onSubmit(formExperience)" #formExperience="ngForm">
       <div class="form-body">
         <br>
-        <div class="box-title p-b-10 p-t-10 p-r-10">
+        <div *ngIf="editable" class="box-title p-b-10 p-t-10 p-r-10">
           <div class="pull-right">
             <a *ngIf="!isEdit" class="popup-with-form" (click)="isEdit=true">
               <i class="fa fa-pencil action-button-at"></i>

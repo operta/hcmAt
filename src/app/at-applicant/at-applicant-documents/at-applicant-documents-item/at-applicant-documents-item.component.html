@@ -1,7 +1,7 @@
 <hr class="m-t-5 m-b-10">
     <form class="form-horizontal" role="form">
       <div class="form-body">
-        <div class="box-title p-b-10 p-t-10 p-r-10"><div class="pull-right">
+        <div *ngIf="editable" class="box-title p-b-10 p-t-10 p-r-10"><div class="pull-right">
           <a role="button"  (click)="modal.show()" class="popup-with-form"><i class="fa fa-times action-button-at" aria-hidden="true"></i></a>
         </div>
         </div>

@@ -9,6 +9,7 @@ import {ContactTypeModel} from "../../../_models/contactType.model";
 })
 export class AtApplicantContactsListComponent implements OnInit {
   @Input() contacts: ApplicantContactModel[];
+  @Input() editable: boolean;
   @Input() contactTypes: ContactTypeModel[];
 
   constructor() { }

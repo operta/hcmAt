@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {JobApplicationModel} from '../../../_models/jobApplication.model';
 import {ApplicantModel} from "../../../_models/applicant.model";
+import {JobApplicationStatusModel} from "../../../_models/jobApplicationStatus.model";
+import {AtJobApplicationsService} from "../../../_services/at-job-applications.service";
+import {VacancyModel} from "../../../_models/vacancy.model";
 
 
 @Component({
@@ -12,10 +15,33 @@ export class AtVacanciesDetailItemComponent implements OnInit {
 
   @Input() jobApplication: JobApplicationModel;
   @Input() applicant: ApplicantModel;
-  constructor() { }
+  @Input() jobApplicationStatuses: JobApplicationStatusModel[];
+  selectedStatus: JobApplicationStatusModel;
+  changeStatus = false;
+
+  constructor(private jobApplicationService: AtJobApplicationsService) { }
 
   ngOnInit() {
     console.log(this.applicant);
+    console.log(this.jobApplication);
+  }
+
+  updateStatus(status: JobApplicationStatusModel){
+    var newStatus = new JobApplicationStatusModel(
+      status.id, null, status.name,null,null,null,null,null
+    );
+    var applicant = new ApplicantModel(
+      this.jobApplication.applicantid.id, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+      null, null, null, null, null, null, null, null, null
+    );
+    var vacancy = new VacancyModel(
+      this.jobApplication.vacancyid.id, null, null, null, null, null, null, null, null, null, null, null, null, null
+    );
+    this.jobApplication.id_status = newStatus;
+    this.jobApplication.vacancyid = vacancy;
+    this.jobApplication.applicantid = applicant;
+    console.log(this.jobApplication);
+    this.jobApplicationService.updateJobApplication(this.jobApplication);
   }
 
   // function that dynamically creates the circle for the grade

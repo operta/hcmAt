@@ -2,12 +2,13 @@ import {ApplicantModel} from './applicant.model';
 import {VacancyModel} from './vacancy.model';
 import {JobApplicationTestModel} from "./jobApplicationTest.model";
 import {JobApplicationInterviewModel} from "./jobApplicationInterview.model";
+import {JobApplicationStatusModel} from "./jobApplicationStatus.model";
 
 export class JobApplicationModel {
   public id: number;
   public applicantid: ApplicantModel;
   public vacancyid: VacancyModel;
-  public id_status: number;
+  public id_status: JobApplicationStatusModel;
   public grade: number;
   public review: string;
   public date_applied: Date;
@@ -20,11 +21,10 @@ export class JobApplicationModel {
   public interview_grade: number;
   public test_grade: number;
 
-
-  constructor(id: number, id_applicant: ApplicantModel, id_vacancies: VacancyModel, id_status: number, grade: number, review: string, date_applied: Date, created_by: string, created_at: Date, updated_by: string, updated_at: Date, test: JobApplicationTestModel[], interview: JobApplicationInterviewModel[], interview_grade: number, test_grade: number) {
+  constructor(id: number, applicantid: ApplicantModel, vacancyid: VacancyModel, id_status: JobApplicationStatusModel, grade: number, review: string, date_applied: Date, created_by: string, created_at: Date, updated_by: string, updated_at: Date, test: JobApplicationTestModel[], interview: JobApplicationInterviewModel[], interview_grade: number, test_grade: number) {
     this.id = id;
-    this.applicantid = id_applicant;
-    this.vacancyid = id_vacancies;
+    this.applicantid = applicantid;
+    this.vacancyid = vacancyid;
     this.id_status = id_status;
     this.grade = grade;
     this.review = review;

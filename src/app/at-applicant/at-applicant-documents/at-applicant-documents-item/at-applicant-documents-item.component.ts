@@ -10,6 +10,7 @@ import * as FileSaver from 'file-saver';
 })
 export class AtApplicantDocumentsItemComponent implements OnInit {
   @Input() document: ApplicantDocumentModel;
+  @Input() editable: boolean;
 
   file: Blob;
   fileURL: string;

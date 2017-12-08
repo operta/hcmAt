@@ -12,6 +12,9 @@ import {ProfileComponent} from "../profile/profile.component";
 import {RgQualificationsComponent} from "../rg-qualifications/rg-qualifications.component";
 import {RgRegionsComponent} from "../rg-regions/rg-regions.component";
 import {AtVacanciesMylistComponent} from "../at-vacancies-mylist/at-vacancies-mylist.component";
+import {ApplicantOverviewComponent} from "../applicant-overview/applicant-overview.component";
+import {AtApplicantWrapperComponent} from "../at-applicant/at-applicant-wrapper/at-applicant-wrapper.component";
+import {ApplicantResolver} from "../_services/applicantResolver.service";
 
 
 const dashboardRoutes: Routes = [
@@ -59,8 +62,16 @@ const dashboardRoutes: Routes = [
         canActivate: [AuthGuard, AdminAuthGuard]
       },
       {
+        path: 'applicantOverview/:id',
+        component: ApplicantOverviewComponent,
+        resolve: {
+          applicant: ApplicantResolver
+        },
+        canActivate: [AuthGuard]
+      },
+      {
         path: 'applicant',
-        component: ApplicantComponent,
+        component: AtApplicantWrapperComponent,
         canActivate: [AuthGuard]
       },
       { path: 'applicants',

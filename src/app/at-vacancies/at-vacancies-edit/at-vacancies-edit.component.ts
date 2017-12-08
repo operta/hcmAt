@@ -65,10 +65,10 @@ export class AtVacanciesEditComponent implements OnInit, OnDestroy {
 
 
     console.log(this.vacancy);
-    this.subscriptionVacancy = this.vacancyService.updateVacancy(this.vacancy)
-      .subscribe(
-        result => console.log(result)
-      );
+    // this.subscriptionVacancy = this.vacancyService.updateVacancy(this.vacancy)
+    //   .subscribe(
+    //     result => console.log(result)
+    //   );
     //this.submitted = true;
     this.onUpdate.emit();
 

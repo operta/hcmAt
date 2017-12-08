@@ -13,6 +13,7 @@ import {DocumentTypeModel} from "../../_models/documentType.model";
 })
 export class AtApplicantDocumentsComponent implements OnInit, OnDestroy {
   @Input() applicant: ApplicantModel;
+  @Input() editable: boolean;
   documents: ApplicantDocumentModel[];
   add: boolean;
   subscription: Subscription;

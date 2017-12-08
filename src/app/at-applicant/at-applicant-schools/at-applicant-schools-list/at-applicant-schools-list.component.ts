@@ -17,6 +17,7 @@ export class AtApplicantSchoolsListComponent implements OnInit, OnDestroy {
 
   @Input() applicant: ApplicantModel;
   @Output() currentSchool = new EventEmitter<ApplicantSchoolModel>();
+  @Input() editable: boolean;
   qualifications: QualificationModel[];
   schools: SchoolModel[];
   subscription: Subscription;

@@ -47,6 +47,15 @@ export class ApplicantsService {
     );
   }
 
+  getApplicantByApplicantId(id: string) {
+    return this.http.get(this.applicantsURL + '/applicant/' + id).map(
+      (response: Response) => {
+        const applicant: ApplicantModel = response.json();
+        return applicant;
+      }
+    );
+  }
+
   addApplicant(applicant: ApplicantModel) {
     const headers = new Headers({'Content-type': 'application/json'});
     const options = new RequestOptions({headers: headers});

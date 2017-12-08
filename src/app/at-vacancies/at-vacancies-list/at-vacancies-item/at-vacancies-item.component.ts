@@ -1,64 +1,186 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation} from '@angular/core';
 import {VacancyModel} from '../../../_models/vacancy.model';
 import {VacanciesService} from '../../../_services/vacancies.service';
 import {Router} from '@angular/router';
 import {UserService} from "../../../_services/user.service";
+import {RegionModel} from "../../../_models/region.model";
+import {WorkPlaceModel} from "../../../_models/workPlace.model";
+import {NgForm} from "@angular/forms";
+import {UserModel} from "../../../_models/user.model";
+import {ApplicantModel} from "../../../_models/applicant.model";
+import {ApplicantsService} from "../../../_services/applicants.service";
+import {JobApplicationModel} from "../../../_models/jobApplication.model";
+import {AtJobApplicationsService} from "../../../_services/at-job-applications.service";
+import {JobApplicationStatusModel} from "../../../_models/jobApplicationStatus.model";
+import {VacanciesStatusModel} from "../../../_models/vacanciesStatus.model";
 
 @Component({
   selector: 'app-at-vacancies-item',
   templateUrl: './at-vacancies-item.component.html',
-  styleUrls: ['./at-vacancies-item.component.css']
+  styleUrls: ['./at-vacancies-item.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AtVacanciesItemComponent implements OnInit {
-
+  @ViewChild('cancelEdit') closeBtnEdit: ElementRef;
+  @ViewChild('cancelApply') closeBtnApply: ElementRef;
   @Input() vacancy: VacancyModel;
-  editVacancy: boolean;
-  isItemHovered: boolean;
-  @Output() onEdit = new EventEmitter();
+  @Input() regions: RegionModel[];
+  @Input() workplaces: WorkPlaceModel[];
+  selectedRegion = null;
+  selectedWorkplace = null;
+
   isUser = false;
   isAdmin = false;
+  isCompany = false;
 
-  constructor(private userService: UserService, private vacancyService: VacanciesService, private router: Router) { }
+  applicant: ApplicantModel;
+  applicantApplied = false;
+
+
+  constructor(private userService: UserService,
+              private vacancyService: VacanciesService,
+              private router: Router,
+              private applicantService: ApplicantsService,
+              private jobApplicationService: AtJobApplicationsService) { }
 
   ngOnInit() {
+    //change to company when company added!
+    this.isCompany = this.userService.isAdmin;
     this.isAdmin = this.userService.isAdmin;
     this.isUser = this.userService.isUser();
-    this.isItemHovered = false;
-    this.closeEdit();
+    if(this.isUser){
+      this.getApplicantInformation();
+    }
+    this.selectedWorkplace = this.vacancy.id_work_place;
+    this.selectedRegion = this.vacancy.id_location;
   }
 
-  editVacancyButton() {
-    if (this.editVacancy === true){
-      this.onEdit.emit();
-    } else {
-      this.onEdit.emit();
-      this.editVacancy = !this.editVacancy
+  checkApplicantApplied() {
+    if(this.vacancy.jobApplications == null || this.applicant == null){
+      this.applicantApplied = false;
+      return;
     }
 
-
+      for(var i = 0; i < this.vacancy.jobApplications.length; i++) {
+        if (this.vacancy.jobApplications[i].applicantid.id == this.applicant.id) {
+          this.applicantApplied = true;
+          return;
+        }
+      }
+     this.applicantApplied = false;
   }
 
-  onUpdate() {
-    this.editVacancy = false;
+  onSubmitEdit(form: NgForm) {
+    if(form.value.status == 'ACTIVE'){
+      var status = new VacanciesStatusModel(1, 'ACTIVE');
+    }
+    else {
+      var status = new VacanciesStatusModel(2, 'CLOSED');
+    }
+    this.vacancy.name = form.value.name;
+    this.vacancy.code = form.value.code;
+    this.vacancy.description = form.value.description;
+    this.vacancy.date_from = form.value.date_from;
+    this.vacancy.date_to = form.value.date_to;
+    this.vacancy.id_location = this.selectedRegion;
+    this.vacancy.id_work_place = this.selectedWorkplace;
+    this.vacancy.status = status;
+
+    var updateVac = new VacancyModel(
+      this.vacancy.id,
+      this.vacancy.code,
+      this.vacancy.name,
+      this.vacancy.description,
+      this.vacancy.id_location,
+      this.vacancy.date_from,
+      this.vacancy.date_to,
+      this.vacancy.id_work_place,
+      null,
+      null,
+      null,
+      new Date,
+      null,
+      this.vacancy.status
+    );
+    console.log(updateVac);
+    this.vacancyService.updateVacancy(updateVac);
+    this.closeEditModal();
   }
 
-  closeEdit() {
-    this.editVacancy = false;
+  getApplicantInformation() {
+    this.userService.getUser().subscribe(
+      (data: UserModel) =>{
+        this.applicantService.getApplicant(data.id).subscribe(
+          (data: ApplicantModel) => {
+            this.applicant = data;
+            this.checkApplicantApplied();
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
-  toggleEditButton() {
-      this.isItemHovered = !this.isItemHovered;
+  apply() {
+    this.createJobApplication();
   }
+
+  createJobApplication(){
+    var status = new JobApplicationStatusModel(
+      '1', null, null, null, null, null, null, null
+    );
+    var applicant = new ApplicantModel(
+      this.applicant.id, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+      null, null, null, null, null, null, null, null, null
+    );
+    var vacancy = new VacancyModel(
+      this.vacancy.id, null, null, null, null, null, null, null, null, null, null, null, null, null
+    );
+    var newJobApplication = new JobApplicationModel(
+      null,
+      applicant,
+      vacancy,
+      status,
+      null,
+      null,
+      new Date,
+      null,
+      new Date,
+      null,
+      new Date,
+      null,
+      null,
+      null,
+      null
+    );
+    console.log(newJobApplication);
+    this.jobApplicationService.addJobApplication(newJobApplication);
+    this.closeApplyModal();
+    this.applicantApplied = true;
+  }
+
+  private closeApplyModal(): void {
+    this.closeBtnApply.nativeElement.click();
+  }
+
+  private closeEditModal(): void {
+    this.closeBtnEdit.nativeElement.click();
+  }
+
+  deleteVacancy(vacancy: VacancyModel) {
+    this.vacancyService.deleteVacancy(vacancy.id);
+  }
+
 
   vacDetailOpen() {
     this.router.navigate(['vacancies/', this.vacancy.id]);
   }
 
-  delete(vacancyName: string) {
-    if (confirm('Are you sure to delete ' + vacancyName)) {
-      this.vacancyService.deleteVacancy(this.vacancy.id);
-      console.log('uslo u delete');
-    }
-  }
+
 
 }

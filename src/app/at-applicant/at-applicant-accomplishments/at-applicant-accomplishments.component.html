@@ -1,7 +1,7 @@
 <div class="panel-footer p-b-20 p-t-20 m-b-10">
   <i class="ti-check-box m-r-5 heading-icon-at"></i>
   <span class="heading-at">ACCOMPLISHMENTS</span>
-  <div class="dropdown user-pro-body pull-right">
+  <div *ngIf="editable" class="dropdown user-pro-body pull-right">
     <a href="#" class="u-dropdown" data-toggle="dropdown"
        role="button" aria-haspopup="true" aria-expanded="false">
       <i class="fa fa-plus action-button-at"></i>
@@ -16,5 +16,5 @@
     </ul>
   </div>
 </div>
-<app-at-applicat-accomplishments-add *ngIf="addAccomplishment" [applicant]="applicant" [selectedAccomplishmentType]="selectedAccomplishmentType" (onClose)="onClose($event)"></app-at-applicat-accomplishments-add>
-<app-at-applicant-accomplishments-list [applicant]="applicant" [applicantAccomplishments]="applicantAccomplishments"></app-at-applicant-accomplishments-list>
+<app-at-applicat-accomplishments-add *ngIf="addAccomplishment && editable" [applicant]="applicant" [selectedAccomplishmentType]="selectedAccomplishmentType" (onClose)="onClose($event)"></app-at-applicat-accomplishments-add>
+<app-at-applicant-accomplishments-list [applicant]="applicant" [applicantAccomplishments]="applicantAccomplishments" [editable]="editable"></app-at-applicant-accomplishments-list>

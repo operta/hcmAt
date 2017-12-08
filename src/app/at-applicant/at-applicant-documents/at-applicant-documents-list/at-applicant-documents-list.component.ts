@@ -8,6 +8,7 @@ import {ApplicantDocumentModel} from "../../../_models/applicantDocument.model";
 })
 export class AtApplicantDocumentsListComponent implements OnInit {
   @Input() documents: ApplicantDocumentModel[];
+  @Input() editable: boolean;
   constructor() { }
 
   ngOnInit() {

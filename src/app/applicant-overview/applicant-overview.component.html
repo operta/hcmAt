@@ -1,0 +1,42 @@
+
+<!-- Page Content -->
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row bg-title">
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">{{applicant?.name}}</h4>
+      </div>
+
+    </div>
+    <!-- /.row -->
+    <!-- .row -->
+    <div class="row">
+
+      <div class="col-md-12 col-xs-12">
+        <div class="white-box">
+          <ul class="nav customtab nav-tabs" role="tablist">
+            <li role="presentation" class="nav-item"><a href="#applicant" class="nav-link" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-user"></i></span> <span class="hidden-xs">Personal Information</span></a></li>
+            <li role="presentation" class="nav-item"><a href="#applications" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">Job Applications</span></a></li>
+            <li role="presentation" class="nav-item"><a href="#activities" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-envelope-o"></i></span> <span class="hidden-xs">Activities</span></a></li>
+          </ul>
+          <div class="tab-content">
+
+            <div class="tab-pane" id="applicant">
+              <app-applicant [applicant]="applicant" [editable]="false"></app-applicant>
+            </div>
+            <div class="tab-pane" id="applications">
+             JOB APPLICATIONS
+            </div>
+
+            <div class="tab-pane" id="activities">
+              ACTIVITIES
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+</div>
+<!-- /#page-wrapper -->
+
