@@ -3,6 +3,7 @@ import {VacancyModel} from "../_models/vacancy.model";
 import {VacanciesService} from "../_services/vacancies.service";
 import {AtJobApplicationsService} from "../_services/at-job-applications.service";
 import {JobApplicationModel} from "../_models/jobApplication.model";
+import {JobApplicationStatusModel} from "../_models/jobApplicationStatus.model";
 
 @Component({
   selector: 'app-at-vacancies-mylist',
@@ -28,7 +29,6 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
     this.jobApplicationsService.jobApplicationsChange.subscribe(
       data => {
         this.jobApplications = data;
-        console.log(this.jobApplications[0].vacancyid);
       }
     );
     /*.subscribe(
