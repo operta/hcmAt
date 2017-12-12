@@ -68,6 +68,9 @@ import {AtVacanciesMylistComponent} from "../at-vacancies-mylist/at-vacancies-my
 import {AtVacanciesMylistItemComponent} from "../at-vacancies-mylist/at-vacancies-mylist-item/at-vacancies-mylist-item.component";
 import {AtVacanciesDetailAdminComponent} from "../at-vacancies/at-vacancies-detail/at-vacancies-detail-admin/at-vacancies-detail-admin.component";
 import {AtVacanciesDetailUserComponent} from "../at-vacancies/at-vacancies-detail/at-vacancies-detail-user/at-vacancies-detail-user.component";
+import {ApplicantOverviewComponent} from "../applicant-overview/applicant-overview.component";
+import {AtApplicantWrapperComponent} from "../at-applicant/at-applicant-wrapper/at-applicant-wrapper.component";
+import {ApplicantResolver} from "../_services/applicantResolver.service";
 
 @NgModule({
   declarations: [
@@ -106,12 +109,13 @@ import {AtVacanciesDetailUserComponent} from "../at-vacancies/at-vacancies-detai
     AtApplicantSkillsItemComponent,
     AccomplishmentTypePipe,
     ProfileComponent,
-    ModalComponent,
     RgQualificationsComponent,
     RgRegionsComponent,
     RgRegionTypesComponent,
     AtVacanciesMylistComponent,
-    AtVacanciesMylistItemComponent
+    AtVacanciesMylistItemComponent,
+    ApplicantOverviewComponent,
+    AtApplicantWrapperComponent
   ],
   imports: [
     CommonModule,
@@ -125,7 +129,6 @@ import {AtVacanciesDetailUserComponent} from "../at-vacancies/at-vacancies-detai
   providers: [
     SkillsService,
     SkillGradesService,
-    VacanciesService,
     RegionsService,
     RegionTypesService,
     WorkPlacesService,
@@ -144,7 +147,8 @@ import {AtVacanciesDetailUserComponent} from "../at-vacancies/at-vacancies-detai
     ApplicantExperiencesService,
     ApplicantContactsService,
     ApplicantSkillsService,
-    ApplicantDocumentsService
+    ApplicantDocumentsService,
+    ApplicantResolver
   ],
 
 })

@@ -1,3 +1,80 @@
-<p>
-  at-vacancies-detail-user works!
-</p>
+<!-- row -->
+<div class="row">
+  <!-- Left sidebar -->
+  <div class="col-xs-12">
+    <div class="white-box">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mail_listing" style="border-left: none !important">
+          <div class="media m-b-30 p-t-20">
+            <h4 class="font-bold m-t-0">{{vacancy.name}}</h4>
+          </div>
+          <div class="col-xs-12 col-md-12">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Location:</label> {{vacancy.id_location.name}}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">From:</label> {{vacancy.date_from | date}}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">To:</label> {{vacancy.date_to | date}}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Work Place:</label> {{vacancy.id_work_place.name}}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Job Role:</label> {{vacancy.job_role}}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Job Working Time:</label> {{vacancy.job_working_time}}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Language Requirements:</label> {{vacancy.language_requirement}}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label col-md-3">Education Requirements:</label> {{vacancy.education_requirement}}
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-12">
+            <hr>
+            <h4>Description:</h4>
+            {{vacancy.description}}
+          </div>
+
+          <div class="col-xs-12 col-md-12">
+            <hr>
+            <h4>Skills Requirement:</h4>
+            {{vacancy.skills_requirement}}
+
+
+          </div>
+
+          <div class="col-xs-12 col-md-12">
+            <hr>
+            <h4>Experience Requirement:</h4>
+            {{vacancy.experience_requirement}}
+
+
+          </div>
+          <button *ngIf="!applied" (click)="apply()" class="btn pull-right">Apply</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

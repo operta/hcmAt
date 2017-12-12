@@ -2,11 +2,11 @@
 <div class="panel-footer p-b-20 p-t-20 m-b-10">
   <i class="fa fa-user" aria-hidden="true"></i>
   <span class="heading-at">CONTACTS</span>
-  <div class="pull-right">
+  <div *ngIf="editable" class="pull-right">
     <a class="popup-with-form" (click)="add=true">
       <i class="fa fa-plus action-button-at"></i>
     </a>
   </div>
 </div>
-<app-at-applicant-contacts-add *ngIf="add" [applicant]="applicant" [contactTypes]="contactTypes" (onClose)="onClose($event)"></app-at-applicant-contacts-add>
-<app-at-applicant-contacts-list [contacts]="contacts" [contactTypes]="contactTypes"></app-at-applicant-contacts-list>
+<app-at-applicant-contacts-add *ngIf="add && editable" [applicant]="applicant" [contactTypes]="contactTypes" (onClose)="onClose($event)"></app-at-applicant-contacts-add>
+<app-at-applicant-contacts-list [contacts]="contacts" [contactTypes]="contactTypes" [editable]="editable"></app-at-applicant-contacts-list>

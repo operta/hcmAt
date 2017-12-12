@@ -7,13 +7,18 @@ import {ModalComponent} from "./modal.component";
 
 @NgModule({
   declarations: [
-    DropdownDirective
+    DropdownDirective,
+    ModalComponent
+  ],
+  imports: [
+    CommonModule
   ],
   exports: [
     CommonModule,
     DropdownDirective,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ModalComponent
   ]
 })
 

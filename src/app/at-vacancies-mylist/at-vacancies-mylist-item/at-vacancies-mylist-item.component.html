@@ -13,7 +13,7 @@
 -->
 
 <div>
-  <a [routerLink]="vacancy?.id===null ? [] : [vacancy?.id]" >
+  <a style="color:inherit" [routerLink]="admin ? ['../../','vacancies', vacancy.id] : []" >
     <div class="comment-body col-sm-12 col-md-12 col-lg-12 pd-l-5" style="margin-bottom: 10px">
       <div class="user-img text-center horizontal-center icon-box"><div data-icon="&#xe019;" class="linea-icon linea-basic icon-font"></div></div>
       <div class="mail-content">
@@ -41,6 +41,11 @@
             <p>{{vacancy.description}}</p>
           </div>
         </div>
+
+          <div class="col-md-6 col-lg-4">
+              <span [ngClass]="{'label-success' : status.name == 'Accepted', 'label-danger' : status.name === 'Declined', 'label-info' : status.name !='Accepted' && status.name !='Declined' }" class="label label-table">{{status.name}}</span>
+          </div>
+
         <span class="time pull-right"><b>Last update: </b>{{vacancy.updated_at | date:'dd-MM-yyyy HH:mm'}}</span>
 
       </span>
@@ -57,12 +62,6 @@
       </div>
     </div>
   </a>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
-    <div class="text-center" style="margin-top:-42px">
-      <!--<button class="btn btn-success waves-effect waves-light m-r-10" data-toggle="collapse" data-target="#demo">-->
-      <button (click)="delete(vacancy.name)" class="btn">Delete</button>
-    </div>
-  </div>
 </div>
 
 

@@ -12,6 +12,7 @@ import { AtVacanciesAddComponent } from './at-vacancies-add/at-vacancies-add.com
 import {AtVacanciesDetailItemComponent} from './at-vacancies-detail/at-vacancies-detail-item/at-vacancies-detail-item.component';
 import {AtVacanciesDetailUserComponent} from "./at-vacancies-detail/at-vacancies-detail-user/at-vacancies-detail-user.component";
 import {AtVacanciesDetailAdminComponent} from "./at-vacancies-detail/at-vacancies-detail-admin/at-vacancies-detail-admin.component";
+import {ModalComponent} from "../_shared/modal.component";
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {AtVacanciesDetailAdminComponent} from "./at-vacancies-detail/at-vacancie
     AtVacanciesDetailItemComponent,
     AtVacanciesDetailUserComponent,
     AtVacanciesDetailAdminComponent
+
   ],
   imports: [
     CommonModule,

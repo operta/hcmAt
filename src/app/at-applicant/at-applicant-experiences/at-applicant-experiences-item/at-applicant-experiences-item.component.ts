@@ -10,6 +10,7 @@ import {NgForm} from "@angular/forms";
 })
 export class AtApplicantExperiencesItemComponent implements OnInit {
   @Input() experience: ApplicantExperienceModel;
+  @Input() editable: boolean;
   isEdit: boolean;
   ongoing: boolean;
   ongoingString: string;

@@ -8,7 +8,7 @@ export class JobApplicationModel {
   public id: number;
   public applicantid: ApplicantModel;
   public vacancyid: VacancyModel;
-  public id_status: number;
+  public id_status: JobApplicationStatusModel;
   public grade: number;
   public review: string;
   public date_applied: Date;
@@ -20,10 +20,8 @@ export class JobApplicationModel {
   public interview: JobApplicationInterviewModel[];
   public interview_grade: number;
   public test_grade: number;
-  public status: JobApplicationStatusModel;
 
-
-  constructor(id: number, applicantid: ApplicantModel, vacancyid: VacancyModel, id_status: number, grade: number, review: string, date_applied: Date, created_by: string, created_at: Date, updated_by: string, updated_at: Date, test: JobApplicationTestModel[], interview: JobApplicationInterviewModel[], interview_grade: number, test_grade: number, status: JobApplicationStatusModel) {
+  constructor(id: number, applicantid: ApplicantModel, vacancyid: VacancyModel, id_status: JobApplicationStatusModel, grade: number, review: string, date_applied: Date, created_by: string, created_at: Date, updated_by: string, updated_at: Date, test: JobApplicationTestModel[], interview: JobApplicationInterviewModel[], interview_grade: number, test_grade: number) {
     this.id = id;
     this.applicantid = applicantid;
     this.vacancyid = vacancyid;
@@ -39,6 +37,5 @@ export class JobApplicationModel {
     this.interview = interview;
     this.interview_grade = interview_grade;
     this.test_grade = test_grade;
-    this.status = status;
   }
 }

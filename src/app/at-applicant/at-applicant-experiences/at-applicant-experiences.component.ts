@@ -11,6 +11,7 @@ import {Subscription} from "rxjs/Subscription";
 })
 export class AtApplicantExperiencesComponent implements OnInit, OnDestroy {
   @Input() applicant: ApplicantModel;
+  @Input() editable: boolean;
   @Output() currentExperience = new EventEmitter<ApplicantExperienceModel>();
   experiences: ApplicantExperienceModel[];
   addExperience: boolean;

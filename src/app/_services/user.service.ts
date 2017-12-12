@@ -96,4 +96,16 @@ export class UserService {
     });
   }
 
+  getUserId() {
+      const username = this.getUsername();
+      // console.log(this.authenticationService.getToken());
+      const headers = this.headers;
+      const options = new RequestOptions({headers: headers});
+      return this.http.get(this.usersURL + '/' + username, options).map(
+        (response: Response) => {
+          const user: UserModel = response.json();
+          return user.id;
+        });
+  }
+
 }

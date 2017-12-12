@@ -11,6 +11,7 @@ import {Subscription} from "rxjs/Subscription";
 })
 export class AtApplicantAccomplishmentsListComponent implements OnInit {
   @Input() applicant: ApplicantModel;
+  @Input() editable: boolean;
   @Input() applicantAccomplishments: ApplicantAccomplishmentModel[];
 
   constructor() { }

@@ -13,6 +13,7 @@ import {ApplicantAccomplishmentModel} from "../../_models/applicantAccomplishmen
 })
 export class AtApplicantAccomplishmentsComponent implements OnInit, OnDestroy {
   @Input() applicant: ApplicantModel;
+  @Input() editable: boolean;
   applicantAccomplishments: ApplicantAccomplishmentModel[];
   accomplishmentTypes: AccomplishmentTypeModel[];
   selectedAccomplishmentType: AccomplishmentTypeModel;

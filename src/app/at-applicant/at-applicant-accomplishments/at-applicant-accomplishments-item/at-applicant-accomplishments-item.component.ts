@@ -11,6 +11,8 @@ import {Popup} from "ng2-opd-popup";
 })
 export class AtApplicantAccomplishmentsItemComponent implements OnInit, OnChanges {
   @Input() applicantAccomplishment: ApplicantAccomplishmentModel;
+  @Input() editable: boolean;
+
   isEdit: boolean;
   ongoing: boolean;
   ongoingString: string;

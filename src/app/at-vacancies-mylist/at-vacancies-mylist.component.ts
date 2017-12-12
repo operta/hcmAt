@@ -1,9 +1,15 @@
-import {Component, OnDestroy, OnInit, ViewChildren} from '@angular/core';
-import {VacancyModel} from "../_models/vacancy.model";
-import {VacanciesService} from "../_services/vacancies.service";
-import {AtJobApplicationsService} from "../_services/at-job-applications.service";
-import {JobApplicationModel} from "../_models/jobApplication.model";
-import {JobApplicationStatusModel} from "../_models/jobApplicationStatus.model";
+import {Component, Input, OnDestroy, OnInit, ViewChildren} from '@angular/core';
+import {VacancyModel} from '../_models/vacancy.model';
+import {VacanciesService} from '../_services/vacancies.service';
+import {AtJobApplicationsService} from '../_services/at-job-applications.service';
+import {JobApplicationModel} from '../_models/jobApplication.model';
+import {JobApplicationStatusModel} from '../_models/jobApplicationStatus.model';
+import {UserService} from '../_services/user.service';
+
+import { Response } from '@angular/http';
+import {ApplicantsService} from '../_services/applicants.service';
+import {ApplicantModel} from '../_models/applicant.model';
+import {UserModel} from '../_models/user.model';
 
 @Component({
   selector: 'app-at-vacancies-mylist',
@@ -16,19 +22,36 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
   pages = [{num: 1}, {num: 2}, {num: 3}, {num: 4}, {num: 5}];
   resultCount = 15;
   page = 1;
+  @Input() id: number;
   /*  subscription: Subscription;*/
   private vacancies: VacancyModel[];
   private jobApplications: JobApplicationModel[];
 
-  constructor(private jobApplicationsService: AtJobApplicationsService, private vacanciesService: VacanciesService) {
+  constructor(private userService: UserService, private applicantService: ApplicantsService, private jobApplicationsService: AtJobApplicationsService, private vacanciesService: VacanciesService) {
   }
 
   ngOnInit() {
     /*this.subscription =*/
-    this.jobApplicationsService.getJobApplicationsByApplicantId(1);
+    // FUJ
+    // User service to get the user id if its a user, if not than get id from admin panel
+    if (!this.id) {
+      this.userService.getUser().subscribe(
+        (response: UserModel) => {
+          this.applicantService.getApplicant(response.id).subscribe(
+            (data: ApplicantModel) => {
+              this.jobApplicationsService.getJobApplicationsByApplicantId(data.id);
+            }
+          );
+        }
+      );
+    } else {
+      this.jobApplicationsService.getJobApplicationsByApplicantId(this.id);
+    }
+
     this.jobApplicationsService.jobApplicationsChange.subscribe(
       data => {
         this.jobApplications = data;
+        console.log(this.jobApplications);
       }
     );
     /*.subscribe(

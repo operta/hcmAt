@@ -11,6 +11,7 @@ import {NgForm} from "@angular/forms";
 })
 export class AtApplicantContactsItemComponent implements OnInit {
   @Input() contact: ApplicantContactModel;
+  @Input() editable: boolean;
   @Input() contactTypes: ContactTypeModel[];
   selectedContactType: ContactTypeModel;
   isEdit: boolean;

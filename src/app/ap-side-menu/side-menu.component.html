@@ -132,7 +132,7 @@
       </div>
       <ul class="nav" id="side-menu" #sideMenu>
         <li *ngIf="isAdmin; else applicant">
-          <a routerLinkActive="active" href="/dashboard/applicants" class="waves-effect">
+          <a routerLinkActive="active" routerLink="/dashboard/applicants" class="waves-effect">
             <i class="icon-people fa-fw"></i>
             <span class="hide-menu">
                  Applicants
@@ -158,11 +158,11 @@
              </span>
         </a>
       </li>
-        <li>
+        <li *ngIf="!isAdmin">
           <a routerLinkActive="active" href="/dashboard/myList" class="waves-effect">
             <i class="ti-clipboard fa-fw"></i>
             <span class="hide-menu">
-                 My Vacancy List
+                 Your Job Applications
              </span>
           </a>
         </li>

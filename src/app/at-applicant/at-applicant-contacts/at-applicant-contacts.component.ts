@@ -13,6 +13,7 @@ import {ApplicantContactModel} from "../../_models/applicantContact.model";
 })
 export class AtApplicantContactsComponent implements OnInit {
   @Input() applicant: ApplicantModel;
+  @Input() editable: boolean;
   contacts: ApplicantContactModel[];
   contactTypes: ContactTypeModel[];
   add: boolean;

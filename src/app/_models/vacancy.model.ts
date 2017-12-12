@@ -19,9 +19,15 @@ export class VacancyModel {
   public updated_at: Date;
   public jobApplications: JobApplicationModel[];
   public status: VacanciesStatusModel;
+  public job_role: string;
+  public job_working_time: string;
+  public skills_requirement: string;
+  public language_requirement: string;
+  public education_requirement: string;
+  public experience_requirement: string;
 
 
-  constructor(id: number, code: string, name: string, description: string, id_location: RegionModel, date_from: Date, date_to: Date, id_work_place: WorkPlaceModel, created_by: string, created_at: Date, updated_by: string, updated_at: Date, jobApplications: JobApplicationModel[], status: VacanciesStatusModel) {
+  constructor(id: number, code: string, name: string, description: string, id_location: RegionModel, date_from: Date, date_to: Date, id_work_place: WorkPlaceModel, created_by: string, created_at: Date, updated_by: string, updated_at: Date, jobApplications: JobApplicationModel[], status: VacanciesStatusModel, job_role: string, job_working_time: string, skills_requirement: string, language_requirement: string, education_requirement: string, experience_requirement: string) {
     this.id = id;
     this.code = code;
     this.name = name;
@@ -36,5 +42,11 @@ export class VacancyModel {
     this.updated_at = updated_at;
     this.jobApplications = jobApplications;
     this.status = status;
+    this.job_role = job_role;
+    this.job_working_time = job_working_time;
+    this.skills_requirement = skills_requirement;
+    this.language_requirement = language_requirement;
+    this.education_requirement = education_requirement;
+    this.experience_requirement = experience_requirement;
   }
 }

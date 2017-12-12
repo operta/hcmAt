@@ -6,12 +6,13 @@ import {AuthenticationService} from "./authentication.service";
 import {ApplicantModel} from "../_models/applicant.model";
 import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
+import {UserService} from "./user.service";
+import {UserModel} from "../_models/user.model";
 
 @Injectable()
 export class ApplicantsService {
   private applicants: ApplicantModel[];
   applicantChange= new Subject<ApplicantModel[]>();
-
   applicantsURL = 'http://localhost:8080/applicants';
 
   private authHeaders = new Headers({
@@ -46,6 +47,16 @@ export class ApplicantsService {
       }
     );
   }
+
+  getApplicantByApplicantId(id: string) {
+    return this.http.get(this.applicantsURL + '/applicant/' + id).map(
+      (response: Response) => {
+        const applicant: ApplicantModel = response.json();
+        return applicant;
+      }
+    );
+  }
+
 
   addApplicant(applicant: ApplicantModel) {
     const headers = new Headers({'Content-type': 'application/json'});

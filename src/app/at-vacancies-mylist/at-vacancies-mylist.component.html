@@ -1,5 +1,5 @@
-<div id="page-wrapper">
-  <div class="container-fluid">
+<div [attr.id]="!id ? 'page-wrapper' : null">
+  <div [ngClass] ="{'container-fluid' : !id}">
     <!-- /row -->
     <div class="row">
       <div class="col-sm-12">
@@ -105,7 +105,7 @@
               <div class="row">
                 <div class="col-xs-12 col-lg-12 col-md-12">
                   <div class="comment-center">
-                    <app-at-vacancies-mylist-item *ngFor="let jobApplication of jobApplications | slice:start():end();" [vacancy]="jobApplication.vacancyid" (onEdit)="onEdit($event)"></app-at-vacancies-mylist-item>
+                    <app-at-vacancies-mylist-item *ngFor="let jobApplication of jobApplications | slice:start():end();" [vacancy]="jobApplication.vacancyid" [status]="jobApplication.id_status" (onEdit)="onEdit($event)"></app-at-vacancies-mylist-item>
                   </div>
                 </div>
               </div>

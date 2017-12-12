@@ -13,6 +13,7 @@ import {ApplicantSchoolsService} from "../../../../_services/applicantSchools.se
 export class AtApplicantSchoolsItemComponent implements OnInit, OnChanges {
   @Input() applicantSchool: ApplicantSchoolModel;
   @Input() qualifications: QualificationModel[];
+  @Input() editable: boolean;
   @Input() schools: SchoolModel[];
   selectedSchool: SchoolModel;
   selectedQualification: QualificationModel;

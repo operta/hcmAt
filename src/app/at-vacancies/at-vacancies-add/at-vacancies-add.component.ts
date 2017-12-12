@@ -61,7 +61,13 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
       'region': new FormControl(''),
       'workPlace': new FormControl(''),
       'date_from': new FormControl(''),
-      'date_to': new FormControl('')
+      'date_to': new FormControl(''),
+      'job_role': new FormControl(''),
+      'job_working_time': new FormControl(''),
+      'skills_requirement': new FormControl(''),
+      'language_requirement': new FormControl(''),
+      'education_requirement': new FormControl(''),
+      'experience_requirement': new FormControl('')
     });
   }
 
@@ -73,6 +79,12 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
     const workPlace = this.newVacForm.value.workPlace;
     const date_from = this.newVacForm.value.date_from;
     const date_to = this.newVacForm.value.date_to;
+    const job_role = this.newVacForm.value.job_role;
+    const job_working_time = this.newVacForm.value.job_working_time;
+    const skills_requirement = this.newVacForm.value.skills_requirement;
+    const language_requirement = this.newVacForm.value.language_reqirement;
+    const education_requirement = this.newVacForm.value.education_requirement;
+    const experience_requirement = this.newVacForm.value.experience_requirement;
 
     const vacancy = new VacancyModel(
       null,
@@ -88,7 +100,13 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
       '',
       new Date,
       [],
-      new VacanciesStatusModel(1, 'ACTIVE')
+      new VacanciesStatusModel(1, 'ACTIVE'),
+      job_role,
+      job_working_time,
+      skills_requirement,
+      language_requirement,
+      education_requirement,
+      experience_requirement
     );
     this.vacancyService.saveVacancy(vacancy);
     this.router.navigate(['../'], {relativeTo: this.route});

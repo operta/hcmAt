@@ -1,10 +1,13 @@
-import {Component, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {VacancyModel} from '../../_models/vacancy.model';
 import {VacanciesService} from '../../_services/vacancies.service';
 import {Subscription} from 'rxjs/Subscription';
-import {Observable} from 'rxjs/Observable';
 import {AtVacanciesItemComponent} from './at-vacancies-item/at-vacancies-item.component';
 import {UserService} from "../../_services/user.service";
+import {RegionModel} from "../../_models/region.model";
+import {WorkPlaceModel} from "../../_models/workPlace.model";
+import {RegionsService} from "../../_services/regions.service";
+import {WorkPlacesService} from "../../_services/work-places.service";
 
 
 @Component({
@@ -14,22 +17,29 @@ import {UserService} from "../../_services/user.service";
 })
 export class AtVacanciesListComponent implements OnInit, OnDestroy {
   @ViewChildren(AtVacanciesItemComponent) allAtVacanciesItemComponents: QueryList<AtVacanciesItemComponent>;
-
-
   options: number[] = [1, 10, 15, 20, 25, 30];
   pages = [{num: 1} , {num: 2}, {num: 3}, {num: 4}, {num: 5}];
   resultCount = 15;
   page = 1;
-  subscription: Subscription;
-  private vacancies: VacancyModel[];
+  vacancies: VacancyModel[];
+  regions: RegionModel[];
+  workplaces: WorkPlaceModel[];
   isUser = false;
   isAdmin = false;
+  isCompany = false;
+  subscription: Subscription;
+  subscriptionRegions: Subscription;
+  subscriptionWorkplaces: Subscription;
 
 
-  constructor(private userService: UserService, private vacanciesService: VacanciesService) { }
+  constructor(private userService: UserService,
+              private vacanciesService: VacanciesService,
+              private regionsService: RegionsService,
+              private workplacesService: WorkPlacesService) { }
 
   ngOnInit() {
     this.isAdmin = this.userService.isAdmin;
+    this.isCompany = this.userService.isAdmin;
     this.isUser = this.userService.isUser();
     if (this.isAdmin) {
       this.vacanciesService.getVacancies();
@@ -47,7 +57,16 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
         }
       );
     }
-
+    this.subscriptionRegions = this.regionsService.getRegions().subscribe(
+      (data: RegionModel[]) => {
+        this.regions = data;
+      }
+    );
+    this.subscriptionWorkplaces = this.workplacesService.getWorkPlaces().subscribe(
+      (data: WorkPlaceModel[]) => {
+        this.workplaces = data;
+      }
+    );
     /*.subscribe(
       (data: VacancyModel[]) => {
         this.vacancies = data;
@@ -58,6 +77,8 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.subscriptionWorkplaces.unsubscribe();
+    this.subscriptionRegions.unsubscribe();
   }
 
   setResultCount(num: number) {
@@ -92,9 +113,9 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
     return this.resultCount * this.page;
   }
 
-  onEdit() {
-      this.allAtVacanciesItemComponents.forEach((atVacanciesItemComponent) => atVacanciesItemComponent.closeEdit());
-  }
+  // onEdit() {
+  //     this.allAtVacanciesItemComponents.forEach((atVacanciesItemComponent) => atVacanciesItemComponent.closeEdit());
+  // }
 
 
 
