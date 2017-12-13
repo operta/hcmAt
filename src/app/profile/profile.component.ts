@@ -13,9 +13,11 @@ export class ProfileComponent implements OnInit {
   user: UserModel;
   password1: string;
   password2: string;
+  state: string;
   constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.state ="profile";
     this.userService.getUser().subscribe(
       (data: UserModel) => {
         this.user = data;
@@ -28,6 +30,12 @@ export class ProfileComponent implements OnInit {
 
   onSubmit(form: NgForm){
     this.user.name = form.value.name;
+    this.user.username = form.value.email;
+    console.log(form.value);
+
+  }
+
+  onSubmitPassword(form: NgForm){
     if(form.value.password1 != null){
       if(form.value.password2 != null){
         if(form.value.password1 == form.value.password2){

@@ -5,6 +5,7 @@ import {UserService} from "../../_services/user.service";
 import {UserModel} from "../../_models/user.model";
 import {UserStatus} from "../../_models/userStatus.model";
 import {UserStatusService} from "../../_services/userStatus.service";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-register',
@@ -21,6 +22,7 @@ export class RegisterComponent implements OnInit {
   userStatuses: UserStatus[];
 
   constructor(private router: Router,
+              private toastr: ToastsManager,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private userService: UserService,
@@ -47,8 +49,9 @@ export class RegisterComponent implements OnInit {
       var newUser = new UserModel(
         null,
         this.model.name,
-        this.model.email,
+        this.model.username,
         this.model.password,
+        this.model.email,
         'USER',
         this.userStatuses[0],
         null,
@@ -57,14 +60,26 @@ export class RegisterComponent implements OnInit {
         null
       );
 
-      console.log(newUser);
-      this.userService.register(newUser);
-      this.navigateAfterSuccess();
+      this.userService.register(newUser).subscribe(
+        (status: any) => {
+          if(status == true){
+            this.toastr.success("Successful registration");
+            this.navigateAfterSuccess();
+          }
+          else{
+            this.loading = false;
+            this.toastr.error("Username already exists");
+          }
+        }
+      );
+
+       //
+
     }
   }
 
   private navigateAfterSuccess() {
-      this.router.navigate(['/login']);
+      this.router.navigateByUrl('/login');
   }
 
 }

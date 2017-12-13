@@ -6,6 +6,12 @@ import {Subject} from 'rxjs/Subject';
 import {ToastsManager} from 'ng2-toastr';
 import {Observable} from 'rxjs/Observable';
 import {JsogService} from 'jsog-typescript';
+import {JobApplicationHistoryService} from "./jobApplicationHistory.service";
+import {JobApplicationHistoryModel} from "../_models/jobApplicationHistory.model";
+import {JobApplicationStatusModel} from "../_models/jobApplicationStatus.model";
+import {JobApplicationNotificationsService} from "./jobApplicationNotification.service";
+import {JobApplicationNotificationModel} from "../_models/jobApplicationNotification.model";
+import {NotificationTemplateModel} from "../_models/notificationTemplate.model";
 
 @Injectable()
 export class AtJobApplicationsService {
@@ -14,7 +20,7 @@ export class AtJobApplicationsService {
   jobApplications: JobApplicationModel[] = new Array<JobApplicationModel>();
   jobApplicationsChange = new Subject<JobApplicationModel[]>();
 
-  constructor(private jsogService: JsogService, private http: Http, private toastr: ToastsManager) { }
+  constructor(private jsogService: JsogService, private http: Http, private toastr: ToastsManager, private jobApplicationHistoryService: JobApplicationHistoryService, private jobApplicationNotificationService: JobApplicationNotificationsService) { }
 
   initJobApplications(vacancy: VacancyModel) {
     this.jobApplications = vacancy.jobApplications;
@@ -47,26 +53,65 @@ export class AtJobApplicationsService {
     this.http.post(this.jobApplicationsURL + '/add', body, options).map(
       (response: Response) => {
 
+        const history = new JobApplicationHistoryModel(
+          null,
+          response.json(),
+          null,
+          jobApplication.id_status,
+          null,
+          new Date,
+          null,
+          new Date
+        );
+        this.jobApplicationHistoryService.addJobApplicationHistory(history);
         this.jobApplications.push(response.json());
-
         this.jobApplicationsChange.next(this.jobApplications.slice());
         this.toastr.success('Successfull application');
       }
     ).subscribe(
-      response => console.log(response),
+      response => {
+        console.log(response);
+      },
       error => {
         this.toastr.error('An error occured.');
       }
     );
   }
 
-  updateJobApplication(jobApplication: JobApplicationModel) {
+  updateJobApplication(jobApplication: JobApplicationModel, currentStatus: JobApplicationStatusModel) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const body = JSON.stringify(jobApplication);
     return this.http.put(this.jobApplicationsURL, body, {headers: headers}).map(
       (response: Response) => response.json()
     ).subscribe(
       response => {
+        const history = new JobApplicationHistoryModel(
+          null,
+          jobApplication,
+          currentStatus,
+          jobApplication.id_status,
+          null,
+          new Date,
+          null,
+          new Date
+        );
+        this.jobApplicationHistoryService.addJobApplicationHistory(history);
+        const notificationTemplate = new NotificationTemplateModel(
+          418,null,null, null, null, null, null, null
+        );
+        const notification = new JobApplicationNotificationModel(
+          null,
+          jobApplication,
+          notificationTemplate,
+          new Date,
+          'Y',
+          null,
+          new Date,
+          null,
+          new Date
+        );
+        console.log(notification);
+        this.jobApplicationNotificationService.addJobApplicationNotification(notification);
         this.jobApplications.map(item => item.id == jobApplication.id ? jobApplication : item);
         this.jobApplicationsChange.next(this.jobApplications.slice());
         this.toastr.success('Job application successfully updated.');

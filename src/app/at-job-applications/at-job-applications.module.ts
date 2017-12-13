@@ -6,12 +6,14 @@ import {AtJobApplicationInterviewsComponent} from './at-job-application-intervie
 import {AtJobApplicationTestsComponent} from './at-job-application-tests/at-job-application-tests.component';
 import {SharedModule} from '../_shared/shared.module';
 import {DashboardRoutingModule} from '../dashboard/dashboard-routing.module';
+import {AtJobApplicationStatusHistoryComponent} from "./at-job-application-status-history/at-job-application-status-history.component";
 
 @NgModule({
   declarations: [
     AtJobApplicationsComponent,
     AtJobApplicationInterviewsComponent,
-    AtJobApplicationTestsComponent
+    AtJobApplicationTestsComponent,
+    AtJobApplicationStatusHistoryComponent
   ],
   imports: [
     CommonModule,

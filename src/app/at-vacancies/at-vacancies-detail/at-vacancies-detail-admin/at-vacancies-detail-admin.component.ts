@@ -29,7 +29,8 @@ export class AtVacanciesDetailAdminComponent implements OnInit, OnDestroy {
               private jobApplicationStatusesService: JobApplicationStatusesService) { }
 
   ngOnInit() {
-    this.subscriptionStatus = this.jobApplicationStatusesService.getJobApplicationStatuses().subscribe(
+    this.jobApplicationStatusesService.getJobApplicationStatuses();
+    this.subscriptionStatus = this.jobApplicationStatusesService.jobApplicationStatusObserver.subscribe(
       (data: JobApplicationStatusModel[]) => {
         this.jobApplicationStatuses = data;
         console.log(this.jobApplicationStatuses);

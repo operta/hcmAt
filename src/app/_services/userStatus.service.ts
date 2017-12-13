@@ -13,7 +13,6 @@ export class UserStatusService {
     return this.http.get(this.userStatusURL).map(
       (response: any) => {
         const userStatuses: UserStatus[] = response.json();
-        console.log(userStatuses);
         return userStatuses;
       }
     );

@@ -140,6 +140,7 @@ export class ApplicantComponent implements OnInit, OnDestroy {
         this.user,
         this.selectedQualification
       );
+      console.log(newApplicant);
       this.applicantService.addApplicant(newApplicant).subscribe(
         (data: ApplicantModel) => {
         // OVO POPRAVIT STA TREBA

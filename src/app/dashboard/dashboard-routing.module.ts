@@ -15,6 +15,9 @@ import {AtVacanciesMylistComponent} from "../at-vacancies-mylist/at-vacancies-my
 import {ApplicantOverviewComponent} from "../applicant-overview/applicant-overview.component";
 import {AtApplicantWrapperComponent} from "../at-applicant/at-applicant-wrapper/at-applicant-wrapper.component";
 import {ApplicantResolver} from "../_services/applicantResolver.service";
+import {AtNotificationTemplatesComponent} from "../at-notification-templates/at-notification-templates.component";
+import {AtJobApplicationStatusesComponent} from "../at-job-application-statuses/at-job-application-statuses.component";
+import {UserResolver} from "../_services/userResolver.service";
 
 
 const dashboardRoutes: Routes = [
@@ -22,6 +25,9 @@ const dashboardRoutes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard],
+    resolve: {
+      user: UserResolver
+    },
     children: [
       { path: '',
         pathMatch: 'full',
@@ -57,8 +63,17 @@ const dashboardRoutes: Routes = [
         canActivate: [AuthGuard, AdminAuthGuard]
       },
       {
+        path: 'announcements',
+        component: AtNotificationTemplatesComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
+      {
         path: 'regions',
         component: RgRegionsComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
+      { path: 'applicantStatuses',
+        component:  AtJobApplicationStatusesComponent,
         canActivate: [AuthGuard, AdminAuthGuard]
       },
       {

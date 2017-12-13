@@ -4,30 +4,54 @@
     <div class="container-fluid">
       <div class="row bg-title">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-          <h4 class="page-title">Profile page</h4>
-        </div>
-        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-          <ol class="breadcrumb">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Sample Pages</a></li>
-            <li class="active">Profile page</li>
-          </ol>
+          <h4 class="page-title">Account Settings</h4>
         </div>
       </div>
       <!-- /.row -->
       <!-- .row -->
-      <div class="row">
+      <div class="row el-element-overlay">
 
-        <div class="col-md-12 col-xs-12">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
           <div class="white-box">
-            <ul class="nav customtab nav-tabs" role="tablist">
-              <li role="presentation" class="nav-item"><a href="#profile" class="nav-link" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-user"></i></span> <span class="hidden-xs">Profile</span></a></li>
-              <li role="presentation" class="nav-item"><a href="#settings" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">Settings</span></a></li>
-              <li role="presentation" class="nav-item"><a href="#messages" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-envelope-o"></i></span> <span class="hidden-xs">Message</span></a></li>
-               </ul>
-            <div class="tab-content">
+            <div class="el-card-item">
+              <div class="el-card-avatar el-overlay-1">
+                <img src="assets/images/users/1.jpg" />
+              </div>
+              <div class="el-card-content">
+                <h3 class="box-title">{{user.name}}</h3>
+                <small>{{user.role}}</small>
+                <br/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.usercard-->
 
-              <div class="tab-pane" id="profile">
+
+
+        <div class="col-md-9 col-xs-12">
+          <div class="white-box" style="min-height: 245px">
+            <ul class="nav customtab nav-tabs" style="padding: 25px; padding-bottom: 0" role="tablist">
+              <li role="presentation" class="nav-item">
+                <a [class.active]="state == 'profile'" (click)="state='profile';" href="#profile" class="nav-link" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">
+                  <span class="visible-xs"><i class="fa fa-user"></i></span> <span class="hidden-xs">Profile</span>
+                </a>
+              </li>
+              <li role="presentation" class="nav-item">
+                <a [class.active]="state == 'settings'" (click)="state='settings';" href="#settings" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">
+                  <span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">Settings</span>
+                </a>
+              </li>
+              <li role="presentation" class="nav-item">
+                <a [class.active]="state == 'password'" (click)="state='password';" href="#password" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">
+                  <span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">Change Password</span>
+                </a>
+              </li>
+            </ul>
+
+            <div class="tab-content tab-content-style">
+
+              <div class="tab-pane active" id="profile">
                 <div class="row">
                   <div class="col-md-3 col-xs-6 b-r"> <strong>Name</strong>
                     <br>
@@ -43,36 +67,29 @@
                   </div>
                 </div>
               </div>
-              <div class="tab-pane" id="messages">
-                <div class="steamline">
-                  <div class="sl-item">
-                    <div class="sl-left"> <img src="../plugins/images/users/genu.jpg" alt="user" class="img-circle" /> </div>
-                    <div class="sl-right">
-                      <div class="m-l-40"> <a href="#" class="text-info">John Doe</a> <span class="sl-date">5 minutes ago</span>
-                        <div class="m-t-20 row">
-                          <div class="col-md-2 col-xs-12"><img src="../plugins/images/img1.jpg" alt="user" class="img-responsive" /></div>
-                          <div class="col-md-9 col-xs-12">
-                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa</p>
-                            <a href="#" class="btn btn-success"> Design weblayout</a></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
               <div class="tab-pane" id="settings">
                 <form class="form-horizontal form-material" role="form" (ngSubmit)="onSubmit(formUserInformation)" #formUserInformation="ngForm"e>
                   <div class="form-group">
                     <label class="col-md-12">Name:</label>
-                    <input type="text" class="form-control form-control-line" name="name"  [(ngModel)]="user && user.name" required>
+                    <input type="text" class="form-control form-control-line" name="name"  [(ngModel)]="user && user.name" #name="ngModel" required>
                   </div>
                   <div class="form-group">
                     <label class="col-md-12">Email:</label>
-                    <input type="email" class="form-control form-control-line" name="email" [(ngModel)]="user && user.username" required>
+                    <input type="email" class="form-control form-control-line" name="email" [(ngModel)]="user && user.username" #email="ngModel" required>
                   </div>
                   <div class="form-group">
-                    <label class="col-md-12">Password:</label>
+                    <div class="col-sm-12">
+                      <button class="btn btn-success" disabled>Update Profile</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <div class="tab-pane" id="password">
+                <form class="form-horizontal form-material" role="form" (ngSubmit)="onSubmitPassword(formPassword)" #formPassword="ngForm"e>
+                  <div class="form-group">
+                    <label class="col-md-12">New Password:</label>
                     <input type="password" class="form-control form-control-line" name="password1" [ngModel]="password1">
                   </div>
                   <div class="form-group">
@@ -81,12 +98,14 @@
                   </div>
                   <div class="form-group">
                     <div class="col-sm-12">
-                      <button class="btn btn-success">Update Profile</button>
+                      <button class="btn btn-success" disabled>Update Password</button>
                     </div>
                   </div>
                 </form>
-
               </div>
+
+
+
             </div>
           </div>
         </div>

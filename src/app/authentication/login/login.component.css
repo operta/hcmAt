@@ -1,0 +1,23 @@
+.login-shadow{
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+.add-transparency{
+  opacity:0.9;
+}
+@media (max-width: 767px){
+  .login-register {
+    position: fixed;
+  }
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+/*input:-webkit-autofill:hover{*/
+  /*-webkit-box-shadow: 0 0 0px 1000px white inset;*/
+
+/*}*/
+/*input:-webkit-autofill:focus{*/
+
+/*}*/

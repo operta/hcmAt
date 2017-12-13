@@ -43,25 +43,25 @@ export class UserService {
   register(newUser: UserModel) {
       const headers = new Headers({'Content-type': 'application/json'});
       const options = new RequestOptions({headers: headers});
-      this.http.post(this.usersURL + '/add', newUser, options ).map(
+      return this.http.post(this.usersURL + '/add', newUser, options ).map(
         (response: Response) => {
-          // console.log(response);
+          console.log(response.json());
+          return response.json();
         }
-      ).subscribe(
-        response => {
-          this.toastr.success("Your account was successfully created.")
-        },
-        error => {
-          this.toastr.success(error.status, "An error occured.")
-        }
-      );
+      )
+
   }
 
-  logout() {
+  purge(){
     this.accessToken = null;
     this.isAdmin = false;
     localStorage.removeItem(TOKEN_NAME);
-    this.router.navigate(['/login']);
+  }
+
+  logout() {
+    this.purge();
+    this.toastr.info("Logged out");
+    this.router.navigateByUrl('/login');
   }
 
   isAdminUser(): boolean {
@@ -86,26 +86,15 @@ export class UserService {
 
   getUser() {
     const username = this.getUsername();
-    // console.log(this.authenticationService.getToken());
     const headers = this.headers;
     const options = new RequestOptions({headers: headers});
     return this.http.get(this.usersURL + '/' + username, options).map(
     (response: Response) => {
+      console.log(response);
         const user: UserModel = response.json();
+        console.log(user);
         return user;
     });
-  }
-
-  getUserId() {
-      const username = this.getUsername();
-      // console.log(this.authenticationService.getToken());
-      const headers = this.headers;
-      const options = new RequestOptions({headers: headers});
-      return this.http.get(this.usersURL + '/' + username, options).map(
-        (response: Response) => {
-          const user: UserModel = response.json();
-          return user.id;
-        });
   }
 
 }

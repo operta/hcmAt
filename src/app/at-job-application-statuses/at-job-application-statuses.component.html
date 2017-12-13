@@ -1,0 +1,174 @@
+<!-- Page Content -->
+<div id="page-wrapper">
+  <div class="container-fluid">
+
+    <!-- /row -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="white-box">
+          <div class="row">
+            <div class="col-md-9">
+              <h3 class="box-title m-b-0">Job Application Statuses</h3>
+
+            </div>
+            <div class="col-md-3">
+              <div class="pull-right">
+                <button (click)="modalAdd.show(); add = true;" class="btn btn-info btn-rounded">Add <i class="fa fa-plus" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="table-responsive">
+            <table id="example23" class="table table-striped">
+              <thead>
+              <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let row of statuses">
+                <td>{{row.code}}</td>
+                <td>{{row.name}}</td>
+                <td>{{row.description}}</td>
+                <td>
+                  <a role="button" class="popup-with-form" (click)="modalEdit.show(); selectedStatus = row">
+                    <i class="fa fa-pencil action-button-at"></i>
+                  </a>
+                  <a role="button" (click)="modalDelete.show(); selectedStatus = row" class="popup-with-form"><i class="fa fa-times action-button-at" aria-hidden="true"></i></a>
+                </td>
+              </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+
+</div>
+
+<app-modal #modalAdd>
+  <div class="app-modal-header">
+    Add new template
+  </div>
+  <div class="app-modal-body">
+    <form class="form-horizontal" role="form" (ngSubmit)="formAdd.form.valid && onSubmitAdd(formAdd)" #formAdd="ngForm">
+      <div class="p-l-20">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group" [ngClass]="{ 'has-error': formAdd.submitted && !code.valid }">
+              <label class="col-md-12">Code:</label>
+              <div class="col-md-12">
+                <input required type="text" class="form-control" name="code"
+                       #code="ngModel" ngModel>
+                <span class="highlight"></span><span class="bar"></span>
+                <div *ngIf="formAdd.submitted && !code.valid" class="help-block">Field is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group" [ngClass]="{ 'has-error': formAdd.submitted && !name.valid }">
+              <label class="col-md-12">Name:</label>
+              <div class="col-md-12">
+                <input  required type="text" class="form-control" name="name"
+                        #name="ngModel" ngModel>
+                <span class="highlight"></span><span class="bar"></span>
+
+                <div *ngIf="formAdd.submitted && !name.valid" class="help-block">Field is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group" [ngClass]="{ 'has-error': formAdd.submitted && !description.valid }">
+              <label class="col-md-12">Description:</label>
+              <div class="col-md-12">
+                <input required type="text" class="form-control" name="description"
+                       #description="ngModel" ngModel>
+                <span class="highlight"></span><span class="bar"></span>
+
+                <div *ngIf="formAdd.submitted && !description.valid" class="help-block">Field is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button (click)="modalAdd.hide()" #cancel class="pull-right saveButton btn btn-default">Cancel</button>
+        <button  class="pull-right saveButton btn btn-success" type="submit">Add</button>
+      </div>
+    </form>
+  </div>
+</app-modal>
+
+<app-modal #modalEdit>
+  <div class="app-modal-header">
+    Edit template
+  </div>
+  <div class="app-modal-body">
+    <form class="form-horizontal" role="form" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm">
+      <div class="p-l-20">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !selectedStatus.code }">
+              <label class="col-md-12">Code:</label>
+              <div class="col-md-12">
+                <input  type="text" class="form-control"name="code"
+                        [(ngModel)]="selectedStatus && selectedStatus.code">
+                <span class="highlight"></span><span class="bar"></span>
+
+                <div *ngIf="f.submitted && !selectedStatus.code" class="help-block">Field is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !selectedStatus.name }">
+              <label class="col-md-12">Name:</label>
+              <div class="col-md-12">
+                <input  type="text" class="form-control"name="name"
+                        [(ngModel)]="selectedStatus && selectedStatus.name">
+                <span class="highlight"></span><span class="bar"></span>
+
+                <div *ngIf="f.submitted && !selectedStatus.subject" class="help-block">Field is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !selectedStatus.description }">
+              <label class="col-md-12">Description:</label>
+              <div class="col-md-12">
+                <input  type="text" class="form-control"name="description"
+                        [(ngModel)]="selectedStatus && selectedStatus.description">
+                <span class="highlight"></span><span class="bar"></span>
+
+                <div *ngIf="f.submitted && !selectedStatus.description" class="help-block">Field is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button (click)="modalEdit.hide()" #cancelEdit class="pull-right saveButton btn btn-default">Cancel</button>
+        <button  class="pull-right saveButton btn btn-success" type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+</app-modal>
+
+
+
+
+<app-modal #modalDelete>
+  <div class="app-modal-header">
+    Confirm action
+  </div>
+  <div class="app-modal-body">
+    Are you sure you want to delete this item?
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="modalDelete.hide()">Cancel</button>
+    <button type="button" class="btn btn-danger"  (click)="removeJobApplicationStatus(this.selectedStatus); modalDelete.hide()">Delete</button>
+  </div>
+</app-modal>
+

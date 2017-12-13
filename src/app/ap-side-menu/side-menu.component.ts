@@ -1,21 +1,37 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild, AfterViewInit, ViewEncapsulation, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from "../_services/user.service";
+import {JobApplicationNotificationsService} from "../_services/jobApplicationNotification.service";
+import {JobApplicationNotificationModel} from "../_models/jobApplicationNotification.model";
+import {UserModel} from "../_models/user.model";
 
 declare  let $:any;
 
 @Component({
   selector: 'app-side-menu',
   templateUrl: './side-menu.component.html',
-  styleUrls: ['./side-menu.component.css']
+  styleUrls: ['./side-menu.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SideMenuComponent implements OnInit, AfterViewInit {
   @ViewChild('sideMenu') sideMenu: ElementRef;
+  @Input() user: UserModel;
   isAdmin: boolean;
+  state: string;
+  notifications: JobApplicationNotificationModel[];
+  activeNotificaitons: JobApplicationNotificationModel[];
 
-  constructor(private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService, private notificationsService: JobApplicationNotificationsService) { }
 
   ngOnInit() {
+    this.notificationsService.getJobApplicationNotifications();
+    this.notificationsService.jobApplicationNotificationsObserver.subscribe(
+      (data: JobApplicationNotificationModel[]) => {
+        this.notifications = data;
+        this.countActiveNotifications(this.notifications);
+      }
+    )
+
     this.isAdmin = this.userService.isAdminUser();
   }
 
@@ -33,4 +49,10 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
         , color: '#dcdcdc'
     , });
   }
+
+  countActiveNotifications(notifications: JobApplicationNotificationModel[]){
+    this.activeNotificaitons = this.notifications.filter(item => item.is_active == 'Y');
+    console.log(this.activeNotificaitons);
+  }
+
 }

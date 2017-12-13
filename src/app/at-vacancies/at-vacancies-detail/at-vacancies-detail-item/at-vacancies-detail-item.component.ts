@@ -4,6 +4,7 @@ import {ApplicantModel} from '../../../_models/applicant.model';
 import {JobApplicationStatusModel} from '../../../_models/jobApplicationStatus.model';
 import {AtJobApplicationsService} from '../../../_services/at-job-applications.service';
 import {VacancyModel} from '../../../_models/vacancy.model';
+import {JobApplicationHistoryService} from "../../../_services/jobApplicationHistory.service";
 
 
 @Component({
@@ -14,6 +15,7 @@ import {VacancyModel} from '../../../_models/vacancy.model';
 export class AtVacanciesDetailItemComponent implements OnInit {
 
   @Input() jobApplication: JobApplicationModel;
+  currentStatus: JobApplicationStatusModel;
   @Input() applicant: ApplicantModel;
   @Input() jobApplicationStatuses: JobApplicationStatusModel[];
   selectedStatus: JobApplicationStatusModel;
@@ -22,6 +24,7 @@ export class AtVacanciesDetailItemComponent implements OnInit {
   constructor(private jobApplicationService: AtJobApplicationsService) { }
 
   ngOnInit() {
+    this.currentStatus = this.jobApplication.id_status;
     console.log(this.applicant);
     console.log(this.jobApplication);
   }
@@ -41,7 +44,9 @@ export class AtVacanciesDetailItemComponent implements OnInit {
     this.jobApplication.vacancyid = vacancy;
     this.jobApplication.applicantid = applicant;
     console.log(this.jobApplication);
-    this.jobApplicationService.updateJobApplication(this.jobApplication);
+    this.jobApplicationService.updateJobApplication(this.jobApplication, this.currentStatus);
+    this.currentStatus = this.jobApplication.id_status;
+
   }
 
   // function that dynamically creates the circle for the grade

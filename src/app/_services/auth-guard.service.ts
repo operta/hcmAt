@@ -3,16 +3,19 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "
 import {UserService} from "./user.service";
 import {TOKEN_NAME} from "./auth.constant";
 import {tokenNotExpired} from 'angular2-jwt';
+import {ToastsManager} from "ng2-toastr";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private toastr: ToastsManager,
+              private router: Router, private userService: UserService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (tokenNotExpired(TOKEN_NAME, this.userService.accessToken)) {
       return true;
     } else {
+      this.toastr.error('Authentication is required','Restricted route');
       this.router.navigate(['login'], {queryParams: {redirectTo: state.url}});
       return false;
     }

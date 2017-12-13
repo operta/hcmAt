@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService} from "../../_services/authentication.service";
 import {UserService} from "../../_services/user.service";
 import {error} from "util";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   redirectUrl: string;
 
   constructor(private router: Router,
+              private toastr: ToastsManager,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private userService: UserService) {
@@ -24,12 +26,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.logout();
+    this.userService.purge();
   }
 
   login() {
+    this.userService.purge();
     this.loading = true;
-    console.log(this.loading)
+    console.log(this.loading);
 
     this.authenticationService.login(this.model.username, this.model.password)
       .subscribe(
@@ -39,13 +42,14 @@ export class LoginComponent implements OnInit {
 
           if (result) {
             this.userService.login(result);
+            this.toastr.success("Successfull authentication");
             this.navigateAfterSuccess();
           } else {
-            this.error = 'Username or password is incorrect';
+            this.error = 'Email or password is incorrect';
           }
         },
         error => {
-          this.error = 'Username or password is incorrect';
+          this.error = 'Email or password is incorrect';
           this.loading = false;
         }
       );
@@ -53,8 +57,10 @@ export class LoginComponent implements OnInit {
 
   private navigateAfterSuccess() {
     if (this.redirectUrl) {
+      console.log(this.redirectUrl)
       this.router.navigateByUrl(this.redirectUrl);
     } else {
+      console.log('here');
       this.router.navigate(['/dashboard']);
     }
   }

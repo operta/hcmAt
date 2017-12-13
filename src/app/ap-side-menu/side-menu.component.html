@@ -10,7 +10,7 @@
         <i class="ti-menu"></i>
       </a>
       <div class="top-left-part">
-        <a class="logo" routerLink="/">
+        <div class="logo">
           <b>
             <img src="assets/images/is-logo.png" alt="home" class="dark-logo" />
             <img src="assets/images/eliteadmin-logo-dark.png" alt="home" class="light-logo" />
@@ -19,7 +19,7 @@
             <img src="assets/images/is-logo-text.png" alt="home" class="dark-logo" />
             <img src="assets/images/eliteadmin-text-dark.png" alt="home" class="light-logo" />
           </span>
-        </a>
+        </div>
       </div>
       <ul class="nav navbar-top-links navbar-left hidden-xs">
         <li>
@@ -32,28 +32,34 @@
         <li class="dropdown">
           <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#">
             <i class="icon-envelope"></i>
-            <div class="notify">
-              <span class="heartbit"></span>
+            <div *ngIf="activeNotificaitons?.length != 0" class="notify">
+              <span  class="heartbit"></span>
               <span class="point"></span>
             </div>
           </a>
           <ul class="dropdown-menu mailbox animated bounceInDown">
             <li>
-              <div class="drop-title">You have 4 new messages</div>
+              <div class="drop-title">You have {{activeNotificaitons?.length}} new messages</div>
             </li>
+
             <li>
-              <div class="message-center">
-                <a href="#">
-                  <div class="user-img">
-                    <img src="assets/images/users/pawandeep.jpg" alt="user" class="img-circle">
-                    <span class="profile-status offline pull-right"></span>
-                  </div>
-                  <div class="mail-contnet">
-                    <h5>Pavan kumar</h5>
-                    <span class="mail-desc">Just see the my admin!</span>
-                    <span class="time">9:02 AM</span>
-                  </div>
-                </a>
+              <div  class="message-center">
+                <div  *ngFor="let notification of notifications | notificationStatusPipe:'Y'; let i=index">
+                  <ng-template [ngIf]="i<5">
+                    <a>
+                      <div class="user-img" >
+                        <img src="assets/images/users/pawandeep.jpg" alt="user" class="img-circle">
+                        <span class="profile-status offline pull-right"></span>
+                      </div>
+                      <div class="mail-contnet">
+                        <h5>{{notification?.id_notification?.subject}} {{notification?.idJobApplication?.vacancyid?.name}}</h5>
+                        <span class="mail-desc">{{notification?.id_notification?.template}}</span>
+                        <span class="time">{{notification?.date_sent | date:'dd/MM/yyyy'}}</span>
+                      </div>
+                    </a>
+                  </ng-template>
+
+              </div>
               </div>
             </li>
             <li>
@@ -114,17 +120,17 @@
     <div class="sidebar-nav navbar-collapse slimscrollsidebar">
       <div class="user-profile">
         <div class="dropdown user-pro-body">
-          <div><img src="assets/images/users/7.jpg" alt="user-img" class="img-circle"></div>
-          <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button"
+          <div><img src="assets/images/users/1.jpg" alt="user-img" class="img-circle"></div>
+          <a class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button"
               aria-haspopup="true" aria-expanded="false">
-            John Doe<span class="caret"></span>
+            {{user?.name}}<span class="caret"></span>
           </a>
           <ul class="dropdown-menu animated flipInY">
-            <li><a routerLinkActive="active" routerLink="/dashboard/profile" ><i class="ti-user"></i> My Profile</a></li>
-            <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
-            <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
+            <!--<li><a routerLinkActive="active" routerLink="/dashboard/profile" ><i class="ti-user"></i> My Profile</a></li>-->
+            <!--<li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>-->
+            <!--<li><a href="#"><i class="ti-email"></i> Inbox</a></li>-->
+            <!--<li role="separator" class="divider"></li>-->
+            <li><a routerLinkActive="active" routerLink="/dashboard/profile" href="#"><i class="ti-settings"></i> Account Setting</a></li>
             <li role="separator" class="divider"></li>
             <li><a (click)="logout()"><i class="fa fa-power-off"></i> Logout</a></li>
           </ul>
@@ -135,13 +141,13 @@
           <a routerLinkActive="active" routerLink="/dashboard/applicants" class="waves-effect">
             <i class="icon-people fa-fw"></i>
             <span class="hide-menu">
-                 Applicants
+                 Applicants {{state}}
              </span>
           </a>
         </li>
         <ng-template #applicant>
           <li>
-            <a routerLinkActive="active" href="/dashboard/applicant" class="waves-effect">
+            <a routerLinkActive="active" routerLink="/dashboard/applicant" class="waves-effect">
               <i class="icon-people fa-fw"></i>
               <span class="hide-menu">
                  Your Profile
@@ -151,29 +157,29 @@
         </ng-template>
 
         <li>
-        <a routerLinkActive="active" href="/dashboard/vacancies" class="waves-effect">
+        <a routerLinkActive="active" routerLink="/dashboard/vacancies" class="waves-effect">
           <i class="ti-clipboard fa-fw"></i>
           <span class="hide-menu">
                  Vacancies
              </span>
         </a>
-      </li>
+        </li>
         <li *ngIf="!isAdmin">
-          <a routerLinkActive="active" href="/dashboard/myList" class="waves-effect">
+          <a routerLinkActive="active" routerLink="/dashboard/myList" class="waves-effect">
             <i class="ti-clipboard fa-fw"></i>
             <span class="hide-menu">
                  Your Job Applications
              </span>
           </a>
         </li>
+        <!--<li *ngIf="isAdmin">-->
+          <!--<a class="waves-effect">-->
+            <!--<i data-icon="F" class="linea-icon linea-software fa-fw"></i>-->
+            <!--Groups-->
+          <!--</a>-->
+        <!--</li>-->
         <li *ngIf="isAdmin">
           <a class="waves-effect">
-            <i data-icon="F" class="linea-icon linea-software fa-fw"></i>
-            Groups
-          </a>
-        </li>
-        <li *ngIf="isAdmin">
-          <a href="#" class="waves-effect">
              <i data-icon="P" class="linea-icon linea-basic fa-fw"></i>
              <span class="hide-menu">
                Setings<span class="fa arrow"></span>
@@ -182,9 +188,9 @@
           <ul class="nav nav-second-level">
             <li><a routerLinkActive="active" routerLink="/dashboard/announcements">Announcements</a> </li>
           </ul>
-          <ul class="nav nav-second-level">
-            <li><a routerLinkActive="active" routerLink="/dashboard/workPlaces">Work Places</a> </li>
-          </ul>
+          <!--<ul class="nav nav-second-level">-->
+            <!--<li><a routerLinkActive="active" routerLink="/dashboard/workPlaces">Work Places</a> </li>-->
+          <!--</ul>-->
           <ul class="nav nav-second-level">
             <li><a routerLinkActive="active" routerLink="/dashboard/regions">Regions</a> </li>
           </ul>
@@ -194,12 +200,13 @@
           <ul class="nav nav-second-level">
             <li><a routerLinkActive="active" routerLink="/dashboard/skills">Skills</a> </li>
           </ul>
+          <!-- OVAJ JE JOB APPLICATION STATUSES -->
           <ul class="nav nav-second-level">
             <li><a routerLinkActive="active" routerLink="/dashboard/applicantStatuses">Applicant statuses</a> </li>
           </ul>
-          <ul class="nav nav-second-level">
-            <li><a routerLinkActive="active" routerLink="/dashboard/activities">Activities</a> </li>
-          </ul>
+          <!--<ul class="nav nav-second-level">-->
+            <!--<li><a routerLinkActive="active" routerLink="/dashboard/activities">Activities</a> </li>-->
+          <!--</ul>-->
         </li>
       </ul>
     </div>

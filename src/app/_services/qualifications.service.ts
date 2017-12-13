@@ -85,17 +85,4 @@ export class QualificationsService{
       }
     );
   }
-  //
-  // URL = 'http://localhost:8080/qualifications';
-  //
-  // constructor(private http: Http) { }
-  //
-  // getQualifications (){
-  //   return this.http.get(this.URL).map(
-  //     (response: Response) => {
-  //       const qualification: QualificationModel[] = response.json();
-  //       return qualification;
-  //     }
-  //   );
-  // }
 }

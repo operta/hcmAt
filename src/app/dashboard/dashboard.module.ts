@@ -71,6 +71,14 @@ import {AtVacanciesDetailUserComponent} from "../at-vacancies/at-vacancies-detai
 import {ApplicantOverviewComponent} from "../applicant-overview/applicant-overview.component";
 import {AtApplicantWrapperComponent} from "../at-applicant/at-applicant-wrapper/at-applicant-wrapper.component";
 import {ApplicantResolver} from "../_services/applicantResolver.service";
+import {JobApplicationHistoryService} from "../_services/jobApplicationHistory.service";
+import {AtNotificationTemplatesComponent} from "../at-notification-templates/at-notification-templates.component";
+import {AtJobApplicationNotificationsComponent} from "../at-job-application-notifications/at-job-application-notifications.component";
+import {NotificationTemplatesService} from "../_services/notificationTemplate.service";
+import {JobApplicationNotificationsService} from "../_services/jobApplicationNotification.service";
+import {AtJobApplicationStatusesComponent} from "../at-job-application-statuses/at-job-application-statuses.component";
+import {NotificationStatusPipe} from "../ap-side-menu/notificationStatus.pipe";
+import {UserResolver} from "../_services/userResolver.service";
 
 @NgModule({
   declarations: [
@@ -115,7 +123,11 @@ import {ApplicantResolver} from "../_services/applicantResolver.service";
     AtVacanciesMylistComponent,
     AtVacanciesMylistItemComponent,
     ApplicantOverviewComponent,
-    AtApplicantWrapperComponent
+    AtApplicantWrapperComponent,
+    AtNotificationTemplatesComponent,
+    AtJobApplicationNotificationsComponent,
+    AtJobApplicationStatusesComponent,
+    NotificationStatusPipe
   ],
   imports: [
     CommonModule,
@@ -143,12 +155,16 @@ import {ApplicantResolver} from "../_services/applicantResolver.service";
     ApplicantAccomplishmentsService,
     JobApplicationInterviewService,
     JobApplicationTestService,
+    JobApplicationHistoryService,
     ApplicantAccomplishmentsService,
     ApplicantExperiencesService,
     ApplicantContactsService,
     ApplicantSkillsService,
     ApplicantDocumentsService,
-    ApplicantResolver
+    ApplicantResolver,
+    NotificationTemplatesService,
+    JobApplicationNotificationsService,
+    UserResolver
   ],
 
 })
