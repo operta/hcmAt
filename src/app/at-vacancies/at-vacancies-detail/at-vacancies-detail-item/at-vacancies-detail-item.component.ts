@@ -19,6 +19,10 @@ export class AtVacanciesDetailItemComponent implements OnInit {
   @Input() applicant: ApplicantModel;
   @Input() jobApplicationStatuses: JobApplicationStatusModel[];
   selectedStatus: JobApplicationStatusModel;
+  interviewsAvg = 0;
+  testsAvg = 0;
+  totalAvg = 0;
+
   changeStatus = false;
 
   constructor(private jobApplicationService: AtJobApplicationsService) { }
@@ -27,6 +31,13 @@ export class AtVacanciesDetailItemComponent implements OnInit {
     this.currentStatus = this.jobApplication.id_status;
     console.log(this.applicant);
     console.log(this.jobApplication);
+    this.jobApplication.interview.forEach(x => {this.interviewsAvg = this.interviewsAvg + x.grade});
+    console.log(this.interviewsAvg);
+    this.interviewsAvg = this.interviewsAvg / this.jobApplication.interview.length;
+    console.log(this.interviewsAvg);
+    this.jobApplication.test.forEach(x => { this.testsAvg = this.testsAvg + x.score});
+    this.testsAvg = this.testsAvg / this.jobApplication.test.length;
+    this.totalAvg = (this.testsAvg + this.interviewsAvg) / 2;
   }
 
   updateStatus(status: JobApplicationStatusModel){
@@ -35,7 +46,7 @@ export class AtVacanciesDetailItemComponent implements OnInit {
     );
     const applicant = new ApplicantModel(
       this.jobApplication.applicantid.id, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-      null, null, null, null, null, null, null, null, null
+      null, null, null, null, null, null, null, null, null, null
     );
     const vacancy = new VacancyModel(
       this.jobApplication.vacancyid.id, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
@@ -93,7 +104,7 @@ export class AtVacanciesDetailItemComponent implements OnInit {
       return 'css-bar-85';
     } else if (grade <= 90) {
       return 'css-bar-90';
-    } else if (grade <= 100) {
+    } else if (grade < 100) {
       return 'css-bar-95';
     } else if (grade === 100) {
       return 'css-bar-100';

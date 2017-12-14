@@ -71,7 +71,7 @@ export class AtVacanciesDetailUserComponent implements OnInit {
     );
     const applicant = new ApplicantModel(
       +this.applicantId, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-      null, null, null, null, null, null, null, null, null
+      null, null, null, null, null, null, null, null, null, null
     );
     const vacancy = new VacancyModel(
       this.vacancy.id, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null

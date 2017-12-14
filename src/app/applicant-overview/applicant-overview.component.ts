@@ -13,6 +13,7 @@ export class ApplicantOverviewComponent implements OnInit, OnDestroy{
   applicantId: string;
   applicant: ApplicantModel;
   subscriptionRoute: Subscription;
+  state = 'personalInfo';
 
   constructor(private route: ActivatedRoute) { }
 

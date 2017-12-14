@@ -138,7 +138,8 @@ export class ApplicantComponent implements OnInit, OnDestroy {
         this.selectedRegion,
         this.selectedCountry,
         this.user,
-        this.selectedQualification
+        this.selectedQualification,
+        null
       );
       console.log(newApplicant);
       this.applicantService.addApplicant(newApplicant).subscribe(
