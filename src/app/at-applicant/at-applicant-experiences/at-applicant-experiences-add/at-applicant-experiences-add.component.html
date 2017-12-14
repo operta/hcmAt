@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <form class="form-horizontal" role="form" (ngSubmit)="onSubmit(formExperience)" #formExperience="ngForm">
+    <form class="form-horizontal" role="form" (ngSubmit)="formExperience.form.valid && onSubmit(formExperience)" #formExperience="ngForm">
 
       <div class="form-body">
         <div class="box-title p-b-10 p-t-10 p-r-10">
@@ -10,18 +10,21 @@
         <div class="p-l-20">
           <div class="row">
             <div class="col-md-6">
-              <div class="form-group">
+              <div class="form-group" [ngClass]="{ 'has-error': formExperience.submitted && !company.valid }">
                 <label class="control-label col-md-3">Company:</label>
                 <div class="col-md-9">
-                  <input type="text" class="form-control" name="company" ngModel>
+                  <input required type="text" class="form-control" name="company" ngModel>
+                  <div *ngIf="formExperience.submitted && !company.valid" class="help-block">Field is required</div>
+
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" [ngClass]="{ 'has-error': formExperience.submitted && !position.valid }">
               <div class="form-group">
                 <label class="control-label col-md-3">Position:</label>
                 <div class="col-md-9">
-                  <input type="text" class="form-control" name="posiiton" ngModel>
+                  <input required type="text" class="form-control" name="position" ngModel>
+                  <div *ngIf="formExperience.submitted && !position.valid" class="help-block">Field is required</div>
                 </div>
               </div>
             </div>
@@ -44,25 +47,19 @@
               </div>
             </div>
             <div class="col-md-6">
-              <div *ngIf="!ongoing" class="form-group">
+              <div  class="form-group">
                 <label class="control-label col-md-3">To:</label>
                 <div class="col-md-9">
-                  <input type="date" class="form-control" name="date_to" ngModel>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label col-md-3">Present</label>
-                <div class="col-md-9">
-                  <input type="checkbox" [(ngModel)]="ongoing" (change)="ongoing = !ongoing" name="ongoing">
+                  <input *ngIf="!ongoing" type="date" class="form-control" name="date_to" ngModel>
+                  <button class="btn btn-success btn-rounded" type="button" (click)="ongoing = !ongoing" name="ongoing">Present <i *ngIf="ongoing" class="fa fa-check" aria-hidden="true"></i></button>
+
                 </div>
               </div>
             </div>
           </div>
 
-      <button (click)="close()" class="pull-right btn btn-info">Cancel</button>
-      <button  class="pull-right btn btn-success" type="submit">Add</button>
+          <button (click)="close()" class="pull-right saveButton btn btn-default">Cancel</button>
+          <button  class="pull-right saveButton btn btn-success" type="submit">Add <i class="fa fa-plus" aria-hidden="true"></i></button>
         </div>
       </div>
     </form>

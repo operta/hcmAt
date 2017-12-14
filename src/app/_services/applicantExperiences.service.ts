@@ -5,6 +5,7 @@ import {ApplicantModel} from "../_models/applicant.model";
 import {ApplicantExperienceModel} from "../_models/applicantExperience.model";
 import {JsogService} from "jsog-typescript";
 import {Subject} from "rxjs/Subject";
+import {ToastsManager} from "ng2-toastr";
 
 
 @Injectable()
@@ -14,7 +15,7 @@ export class ApplicantExperiencesService {
   Experiences: ApplicantExperienceModel[];
   ExperiencesObserver= new Subject<ApplicantExperienceModel[]>();
 
-  constructor(private http: Http, private jsog: JsogService) {}
+  constructor(private http: Http, private jsog: JsogService, private toastr: ToastsManager) {}
 
   getApplicantExperiences(applicant: ApplicantModel){
     return this.http.get(this.URL + '/' + applicant.id).map(
@@ -40,6 +41,7 @@ export class ApplicantExperiencesService {
         console.log(response);
         this.Experiences.map(Experience => Experience.id == applicantExperience.id ? applicantExperience : Experience);
         this.ExperiencesObserver.next(this.Experiences.slice());
+        this.toastr.success("Experience successfully updated.");
       }
     );
   }
@@ -57,6 +59,8 @@ export class ApplicantExperiencesService {
         console.log(response);
         this.Experiences.push(applicantExperience);
         this.ExperiencesObserver.next(this.Experiences.slice());
+        this.toastr.success("Experience successfully added.");
+
       }
     );
   }
@@ -74,6 +78,7 @@ export class ApplicantExperiencesService {
         let index = this.Experiences.indexOf(applicantExperience);
         this.Experiences.splice(index, 1);
         this.ExperiencesObserver.next(this.Experiences.slice());
+        this.toastr.success("Experience successfully removed.");
       }
     );
   }

@@ -16,7 +16,7 @@
         <div class="form-group">
           <label class="control-label col-md-3">Degree:</label>
           <div class="col-md-9">
-            <select *ngIf="isEdit" class="form-control p-0" id="selectedQualification" [(ngModel)]="selectedQualification" name="selectedQualificaiton">
+            <select *ngIf="isEdit" class="form-control p-0" (change)="onQualificationSelected(t.value)" #t>
               <option *ngFor="let qualification of qualifications" [selected]="qualification?.id == selectedQualification?.id" [ngValue]="qualification">{{qualification?.name}}</option>
             </select><span class="highlight"></span> <span class="bar"></span>
             <p *ngIf="!isEdit" class="form-control-static">{{applicantSchool?.id_qualification.name}} </p>
@@ -40,7 +40,7 @@
         <div class="form-group">
           <label class="control-label col-md-3">From year:</label>
           <div class="col-md-9">
-            <p *ngIf="!isEdit" class="form-control-static"> {{applicantSchool?.dateFrom}}</p>
+            <p *ngIf="!isEdit" class="form-control-static"> {{applicantSchool?.dateFrom | date:'dd/MM/yyyy'}}</p>
             <input *ngIf="isEdit"  type="date" class="form-control" id="dateFrom" name="dateFrom"
                    [(ngModel)]="applicantSchool && applicantSchool.dateFrom"><span class="highlight"></span><span class="bar"></span>
 
@@ -51,7 +51,7 @@
         <div class="form-group">
           <label class="control-label col-md-3">To year <br>(or expected):</label>
           <div class="col-md-9">
-            <p *ngIf="!isEdit" class="form-control-static"> {{applicantSchool?.date_to}}</p>
+            <p *ngIf="!isEdit" class="form-control-static"> {{applicantSchool?.date_to | date:'dd/MM/yyyy'}}</p>
             <input *ngIf="isEdit"  type="date" class="form-control" id="date_to" name="date_to"
                    [(ngModel)]="applicantSchool && applicantSchool.date_to"><span class="highlight"></span><span class="bar"></span>
 

@@ -18,7 +18,12 @@ export class AtApplicantExperiencesItemComponent implements OnInit {
   constructor(private applicantExperiencesService: ApplicantExperiencesService) { }
 
   ngOnInit() {
-    this.ongoing = false;
+    if(this.experience.ongoing == "T"){
+      this.ongoing = true;
+    }
+    else if(this.experience.ongoing == "F"){
+      this.ongoing = false;
+    }
     this.isEdit = false;
   }
 
@@ -46,6 +51,9 @@ export class AtApplicantExperiencesItemComponent implements OnInit {
 
   removeExperience(experience: ApplicantExperienceModel){
     this.applicantExperiencesService.removeApplicantExperience(experience);
+  }
+  print(){
+    console.log(this.ongoing);
   }
 
 

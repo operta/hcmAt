@@ -28,7 +28,8 @@
               <div class="form-group">
                 <label class="control-label col-md-3">Contact type:</label>
                 <div class="col-md-9">
-                  <select  *ngIf="isEdit" class="form-control p-0"  [(ngModel)]="selectedContactType" name="selectedContactType">
+
+                  <select  *ngIf="isEdit" class="form-control p-0" (change)="onTypeSelected(t.value)" #t>
                     <option *ngFor="let contactType of contactTypes" [selected]="contactType.id==contact.id_contact_type.id" [ngValue]="contactType">{{contactType?.name}}</option>
                   </select><span class="highlight"></span> <span class="bar"></span>
                   <p *ngIf="!isEdit" class="form-control-static">{{contact?.id_contact_type.name}} </p>

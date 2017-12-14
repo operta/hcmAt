@@ -11,26 +11,37 @@ import {ApplicantModel} from "../../_models/applicant.model";
 })
 export class AtApplicantWrapperComponent implements OnInit {
   applicant: ApplicantModel;
+  loading: boolean = false;
+  user: UserModel;
 
   constructor(private userService: UserService,
               private applicantService: ApplicantsService) { }
 
   ngOnInit() {
+    this.loading = true;
     this.userService.getUser().subscribe(
       (data: UserModel) =>{
+        this.user = data;
+        console.log("HERE");
         this.getApplicant(data.id);
       },
       error => {
         console.log(error);
+        this.loading = false;
       }
     );
   }
 
   getApplicant(userId: string){
     this.applicantService.getApplicant(userId).subscribe(
-      (data: ApplicantModel) => this.applicant = data,
+      (data: ApplicantModel) => {
+
+        this.applicant = data;
+        this.loading = false;
+      },
       error => {
         console.log(error);
+        this.loading = false;
       }
     );
   }

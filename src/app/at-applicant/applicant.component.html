@@ -6,12 +6,14 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="at-img-align m-b-30">
+
                               <img src="assets/images/users/user-male-icon.png" class="img-fluid" />
+                              <!--<img *ngIf="applicant" [src]="applicant.image_link" class="img-fluid" />-->
                             </div>
                           <div *ngIf="applicant">
-                            <h5><b>{{currentExperience?.company}} &middot; {{currentExperience?.location}}</b></h5>
-                            <h5><b>{{currentSchool?.school}} &middot; {{currentSchool?.id_school?.id_city?.name}}</b></h5>
-                            <h5><b>{{applicant?.id_city?.name}} &middot; {{applicant?.id_country?.name}}</b></h5>
+                            <h5 *ngIf="currentExperience"><b>{{currentExperience?.company}} &middot; {{currentExperience?.location}}</b></h5>
+                            <h5 *ngIf="currentSchool"><b>{{currentSchool?.school}} &middot; {{currentSchool?.id_school?.id_city?.name}}</b></h5>
+                            <h5 *ngIf="applicant.id_city" ><b>{{applicant?.id_city?.name}} &middot; {{applicant?.id_country?.name}}</b></h5>
                           </div>
                         </div>
                         <div class="col-sm-9">
@@ -140,7 +142,7 @@
                                             <div class="form-group">
                                               <label class="control-label col-md-3">Region:</label>
                                               <div class="col-md-9">
-                                                <select *ngIf="isEditPersonal" class="form-control p-0" [(ngModel)]="selectedRegion"  (ngModelChange)="onSelectRegion($event)" name="selectedRegion">
+                                                <select *ngIf="isEditPersonal" class="form-control p-0" (change)="onRegionSelected(t.value)" #t  name="selectedRegion">
                                                   <option *ngFor="let region of regions"  [selected]="region?.id == selectedRegion?.id" [ngValue]="region">{{region?.name}}</option>
                                                 </select><span class="highlight"></span> <span class="bar"></span>
                                                 <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_region?.name}} </p>
@@ -157,7 +159,7 @@
                                                     <label class="control-label col-md-3">Country:</label>
 
                                                     <div class="col-md-9">
-                                                      <select *ngIf="isEditPersonal" class="form-control p-0" [(ngModel)]="selectedCountry" (ngModelChange)="onSelectCountry($event)" name="selectedCountry">
+                                                      <select *ngIf="isEditPersonal" class="form-control p-0" (change)="onCountrySelected(t.value)" #t  name="selectedCountry">
                                                         <option *ngFor="let country of filteredCountries" [selected]="country?.id == selectedCountry?.id" [ngValue]="country">{{country?.name}}</option>
                                                       </select><span class="highlight"></span> <span class="bar"></span>
                                                       <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_country?.name}} </p>
@@ -169,7 +171,7 @@
                                               <label class="control-label col-md-3">City:</label>
                                               <div class="col-md-9">
 
-                                                <select *ngIf="isEditPersonal" class="form-control p-0" [(ngModel)]="selectedCity" name="selectedCity">
+                                                <select *ngIf="isEditPersonal" class="form-control p-0" (change)="onCitySelected(t.value)" #t>
                                                   <option *ngFor="let city of filteredCities" [selected]="city?.id == selectedCity?.id" [ngValue]="city">{{city?.name}}</option>
                                                 </select><span class="highlight"></span> <span class="bar"></span>
                                                 <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_city?.name}} </p>
@@ -186,9 +188,10 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Qualification:</label>
                                                     <div class="col-md-9">
-                                                        <select *ngIf="isEditPersonal" class="form-control p-0" [(ngModel)]="selectedQualification" name="selectedQualificaiton">
-                                                          <option *ngFor="let qualification of qualifications" [selected]="qualification?.id == selectedQualification?.id" [ngValue]="qualification">{{qualification?.name}}</option>
+                                                        <select *ngIf="isEditPersonal" class="form-control p-0" (change)="onQualificationSelected(t.value)" #t>
+                                                          <option *ngFor="let qualification of qualifications" [selected]="qualification?.id == applicant?.id_qualification?.id" [ngValue]="qualification">{{qualification?.name}}</option>
                                                         </select><span class="highlight"></span> <span class="bar"></span>
+                                                      <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_qualification?.name}} </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -240,10 +243,18 @@
                                                 </div>
                                             </div>
                                         </div>
+                                      <div class="row" style="margin-bottom: 10px">
+                                        <div class="col-md-6">
 
-                                      <button *ngIf="isEditPersonal || addApplicant" class="saveButton pull-right btn btn-success" type="submit">Add <i class="fa fa-plus" aria-hidden="true"></i></button>
-                                      <button (click)="isEditPersonal=false; addApplicant=false" *ngIf="isEditPersonal || addApplicant" class="saveButton pull-right btn btn-default" type="submit">Cancel</button>
-                                    </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <button *ngIf="isEditPersonal || addApplicant" class="saveButton pull-right btn btn-success" type="submit">Save <i *ngIf="addApplicant" class="fa fa-plus" aria-hidden="true"></i></button>
+                                          <button (click)="isEditPersonal=false; addApplicant=false" *ngIf="isEditPersonal || addApplicant" class="saveButton pull-right btn btn-default" type="submit">Cancel</button>
+
+                                        </div>
+
+                                      </div>
+                                      </div>
 
                                 </form>
                                   <!-- PERSONAL INFO END ----------->
