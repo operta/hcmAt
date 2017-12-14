@@ -27,9 +27,10 @@ export class ApplicantModel {
   public id_country: RegionModel;
   public idUser: UserModel;
   public id_qualification: QualificationModel;
+  public image_link: String;
 
 
-  constructor(id: number, name: string, surname: string, marital_status: string, middle_name: string, maiden_name: string, gender: string, birthdate: Date, address: string, employed: string, description: string, employment_position: string, industry: string, phone_number: string, email: string, created_by: string, created_at: Date, updated_by: string, updated_at: Date, id_city: RegionModel, id_region: RegionModel, id_country: RegionModel, id_user: UserModel, id_qualification: QualificationModel) {
+  constructor(id: number, name: string, surname: string, marital_status: string, middle_name: string, maiden_name: string, gender: string, birthdate: Date, address: string, employed: string, description: string, employment_position: string, industry: string, phone_number: string, email: string, created_by: string, created_at: Date, updated_by: string, updated_at: Date, id_city: RegionModel, id_region: RegionModel, id_country: RegionModel, idUser: UserModel, id_qualification: QualificationModel, image_link: String) {
     this.id = id;
     this.name = name;
     this.surname = surname;
@@ -52,7 +53,8 @@ export class ApplicantModel {
     this.id_city = id_city;
     this.id_region = id_region;
     this.id_country = id_country;
-    this.idUser = id_user;
+    this.idUser = idUser;
     this.id_qualification = id_qualification;
+    this.image_link = image_link;
   }
 }
