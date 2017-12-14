@@ -20,6 +20,10 @@ export class RgSkillsComponent implements OnInit, OnDestroy {
   loading: boolean = false;
 
 
+  pages = [];
+  resultCount = 15;
+  page = 1;
+
   constructor(private skillsService: SkillsService) { }
 
   ngOnInit() {
@@ -30,6 +34,15 @@ export class RgSkillsComponent implements OnInit, OnDestroy {
       (data : SkillModel[]) => {
         this.skills = data;
         this.loading = false;
+        this.pages = [];
+        let numIndex = 1;
+        for (let i = 0; i < this.skills.length; i++) {
+          if (i % this.resultCount === 0) {
+            this.pages.push({num: numIndex});
+            numIndex = numIndex + 1;
+          }
+        }
+
       }
     )
   }
@@ -74,6 +87,16 @@ export class RgSkillsComponent implements OnInit, OnDestroy {
   }
   private closeEditModal(): void {
     this.closeBtnEdit.nativeElement.click();
+  }
+
+  setPage(num: number) {
+    this.page = num;
+  }
+  start() {
+    return this.resultCount * this.page - this.resultCount;
+  }
+  end() {
+    return this.resultCount * this.page;
   }
 
 }

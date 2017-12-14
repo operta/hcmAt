@@ -23,6 +23,10 @@ export class RgRegionsComponent implements OnInit {
   subscription: Subscription;
   loading: boolean = false;
 
+  pages = [];
+  resultCount = 15;
+  page = 1;
+
   constructor(private regionsService: RegionsService, private regionTypesService: RegionTypesService) { }
 
   ngOnInit() {
@@ -35,6 +39,14 @@ export class RgRegionsComponent implements OnInit {
       (data : RegionModel[]) => {
         this.regions = data;
         this.loading = false;
+        this.pages = [];
+        let numIndex = 1;
+        for (let i = 0; i < this.regions.length; i++) {
+          if (i % this.resultCount === 0) {
+            this.pages.push({num: numIndex});
+            numIndex = numIndex + 1;
+          }
+        }
       }
     )
   }
@@ -80,6 +92,16 @@ export class RgRegionsComponent implements OnInit {
   }
   private closeEditModal(): void {
     this.closeBtnEdit.nativeElement.click();
+  }
+
+  setPage(num: number) {
+    this.page = num;
+  }
+  start() {
+    return this.resultCount * this.page - this.resultCount;
+  }
+  end() {
+    return this.resultCount * this.page;
   }
 
 }

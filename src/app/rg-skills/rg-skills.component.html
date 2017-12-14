@@ -19,6 +19,24 @@
           </div>
 
 
+          <div *ngIf="pages.length > 1" class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
+            Showing
+            {{resultCount}}
+            results per page.
+          </div>
+
+          <ng-container *ngIf="pages.length > 1" >
+            <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 m-r-0 m-l-0">
+              <div class="pull-right">
+                <ul class="pagination m-b-0" ([ngModel])="page">
+                  <li [ngClass]="{noClick: page === 1}"> <a (click)="setPage(page-1)"><i class="fa fa-angle-left"></i></a> </li>
+                  <li [ngClass]="{active: pageIterator.num===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator.num)">{{pageIterator.num}}</a></li>
+                  <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(page+1)" ><i class="fa fa-angle-right"></i></a> </li>
+                </ul>
+              </div>
+            </div>
+          </ng-container>
+
           <div class="table-responsive">
             <table id="example23" class="table table-striped">
               <thead>
@@ -32,7 +50,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let skill of skills">
+              <tr *ngFor="let skill of skills | slice:start():end();">
                 <td>{{skill.code}}</td>
                 <td>{{skill.name}}</td>
                 <td>{{skill.description}}</td>
@@ -47,6 +65,26 @@
 
               </tbody>
             </table>
+
+
+            <div *ngIf="pages.length > 1" class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
+              Showing
+              {{resultCount}}
+              results per page.
+            </div>
+
+            <ng-container *ngIf="pages.length > 1" >
+              <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 m-r-0 m-l-0">
+                <div class="pull-right">
+                  <ul class="pagination m-b-0" ([ngModel])="page">
+                    <li [ngClass]="{noClick: page === 1}"> <a (click)="setPage(page-1)"><i class="fa fa-angle-left"></i></a> </li>
+                    <li [ngClass]="{active: pageIterator.num===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator.num)">{{pageIterator.num}}</a></li>
+                    <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(page+1)" ><i class="fa fa-angle-right"></i></a> </li>
+                  </ul>
+                </div>
+              </div>
+            </ng-container>
+
           </div>
         </div>
       </div>

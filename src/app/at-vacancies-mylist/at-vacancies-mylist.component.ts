@@ -19,7 +19,7 @@ import {UserModel} from '../_models/user.model';
 export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
 
   options: number[] = [1, 10, 15, 20, 25, 30];
-  pages = [{num: 1}, {num: 2}, {num: 3}, {num: 4}, {num: 5}];
+  pages = [];
   resultCount = 15;
   page = 1;
   @Input() id: number;
@@ -51,6 +51,14 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
     this.jobApplicationsService.jobApplicationsChange.subscribe(
       data => {
         this.jobApplications = data;
+        this.pages = [];
+        let numIndex = 1;
+        for (let i = 0; i < this.jobApplications.length; i++) {
+          if (i % this.resultCount === 0) {
+            this.pages.push({num: numIndex});
+            numIndex = numIndex + 1;
+          }
+        }
         console.log(this.jobApplications);
       }
     );
@@ -71,22 +79,6 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
 
   setPage(num: number) {
     this.page = num;
-
-    if (this.page === this.pages[this.pages.length - 1].num) {
-      this.pages.forEach(page => page.num = page.num + 2);
-      console.log(this.pages);
-    }
-
-    if (this.page === this.pages[0].num && this.pages[0].num !== 1) {
-      this.pages.forEach(page => page.num = page.num - 2);
-    }
-    /*    if (num === this.pages.length) {
-          this.pages.forEach(x => x = x + 2);
-        }
-
-        if (num === this.pages[0]) {
-          this.pages.forEach(x => x = x - 2);
-        }*/
   }
 
   start() {

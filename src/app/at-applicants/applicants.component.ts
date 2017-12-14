@@ -18,6 +18,13 @@ export class ApplicantsComponent implements OnInit {
   advancedSearch: boolean = false;
   subscription: Subscription;
   loading: boolean = false;
+
+
+  pages = [];
+  resultCount = 15;
+  page = 1;
+
+
   constructor(private router: Router, private applicantsService: ApplicantsService) { }
 
   ngOnInit() {
@@ -29,6 +36,14 @@ export class ApplicantsComponent implements OnInit {
         this.applicants = data;
         console.log(this.applicants);
         this.loading = false;
+        this.pages = [];
+        let numIndex = 1;
+        for (let i = 0; i < this.applicants.length; i++) {
+          if (i % this.resultCount === 0) {
+            this.pages.push({num: numIndex});
+            numIndex = numIndex + 1;
+          }
+        }
       }
     );
   }
@@ -43,4 +58,20 @@ export class ApplicantsComponent implements OnInit {
   setAdvancedSearch(advancedSearch: boolean) {
     this.advancedSearch = advancedSearch;
   }
+
+
+
+
+  setPage(num: number) {
+    this.page = num;
+  }
+
+  start() {
+    return this.resultCount * this.page - this.resultCount;
+  }
+
+  end() {
+    return this.resultCount * this.page;
+  }
+
 }
