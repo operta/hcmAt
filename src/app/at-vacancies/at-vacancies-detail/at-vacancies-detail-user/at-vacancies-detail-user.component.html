@@ -29,22 +29,22 @@
                 <label class="control-label col-md-3">Work Place:</label> {{vacancy.id_work_place.name}}
               </div>
             </div>
-            <div class="col-md-6">
+            <div *ngIf="vacancy.job_role" class="col-md-6">
               <div class="form-group">
                 <label class="control-label col-md-3">Job Role:</label> {{vacancy.job_role}}
               </div>
             </div>
-            <div class="col-md-6">
+            <div *ngIf="vacancy.job_working_time" class="col-md-6">
               <div class="form-group">
                 <label class="control-label col-md-3">Job Working Time:</label> {{vacancy.job_working_time}}
               </div>
             </div>
-            <div class="col-md-6">
+            <div *ngIf="vacancy.language_requirement" class="col-md-6">
               <div class="form-group">
                 <label class="control-label col-md-3">Language Requirements:</label> {{vacancy.language_requirement}}
               </div>
             </div>
-            <div class="col-md-6">
+            <div *ngIf="vacancy.education_requirement" class="col-md-6">
               <div class="form-group">
                 <label class="control-label col-md-3">Education Requirements:</label> {{vacancy.education_requirement}}
               </div>
@@ -56,7 +56,7 @@
             {{vacancy.description}}
           </div>
 
-          <div class="col-xs-12 col-md-12">
+          <div *ngIf="vacancy.skills_requirement" class="col-xs-12 col-md-12">
             <hr>
             <h4>Skills Requirement:</h4>
             {{vacancy.skills_requirement}}
@@ -64,7 +64,7 @@
 
           </div>
 
-          <div class="col-xs-12 col-md-12">
+          <div *ngIf="vacancy.experience_requirement" class="col-xs-12 col-md-12">
             <hr>
             <h4>Experience Requirement:</h4>
             {{vacancy.experience_requirement}}

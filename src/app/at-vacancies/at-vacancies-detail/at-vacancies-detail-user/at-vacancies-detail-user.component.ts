@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {VacancyModel} from '../../../_models/vacancy.model';
 import {VacanciesService} from '../../../_services/vacancies.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {JobApplicationStatusModel} from '../../../_models/jobApplicationStatus.model';
 import {ApplicantModel} from '../../../_models/applicant.model';
 import {JobApplicationModel} from '../../../_models/jobApplication.model';
@@ -22,7 +22,7 @@ export class AtVacanciesDetailUserComponent implements OnInit {
   applicantId: number;
   applied = true;
 
-  constructor(private applicantService: ApplicantsService, private userService: UserService, private jobApplicationService: AtJobApplicationsService, private vacanciesService: VacanciesService, private route: ActivatedRoute) { }
+  constructor(private router: Router, private applicantService: ApplicantsService, private userService: UserService, private jobApplicationService: AtJobApplicationsService, private vacanciesService: VacanciesService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -63,6 +63,7 @@ export class AtVacanciesDetailUserComponent implements OnInit {
 
   apply() {
     this.createJobApplication();
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   createJobApplication() {

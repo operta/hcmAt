@@ -7,31 +7,24 @@
 
                     <div class="row">
 
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
-                            Show
-                            <select>
-                                <option>5</option>
-                                <option>10</option>
-                                <option selected="selected">15</option>
-                                <option>20</option>
-                                <option>25</option>
-                                <option>30</option>
-                            </select>
-                            results per page.
+
+                        <div *ngIf="pages.length > 1" class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
+                          Showing
+                          {{resultCount}}
+                          results per page.
                         </div>
-                        <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 m-r-0 m-l-0">
+
+                        <ng-container *ngIf="pages.length > 1" >
+                          <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 m-r-0 m-l-0">
                             <div class="pull-right">
-                                <ul class="pagination m-b-0">
-                                    <li class="disabled"> <a href="#"><i class="fa fa-angle-left"></i></a> </li>
-                                    <li> <a href="#">1</a> </li>
-                                    <li class="active"> <a href="#">2</a> </li>
-                                    <li> <a href="#">3</a> </li>
-                                    <li> <a href="#">4</a> </li>
-                                    <li> <a href="#">5</a> </li>
-                                    <li> <a href="#"><i class="fa fa-angle-right"></i></a> </li>
-                                </ul>
+                              <ul class="pagination m-b-0" ([ngModel])="page">
+                                <li [ngClass]="{noClick: page === 1}"> <a (click)="setPage(page-1)"><i class="fa fa-angle-left"></i></a> </li>
+                                <li [ngClass]="{active: pageIterator.num===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator.num)">{{pageIterator.num}}</a></li>
+                                <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(page+1)" ><i class="fa fa-angle-right"></i></a> </li>
+                              </ul>
                             </div>
-                        </div>
+                          </div>
+                        </ng-container>
                         <div class="table-responsive">
 
                             <table class="table table-striped table-hover">
@@ -55,10 +48,10 @@
                                 <tbody>
 
 
-                                    <tr *ngFor="let applicant of applicants; let i = index"
+                                    <tr *ngFor="let applicant of applicants | slice:start():end(); let i = index"
                                         (click)="selectRow(i)" [class]="(i === selectedRow)?'selectedRow':''">
 
-                                        <td><a routerLink="/applicant"><i class="fa fa-search"></i></a></td>
+                                        <td><a [routerLink]="['../','applicantOverview',applicant.id]"><i class="fa fa-search"></i></a></td>
                                         <td>{{ applicant?.name }} {{applicant?.surname}}</td>
                                         <td>{{ applicant?.gender }}</td>
                                         <td>{{ applicant?.birthdate | date:'dd/MM/yyyy'}}</td>
@@ -73,31 +66,24 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
-                            Show
-                            <select>
-                                <option>5</option>
-                                <option>10</option>
-                                <option selected="selected">15</option>
-                                <option>20</option>
-                                <option>25</option>
-                                <option>30</option>
-                            </select>
-                            results per page.
+
+                        <div *ngIf="pages.length > 1" class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
+                          Showing
+                          {{resultCount}}
+                          results per page.
                         </div>
-                        <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 m-r-0 m-l-0">
+
+                        <ng-container *ngIf="pages.length > 1" >
+                          <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 m-r-0 m-l-0">
                             <div class="pull-right">
-                                <ul class="pagination m-b-0">
-                                    <li class="disabled"> <a href="#"><i class="fa fa-angle-left"></i></a> </li>
-                                    <li> <a href="#">1</a> </li>
-                                    <li class="active"> <a href="#">2</a> </li>
-                                    <li> <a href="#">3</a> </li>
-                                    <li> <a href="#">4</a> </li>
-                                    <li> <a href="#">5</a> </li>
-                                    <li> <a href="#"><i class="fa fa-angle-right"></i></a> </li>
-                                </ul>
+                              <ul class="pagination m-b-0" ([ngModel])="page">
+                                <li [ngClass]="{noClick: page === 1}"> <a (click)="setPage(page-1)"><i class="fa fa-angle-left"></i></a> </li>
+                                <li [ngClass]="{active: pageIterator.num===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator.num)">{{pageIterator.num}}</a></li>
+                                <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(page+1)" ><i class="fa fa-angle-right"></i></a> </li>
+                              </ul>
                             </div>
-                        </div>
+                          </div>
+                        </ng-container>
                     </div>
                 </div>
             </div>

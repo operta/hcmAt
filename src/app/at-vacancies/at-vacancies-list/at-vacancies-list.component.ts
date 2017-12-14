@@ -19,7 +19,8 @@ import {Subject} from "rxjs/Subject";
 export class AtVacanciesListComponent implements OnInit, OnDestroy {
   @ViewChildren(AtVacanciesItemComponent) allAtVacanciesItemComponents: QueryList<AtVacanciesItemComponent>;
   options: number[] = [1, 10, 15, 20, 25, 30];
-  pages = [{num: 1} , {num: 2}, {num: 3}, {num: 4}, {num: 5}];
+/*  pages = [{num: 1} , {num: 2}, {num: 3}, {num: 4}, {num: 5}];*/
+  pages = [];
   resultCount = 15;
   page = 1;
   vacancies: VacancyModel[];
@@ -57,8 +58,17 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
         (data: VacancyModel[]) => {
           console.log("OBSERVER");
           this.vacancies = data;
-          console.log(this.vacancies);
           this.loading = false;
+          console.log(this.vacancies);
+          this.pages = [];
+          // pagination number of pages
+          let numIndex = 1;
+          for (let i = 0; i < this.vacancies.length; i++){
+            if (i % this.resultCount === 0) {
+              this.pages.push({num: numIndex});
+              numIndex = numIndex + 1;
+            }
+          }
         }
       );
       if(!this.vacanciesService.vacancyServiceHasVacancies()){
@@ -73,6 +83,15 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
         (data: VacancyModel[]) => {
           this.vacancies = data;
           this.loading = false;
+          this.pages = [];
+          // pagination number of pages
+          let numIndex = 1;
+          for (let i = 0; i < this.vacancies.length; i++){
+            if (i % this.resultCount === 0) {
+              this.pages.push({num: numIndex});
+              numIndex = numIndex + 1;
+            }
+          }
         }
       );
     }
@@ -112,14 +131,14 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
   setPage(num: number) {
     this.page = num;
 
-    if (this.page === this.pages[this.pages.length - 1].num) {
+/*    if (this.page === this.pages[this.pages.length - 1].num) {
       this.pages.forEach(page => page.num = page.num + 2);
       console.log(this.pages);
     }
 
     if (this.page === this.pages[0].num && this.pages[0].num !== 1) {
       this.pages.forEach(page => page.num = page.num - 2);
-    }
+    }*/
 /*    if (num === this.pages.length) {
       this.pages.forEach(x => x = x + 2);
     }

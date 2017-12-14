@@ -18,6 +18,10 @@ export class RgQualificationsComponent implements OnInit {
   subscription: Subscription;
   loading: boolean = false;
 
+  pages = [];
+  resultCount = 15;
+  page = 1;
+
   constructor(private qualificationsService: QualificationsService) { }
 
   ngOnInit() {
@@ -27,6 +31,16 @@ export class RgQualificationsComponent implements OnInit {
       (data : QualificationModel[]) => {
         this.qualifications = data;
         this.loading = false;
+
+        this.pages = [];
+        let numIndex = 1;
+        for (let i = 0; i < this.qualifications.length; i++) {
+          if (i % this.resultCount === 0) {
+            this.pages.push({num: numIndex});
+            numIndex = numIndex + 1;
+          }
+        }
+
       }
     )
   }
@@ -69,6 +83,16 @@ export class RgQualificationsComponent implements OnInit {
   }
   private closeEditModal(): void {
     this.closeBtnEdit.nativeElement.click();
+  }
+
+  setPage(num: number) {
+    this.page = num;
+  }
+  start() {
+    return this.resultCount * this.page - this.resultCount;
+  }
+  end() {
+    return this.resultCount * this.page;
   }
 
 }

@@ -52,13 +52,13 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="asGender">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <input type="password" class="form-control"placeholder="Password">
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="Confirm Password">
                           </div>
                         </div>
                       </div>
@@ -82,67 +82,52 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
-          Show
-          <select>
-            <option>5</option>
-            <option>10</option>
-            <option selected="selected">15</option>
-            <option>20</option>
-            <option>25</option>
-            <option>30</option>
-          </select>
-          results per page.
-        </div>
+    <div *ngIf="pages.length > 1" class="row">
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
+        Showing
+        {{resultCount}}
+        results per page.
+      </div>
+
+      <ng-container *ngIf="pages.length > 1" >
         <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 m-r-0 m-l-0">
           <div class="pull-right">
-            <ul class="pagination m-b-0">
-              <li class="disabled"> <a href="#"><i class="fa fa-angle-left"></i></a> </li>
-              <li> <a href="#">1</a> </li>
-              <li class="active"> <a href="#">2</a> </li>
-              <li> <a href="#">3</a> </li>
-              <li> <a href="#">4</a> </li>
-              <li> <a href="#">5</a> </li>
-              <li> <a href="#"><i class="fa fa-angle-right"></i></a> </li>
+            <ul class="pagination m-b-0" ([ngModel])="page">
+              <li [ngClass]="{noClick: page === 1}"> <a (click)="setPage(page-1)"><i class="fa fa-angle-left"></i></a> </li>
+              <li [ngClass]="{active: pageIterator.num===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator.num)">{{pageIterator.num}}</a></li>
+              <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(page+1)" ><i class="fa fa-angle-right"></i></a> </li>
             </ul>
           </div>
         </div>
-      </div>
+      </ng-container>
+    </div>
       <div class="row">
         <div class="col-xs-12 col-lg-12 col-md-12">
           <div class="comment-center">
-            <app-at-vacancies-detail-item *ngFor="let jobApplication of jobApplications;" [jobApplication]="jobApplication" [applicant]="jobApplication.applicantid" [jobApplicationStatuses]="jobApplicationStatuses"></app-at-vacancies-detail-item>
+            <app-at-vacancies-detail-item *ngFor="let jobApplication of jobApplications | slice:start():end();" [jobApplication]="jobApplication" [applicant]="jobApplication.applicantid" [jobApplicationStatuses]="jobApplicationStatuses"></app-at-vacancies-detail-item>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
-          Show
-          <select>
-            <option>5</option>
-            <option>10</option>
-            <option selected="selected">15</option>
-            <option>20</option>
-            <option>25</option>
-            <option>30</option>
-          </select>
-          results per page.
-        </div>
+
+    <div *ngIf="pages.length > 1" class="row">
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
+        Showing
+        {{resultCount}}
+        results per page.
+      </div>
+
+      <ng-container *ngIf="pages.length > 1" >
         <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 m-r-0 m-l-0">
           <div class="pull-right">
-            <ul class="pagination m-b-0">
-              <li class="disabled"> <a href="#"><i class="fa fa-angle-left"></i></a> </li>
-              <li> <a href="#">1</a> </li>
-              <li class="active"> <a href="#">2</a> </li>
-              <li> <a href="#">3</a> </li>
-              <li> <a href="#">4</a> </li>
-              <li> <a href="#">5</a> </li>
-              <li> <a href="#"><i class="fa fa-angle-right"></i></a> </li>
+            <ul class="pagination m-b-0" ([ngModel])="page">
+              <li [ngClass]="{noClick: page === 1}"> <a (click)="setPage(page-1)"><i class="fa fa-angle-left"></i></a> </li>
+              <li [ngClass]="{active: pageIterator.num===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator.num)">{{pageIterator.num}}</a></li>
+              <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(page+1)" ><i class="fa fa-angle-right"></i></a> </li>
             </ul>
           </div>
         </div>
-      </div>
+      </ng-container>
+    </div>
   </div>
 </div>
 <!-- /.row -->

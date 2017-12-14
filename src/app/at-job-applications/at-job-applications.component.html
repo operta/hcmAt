@@ -29,7 +29,7 @@
                   <h5>{{jobApplication.vacancyid.name}}</h5>
                   <span class="mail-desc m-b-0" style="height: auto">
                                                 <i class="ti-calendar" style="color: black"></i> {{jobApplication.vacancyid.created_at | date}}
-                                                <i class="fa fa-map-marker m-l-15" style="color: black"></i> locationplaceholder
+                                                <i class="fa fa-map-marker m-l-15" style="color: black"></i> {{jobApplication.vacancyid.id_location.name}}
                                             </span>
                 </div>
                 </a>
