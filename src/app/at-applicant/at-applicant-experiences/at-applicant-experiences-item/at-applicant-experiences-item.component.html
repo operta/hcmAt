@@ -3,15 +3,12 @@
   <div class="col-md-12">
     <form class="form-horizontal" role="form" (ngSubmit)="onSubmit(formExperience)" #formExperience="ngForm">
       <div class="form-body">
-        <br>
-        <div *ngIf="editable" class="box-title p-b-10 p-t-10 p-r-10">
-          <div class="pull-right">
+        <div class="box-title p-b-10 p-t-10 p-r-10">
+          <div *ngIf="editable" class="pull-right">
             <a *ngIf="!isEdit" class="popup-with-form" (click)="isEdit=true">
               <i class="fa fa-pencil action-button-at"></i>
             </a>
-            <button *ngIf="isEdit"  (click)="removeExperience(this.experience)" class="saveButton pull-right btn btn-danger" type="submit">Delete</button>
-            <button *ngIf="isEdit" (click)="isEdit=false" class="saveButton pull-right btn btn-info" type="submit">Cancel</button>
-            <button *ngIf="isEdit" class="saveButton pull-right btn btn-success" type="submit">Save</button>
+            <a role="button" *ngIf="!isEdit" (click)="modal.show()" class="popup-with-form"><i class="fa fa-times action-button-at" aria-hidden="true"></i></a>
           </div>
         </div>
         <hr *ngIf="isEdit">
@@ -54,7 +51,7 @@
               <div class="form-group">
                 <label class="control-label col-md-3">From:</label>
                 <div class="col-md-9">
-                  <p *ngIf="!isEdit" class="form-control-static"> {{experience?.date_from}}</p>
+                  <p *ngIf="!isEdit" class="form-control-static"> {{experience?.date_from | date:'dd/MM/yyyy'}}</p>
                   <input *ngIf="isEdit"  type="date" class="form-control" id="date_from" name="date_from"
                          [(ngModel)]="experience && experience.date_from"><span class="highlight"></span><span class="bar"></span>
 
@@ -62,22 +59,23 @@
               </div>
             </div>
             <div class="col-md-6">
-              <div *ngIf="!ongoing" class="form-group">
+              <div  class="form-group">
                 <label class="control-label col-md-3">To:</label>
                 <div class="col-md-9">
-                  <p *ngIf="!isEdit" class="form-control-static"> {{experience?.date_to}}</p>
-                  <input *ngIf="isEdit"  type="date" class="form-control" id="date_to" name="date_to"
+                  <p *ngIf="!isEdit && !ongoing" class="form-control-static"> {{experience?.date_to | date:'dd/MM/yyyy'}}</p>
+                  <input *ngIf="isEdit && !ongoing"  type="date" class="form-control" id="date_to" name="date_to"
                          [(ngModel)]="experience && experience.date_to"><span class="highlight"></span><span class="bar"></span>
+                  <button *ngIf="isEdit || ongoing" class="btn btn-success btn-rounded" type="button" (click)="ongoing = !ongoing" [disabled]="!isEdit" name="ongoing">Present <i *ngIf="ongoing" class="fa fa-check" aria-hidden="true"></i></button>
                 </div>
               </div>
             </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-6"></div>
             <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label col-md-3">Present</label>
-                <div class="col-md-9">
-                  <input type="checkbox" [(ngModel)]="ongoing" (change)="ongoing = !ongoing" [disabled]="!isEdit" name="ongoing">
-                </div>
-              </div>
+              <button *ngIf="isEdit" (click)="isEdit=false" class="saveButton pull-right btn btn-default" type="submit">Close edit</button>
+              <button *ngIf="isEdit" class="saveButton pull-right btn btn-success" type="submit">Save changes <i class="fa fa-check" aria-hidden="true"></i></button>
             </div>
           </div>
         </div>
@@ -85,4 +83,19 @@
     </form>
   </div>
 </div>
+
+<app-modal #modal>
+  <div class="app-modal-header">
+    Confirm action
+  </div>
+  <div class="app-modal-body">
+    Are you sure you want to delete this item?
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="modal.hide()">Cancel</button>
+    <button type="button" class="btn btn-danger"  (click)="removeExperience(this.experience)">Delete</button>
+  </div>
+</app-modal>
+
+
 

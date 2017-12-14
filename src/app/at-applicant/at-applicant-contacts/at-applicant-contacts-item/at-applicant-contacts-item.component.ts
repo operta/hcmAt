@@ -27,6 +27,7 @@ export class AtApplicantContactsItemComponent implements OnInit {
     this.contact.contact = form.value.contact;
     this.contact.description = form.value.description;
     this.contact.id_contact_type = this.selectedContactType;
+    console.log(this.selectedContactType);
     this.applicantContactsService.updateApplicantContact(this.contact);
 
     this.isEdit = false;
@@ -34,5 +35,9 @@ export class AtApplicantContactsItemComponent implements OnInit {
 
   removeContact(contact: ApplicantContactModel){
     this.applicantContactsService.removeApplicantContact(this.contact);
+  }
+
+  onTypeSelected(value: string) {
+    this.selectedContactType = this.contactTypes.find(item => item.name === value);
   }
 }

@@ -78,7 +78,7 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
 
     }
     if (this.isUser) {
-      this.vacanciesService.getActiveVacancies();
+
       this.subscription = this.vacanciesService.vacancyChange.subscribe(
         (data: VacancyModel[]) => {
           this.vacancies = data;
@@ -94,6 +94,10 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
           }
         }
       );
+      if(!this.vacanciesService.vacancyServiceHasVacancies()){
+        this.loading = true;
+        this.vacanciesService.getActiveVacancies();
+      }
     }
     this.subscriptionRegions = this.regionsService.getRegions().subscribe(
       (data: RegionModel[]) => {
@@ -115,7 +119,10 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
 
   refresh(){
     this.loading = true;
-    this.vacanciesService.getVacancies();
+    if(this.isUser)
+    this.vacanciesService.getActiveVacancies();
+    else
+      this.vacanciesService.getVacancies();
   }
 
   ngOnDestroy() {

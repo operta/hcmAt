@@ -48,4 +48,8 @@ export class AtApplicantSchoolsItemComponent implements OnInit, OnChanges {
     this.applicantSchoolService.removeApplicantSchool(school);
   }
 
+  onQualificationSelected(value: string) {
+    this.selectedQualification = this.qualifications.find(item => item.name === value);
+  }
+
 }
