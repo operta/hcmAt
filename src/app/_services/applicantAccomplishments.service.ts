@@ -13,7 +13,7 @@ import {Observable} from "rxjs/Observable";
 export class ApplicantAccomplishmentsService {
 
   URL = 'http://localhost:8080/applicantAccomplishments';
-  accomplishments: ApplicantAccomplishmentModel[];
+  accomplishments: ApplicantAccomplishmentModel[] = [];
   accomplishmentsObserver= new Subject<ApplicantAccomplishmentModel[]>();
 
   constructor(private http: Http, private toastr: ToastsManager, private jsog: JsogService) {}

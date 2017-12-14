@@ -25,7 +25,9 @@ export class ApplicantsComponent implements OnInit {
     this.applicantsService.getApplicants();
      this.subscription = this.applicantsService.applicantChange.subscribe(
       (data: ApplicantModel[]) => {
+
         this.applicants = data;
+        console.log(this.applicants);
         this.loading = false;
       }
     );

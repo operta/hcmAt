@@ -46,7 +46,7 @@
               <div  class="message-center">
                 <div  *ngFor="let notification of notifications | notificationStatusPipe:'Y'; let i=index">
                   <ng-template [ngIf]="i<5">
-                    <a>
+                    <a style="pointer-events: none;">
                       <div class="user-img" >
                         <img src="assets/images/users/pawandeep.jpg" alt="user" class="img-circle">
                         <span class="profile-status offline pull-right"></span>
@@ -63,7 +63,7 @@
               </div>
             </li>
             <li>
-              <a class="text-center" href="javascript:void(0);">
+              <a style="pointer-events: none;" class="text-center">
                 <strong>See all notifications</strong>
                 <i class="fa fa-angle-right"></i>
               </a>
@@ -89,7 +89,7 @@
           <div><img src="assets/images/users/1.jpg" alt="user-img" class="img-circle"></div>
           <a class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button"
               aria-haspopup="true" aria-expanded="false">
-            {{user?.name}}<span class="caret"></span>
+            {{user?.username}}<span class="caret"></span>
           </a>
           <ul class="dropdown-menu animated flipInY">
             <!--<li><a routerLinkActive="active" routerLink="/dashboard/profile" ><i class="ti-user"></i> My Profile</a></li>-->

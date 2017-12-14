@@ -43,7 +43,7 @@ export class AtApplicantExperiencesAddComponent implements OnInit {
       null,
       new Date
     );
-    console.log(applicantExperience);
+
     this.applicantExperiencesService.addApplicantExperience(applicantExperience);
     this.close();
   }

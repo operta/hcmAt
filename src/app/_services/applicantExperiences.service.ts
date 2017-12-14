@@ -53,13 +53,14 @@ export class ApplicantExperiencesService {
     this.http.post(this.URL + '/add', body, options).map(
       (response: Response) => {
         console.log(response);
+        this.Experiences.push(response.json());
+        this.ExperiencesObserver.next(this.Experiences.slice());
+        this.toastr.success("Experience successfully added.");
       }
     ).subscribe(
       response => {
         console.log(response);
-        this.Experiences.push(applicantExperience);
-        this.ExperiencesObserver.next(this.Experiences.slice());
-        this.toastr.success("Experience successfully added.");
+
 
       }
     );

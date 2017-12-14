@@ -3,6 +3,7 @@ import {ApplicantAccomplishmentModel} from "../../../_models/applicantAccomplish
 import {NgForm} from "@angular/forms";
 import {ApplicantAccomplishmentsService} from "../../../_services/applicantAccomplishments.service";
 import {Popup} from "ng2-opd-popup";
+import {ApplicantModel} from "../../../_models/applicant.model";
 
 @Component({
   selector: 'app-at-applicant-accomplishments-item',
@@ -20,8 +21,13 @@ export class AtApplicantAccomplishmentsItemComponent implements OnInit, OnChange
   constructor(private applicantAccomplishmentsService: ApplicantAccomplishmentsService) { }
 
 
-  ngOnInit() {
+  ngOnInit() { if(this.applicantAccomplishment.ongoing == "T"){
+    this.ongoing = true;
+  }
+  else if(this.applicantAccomplishment.ongoing == "F"){
     this.ongoing = false;
+  }
+    this.isEdit = false;
     this.isEdit = false;
   }
 
@@ -36,6 +42,12 @@ export class AtApplicantAccomplishmentsItemComponent implements OnInit, OnChange
     else {
       this.ongoingString = "F";
     }
+    const newApplicant = new ApplicantModel(
+      this.applicantAccomplishment.idApplicant.id,
+      null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null, null, null,null,
+      null,null,null,null
+    );
+    this.applicantAccomplishment.idApplicant = newApplicant;
     this.applicantAccomplishment.title = form.value.title;
     this.applicantAccomplishment.description = form.value.description;
     this.applicantAccomplishment.association = form.value.association;

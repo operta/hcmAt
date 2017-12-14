@@ -8,6 +8,7 @@ import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
 import {UserService} from "./user.service";
 import {UserModel} from "../_models/user.model";
+import {JsogService} from "jsog-typescript";
 
 @Injectable()
 export class ApplicantsService {
@@ -20,12 +21,17 @@ export class ApplicantsService {
     'Authorization': 'Bearer ' + this.authenticationService.getToken()
   });
 
-  constructor(private toastr: ToastsManager, private http: Http, private authenticationService: AuthenticationService) { }
+  constructor(private toastr: ToastsManager,
+              private http: Http,
+              private authenticationService: AuthenticationService,
+              private jsog: JsogService
+  ) { }
 
   getApplicants() {
     return this.http.get(this.applicantsURL).map(
       (response: Response) => {
-        const applicants: ApplicantModel[] = response.json();
+
+        const applicants: ApplicantModel[] =  (<ApplicantModel[]>this.jsog.deserialize(response.json()));
         return applicants;
       }
     ).subscribe(

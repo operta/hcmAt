@@ -69,25 +69,20 @@
                 </div>
               </div>
             </div>
+
+
             <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Project' || applicantAccomplishment.id_accomplishment_type.name == 'Course' || applicantAccomplishment.id_accomplishment_type.name == 'Certification'" class="col-md-6">
-              <div *ngIf="!ongoing" class="form-group">
+              <div class="form-group">
                 <label class="control-label col-md-3">To:</label>
                 <div class="col-md-9">
-                  <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.date_to}}</p>
-                  <input *ngIf="isEdit"  type="date" class="form-control" id="date_to" name="date_to"
+                  <p *ngIf="!isEdit && !ongoing" class="form-control-static"> {{applicantAccomplishment?.date_to}}</p>
+                  <input *ngIf="isEdit && !ongoing"  type="date" class="form-control" id="date_to" name="date_to"
                          [(ngModel)]="applicantAccomplishment && applicantAccomplishment.date_to"><span class="highlight"></span><span class="bar"></span>
-                </div>
-              </div>
-            </div>
-            <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Project' || applicantAccomplishment.id_accomplishment_type.name == 'Certification'" class="col-md-6">
-              <div class="form-group">
-                <label class="control-label col-md-3">Present</label>
-                <div class="col-md-9">
-                  <input type="checkbox" [(ngModel)]="ongoing" (change)="ongoing = !ongoing" [disabled]="!isEdit" name="ongoing">
-                </div>
-              </div>
-            </div>
+                  <button *ngIf="isEdit || ongoing" class="btn btn-success btn-rounded" type="button" (click)="ongoing = !ongoing" [disabled]="!isEdit" name="ongoing">Present <i *ngIf="ongoing" class="fa fa-check" aria-hidden="true"></i></button>
 
+                </div>
+              </div>
+            </div>
 
           </div>
           <div class="row">

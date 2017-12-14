@@ -36,9 +36,14 @@ export class AtApplicatAccomplishmentsAddComponent implements OnInit {
       this.ongoingString = "F";
     }
     console.log(form.value);
+    const newApplicant = new ApplicantModel(
+      this.applicant.id,
+      null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null, null, null,null,
+      null,null,null,null
+    );
     var applicantAccomplishment = new ApplicantAccomplishmentModel(
       null,
-      this.applicant,
+      newApplicant,
       this.selectedAccomplishmentType,
       form.value.title,
       form.value.description,

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <form class="form-horizontal" role="form" (ngSubmit)="onSubmit(formAccomplishment)" #formAccomplishment="ngForm">
+    <form class="form-horizontal" role="form" (ngSubmit)="formAccomplishment.form.valid && onSubmit(formAccomplishment)" #formAccomplishment="ngForm">
 
       <div class="form-body">
         <div class="box-title p-b-10 p-t-10 p-r-10">
@@ -10,10 +10,12 @@
         <div class="p-l-20">
           <div class="row">
             <div class="col-md-6">
-              <div class="form-group">
+              <div class="form-group" [ngClass]="{ 'has-error': formAccomplishment.submitted && !name.valid }">
                 <label class="control-label col-md-3">{{selectedAccomplishmentType?.name}} name:</label>
                 <div class="col-md-9">
-                  <input type="text" class="form-control" id="title" name="title" ngModel>
+                  <input required type="text" class="form-control" id="title" name="title" ngModel #name="ngModel">
+                  <div *ngIf="formAccomplishment.submitted && !name.valid" class="help-block">Field is required</div>
+
                 </div>
               </div>
             </div>
@@ -26,10 +28,11 @@
               </div>
             </div>
             <div *ngIf="selectedAccomplishmentType.name == 'Language'" class="col-md-6">
-              <div class="form-group">
+              <div class="form-group" [ngClass]="{ 'has-error': formAccomplishment.submitted && !profiency.valid }">
                 <label class="control-label col-md-3">Proficiency:</label>
                 <div class="col-md-9">
-                  <input type="text" class="form-control" id="proficiency" name="proficiency" ngModel>
+                  <input required ype="text" class="form-control" id="proficiency" name="proficiency" ngModel #profiency="ngModel" >
+                  <div *ngIf="formAccomplishment.submitted && !company.valid" class="help-block">Field is required</div>
                 </div>
               </div>
             </div>
@@ -51,24 +54,16 @@
                 </div>
               </div>
             </div>
+
             <div *ngIf="selectedAccomplishmentType.name == 'Project' || selectedAccomplishmentType.name == 'Course' || selectedAccomplishmentType.name == 'Certification'" class="col-md-6">
-              <div *ngIf="!ongoing" class="form-group">
+              <div  class="form-group">
                 <label class="control-label col-md-3">To:</label>
                 <div class="col-md-9">
-                  <input type="date" class="form-control" id="date_to" name="date_to" ngModel>
+                  <input *ngIf="!ongoing" type="date" class="form-control" id="date_to" name="date_to" ngModel>
+                  <button class="btn btn-success btn-rounded" type="button" (click)="ongoing = !ongoing" name="ongoing">Present <i *ngIf="ongoing" class="fa fa-check" aria-hidden="true"></i></button>
                 </div>
               </div>
             </div>
-            <div *ngIf="selectedAccomplishmentType.name == 'Project' || selectedAccomplishmentType.name == 'Certification'" class="col-md-6">
-              <div class="form-group">
-                <label class="control-label col-md-3">Present</label>
-                <div class="col-md-9">
-                  <input type="checkbox" [(ngModel)]="ongoing" (change)="ongoing = !ongoing" name="ongoing">
-                </div>
-              </div>
-            </div>
-
-
           </div>
           <div class="row">
             <div *ngIf="selectedAccomplishmentType.name != 'Language' && selectedAccomplishmentType.name != 'Certification'" class="col-md-6">

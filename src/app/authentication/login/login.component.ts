@@ -41,11 +41,11 @@ export class LoginComponent implements OnInit {
             this.userService.login(result);
 
           } else {
-            this.error = 'Email or password is incorrect';
+            this.error = 'Username or password is incorrect';
           }
         },
         error => {
-          this.error = 'Email or password is incorrect';
+          this.error = 'Username or password is incorrect';
           this.loading = false;
         }
       );
