@@ -24,9 +24,6 @@ export class SkillGradesService {
       (data: SkillGradeModel[]) => {
         this.skillGrades = data;
         this.skillGradesObserver.next(this.skillGrades.slice());
-      },
-      error => {
-        this.toastr.error( error.status, "An error occured");
       }
     );
   }

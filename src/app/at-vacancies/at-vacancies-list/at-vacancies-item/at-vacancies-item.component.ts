@@ -82,6 +82,7 @@ export class AtVacanciesItemComponent implements OnInit {
     this.vacancy.description = form.value.description;
     this.vacancy.date_from = form.value.date_from;
     this.vacancy.date_to = form.value.date_to;
+    console.log(form.value.selectedRegion);
     this.vacancy.id_location = this.selectedRegion;
     this.vacancy.id_work_place = this.selectedWorkplace;
     this.vacancy.status = status;

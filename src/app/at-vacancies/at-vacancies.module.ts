@@ -12,7 +12,11 @@ import { AtVacanciesAddComponent } from './at-vacancies-add/at-vacancies-add.com
 import {AtVacanciesDetailItemComponent} from './at-vacancies-detail/at-vacancies-detail-item/at-vacancies-detail-item.component';
 import {AtVacanciesDetailUserComponent} from "./at-vacancies-detail/at-vacancies-detail-user/at-vacancies-detail-user.component";
 import {AtVacanciesDetailAdminComponent} from "./at-vacancies-detail/at-vacancies-detail-admin/at-vacancies-detail-admin.component";
-import {ModalComponent} from "../_shared/modal.component";
+import {SearchFilterPipe} from "./searchFilter.pipe";
+import {SearchStatusPipe} from "./searchStatus.pipe";
+import {SearchWorkplacePipe} from "./searchWorkplace.pipe";
+import {SearchRegionPipe} from "./searchRegion.pipe";
+import {SearchDatePipe} from "./searchDate.pipe";
 
 
 @NgModule({
@@ -25,7 +29,12 @@ import {ModalComponent} from "../_shared/modal.component";
     AtVacanciesAddComponent,
     AtVacanciesDetailItemComponent,
     AtVacanciesDetailUserComponent,
-    AtVacanciesDetailAdminComponent
+    AtVacanciesDetailAdminComponent,
+    SearchFilterPipe,
+    SearchStatusPipe,
+    SearchWorkplacePipe,
+    SearchRegionPipe,
+    SearchDatePipe
 
   ],
   imports: [

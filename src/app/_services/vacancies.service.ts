@@ -8,30 +8,61 @@ import {ToastsManager} from "ng2-toastr";
 
 @Injectable()
 export class VacanciesService {
-  private vacancies: VacancyModel[];
+  private vacancies: VacancyModel[] = [];
   vacancyChange= new Subject<VacancyModel[]>();
 
   vacanciesURL = 'http://localhost:8080/vacancies';
 
   constructor(private toastr: ToastsManager, private http: Http, private jsog: JsogService) { }
 
+  // getVacanciesWithRefresh(refresh: boolean) {
+  //
+  //   this.http.get(this.vacanciesURL).map(
+  //     (response: Response) => {
+  //       const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json()));
+  //       return vacancies;
+  //     }
+  //   ).subscribe(
+  //     (data: VacancyModel[]) => {
+  //       this.vacancies = data;
+  //       this.vacancyChange.next(this.vacancies.slice());
+  //     },
+  //     error => {
+  //       this.toastr.error( error.status, "An error occured");
+  //     }
+  //   );
+  // }
+
+  vacancyServiceHasVacancies() {
+
+    if (this.vacancies.length == 0)
+      return false;
+    else{
+      console.log("TREBA POZVAT OBSERVER");
+      this.vacancyChange.next(this.vacancies.slice());
+      return true;
+    }
+
+  }
+
 
 
   getVacancies() {
-    this.http.get(this.vacanciesURL).map(
-      (response: Response) => {
-        const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json()));
-        return vacancies;
-      }
-    ).subscribe(
-      (data: VacancyModel[]) => {
-        this.vacancies = data;
-        this.vacancyChange.next(this.vacancies.slice());
-      },
-      error => {
-        this.toastr.error( error.status, "An error occured");
-      }
-    );
+      this.http.get(this.vacanciesURL).map(
+        (response: Response) => {
+          const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json()));
+          return vacancies;
+        }
+      ).subscribe(
+        (data: VacancyModel[]) => {
+          this.vacancies = data;
+          this.vacancyChange.next(this.vacancies.slice());
+        },
+        error => {
+          this.toastr.error(error.status, "An error occured");
+        }
+      );
+
   }
 
   getActiveVacancies() {

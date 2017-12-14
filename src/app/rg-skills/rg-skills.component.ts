@@ -17,17 +17,19 @@ export class RgSkillsComponent implements OnInit, OnDestroy {
   selectedSkill: SkillModel;
   subscription: Subscription;
   add: boolean;
+  loading: boolean = false;
 
 
   constructor(private skillsService: SkillsService) { }
 
   ngOnInit() {
     this.add = false;
+    this.loading = true;
     this.skillsService.getSkills();
     this.subscription = this.skillsService.skillsObserver.subscribe(
       (data : SkillModel[]) => {
         this.skills = data;
-        console.log(this.skills);
+        this.loading = false;
       }
     )
   }

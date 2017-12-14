@@ -8,6 +8,7 @@ import {RegionModel} from "../../_models/region.model";
 import {WorkPlaceModel} from "../../_models/workPlace.model";
 import {RegionsService} from "../../_services/regions.service";
 import {WorkPlacesService} from "../../_services/work-places.service";
+import {Subject} from "rxjs/Subject";
 
 
 @Component({
@@ -30,7 +31,14 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   subscriptionRegions: Subscription;
   subscriptionWorkplaces: Subscription;
-
+  loading: boolean = false;
+  searchValue: string = '';
+  searchByStatus: string = '';
+  searchByWorkplace: string = '';
+  searchByRegion: string = '';
+  searchByDateFrom: Date = null;
+  searchByDateTo: Date = null;
+  searchableList: string[];
 
   constructor(private userService: UserService,
               private vacanciesService: VacanciesService,
@@ -38,22 +46,33 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
               private workplacesService: WorkPlacesService) { }
 
   ngOnInit() {
+    this.searchableList = ['name','description', 'code'];
     this.isAdmin = this.userService.isAdmin;
     this.isCompany = this.userService.isAdmin;
     this.isUser = this.userService.isUser();
+
     if (this.isAdmin) {
-      this.vacanciesService.getVacancies();
+
       this.subscription = this.vacanciesService.vacancyChange.subscribe(
         (data: VacancyModel[]) => {
+          console.log("OBSERVER");
           this.vacancies = data;
+          console.log(this.vacancies);
+          this.loading = false;
         }
       );
+      if(!this.vacanciesService.vacancyServiceHasVacancies()){
+        this.loading = true;
+        this.vacanciesService.getVacancies();
+      }
+
     }
     if (this.isUser) {
       this.vacanciesService.getActiveVacancies();
       this.subscription = this.vacanciesService.vacancyChange.subscribe(
         (data: VacancyModel[]) => {
           this.vacancies = data;
+          this.loading = false;
         }
       );
     }
@@ -73,6 +92,11 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
         console.log(this.vacancies);
       }
     );*/
+  }
+
+  refresh(){
+    this.loading = true;
+    this.vacanciesService.getVacancies();
   }
 
   ngOnDestroy() {

@@ -32,18 +32,14 @@ export class LoginComponent implements OnInit {
   login() {
     this.userService.purge();
     this.loading = true;
-    console.log(this.loading);
-
     this.authenticationService.login(this.model.username, this.model.password)
       .subscribe(
         (result: any)=> {
-          console.log(result);
           this.loading = false;
 
           if (result) {
             this.userService.login(result);
-            this.toastr.success("Successfull authentication");
-            this.navigateAfterSuccess();
+
           } else {
             this.error = 'Email or password is incorrect';
           }
@@ -57,11 +53,9 @@ export class LoginComponent implements OnInit {
 
   private navigateAfterSuccess() {
     if (this.redirectUrl) {
-      console.log(this.redirectUrl)
       this.router.navigateByUrl(this.redirectUrl);
     } else {
-      console.log('here');
-      this.router.navigate(['/dashboard']);
+      this.router.navigateByUrl('/dashboard');
     }
   }
 }

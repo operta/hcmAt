@@ -8,12 +8,15 @@
         <div class="white-box">
           <div class="row">
             <div class="col-md-9">
-              <h3 class="box-title m-b-0">Notification Templates</h3>
+              <h3 class="box-title m-b-30">Notification Templates</h3>
 
             </div>
             <div class="col-md-3">
               <div class="pull-right">
                 <button (click)="modalAdd.show(); add = true;" class="btn btn-info btn-rounded">Add <i class="fa fa-plus" aria-hidden="true"></i></button>
+                <button *ngIf="!loading" class="btn btn-info btn-rounded"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                <button *ngIf="loading" class="btn btn-info btn-rounded"><i class="fa fa-refresh fa-spin"></i></button>
+
               </div>
             </div>
           </div>
@@ -27,6 +30,7 @@
                 <th>Subject</th>
                 <th>Template</th>
                 <th>Actions</th>
+                <app-loader [loading]="loading"></app-loader>
               </tr>
               </thead>
               <tbody>

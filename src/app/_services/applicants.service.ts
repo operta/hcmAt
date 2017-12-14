@@ -23,7 +23,7 @@ export class ApplicantsService {
   constructor(private toastr: ToastsManager, private http: Http, private authenticationService: AuthenticationService) { }
 
   getApplicants() {
-    this.http.get(this.applicantsURL).map(
+    return this.http.get(this.applicantsURL).map(
       (response: Response) => {
         const applicants: ApplicantModel[] = response.json();
         return applicants;

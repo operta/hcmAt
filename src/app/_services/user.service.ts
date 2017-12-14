@@ -30,13 +30,12 @@ export class UserService {
 
   login(accessToken: string) {
     const decodedToken = this.jwtHelper.decodeToken(accessToken);
-    console.log(decodedToken);
     this.userUsername = decodedToken.user_name;
     this.isAdmin = decodedToken.authorities.some(el => el === 'ADMIN');
     this.accessToken = accessToken;
-
     localStorage.setItem(TOKEN_NAME, accessToken);
-    console.log("LOGGING IN")
+    this.toastr.success("Successfull authentication");
+    this.router.navigateByUrl('/dashboard');
   }
 
 
@@ -45,7 +44,6 @@ export class UserService {
       const options = new RequestOptions({headers: headers});
       return this.http.post(this.usersURL + '/add', newUser, options ).map(
         (response: Response) => {
-          console.log(response.json());
           return response.json();
         }
       )
@@ -90,9 +88,7 @@ export class UserService {
     const options = new RequestOptions({headers: headers});
     return this.http.get(this.usersURL + '/' + username, options).map(
     (response: Response) => {
-      console.log(response);
         const user: UserModel = response.json();
-        console.log(user);
         return user;
     });
   }

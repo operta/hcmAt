@@ -16,15 +16,17 @@ export class RgQualificationsComponent implements OnInit {
   qualifications: QualificationModel[];
   selectedQualification: QualificationModel;
   subscription: Subscription;
+  loading: boolean = false;
 
   constructor(private qualificationsService: QualificationsService) { }
 
   ngOnInit() {
+    this.loading = true;
     this.qualificationsService.getQualifications();
     this.subscription = this.qualificationsService.qualificationsObserver.subscribe(
       (data : QualificationModel[]) => {
         this.qualifications = data;
-        console.log(this.qualifications);
+        this.loading = false;
       }
     )
   }

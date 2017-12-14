@@ -15,7 +15,7 @@ declare  let $:any;
 })
 export class SideMenuComponent implements OnInit, AfterViewInit {
   @ViewChild('sideMenu') sideMenu: ElementRef;
-  @Input() user: UserModel;
+  user: UserModel;
   isAdmin: boolean;
   state: string;
   notifications: JobApplicationNotificationModel[];
@@ -24,6 +24,12 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
   constructor(private router: Router, private userService: UserService, private notificationsService: JobApplicationNotificationsService) { }
 
   ngOnInit() {
+    this.userService.getUser().subscribe(
+      (data: UserModel) => {
+        this.user = data
+        console.log(this.user);
+      }
+    );
     this.notificationsService.getJobApplicationNotifications();
     this.notificationsService.jobApplicationNotificationsObserver.subscribe(
       (data: JobApplicationNotificationModel[]) => {

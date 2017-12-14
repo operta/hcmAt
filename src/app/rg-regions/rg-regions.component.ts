@@ -21,10 +21,12 @@ export class RgRegionsComponent implements OnInit {
   selectedRegion: RegionModel;
   selectedParent: RegionModel;
   subscription: Subscription;
+  loading: boolean = false;
 
   constructor(private regionsService: RegionsService, private regionTypesService: RegionTypesService) { }
 
   ngOnInit() {
+    this.loading = true;
     this.regionTypesService.getRegionTypes().subscribe(
       (data: RegionTypeModel[]) => this.regionTypes = data
     );
@@ -32,7 +34,7 @@ export class RgRegionsComponent implements OnInit {
     this.subscription = this.regionsService.getRegions().subscribe(
       (data : RegionModel[]) => {
         this.regions = data;
-        console.log(this.regions);
+        this.loading = false;
       }
     )
   }

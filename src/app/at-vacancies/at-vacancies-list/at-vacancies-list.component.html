@@ -1,65 +1,78 @@
 <div class="panel panel-default m-b-10">
       <div>
-        <span>Search</span>
-        <select>
-          <option>Title</option>
-        </select>
-        <input type="text">
-        <button type="button" class="btn btn-default m-b-5">Search</button>
-        <div class="panel-action">
-          <a href="#" data-perform="panel-collapse">[<i class="ti-plus"></i>] Advanced Search</a>
+        <div class="row">
+          <div class="col-md-9 col-lg-9">
+
+              <div class="input-group stylish-input-group">
+                <input type="text" class="form-control" [(ngModel)]="searchValue" placeholder="Type to search..." >
+                <span class="input-group-addon">
+                        <button type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+              </div>
+
+          </div>
+
+
+            <div class="pull right">
+
+              <button class="btn btn-default btn-rounded" data-perform="panel-collapse">Advanced Search <i class="ti-plus"></i> </button>
+              <button *ngIf="!loading" (click)="refresh()" class="btn btn-info btn-rounded"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+              <button *ngIf="loading" class="btn btn-info btn-rounded"><i class="fa fa-refresh fa-spin"></i></button>
+
+            </div>
+
+
         </div>
       </div>
       <div class="panel-wrapper collapse out">
         <div class="panel-body p-l-0 p-r-0">
           <div class="row">
             <div class="col-sm-12 col-xs-12">
-              <form>
-                <div class="row">
+
+              <div class="row">
+                <!--<div class="col-md-6">-->
+                  <!--<div class="form-group">-->
+                    <!--<label>Date From</label>-->
+                    <!--<input type="date" [(ngModel)]="searchByDateFrom" class="form-control">-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<div class="form-group">-->
+                    <!--<label>Date To</label>-->
+                    <!--<input type="date" [(ngModel)]="searchByDateTo" class="form-control">-->
+                  <!--</div>-->
+                <!--</div>-->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Region</label>
+                    <select [(ngModel)]="searchByRegion" class="form-control">
+                      <option value="">All</option>
+                      <option *ngFor="let region of regions" [ngValue]="region.name">{{region.name}}</option>
+                    </select>
+                  </div>
+                </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="asName">Name</label>
-                      <input type="text" class="form-control" id="asName">
+                      <label>Workplace</label>
+                      <select [(ngModel)]="searchByWorkplace" class="form-control">
+                        <option value="">All</option>
+                        <option *ngFor="let workplace of workplaces" [ngValue]="workplace.name">{{workplace.name}}</option>
+                      </select>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="asGender">Gender</label>
-                      <select class="form-control" id="asGender">
-                        <option></option>
-                        <option value="F">Female</option>
-                        <option value="M">Male</option>
+                      <label>Status</label>
+                      <select [(ngModel)]="searchByStatus" class="form-control">
+                        <option value="">All</option>
+                        <option value="ACTIVE">Active</option>
+                        <option value="CLOSED">Closed</option>
                       </select>
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="asGender">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <div class="checkbox checkbox-success">
-                        <input id="checkbox1" type="checkbox">
-                        <label for="checkbox1"> Remember me </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Advanced Search</button>
-                <button type="button" class="btn btn-default waves-effect waves-light">Clear Search</button>
-              </form>
             </div>
           </div>
         </div>
@@ -78,7 +91,8 @@
   <div class="row m-b-20 p-l-5 p-r-10">
     <div class="col-lg-12">
       <div class="pull-right">
-        <button routerLink="addVacancy" class="btn">Add Vacancy</button>
+        <button routerLink="addVacancy" class="btn btn-default">Add Vacancy</button>
+
       </div>
     </div>
   </div>
@@ -110,12 +124,25 @@
 <!-- gotov page number i item number -->
 
 
-
 <!-- vacancy list -->
 <div class="row">
   <div class="col-xs-12 col-lg-12 col-md-12">
+
+    <div class="center">
+      <app-loader [loading]="loading"></app-loader>
+    </div>
+
     <div class="comment-center">
-      <app-at-vacancies-item *ngFor="let vacancy of vacancies | slice:start():end();" [vacancy]="vacancy" [regions]="regions" [workplaces]="workplaces"></app-at-vacancies-item>
+      <app-at-vacancies-item *ngFor="let vacancy of vacancies | slice:start():end()
+                  | searchFilterPipe:searchValue:searchableList
+                  | searchStatusPipe:searchByStatus
+                  | searchWorkplacePipe:searchByWorkplace
+                  | searchRegionPipe: searchByRegion
+                  | searchDatePipe: searchByDateFrom: searchByDateTo"
+                             [vacancy]="vacancy"
+                             [regions]="regions"
+                             [workplaces]="workplaces">
+      </app-at-vacancies-item>
     </div>
   </div>
 </div>

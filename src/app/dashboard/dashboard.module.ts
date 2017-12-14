@@ -79,6 +79,8 @@ import {JobApplicationNotificationsService} from "../_services/jobApplicationNot
 import {AtJobApplicationStatusesComponent} from "../at-job-application-statuses/at-job-application-statuses.component";
 import {NotificationStatusPipe} from "../ap-side-menu/notificationStatus.pipe";
 import {UserResolver} from "../_services/userResolver.service";
+import {ApplicantVideosComponent} from "../applicant-videos/applicant-videos.component";
+import {CompaniesComponent} from "../companies/companies.component";
 
 @NgModule({
   declarations: [
@@ -127,7 +129,9 @@ import {UserResolver} from "../_services/userResolver.service";
     AtNotificationTemplatesComponent,
     AtJobApplicationNotificationsComponent,
     AtJobApplicationStatusesComponent,
-    NotificationStatusPipe
+    NotificationStatusPipe,
+    ApplicantVideosComponent,
+    CompaniesComponent
   ],
   imports: [
     CommonModule,

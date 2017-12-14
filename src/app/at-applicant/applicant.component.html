@@ -39,7 +39,7 @@
                                                     <label  class="control-label col-md-3">First Name:</label>
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static">{{applicant?.name}}</p>
-                                                      <input required *ngIf="isEditPersonal"  type="text" class="form-control" id="name" name="name"
+                                                      <input required *ngIf="isEditPersonal"  type="text" class="form-control" name="name"
                                                       [(ngModel)]="applicant && applicant.name"><span class="highlight"></span><span class="bar"></span>
                                                     </div>
                                                   <div *ngIf="f.submitted && !applicant?.name" class="help-block">Field is required</div>
@@ -51,7 +51,7 @@
                                                     <label class="control-label col-md-3">Middle Name:</label>
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.middle_name}} </p>
-                                                        <input *ngIf="isEditPersonal"  type="text" class="form-control" id="middle_name" name="middle_name"
+                                                        <input *ngIf="isEditPersonal"  type="text" class="form-control" name="middle_name"
                                                              [(ngModel)]="applicant && applicant.middle_name"><span class="highlight"></span><span class="bar"></span>
                                                     </div>
                                                 </div>
@@ -63,7 +63,7 @@
                                                     <label class="control-label col-md-3">Last Name:</label>
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.surname}} </p>
-                                                        <input required *ngIf="isEditPersonal"  type="text" class="form-control" id="surname" name="surname"
+                                                        <input required *ngIf="isEditPersonal"  type="text" class="form-control"  name="surname"
                                                                [(ngModel)]="applicant && applicant.surname"><span class="highlight"></span><span class="bar"></span>
                                                       <div *ngIf="f.submitted && !applicant?.surname" class="help-block">Field is required</div>
                                                     </div>
@@ -74,7 +74,7 @@
                                                     <label class="control-label col-md-3">Maiden Name:</label>
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.maiden_name}} </p>
-                                                        <input *ngIf="isEditPersonal"  type="text" class="form-control" id="maiden_name" name="maiden_name"
+                                                        <input *ngIf="isEditPersonal"  type="text" class="form-control" name="maiden_name"
                                                                [(ngModel)]="applicant && applicant.maiden_name"><span class="highlight"></span><span class="bar"></span>
                                                     </div>
                                                 </div>
@@ -87,7 +87,7 @@
                                                     <label class="control-label col-md-3">Gender:</label>
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.gender}} </p>
-                                                        <select  *ngIf="isEditPersonal" class="form-control p-0" id="gender"  [(ngModel)]="applicant && applicant.gender" name="gender">
+                                                        <select  *ngIf="isEditPersonal" class="form-control p-0"  [(ngModel)]="applicant && applicant.gender" name="gender">
                                                           <option [selected]="applicant?.gender == 'Male' || !applicant?.gender" value="Male">Male</option>
                                                           <option [selected]="applicant?.gender == 'Female'" value="Female">Female</option>
                                                         </select><span class="highlight"></span> <span class="bar"></span>
@@ -100,7 +100,7 @@
                                                     <label class="control-label col-md-3">Date of Birth:</label>
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.birthdate | date:'MM/dd/yyyy'}} </p>
-                                                        <input *ngIf="isEditPersonal"  type="date" class="form-control" id="birthdate" name="birthdate"
+                                                        <input *ngIf="isEditPersonal"  type="date" class="form-control" name="birthdate"
                                                                [(ngModel)]="applicant && applicant.birthdate"><span class="highlight"></span><span class="bar"></span>
                                                     </div>
                                                 </div>
@@ -113,7 +113,7 @@
                                                     <label class="control-label col-md-3">Marital status:</label>
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.marital_status}} </p>
-                                                      <select  *ngIf="isEditPersonal" class="form-control p-0" id="marital_status"  [(ngModel)]="applicant && applicant.marital_status" name="marital_status">
+                                                      <select  *ngIf="isEditPersonal" class="form-control p-0"   [(ngModel)]="applicant && applicant.marital_status" name="marital_status">
                                                         <option [selected]="applicant?.marital_status == 'Married'" value="Married">Married</option>
                                                         <option [selected]="applicant?.marital_status == 'Unmarried'" value="Unmarried">Unmarried</option>
                                                       </select><span class="highlight"></span> <span class="bar"></span>
@@ -130,7 +130,7 @@
                                                     <label class="control-label col-md-3">Address:</label>
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.address}} </p>
-                                                        <input *ngIf="isEditPersonal"  type="text" class="form-control" id="address" name="address"
+                                                        <input *ngIf="isEditPersonal"  type="text" class="form-control" name="address"
                                                              [(ngModel)]="applicant && applicant.address"><span class="highlight"></span><span class="bar"></span>
 
                                                     </div>
@@ -140,7 +140,7 @@
                                             <div class="form-group">
                                               <label class="control-label col-md-3">Region:</label>
                                               <div class="col-md-9">
-                                                <select *ngIf="isEditPersonal" class="form-control p-0" id="id_region" [(ngModel)]="selectedRegion"  (ngModelChange)="onSelectRegion($event)" name="selectedRegion">
+                                                <select *ngIf="isEditPersonal" class="form-control p-0" [(ngModel)]="selectedRegion"  (ngModelChange)="onSelectRegion($event)" name="selectedRegion">
                                                   <option *ngFor="let region of regions"  [selected]="region?.id == selectedRegion?.id" [ngValue]="region">{{region?.name}}</option>
                                                 </select><span class="highlight"></span> <span class="bar"></span>
                                                 <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_region?.name}} </p>
@@ -157,7 +157,7 @@
                                                     <label class="control-label col-md-3">Country:</label>
 
                                                     <div class="col-md-9">
-                                                      <select *ngIf="isEditPersonal" class="form-control p-0" id="id_country" [(ngModel)]="selectedCountry" (ngModelChange)="onSelectCountry($event)" name="selectedCountry">
+                                                      <select *ngIf="isEditPersonal" class="form-control p-0" [(ngModel)]="selectedCountry" (ngModelChange)="onSelectCountry($event)" name="selectedCountry">
                                                         <option *ngFor="let country of filteredCountries" [selected]="country?.id == selectedCountry?.id" [ngValue]="country">{{country?.name}}</option>
                                                       </select><span class="highlight"></span> <span class="bar"></span>
                                                       <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_country?.name}} </p>
@@ -169,7 +169,7 @@
                                               <label class="control-label col-md-3">City:</label>
                                               <div class="col-md-9">
 
-                                                <select *ngIf="isEditPersonal" class="form-control p-0" id="id_city" [(ngModel)]="selectedCity" name="selectedCity">
+                                                <select *ngIf="isEditPersonal" class="form-control p-0" [(ngModel)]="selectedCity" name="selectedCity">
                                                   <option *ngFor="let city of filteredCities" [selected]="city?.id == selectedCity?.id" [ngValue]="city">{{city?.name}}</option>
                                                 </select><span class="highlight"></span> <span class="bar"></span>
                                                 <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.id_city?.name}} </p>
@@ -186,7 +186,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">Qualification:</label>
                                                     <div class="col-md-9">
-                                                        <select *ngIf="isEditPersonal" class="form-control p-0" id="selectedQualification" [(ngModel)]="selectedQualification" name="selectedQualificaiton">
+                                                        <select *ngIf="isEditPersonal" class="form-control p-0" [(ngModel)]="selectedQualification" name="selectedQualificaiton">
                                                           <option *ngFor="let qualification of qualifications" [selected]="qualification?.id == selectedQualification?.id" [ngValue]="qualification">{{qualification?.name}}</option>
                                                         </select><span class="highlight"></span> <span class="bar"></span>
                                                     </div>
@@ -197,7 +197,7 @@
                                                     <label class="control-label col-md-3">Industry:</label>
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static">{{applicant?.industry}}</p>
-                                                        <input *ngIf="isEditPersonal"  type="text" class="form-control" id="industry" name="industry"
+                                                        <input *ngIf="isEditPersonal"  type="text" class="form-control"  name="industry"
                                                                [(ngModel)]="applicant && applicant.industry"><span class="highlight"></span><span class="bar"></span>
 
                                                     </div>
@@ -210,7 +210,7 @@
                                                     <label class="control-label col-md-3">Currently employed:</label>
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.employed}} </p>
-                                                      <select  *ngIf="isEditPersonal" class="form-control p-0" id="employed"  [(ngModel)]="applicant && applicant.employed" name="employed">
+                                                      <select  *ngIf="isEditPersonal" class="form-control p-0"  [(ngModel)]="applicant && applicant.employed" name="employed">
                                                         <option [selected]="applicant?.employed == 'Yes'" value="Yes">Yes</option>
                                                         <option [selected]="applicant?.employed == 'No'" value="No">No</option>
                                                       </select><span class="highlight"></span> <span class="bar"></span>
@@ -222,7 +222,7 @@
                                                     <label class="control-label col-md-3">Employment position:</label>
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.employment_position}} </p>
-                                                      <input *ngIf="isEditPersonal"  type="text" class="form-control" id="employment_position" name="employment_position"
+                                                      <input *ngIf="isEditPersonal"  type="text" class="form-control"  name="employment_position"
                                                              [(ngModel)]="applicant && applicant.employment_position"><span class="highlight"></span><span class="bar"></span>
                                                     </div>
                                                 </div>

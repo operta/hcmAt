@@ -18,19 +18,27 @@ export class AtJobApplicationStatusesComponent implements OnInit, OnDestroy {
   selectedStatus: JobApplicationStatusModel;
   subscription: Subscription;
   add: boolean;
+  loading: boolean = false;
 
 
   constructor(private jobApplicationStatusService: JobApplicationStatusesService) { }
 
   ngOnInit() {
     this.add = false;
+    this.loading = true;
     this.jobApplicationStatusService.getJobApplicationStatuses();
     this.subscription = this.jobApplicationStatusService.jobApplicationStatusObserver.subscribe(
       (data : JobApplicationStatusModel[]) => {
         this.statuses = data;
-        console.log(this.statuses);
+        this.loading = false;
       }
     )
+  }
+
+  refresh() {
+    // this.loading=true;
+    // this.jobApplicationStatusService.getJobApplicationStatuses();
+    // this.loading=false;
   }
   onSubmit(form: NgForm){
     this.selectedStatus.code = form.value.code;
@@ -51,7 +59,6 @@ export class AtJobApplicationStatusesComponent implements OnInit, OnDestroy {
       null,
       new Date
     );
-    console.log(newStatus);
     this.jobApplicationStatusService.addJobApplicationStatus(newStatus);
     this.closeModal();
     form.reset();

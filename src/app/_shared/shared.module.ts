@@ -3,12 +3,13 @@ import { DropdownDirective } from './dropdown.directive';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {ModalComponent} from "./modal.component";
-
+import {LoaderComponent} from "./loader/loader.component";
 
 @NgModule({
   declarations: [
     DropdownDirective,
-    ModalComponent
+    ModalComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule
@@ -18,7 +19,8 @@ import {ModalComponent} from "./modal.component";
     DropdownDirective,
     ReactiveFormsModule,
     FormsModule,
-    ModalComponent
+    ModalComponent,
+    LoaderComponent
   ]
 })
 

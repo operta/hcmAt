@@ -17,17 +17,19 @@ export class AtNotificationTemplatesComponent implements OnInit, OnDestroy {
   selectedTemplate: NotificationTemplateModel;
   subscription: Subscription;
   add: boolean;
+  loading: boolean = false;
 
 
   constructor(private notificationTemplatesService: NotificationTemplatesService) { }
 
   ngOnInit() {
     this.add = false;
+    this.loading = true;
     this.notificationTemplatesService.getNotificationTemplates();
     this.subscription = this.notificationTemplatesService.notificationTemplatesObserver.subscribe(
       (data : NotificationTemplateModel[]) => {
         this.templates = data;
-        console.log(this.templates);
+        this.loading = false;
       }
     )
   }

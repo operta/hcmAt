@@ -18,6 +18,8 @@ import {ApplicantResolver} from "../_services/applicantResolver.service";
 import {AtNotificationTemplatesComponent} from "../at-notification-templates/at-notification-templates.component";
 import {AtJobApplicationStatusesComponent} from "../at-job-application-statuses/at-job-application-statuses.component";
 import {UserResolver} from "../_services/userResolver.service";
+import {CompaniesComponent} from "../companies/companies.component";
+import {ApplicantVideosComponent} from "../applicant-videos/applicant-videos.component";
 
 
 const dashboardRoutes: Routes = [
@@ -25,9 +27,6 @@ const dashboardRoutes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard],
-    resolve: {
-      user: UserResolver
-    },
     children: [
       { path: '',
         pathMatch: 'full',
@@ -97,7 +96,17 @@ const dashboardRoutes: Routes = [
         path: 'profile',
         component: ProfileComponent,
         canActivate: [AuthGuard]
-      }
+      },
+      {
+        path: 'companies',
+        component: CompaniesComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
+      {
+        path: 'applicantVideos',
+        component: ApplicantVideosComponent,
+        canActivate: [AuthGuard]
+      },
   ] }
 ];
 
