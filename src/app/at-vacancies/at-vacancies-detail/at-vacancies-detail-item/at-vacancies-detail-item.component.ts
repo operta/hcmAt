@@ -29,12 +29,8 @@ export class AtVacanciesDetailItemComponent implements OnInit {
 
   ngOnInit() {
     this.currentStatus = this.jobApplication.id_status;
-    console.log(this.applicant);
-    console.log(this.jobApplication);
     this.jobApplication.interview.forEach(x => {this.interviewsAvg = this.interviewsAvg + x.grade});
-    console.log(this.interviewsAvg);
     this.interviewsAvg = this.interviewsAvg / this.jobApplication.interview.length;
-    console.log(this.interviewsAvg);
     this.jobApplication.test.forEach(x => { this.testsAvg = this.testsAvg + x.score});
     this.testsAvg = this.testsAvg / this.jobApplication.test.length;
     this.totalAvg = (this.testsAvg + this.interviewsAvg) / 2;
@@ -52,10 +48,14 @@ export class AtVacanciesDetailItemComponent implements OnInit {
       this.jobApplication.vacancyid.id, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
     );
     this.jobApplication.id_status = newStatus;
+    const oldApplicant = this.jobApplication.applicantid;
+    const oldVacancy = this.jobApplication.vacancyid;
+
     this.jobApplication.vacancyid = vacancy;
     this.jobApplication.applicantid = applicant;
-    console.log(this.jobApplication);
     this.jobApplicationService.updateJobApplication(this.jobApplication, this.currentStatus);
+    this.jobApplication.applicantid = oldApplicant;
+    this.jobApplication.vacancyid = oldVacancy;
     this.currentStatus = this.jobApplication.id_status;
 
   }

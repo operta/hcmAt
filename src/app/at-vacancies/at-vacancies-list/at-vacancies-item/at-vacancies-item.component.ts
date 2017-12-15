@@ -1,4 +1,7 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation} from '@angular/core';
+import {
+  Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import {VacancyModel} from '../../../_models/vacancy.model';
 import {VacanciesService} from '../../../_services/vacancies.service';
 import {Router} from '@angular/router';
@@ -20,7 +23,7 @@ import {VacanciesStatusModel} from "../../../_models/vacanciesStatus.model";
   styleUrls: ['./at-vacancies-item.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class AtVacanciesItemComponent implements OnInit {
+export class AtVacanciesItemComponent implements OnInit, OnChanges {
   @ViewChild('cancelEdit') closeBtnEdit: ElementRef;
   @ViewChild('cancelApply') closeBtnApply: ElementRef;
   @Input() vacancy: VacancyModel;
@@ -53,6 +56,10 @@ export class AtVacanciesItemComponent implements OnInit {
     }
     this.selectedWorkplace = this.vacancy.id_work_place;
     this.selectedRegion = this.vacancy.id_location;
+  }
+
+  ngOnChanges(){
+    this.checkApplicantApplied();
   }
 
   checkApplicantApplied() {

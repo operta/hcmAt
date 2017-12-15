@@ -85,9 +85,12 @@ export class AtJobApplicationsService {
       (response: Response) => response.json()
     ).subscribe(
       response => {
+        const jobApplicationWitoutCycle = new JobApplicationModel(jobApplication.id,null,null,null,null,null,
+        null,null,null,null,null,null,null,null,null);
+
         const history = new JobApplicationHistoryModel(
           null,
-          jobApplication,
+          jobApplicationWitoutCycle,
           currentStatus,
           jobApplication.id_status,
           null,
@@ -95,13 +98,14 @@ export class AtJobApplicationsService {
           null,
           new Date
         );
+        console.log(history);
         this.jobApplicationHistoryService.addJobApplicationHistory(history);
         const notificationTemplate = new NotificationTemplateModel(
           418,null,null, null, null, null, null, null
         );
         const notification = new JobApplicationNotificationModel(
           null,
-          jobApplication,
+          jobApplicationWitoutCycle,
           notificationTemplate,
           new Date,
           'Y',

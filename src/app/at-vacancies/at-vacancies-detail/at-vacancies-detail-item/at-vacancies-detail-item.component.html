@@ -68,7 +68,7 @@
       <span class="label label-rounded label-default" style="color:black !important;">{{jobApplication?.id_status?.name}}</span>
       <label>Change status:</label>
       <select  class="form-control p-0" [(ngModel)]="selectedStatus" name="selectedStatus" (change)="updateStatus(selectedStatus)">
-        <option selected="selected">Change status</option>
+        <!--<option selected="selected">Change status</option>-->
         <option *ngFor="let status of jobApplicationStatuses"  [ngValue]="status">{{status.name}}</option>
       </select><span class="highlight"></span> <span class="bar"></span>
     </div>

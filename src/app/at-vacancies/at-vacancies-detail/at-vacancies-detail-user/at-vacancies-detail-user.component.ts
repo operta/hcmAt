@@ -37,6 +37,17 @@ export class AtVacanciesDetailUserComponent implements OnInit {
 
   }
 
+  userWithoutApplicantProfile() {
+    if(this.userService.isUser() && !this.applicantId)
+      return true;
+    else
+      return false;
+  }
+
+  navigateToApplicantProfile() {
+    this.router.navigateByUrl('/dashboard/applicant');
+  }
+
   getApplicantInformation() {
     if (this.userService.isUser()) {
       this.userService.getUser().subscribe(
