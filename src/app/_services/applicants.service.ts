@@ -48,9 +48,12 @@ export class ApplicantsService {
   getApplicant(id: string) {
     return this.http.get(this.applicantsURL + '/' + id).map(
       (response: Response) => {
-          console.log(response.json());
+        if(response.arrayBuffer().byteLength == 0 )
+          return null;
+        else {
           const applicant: ApplicantModel = response.json();
           return applicant;
+        }
       }
     );
   }
