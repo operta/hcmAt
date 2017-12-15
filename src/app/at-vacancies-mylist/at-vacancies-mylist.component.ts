@@ -25,7 +25,8 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
   @Input() id: number;
   /*  subscription: Subscription;*/
   private vacancies: VacancyModel[];
-  private jobApplications: JobApplicationModel[];
+  jobApplications: JobApplicationModel[];
+  isApplicant: boolean = true;
 
   constructor(private userService: UserService, private applicantService: ApplicantsService, private jobApplicationsService: AtJobApplicationsService, private vacanciesService: VacanciesService) {
   }
@@ -39,7 +40,13 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
         (response: UserModel) => {
           this.applicantService.getApplicant(response.id).subscribe(
             (data: ApplicantModel) => {
-              this.jobApplicationsService.getJobApplicationsByApplicantId(data.id);
+              if(data && data.id){
+                this.jobApplicationsService.getJobApplicationsByApplicantId(data.id);
+              }
+              else {
+                this.isApplicant = false;
+              }
+
             }
           );
         }

@@ -58,7 +58,8 @@ export class AtVacanciesDetailUserComponent implements OnInit {
         (data: UserModel) => {
           this.applicantService.getApplicant(data.id).subscribe(
             (applicant: ApplicantModel) => {
-              this.applicantId = applicant.id;
+              if(applicant)
+                this.applicantId = applicant.id;
               if (!this.vacancy.jobApplications.find(x => x.applicantid.id === this.applicantId)) {
                 this.applied = false;
                 this.loading = false;

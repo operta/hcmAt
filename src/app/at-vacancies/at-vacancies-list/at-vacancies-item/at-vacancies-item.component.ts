@@ -16,6 +16,7 @@ import {JobApplicationModel} from "../../../_models/jobApplication.model";
 import {AtJobApplicationsService} from "../../../_services/at-job-applications.service";
 import {JobApplicationStatusModel} from "../../../_models/jobApplicationStatus.model";
 import {VacanciesStatusModel} from "../../../_models/vacanciesStatus.model";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-at-vacancies-item',
@@ -44,7 +45,8 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
               private vacancyService: VacanciesService,
               private router: Router,
               private applicantService: ApplicantsService,
-              private jobApplicationService: AtJobApplicationsService) { }
+              private jobApplicationService: AtJobApplicationsService,
+              private toastr: ToastsManager) { }
 
   ngOnInit() {
     //change to company when company added!
@@ -137,6 +139,7 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
           },
           error => {
             console.log(error);
+            // this.toastr.error("You need to create applicant profile")
           }
         );
       },
