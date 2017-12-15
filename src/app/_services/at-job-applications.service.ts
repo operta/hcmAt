@@ -71,7 +71,7 @@ export class AtJobApplicationsService {
         this.jobApplications.push(response.json());
         this.vacancyService.addJobApplicationToVacancy(response.json());
         this.jobApplicationsChange.next(this.jobApplications.slice());
-        this.toastr.success('Successfull application');
+        this.toastr.success('Successfull job application');
       }
     ).subscribe(
       response => {

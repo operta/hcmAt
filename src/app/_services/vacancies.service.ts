@@ -45,7 +45,6 @@ export class VacanciesService {
     if (this.vacancies.length == 0)
       return false;
     else{
-      console.log("TREBA POZVAT OBSERVER");
       this.vacancyChange.next(this.vacancies.slice());
       return true;
     }
