@@ -48,6 +48,7 @@ export class ApplicantsService {
   getApplicant(id: string) {
     return this.http.get(this.applicantsURL + '/' + id).map(
       (response: Response) => {
+          console.log(response.json());
           const applicant: ApplicantModel = response.json();
           return applicant;
       }
