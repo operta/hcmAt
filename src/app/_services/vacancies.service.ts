@@ -5,6 +5,7 @@ import {Subject} from 'rxjs/Subject';
 import 'rxjs/Rx';
 import {JsogService} from 'jsog-typescript';
 import {ToastsManager} from "ng2-toastr";
+import {JobApplicationModel} from "../_models/jobApplication.model";
 
 @Injectable()
 export class VacanciesService {
@@ -32,6 +33,12 @@ export class VacanciesService {
   //     }
   //   );
   // }
+
+  addJobApplicationToVacancy(jobApplication: JobApplicationModel){
+    console.log(jobApplication);
+    this.vacancies.filter(item => item.id == jobApplication.vacancyid.id)[0].jobApplications.push(jobApplication);
+
+  }
 
   vacancyServiceHasVacancies() {
 

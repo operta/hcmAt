@@ -12,6 +12,7 @@ import {JobApplicationStatusModel} from "../_models/jobApplicationStatus.model";
 import {JobApplicationNotificationsService} from "./jobApplicationNotification.service";
 import {JobApplicationNotificationModel} from "../_models/jobApplicationNotification.model";
 import {NotificationTemplateModel} from "../_models/notificationTemplate.model";
+import {VacanciesService} from "./vacancies.service";
 
 @Injectable()
 export class AtJobApplicationsService {
@@ -20,7 +21,10 @@ export class AtJobApplicationsService {
   jobApplications: JobApplicationModel[] = new Array<JobApplicationModel>();
   jobApplicationsChange = new Subject<JobApplicationModel[]>();
 
-  constructor(private jsogService: JsogService, private http: Http, private toastr: ToastsManager, private jobApplicationHistoryService: JobApplicationHistoryService, private jobApplicationNotificationService: JobApplicationNotificationsService) { }
+  constructor(private jsogService: JsogService, private http: Http, private toastr: ToastsManager,
+              private jobApplicationHistoryService: JobApplicationHistoryService,
+              private jobApplicationNotificationService: JobApplicationNotificationsService,
+              private vacancyService: VacanciesService) { }
 
   initJobApplications(vacancy: VacancyModel) {
     this.jobApplications = vacancy.jobApplications;
@@ -65,6 +69,7 @@ export class AtJobApplicationsService {
         );
         this.jobApplicationHistoryService.addJobApplicationHistory(history);
         this.jobApplications.push(response.json());
+        this.vacancyService.addJobApplicationToVacancy(response.json());
         this.jobApplicationsChange.next(this.jobApplications.slice());
         this.toastr.success('Successfull application');
       }
@@ -73,6 +78,7 @@ export class AtJobApplicationsService {
         console.log(response);
       },
       error => {
+        console.log(error);
         this.toastr.error('An error occured.');
       }
     );

@@ -212,22 +212,22 @@
             </div>
           </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" *ngIf="selectedRegion">
           <div class="form-group">
             <label class="col-md-12">Region type:</label>
             <div class="col-md-12">
-              <select class="form-control p-0" [(ngModel)]="selectedRegionType" name="selectedRegionType">
-                <option *ngFor="let regionType of regionTypes"  [ngValue]="regionType">{{regionType?.name}}</option>
+              <select class="form-control p-0" (change)="onRegionTypeSelected(t.value)" #t>
+                <option *ngFor="let regionType of regionTypes" [selected]="regionType.id == selectedRegion.idType.id" [ngValue]="regionType">{{regionType?.name}}</option>
               </select><span class="highlight"></span> <span class="bar"></span>
             </div>
           </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" *ngIf="selectedRegion && selectedRegion.id_parent">
           <div class="form-group">
             <label class="col-md-12">Parent:</label>
             <div class="col-md-12">
-              <select class="form-control p-0" [(ngModel)]="selectedParent" name="selectedParent">
-                <option *ngFor="let region of regions"  [ngValue]="region">{{region?.name}}</option>
+              <select class="form-control p-0" (change)="onParentSelected(t.value)" #t>
+                <option *ngFor="let region of regions"  [selected]="region.id == selectedRegion.id_parent.id" [ngValue]="region">{{region?.name}}</option>
               </select><span class="highlight"></span> <span class="bar"></span>
             </div>
           </div>

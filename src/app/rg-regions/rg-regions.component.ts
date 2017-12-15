@@ -104,4 +104,12 @@ export class RgRegionsComponent implements OnInit {
     return this.resultCount * this.page;
   }
 
+  onRegionTypeSelected(value: string){
+    this.selectedRegionType = this.regionTypes.find(item => item.name === value);
+  }
+
+  onParentSelected(value: string){
+    this.selectedParent = this.regions.find(item => item.name === value);
+  }
+
 }

@@ -29,13 +29,16 @@ export class AtVacanciesDetailUserComponent implements OnInit {
       params => {
         this.id = params['id'];
         this.vacancy = this.vacanciesService.getVacancy(+this.id);
+
+        this.getApplicantInformation();
       }
     );
 
 
-    this.getApplicantInformation();
 
   }
+
+
 
   userWithoutApplicantProfile() {
     if(this.userService.isUser() && !this.applicantId)
@@ -107,5 +110,6 @@ export class AtVacanciesDetailUserComponent implements OnInit {
     );
     console.log(newJobApplication);
     this.jobApplicationService.addJobApplication(newJobApplication);
+    this.applied = true;
   }
 }

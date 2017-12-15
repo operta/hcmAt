@@ -72,7 +72,7 @@
 
           </div>
           <button *ngIf="!applied" (click)="apply()" class="btn btn-default btn-rounded pull-right">Apply</button>
-          <button *ngIf="userWithoutApplicantProfile()" (click)="navigateToApplicantProfile()" class="btn btn-default btn-rounded pull-right">Create Applicant Profile</button>
+          <button *ngIf="applicantId && userWithoutApplicantProfile()" (click)="navigateToApplicantProfile()" class="btn btn-default btn-rounded pull-right">Create Applicant Profile</button>
         </div>
       </div>
     </div>
