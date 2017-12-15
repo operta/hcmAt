@@ -10,7 +10,7 @@ import {ApplicantSchoolsService} from "../../../../_services/applicantSchools.se
   templateUrl: './at-applicant-schools-item.component.html',
   styleUrls: ['./at-applicant-schools-item.component.css']
 })
-export class AtApplicantSchoolsItemComponent implements OnInit, OnChanges {
+export class AtApplicantSchoolsItemComponent implements OnInit {
   @Input() applicantSchool: ApplicantSchoolModel;
   @Input() qualifications: QualificationModel[];
   @Input() editable: boolean;
@@ -27,9 +27,9 @@ export class AtApplicantSchoolsItemComponent implements OnInit, OnChanges {
     this.isEdit = false;
   }
 
-  ngOnChanges(changes: SimpleChanges){
-    this.applicantSchool = changes.applicantSchool.currentValue;
-  }
+  // ngOnChanges(changes: SimpleChanges){
+  //   this.applicantSchool = changes.applicantSchool.currentValue;
+  // }
 
   onSubmit(form: NgForm){
     this.applicantSchool.id_qualification = this.selectedQualification;

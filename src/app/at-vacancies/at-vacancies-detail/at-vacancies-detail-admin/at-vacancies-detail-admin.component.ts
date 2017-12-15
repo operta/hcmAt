@@ -38,8 +38,6 @@ export class AtVacanciesDetailAdminComponent implements OnInit, OnDestroy {
     this.subscriptionStatus = this.jobApplicationStatusesService.jobApplicationStatusObserver.subscribe(
       (data: JobApplicationStatusModel[]) => {
         this.jobApplicationStatuses = data;
-        console.log(this.jobApplicationStatuses);
-
       }
     );
     this.subscriptionParams = this.route.params.subscribe(
@@ -48,6 +46,7 @@ export class AtVacanciesDetailAdminComponent implements OnInit, OnDestroy {
         this.vacancy = this.vacancyService.getVacancy(+this.id);
         this.jobApplicationsService.initJobApplications(this.vacancy);
         this.jobApplications = this.jobApplicationsService.getJobApplications();
+        console.log(this.jobApplications);
         this.pages = [];
         let numIndex = 1;
         for (let i = 0; i < this.jobApplications.length; i++) {
@@ -68,6 +67,7 @@ export class AtVacanciesDetailAdminComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    if(this.subscriptionParams)
     this.subscriptionParams.unsubscribe();
   }
 
