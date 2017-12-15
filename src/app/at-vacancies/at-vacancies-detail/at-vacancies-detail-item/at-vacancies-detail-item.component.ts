@@ -34,6 +34,7 @@ export class AtVacanciesDetailItemComponent implements OnInit {
     this.jobApplication.test.forEach(x => { this.testsAvg = this.testsAvg + x.score});
     this.testsAvg = this.testsAvg / this.jobApplication.test.length;
     this.totalAvg = (this.testsAvg + this.interviewsAvg) / 2;
+    console.log(this.jobApplication);
   }
 
   updateStatus(status: JobApplicationStatusModel){

@@ -1,6 +1,10 @@
 <div class="comment-body" style="width: 100%;">
 
-  <div class="user-img"><img [src]="applicant.image_link" alt="user" class="img-circle"></div>
+  <div class="user-img">
+    <img *ngIf="applicant.image_link != null" [src]="applicant.image_link" class="img-circle">
+    <img *ngIf="applicant.image_link == null" src="assets/images/users/user-male-icon.png" class="img-circle">
+
+  </div>
   <div class="mail-contnet">
     <a [routerLink]="['../../','jobApplication',jobApplication.id]">
       <h5>{{jobApplication.applicantid.name}}</h5>
@@ -27,18 +31,18 @@
               <div class="col-lg-4">
                   <div class="row">
                       <div class="col-lg-6">
-                          <div *ngIf="jobApplication.interview" class="row">
-                              <div class="col-lg-12">
+                          <div  class="row">
+                              <div *ngIf="jobApplication.interview.length > 0" class="col-lg-12">
                                   <b>Interview</b>
-                                  <div class="progress progress-sm">
-                                      <div class="progress-bar progress-bar-info"
+                                  <div  class="progress progress-sm">
+                                      <div  class="progress-bar progress-bar-info"
                                            [style.width]="interviewsAvg + '%'"
                                            role="progressbar"> <span
                                         class="sr-only">{{interviewsAvg}}% </span> </div>
                                   </div>
                               </div>
                           </div>
-                          <div *ngIf="jobApplication.test" class="row">
+                          <div *ngIf="jobApplication.test.length > 0" class="row">
                               <div class="col-lg-12">
                                   <b>Test</b>
                                   <div class="progress progress-sm">
@@ -54,7 +58,7 @@
                     <!--                                                            <div class="col-lg-7">
                                                                                     <div data-label="4.7" class="css-bar css-bar-95 css-bar-lg m-b-0 m-r-10 css-bar-info pull-right"></div>
                                                                                 </div>-->
-                      <div [attr.data-label]="totalAvg"
+                      <div *ngIf="jobApplication.test.length > 0 && jobApplication.interview.length > 0" [attr.data-label]="totalAvg"
                            [ngClass]="getBar(totalAvg)"
                            class="css-bar css-bar-lg m-b-0 m-r-10 css-bar-info pull-right"></div>
 
