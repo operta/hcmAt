@@ -103,7 +103,7 @@
     </div>
       <div class="row">
         <div class="col-xs-12 col-lg-12 col-md-12">
-          <div class="comment-center" *ngIf="jobApplications.length > 0; else noJobApplications">
+          <div class="comment-center" *ngIf="jobApplications && jobApplications.length > 0; else noJobApplications">
             <app-at-vacancies-detail-item *ngFor="let jobApplication of jobApplications | slice:start():end();" [jobApplication]="jobApplication" [applicant]="jobApplication.applicantid" [jobApplicationStatuses]="jobApplicationStatuses"></app-at-vacancies-detail-item>
           </div>
           <ng-template #noJobApplications>

@@ -5,7 +5,7 @@ import {RegionTypeModel} from "../_models/regionType.model";
 @Injectable()
 export class RegionTypesService {
 
-  URL = 'http://localhost:8080/regionTypes';
+  URL = 'http://77.78.198.19:8080/regionTypes';
 
   constructor(private http: Http) { }
 

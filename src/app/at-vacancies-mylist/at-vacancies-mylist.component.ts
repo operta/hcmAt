@@ -24,8 +24,8 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
   page = 1;
   @Input() id: number;
   /*  subscription: Subscription;*/
-  private vacancies: VacancyModel[];
-  private jobApplications: JobApplicationModel[];
+  vacancies: VacancyModel[];
+  jobApplications: JobApplicationModel[];
 
   constructor(private userService: UserService, private applicantService: ApplicantsService, private jobApplicationsService: AtJobApplicationsService, private vacanciesService: VacanciesService) {
   }

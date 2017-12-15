@@ -8,7 +8,7 @@
             <div class="col-lg-12">
 
 
-                  <h3 *ngIf="!jobApplications" class="box-title m-b-0">You have no job applications</h3>
+                  <h3 *ngIf="jobApplications && jobApplications.length < 1" class="box-title m-b-0">You have no job applications</h3>
 
 
               <!-- page number i item number -->

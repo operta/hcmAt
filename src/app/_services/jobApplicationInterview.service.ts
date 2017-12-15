@@ -8,7 +8,7 @@ export class JobApplicationInterviewService {
 
   interviewChange= new Subject<JobApplicationInterviewModel[]>();
   interviews: JobApplicationInterviewModel[];
-  interviewPath = 'http://localhost:8080/interview'
+  interviewPath = 'http://77.78.198.19:8080/interview'
 
   constructor(private http: Http) {
 

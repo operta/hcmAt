@@ -7,7 +7,7 @@ import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class JobApplicationStatusesService {
-  URL = 'http://localhost:8080/jobApplicationStatuses';
+  URL = 'http://77.78.198.19:8080/jobApplicationStatuses';
   jobApplicationStatus: JobApplicationStatusModel[];
   jobApplicationStatusObserver = new Subject<JobApplicationStatusModel[]>();
 

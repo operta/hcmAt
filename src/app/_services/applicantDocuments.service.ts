@@ -12,7 +12,7 @@ import {ApplicantDocumentModel} from "../_models/applicantDocument.model";
 @Injectable()
 export class ApplicantDocumentsService {
 
-  URL = 'http://localhost:8080/applicantDocuments';
+  URL = 'http://77.78.198.19:8080/applicantDocuments';
   applicantDocuments: ApplicantDocumentModel[];
   applicantDocumentsObserver = new Subject<ApplicantDocumentModel[]>();
 
