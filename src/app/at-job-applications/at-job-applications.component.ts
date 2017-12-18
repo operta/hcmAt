@@ -26,7 +26,7 @@ export class AtJobApplicationsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
-        this.id = params['id']
+        this.id = params['id'];
         this.jobApplication = this.jobApplicationsService.getJobApplicationById(+this.id);
 
         this.interviewService.interviewChange.subscribe(

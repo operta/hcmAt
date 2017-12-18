@@ -9,6 +9,8 @@ import {WorkPlaceModel} from '../../_models/workPlace.model';
 import {WorkPlacesService} from '../../_services/work-places.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {VacanciesStatusModel} from '../../_models/vacanciesStatus.model';
+import {QualificationModel} from "../../_models/qualification";
+import {QualificationsService} from "../../_services/qualifications.service";
 
 @Component({
   selector: 'app-at-vacancies-add',
@@ -22,14 +24,20 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
   workPlaces: WorkPlaceModel[];
   subscription1: Subscription;
   subscription2: Subscription;
+  qualifications: QualificationModel[];
 
 
-  constructor(private route: ActivatedRoute, private regionsService: RegionsService, private vacancyService: VacanciesService, private workPlacesService: WorkPlacesService, private router: Router) { }
+  constructor(private qualificationsService: QualificationsService, private route: ActivatedRoute, private regionsService: RegionsService, private vacancyService: VacanciesService, private workPlacesService: WorkPlacesService, private router: Router) { }
 
   ngOnInit() {
     this.initData();
     this.initForm();
-
+    this.qualificationsService.getQualifications();
+    this.qualificationsService.qualificationsObserver.subscribe(
+      data => {
+        this.qualifications = data;
+      }
+    );
   }
 
   ngOnDestroy() {
@@ -72,6 +80,7 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    console.log()
     const name = this.newVacForm.value.name;
     const code = this.newVacForm.value.code;
     const description = this.newVacForm.value.description;
@@ -82,7 +91,7 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
     const job_role = this.newVacForm.value.job_role;
     const job_working_time = this.newVacForm.value.job_working_time;
     const skills_requirement = this.newVacForm.value.skills_requirement;
-    const language_requirement = this.newVacForm.value.language_reqirement;
+    const language_requirement = this.newVacForm.value.language_requirement;
     const education_requirement = this.newVacForm.value.education_requirement;
     const experience_requirement = this.newVacForm.value.experience_requirement;
 

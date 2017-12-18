@@ -1,10 +1,11 @@
-import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {RegionModel} from "../_models/region.model";
 import {Subscription} from "rxjs/Subscription";
 import {RegionsService} from "../_services/regions.service";
 import {NgForm} from "@angular/forms";
 import {RegionTypesService} from "../_services/regionTypes.service";
 import {RegionTypeModel} from "../_models/regionType.model";
+import {PaginationService} from "../_services/pagination.service";
 
 @Component({
   selector: 'app-rg-regions',
@@ -12,7 +13,7 @@ import {RegionTypeModel} from "../_models/regionType.model";
   styleUrls: ['./rg-regions.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class RgRegionsComponent implements OnInit {
+export class RgRegionsComponent implements OnInit, OnDestroy {
   @ViewChild('cancelAdd') closeBtnAdd: ElementRef;
   @ViewChild('cancelEdit') closeBtnEdit: ElementRef;
   regions: RegionModel[];
@@ -23,11 +24,11 @@ export class RgRegionsComponent implements OnInit {
   subscription: Subscription;
   loading: boolean = false;
 
-  pages = [];
-  resultCount = 15;
-  page = 1;
+  start: number;
+  end: number;
 
-  constructor(private regionsService: RegionsService, private regionTypesService: RegionTypesService) { }
+
+  constructor(private paginationService: PaginationService, private regionsService: RegionsService, private regionTypesService: RegionTypesService) { }
 
   ngOnInit() {
     this.loading = true;
@@ -36,19 +37,21 @@ export class RgRegionsComponent implements OnInit {
     );
 
     this.subscription = this.regionsService.getRegions().subscribe(
-      (data : RegionModel[]) => {
+      (data: RegionModel[]) => {
         this.regions = data;
         this.loading = false;
-        this.pages = [];
-        let numIndex = 1;
-        for (let i = 0; i < this.regions.length; i++) {
-          if (i % this.resultCount === 0) {
-            this.pages.push({num: numIndex});
-            numIndex = numIndex + 1;
-          }
-        }
+
+        this.paginationService.setPages(this.regions.length);
+        this.start = this.paginationService.start();
+        this.paginationService.startObserver.subscribe(
+          start => this.start = start
+        )
+        this.end = this.paginationService.end();
+        this.paginationService.endObserver.subscribe(
+          end => this.end = end
+        );
       }
-    )
+    );
   }
   onSubmit(form: NgForm){
     this.selectedRegion.code = form.value.code;
@@ -60,8 +63,8 @@ export class RgRegionsComponent implements OnInit {
     this.closeEditModal();
   }
 
-  onSubmitAdd(form: NgForm){
-    var newRegion = new RegionModel(
+  onSubmitAdd(form: NgForm) {
+    const newRegion = new RegionModel(
       null,
       form.value.code,
       form.value.name,
@@ -81,6 +84,8 @@ export class RgRegionsComponent implements OnInit {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.paginationService.setPages(0);
+
   }
 
   removeRegion(region: RegionModel){
@@ -92,16 +97,6 @@ export class RgRegionsComponent implements OnInit {
   }
   private closeEditModal(): void {
     this.closeBtnEdit.nativeElement.click();
-  }
-
-  setPage(num: number) {
-    this.page = num;
-  }
-  start() {
-    return this.resultCount * this.page - this.resultCount;
-  }
-  end() {
-    return this.resultCount * this.page;
   }
 
   onRegionTypeSelected(value: string){

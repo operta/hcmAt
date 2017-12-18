@@ -81,6 +81,7 @@ import {NotificationStatusPipe} from "../ap-side-menu/notificationStatus.pipe";
 import {UserResolver} from "../_services/userResolver.service";
 import {ApplicantVideosComponent} from "../applicant-videos/applicant-videos.component";
 import {CompaniesComponent} from "../companies/companies.component";
+import {PaginationComponent} from "./pagination/pagination.component";
 
 @NgModule({
   declarations: [
@@ -131,7 +132,8 @@ import {CompaniesComponent} from "../companies/companies.component";
     AtJobApplicationStatusesComponent,
     NotificationStatusPipe,
     ApplicantVideosComponent,
-    CompaniesComponent
+    CompaniesComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,

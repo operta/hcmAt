@@ -4,6 +4,7 @@ import {JobApplicationStatusModel} from "../_models/jobApplicationStatus.model";
 import {Subscription} from "rxjs/Subscription";
 import {JobApplicationStatusesService} from "../_services/jobApplicationStatuses.service";
 import {NgForm} from "@angular/forms";
+import {PaginationService} from "../_services/pagination.service";
 
 @Component({
   selector: 'app-at-job-application-statuses',
@@ -20,13 +21,11 @@ export class AtJobApplicationStatusesComponent implements OnInit, OnDestroy {
   add: boolean;
   loading: boolean = false;
 
-  pages = [];
-  resultCount = 15;
-  page = 1;
+  start: number;
+  end: number;
 
 
-
-  constructor(private jobApplicationStatusService: JobApplicationStatusesService) { }
+  constructor(private paginationService: PaginationService, private jobApplicationStatusService: JobApplicationStatusesService) { }
 
   ngOnInit() {
     this.add = false;
@@ -36,14 +35,16 @@ export class AtJobApplicationStatusesComponent implements OnInit, OnDestroy {
       (data : JobApplicationStatusModel[]) => {
         this.statuses = data;
         this.loading = false;
-        this.pages = [];
-        let numIndex = 1;
-        for (let i = 0; i < this.statuses.length; i++) {
-          if (i % this.resultCount === 0) {
-            this.pages.push({num: numIndex});
-            numIndex = numIndex + 1;
-          }
-        }
+
+        this.paginationService.setPages(this.statuses.length);
+        this.start = this.paginationService.start();
+        this.paginationService.startObserver.subscribe(
+          start => this.start = start
+        )
+        this.end = this.paginationService.end();
+        this.paginationService.endObserver.subscribe(
+          end => this.end = end
+        );
       }
     )
   }
@@ -80,6 +81,7 @@ export class AtJobApplicationStatusesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.paginationService.setPages(0);
   }
 
   removeJobApplicationStatus(template: JobApplicationStatusModel){
@@ -92,16 +94,5 @@ export class AtJobApplicationStatusesComponent implements OnInit, OnDestroy {
   private closeEditModal(): void {
     this.closeBtnEdit.nativeElement.click();
   }
-
-  setPage(num: number) {
-    this.page = num;
-  }
-  start() {
-    return this.resultCount * this.page - this.resultCount;
-  }
-  end() {
-    return this.resultCount * this.page;
-  }
-
 }
 

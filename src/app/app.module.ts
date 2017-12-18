@@ -21,6 +21,8 @@ import {ToastModule} from "ng2-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {JobApplicationStatusesService} from "./_services/jobApplicationStatuses.service";
 import {VacanciesService} from "./_services/vacancies.service";
+import {PaginationService} from "./_services/pagination.service";
+import {PaginationComponent} from "./dashboard/pagination/pagination.component";
 
 export function authHttpServiceFactory(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -59,7 +61,8 @@ export function authHttpServiceFactory(http: Http) {
     AuthGuard,
     AdminAuthGuard,
     AtJobApplicationsService,
-    JobApplicationStatusesService
+    JobApplicationStatusesService,
+    PaginationService
   ],
   bootstrap: [ AppComponent ]
 })

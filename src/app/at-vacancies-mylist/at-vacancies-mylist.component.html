@@ -6,65 +6,14 @@
         <div class="white-box">
           <div class="row m-b-20 p-l-5 p-r-10">
             <div class="col-lg-12">
-
-              <!-- page number i item number -->
-              <div *ngIf="pages.length > 1" class="row">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
-                  Showing
-                  {{resultCount}}
-                  results per page.
-                </div>
-
-                <ng-container *ngIf="pages.length > 1" >
-                  <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 m-r-0 m-l-0">
-                    <div class="pull-right">
-                      <ul class="pagination m-b-0" ([ngModel])="page">
-                        <li [ngClass]="{noClick: page === 1}"> <a (click)="setPage(page-1)"><i class="fa fa-angle-left"></i></a> </li>
-                        <li [ngClass]="{active: pageIterator.num===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator.num)">{{pageIterator.num}}</a></li>
-                        <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(page+1)" ><i class="fa fa-angle-right"></i></a> </li>
-                      </ul>
-                    </div>
-                  </div>
-                </ng-container>
-              </div>
-
-              <!-- gotov page number i item number -->
-
-
-
               <!-- vacancy list -->
               <div class="row">
                 <div class="col-xs-12 col-lg-12 col-md-12">
                   <div class="comment-center">
-                    <app-at-vacancies-mylist-item *ngFor="let jobApplication of jobApplications | slice:start():end();" [vacancy]="jobApplication.vacancyid" [status]="jobApplication.id_status" (onEdit)="onEdit($event)"></app-at-vacancies-mylist-item>
+                    <app-at-vacancies-mylist-item *ngFor="let jobApplication of jobApplications | slice:start:end;" [vacancy]="jobApplication.vacancyid" [status]="jobApplication.id_status" (onEdit)="onEdit($event)"></app-at-vacancies-mylist-item>
                   </div>
                 </div>
               </div>
-
-
-
-
-              <!-- page number i item number -->
-              <div *ngIf="pages.length > 1" class="row">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
-                  Showing
-                  {{resultCount}}
-                  results per page.
-                </div>
-
-                <ng-container *ngIf="pages.length > 1" >
-                  <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 m-r-0 m-l-0">
-                    <div class="pull-right">
-                      <ul class="pagination m-b-0" ([ngModel])="page">
-                        <li [ngClass]="{noClick: page === 1}"> <a (click)="setPage(page-1)"><i class="fa fa-angle-left"></i></a> </li>
-                        <li [ngClass]="{active: pageIterator.num===page}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator.num)">{{pageIterator.num}}</a></li>
-                        <li [ngClass]="{noClick: page === pages.length}"> <a (click)="setPage(page+1)" ><i class="fa fa-angle-right"></i></a> </li>
-                      </ul>
-                    </div>
-                  </div>
-                </ng-container>
-              </div>
-<!-- gotov page number i item number -->
             </div>
           </div>
         </div>

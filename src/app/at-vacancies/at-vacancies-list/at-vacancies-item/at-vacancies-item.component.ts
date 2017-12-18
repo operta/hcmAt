@@ -63,7 +63,7 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
   }
 
   checkApplicantApplied() {
-    if(this.vacancy.jobApplications == null || this.applicant == null){
+    if (this.vacancy.jobApplications == null || this.applicant == null){
       this.applicantApplied = false;
       return;
     }
@@ -129,8 +129,8 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
 
   getApplicantInformation() {
     this.userService.getUser().subscribe(
-      (data: UserModel) =>{
-        this.applicantService.getApplicant(data.id).subscribe(
+      (user: UserModel) =>{
+        this.applicantService.getApplicant(user.id).subscribe(
           (data: ApplicantModel) => {
             this.applicant = data;
             this.checkApplicantApplied();

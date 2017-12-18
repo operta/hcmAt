@@ -1,0 +1,19 @@
+<div *ngIf="pages.length > 1" class="row">
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
+    Showing
+    {{resultCount}}
+    results per page.
+  </div>
+
+  <ng-container *ngIf="pages.length > 1" >
+    <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 m-r-0 m-l-0">
+      <div class="pull-right">
+        <ul class="pagination m-b-0" ([ngModel])="paginationService.page">
+          <li [ngClass]="{noClick: compare(1)}"> <a (click)="decrementPage()"><i class="fa fa-angle-left"></i></a> </li>
+          <li [ngClass]="{active: compare(pageIterator.num)}" *ngFor="let pageIterator of pages"><a (click)="setPage(pageIterator.num)">{{pageIterator.num}}</a></li>
+          <li [ngClass]="{noClick: compare(pages.length)}"> <a (click)="incrementPage()" ><i class="fa fa-angle-right"></i></a> </li>
+        </ul>
+      </div>
+    </div>
+  </ng-container>
+</div>

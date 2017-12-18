@@ -33,9 +33,6 @@ export class AtJobApplicationsAddTestComponent implements OnInit {
     );
     this.initForm();
     this.jobApplication = this.jobApplicatiosService.getJobApplicationById(+this.id);
-    console.log(this.jobApplicatiosService.getJobApplicationById(this.id));
-    console.log(this.jobApplicatiosService.getJobApplications());
-    console.log(this.jobApplication);
   }
 
   initForm() {

@@ -3,6 +3,7 @@ import {NotificationTemplateModel} from "../_models/notificationTemplate.model";
 import {Subscription} from "rxjs/Subscription";
 import {NotificationTemplatesService} from "../_services/notificationTemplate.service";
 import {NgForm} from "@angular/forms";
+import {PaginationService} from "../_services/pagination.service";
 
 @Component({
   selector: 'app-at-notification-templates',
@@ -19,11 +20,9 @@ export class AtNotificationTemplatesComponent implements OnInit, OnDestroy {
   add: boolean;
   loading: boolean = false;
 
-  pages = [];
-  resultCount = 15;
-  page = 1;
-
-  constructor(private notificationTemplatesService: NotificationTemplatesService) { }
+  start: number;
+  end: number;
+  constructor(private paginationService: PaginationService, private notificationTemplatesService: NotificationTemplatesService) { }
 
   ngOnInit() {
     this.add = false;
@@ -34,19 +33,20 @@ export class AtNotificationTemplatesComponent implements OnInit, OnDestroy {
         this.templates = data;
         this.loading = false;
 
-        this.pages = [];
-        let numIndex = 1;
-        for (let i = 0; i < this.templates.length; i++) {
-          if (i % this.resultCount === 0) {
-            this.pages.push({num: numIndex});
-            numIndex = numIndex + 1;
-          }
-        }
+        this.paginationService.setPages(this.templates.length);
+        this.start = this.paginationService.start();
+        this.paginationService.startObserver.subscribe(
+          start => this.start = start
+        )
+        this.end = this.paginationService.end();
+        this.paginationService.endObserver.subscribe(
+          end => this.end = end
+        );
 
       }
     )
   }
-  onSubmit(form: NgForm){
+  onSubmit(form: NgForm) {
     this.selectedTemplate.code = form.value.code;
     this.selectedTemplate.subject = form.value.subject;
     this.selectedTemplate.template = form.value.template;
@@ -54,8 +54,8 @@ export class AtNotificationTemplatesComponent implements OnInit, OnDestroy {
     this.closeEditModal();
   }
 
-  onSubmitAdd(form: NgForm){
-    var newTemplate = new NotificationTemplateModel(
+  onSubmitAdd(form: NgForm) {
+    const newTemplate = new NotificationTemplateModel(
       null,
       form.value.code,
       form.value.subject,
@@ -74,6 +74,7 @@ export class AtNotificationTemplatesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.paginationService.setPages(0);
   }
 
   removeNotificationTemplate(template: NotificationTemplateModel){
@@ -87,16 +88,5 @@ export class AtNotificationTemplatesComponent implements OnInit, OnDestroy {
     this.closeBtnEdit.nativeElement.click();
   }
 
-
-
-  setPage(num: number) {
-    this.page = num;
-  }
-  start() {
-    return this.resultCount * this.page - this.resultCount;
-  }
-  end() {
-    return this.resultCount * this.page;
-  }
 }
 

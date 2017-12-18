@@ -1,8 +1,9 @@
-import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {QualificationModel} from "../_models/qualification";
 import {Subscription} from "rxjs/Subscription";
 import {QualificationsService} from "../_services/qualifications.service";
 import {NgForm} from "@angular/forms";
+import {PaginationService} from "../_services/pagination.service";
 
 @Component({
   selector: 'app-rg-qualifications',
@@ -10,7 +11,7 @@ import {NgForm} from "@angular/forms";
   styleUrls: ['./rg-qualifications.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class RgQualificationsComponent implements OnInit {
+export class RgQualificationsComponent implements OnInit, OnDestroy {
   @ViewChild('cancelAdd') closeBtnAdd: ElementRef;
   @ViewChild('cancelEdit') closeBtnEdit: ElementRef;
   qualifications: QualificationModel[];
@@ -18,28 +19,29 @@ export class RgQualificationsComponent implements OnInit {
   subscription: Subscription;
   loading: boolean = false;
 
-  pages = [];
-  resultCount = 15;
-  page = 1;
+  start: number;
+  end: number;
 
-  constructor(private qualificationsService: QualificationsService) { }
+
+  constructor(private paginationService: PaginationService, private qualificationsService: QualificationsService) { }
 
   ngOnInit() {
     this.loading = true;
     this.qualificationsService.getQualifications();
     this.subscription = this.qualificationsService.qualificationsObserver.subscribe(
-      (data : QualificationModel[]) => {
+      (data: QualificationModel[]) => {
         this.qualifications = data;
         this.loading = false;
 
-        this.pages = [];
-        let numIndex = 1;
-        for (let i = 0; i < this.qualifications.length; i++) {
-          if (i % this.resultCount === 0) {
-            this.pages.push({num: numIndex});
-            numIndex = numIndex + 1;
-          }
-        }
+        this.paginationService.setPages(this.qualifications.length);
+        this.start = this.paginationService.start();
+        this.paginationService.startObserver.subscribe(
+          start => this.start = start
+        )
+        this.end = this.paginationService.end();
+        this.paginationService.endObserver.subscribe(
+          end => this.end = end
+        );
 
       }
     )
@@ -72,6 +74,8 @@ export class RgQualificationsComponent implements OnInit {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.paginationService.setPages(0);
+
   }
 
   removeQualification(qualification: QualificationModel){
@@ -85,14 +89,5 @@ export class RgQualificationsComponent implements OnInit {
     this.closeBtnEdit.nativeElement.click();
   }
 
-  setPage(num: number) {
-    this.page = num;
-  }
-  start() {
-    return this.resultCount * this.page - this.resultCount;
-  }
-  end() {
-    return this.resultCount * this.page;
-  }
 
 }

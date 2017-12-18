@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from "@angular/router";
 
 import { Applicant } from "./applicant.model";
 import {ApplicantsService} from "../_services/applicants.service";
 import {ApplicantModel} from "../_models/applicant.model";
 import {Subscription} from "rxjs/Subscription";
+import {PaginationService} from "../_services/pagination.service";
 
 @Component({
   selector: 'app-applicants',
@@ -12,20 +13,18 @@ import {Subscription} from "rxjs/Subscription";
   styleUrls: ['./applicants.component.css']
 })
 
-export class ApplicantsComponent implements OnInit {
+export class ApplicantsComponent implements OnInit, OnDestroy {
   applicants: ApplicantModel[];
   selectedRow: number = -1;
   advancedSearch: boolean = false;
   subscription: Subscription;
   loading: boolean = false;
 
-
-  pages = [];
-  resultCount = 15;
-  page = 1;
+  start: number;
+  end: number;
 
 
-  constructor(private router: Router, private applicantsService: ApplicantsService) { }
+  constructor(private paginationService: PaginationService, private router: Router, private applicantsService: ApplicantsService) { }
 
   ngOnInit() {
     this.loading = true;
@@ -36,16 +35,23 @@ export class ApplicantsComponent implements OnInit {
         this.applicants = data;
         console.log(this.applicants);
         this.loading = false;
-        this.pages = [];
-        let numIndex = 1;
-        for (let i = 0; i < this.applicants.length; i++) {
-          if (i % this.resultCount === 0) {
-            this.pages.push({num: numIndex});
-            numIndex = numIndex + 1;
-          }
-        }
+
+
+        this.paginationService.setPages(this.applicants.length);
+        this.start = this.paginationService.start();
+        this.paginationService.startObserver.subscribe(
+          start => this.start = start
+        )
+        this.end = this.paginationService.end();
+        this.paginationService.endObserver.subscribe(
+          end => this.end = end
+        );
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.paginationService.setPages(0);
   }
 
   selectRow(rowIndex: number) {
@@ -58,20 +64,4 @@ export class ApplicantsComponent implements OnInit {
   setAdvancedSearch(advancedSearch: boolean) {
     this.advancedSearch = advancedSearch;
   }
-
-
-
-
-  setPage(num: number) {
-    this.page = num;
-  }
-
-  start() {
-    return this.resultCount * this.page - this.resultCount;
-  }
-
-  end() {
-    return this.resultCount * this.page;
-  }
-
 }

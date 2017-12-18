@@ -8,6 +8,7 @@ import {VacanciesService} from '../../../_services/vacancies.service';
 import {AtJobApplicationsService} from '../../../_services/at-job-applications.service';
 import {JobApplicationStatusModel} from "../../../_models/jobApplicationStatus.model";
 import {JobApplicationStatusesService} from "../../../_services/jobApplicationStatuses.service";
+import {PaginationService} from "../../../_services/pagination.service";
 
 @Component({
   selector: 'app-at-vacancies-detail-admin',
@@ -21,17 +22,16 @@ export class AtVacanciesDetailAdminComponent implements OnInit, OnDestroy {
   subscriptionParams: Subscription;
   subscriptionStatus: Subscription;
   jobApplicationStatuses: JobApplicationStatusModel[];
+  start: number;
+  end: number;
 
-
-  pages = [];
-  resultCount = 15;
-  page = 1;
 
   constructor(private applicantsService: ApplicantsService,
               private vacancyService: VacanciesService,
               private route: ActivatedRoute,
               private jobApplicationsService: AtJobApplicationsService,
-              private jobApplicationStatusesService: JobApplicationStatusesService) { }
+              private jobApplicationStatusesService: JobApplicationStatusesService,
+              private paginationService: PaginationService) { }
 
   ngOnInit() {
     this.jobApplicationStatusesService.getJobApplicationStatuses();
@@ -48,14 +48,16 @@ export class AtVacanciesDetailAdminComponent implements OnInit, OnDestroy {
         this.vacancy = this.vacancyService.getVacancy(+this.id);
         this.jobApplicationsService.initJobApplications(this.vacancy);
         this.jobApplications = this.jobApplicationsService.getJobApplications();
-        this.pages = [];
-        let numIndex = 1;
-        for (let i = 0; i < this.jobApplications.length; i++) {
-          if (i % this.resultCount === 0) {
-            this.pages.push({num: numIndex});
-            numIndex = numIndex + 1;
-          }
-        }
+
+        this.paginationService.setPages(this.jobApplications.length);
+        this.start = this.paginationService.start();
+        this.paginationService.startObserver.subscribe(
+          start => this.start = start
+        )
+        this.end = this.paginationService.end();
+        this.paginationService.endObserver.subscribe(
+          end => this.end = end
+        );
         /*        this.subscriptionVacancy = this.vacancyService.getVacancy(this.id).subscribe(
                   (data: VacancyModel) => {
                     this.vacancy = data;
@@ -69,18 +71,5 @@ export class AtVacanciesDetailAdminComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptionParams.unsubscribe();
-  }
-
-
-  setPage(num: number) {
-    this.page = num;
-  }
-
-  start() {
-    return this.resultCount * this.page - this.resultCount;
-  }
-
-  end() {
-    return this.resultCount * this.page;
   }
 }

@@ -10,6 +10,7 @@ import { Response } from '@angular/http';
 import {ApplicantsService} from '../_services/applicants.service';
 import {ApplicantModel} from '../_models/applicant.model';
 import {UserModel} from '../_models/user.model';
+import {PaginationService} from "../_services/pagination.service";
 
 @Component({
   selector: 'app-at-vacancies-mylist',
@@ -27,7 +28,10 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
   private vacancies: VacancyModel[];
   private jobApplications: JobApplicationModel[];
 
-  constructor(private userService: UserService, private applicantService: ApplicantsService, private jobApplicationsService: AtJobApplicationsService, private vacanciesService: VacanciesService) {
+  start: number;
+  end: number;
+
+  constructor(private paginationService: PaginationService, private userService: UserService, private applicantService: ApplicantsService, private jobApplicationsService: AtJobApplicationsService, private vacanciesService: VacanciesService) {
   }
 
   ngOnInit() {
@@ -51,14 +55,17 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
     this.jobApplicationsService.jobApplicationsChange.subscribe(
       data => {
         this.jobApplications = data;
-        this.pages = [];
-        let numIndex = 1;
-        for (let i = 0; i < this.jobApplications.length; i++) {
-          if (i % this.resultCount === 0) {
-            this.pages.push({num: numIndex});
-            numIndex = numIndex + 1;
-          }
-        }
+
+
+        this.paginationService.setPages(this.jobApplications.length);
+        this.start = this.paginationService.start();
+        this.paginationService.startObserver.subscribe(
+          start => this.start = start
+        )
+        this.end = this.paginationService.end();
+        this.paginationService.endObserver.subscribe(
+          end => this.end = end
+        );
         console.log(this.jobApplications);
       }
     );
@@ -75,17 +82,5 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
 
   setResultCount(num: number) {
     this.resultCount = num;
-  }
-
-  setPage(num: number) {
-    this.page = num;
-  }
-
-  start() {
-    return this.resultCount * this.page - this.resultCount;
-  }
-
-  end() {
-    return this.resultCount * this.page;
   }
 }

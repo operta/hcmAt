@@ -3,6 +3,7 @@ import {SkillsService} from "../_services/skills.service";
 import {SkillModel} from "../_models/skill.model";
 import {Subscription} from "rxjs/Subscription";
 import {NgForm} from "@angular/forms";
+import {PaginationService} from "../_services/pagination.service";
 
 @Component({
   selector: 'app-rg-skills',
@@ -18,33 +19,33 @@ export class RgSkillsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   add: boolean;
   loading: boolean = false;
+  start: number;
+  end: number;
 
 
-  pages = [];
-  resultCount = 15;
-  page = 1;
 
-  constructor(private skillsService: SkillsService) { }
+  constructor(private paginationService: PaginationService, private skillsService: SkillsService) { }
 
   ngOnInit() {
     this.add = false;
     this.loading = true;
     this.skillsService.getSkills();
     this.subscription = this.skillsService.skillsObserver.subscribe(
-      (data : SkillModel[]) => {
+      (data: SkillModel[]) => {
         this.skills = data;
         this.loading = false;
-        this.pages = [];
-        let numIndex = 1;
-        for (let i = 0; i < this.skills.length; i++) {
-          if (i % this.resultCount === 0) {
-            this.pages.push({num: numIndex});
-            numIndex = numIndex + 1;
-          }
-        }
 
+        this.paginationService.setPages(this.skills.length);
+        this.start = this.paginationService.start();
+        this.paginationService.startObserver.subscribe(
+          start => this.start = start
+        )
+        this.end = this.paginationService.end();
+        this.paginationService.endObserver.subscribe(
+          end => this.end = end
+        );
       }
-    )
+    );
   }
   onSubmit(form: NgForm){
     this.selectedSkill.code = form.value.code;
@@ -55,8 +56,8 @@ export class RgSkillsComponent implements OnInit, OnDestroy {
     this.closeEditModal();
   }
 
-  onSubmitAdd(form: NgForm){
-    var newSkill = new SkillModel(
+  onSubmitAdd(form: NgForm) {
+    const newSkill = new SkillModel(
       null,
       form.value.code,
       form.value.name,
@@ -76,9 +77,10 @@ export class RgSkillsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.paginationService.setPages(0);
   }
 
-  removeSkill(skill: SkillModel){
+  removeSkill(skill: SkillModel) {
     this.skillsService.removeSkill(skill);
   }
 
@@ -88,15 +90,4 @@ export class RgSkillsComponent implements OnInit, OnDestroy {
   private closeEditModal(): void {
     this.closeBtnEdit.nativeElement.click();
   }
-
-  setPage(num: number) {
-    this.page = num;
-  }
-  start() {
-    return this.resultCount * this.page - this.resultCount;
-  }
-  end() {
-    return this.resultCount * this.page;
-  }
-
 }
