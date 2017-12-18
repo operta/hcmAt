@@ -75,4 +75,9 @@ a {
     max-width: 900px !important;
 
   }
+
 }
+
+.modal {
+     overflow: auto !important;
+   }

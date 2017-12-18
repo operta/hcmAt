@@ -14,7 +14,7 @@ import {JsogService} from "jsog-typescript";
 export class ApplicantsService {
   private applicants: ApplicantModel[];
   applicantChange= new Subject<ApplicantModel[]>();
-  applicantsURL = 'http://localhost:8080/applicants';
+  applicantsURL = 'http://77.78.198.19:8080/applicants';
 
   private authHeaders = new Headers({
     'Content-Type': 'application/json',
@@ -48,8 +48,12 @@ export class ApplicantsService {
   getApplicant(id: string) {
     return this.http.get(this.applicantsURL + '/' + id).map(
       (response: Response) => {
+        if(response.arrayBuffer().byteLength == 0 )
+          return null;
+        else {
           const applicant: ApplicantModel = response.json();
           return applicant;
+        }
       }
     );
   }

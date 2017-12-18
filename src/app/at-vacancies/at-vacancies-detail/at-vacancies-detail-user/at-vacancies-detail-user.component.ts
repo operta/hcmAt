@@ -21,6 +21,7 @@ export class AtVacanciesDetailUserComponent implements OnInit {
   id: string;
   applicantId: number;
   applied = true;
+  loading: boolean = false;
 
   constructor(private router: Router, private applicantService: ApplicantsService, private userService: UserService, private jobApplicationService: AtJobApplicationsService, private vacanciesService: VacanciesService, private route: ActivatedRoute) { }
 
@@ -29,7 +30,7 @@ export class AtVacanciesDetailUserComponent implements OnInit {
       params => {
         this.id = params['id'];
         this.vacancy = this.vacanciesService.getVacancy(+this.id);
-
+        this.loading = true;
         this.getApplicantInformation();
       }
     );
@@ -57,18 +58,22 @@ export class AtVacanciesDetailUserComponent implements OnInit {
         (data: UserModel) => {
           this.applicantService.getApplicant(data.id).subscribe(
             (applicant: ApplicantModel) => {
-              this.applicantId = applicant.id;
+              if(applicant)
+                this.applicantId = applicant.id;
               if (!this.vacancy.jobApplications.find(x => x.applicantid.id === this.applicantId)) {
                 this.applied = false;
+                this.loading = false;
               }
             },
             error => {
               console.log(error);
+              this.loading = false;
             }
           );
         },
         error => {
           console.log(error);
+          this.loading = false;
         }
       );
     }

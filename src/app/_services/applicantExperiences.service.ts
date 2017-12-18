@@ -11,7 +11,7 @@ import {ToastsManager} from "ng2-toastr";
 @Injectable()
 export class ApplicantExperiencesService {
 
-  URL = 'http://localhost:8080/applicantExperiences';
+  URL = 'http://77.78.198.19:8080/applicantExperiences';
   Experiences: ApplicantExperienceModel[];
   ExperiencesObserver= new Subject<ApplicantExperienceModel[]>();
 

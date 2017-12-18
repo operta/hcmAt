@@ -16,6 +16,7 @@ import {JobApplicationModel} from "../../../_models/jobApplication.model";
 import {AtJobApplicationsService} from "../../../_services/at-job-applications.service";
 import {JobApplicationStatusModel} from "../../../_models/jobApplicationStatus.model";
 import {VacanciesStatusModel} from "../../../_models/vacanciesStatus.model";
+import {ToastsManager} from "ng2-toastr";
 
 @Component({
   selector: 'app-at-vacancies-item',
@@ -35,7 +36,7 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
   isUser = false;
   isAdmin = false;
   isCompany = false;
-
+  selectedStatus: string;
   applicant: ApplicantModel;
   applicantApplied = false;
 
@@ -44,7 +45,8 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
               private vacancyService: VacanciesService,
               private router: Router,
               private applicantService: ApplicantsService,
-              private jobApplicationService: AtJobApplicationsService) { }
+              private jobApplicationService: AtJobApplicationsService,
+              private toastr: ToastsManager) { }
 
   ngOnInit() {
     //change to company when company added!
@@ -56,6 +58,7 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
     }
     this.selectedWorkplace = this.vacancy.id_work_place;
     this.selectedRegion = this.vacancy.id_location;
+    this.selectedStatus = this.vacancy.status.status;
   }
 
   ngOnChanges(){
@@ -78,11 +81,12 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
   }
 
   onSubmitEdit(form: NgForm) {
-    if(form.value.status == 'ACTIVE'){
-      var status = new VacanciesStatusModel(1, 'ACTIVE');
+    let status = this.vacancy.status;
+    if(this.selectedStatus == 'ACTIVE'){
+      status = new VacanciesStatusModel(1, 'ACTIVE');
     }
     else {
-      var status = new VacanciesStatusModel(2, 'CLOSED');
+      status = new VacanciesStatusModel(2, 'CLOSED');
     }
     this.vacancy.name = form.value.name;
     this.vacancy.code = form.value.code;
@@ -137,6 +141,7 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
           },
           error => {
             console.log(error);
+            // this.toastr.error("You need to create applicant profile")
           }
         );
       },
@@ -144,6 +149,18 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
         console.log(error);
       }
     );
+  }
+
+  onRegionSelected(value: string){
+    this.selectedRegion = this.regions.find(item => item.name === value);
+  }
+
+  onStatusSelected(value: string) {
+    this.selectedStatus = value;
+  }
+
+  onWorkplaceSelected(value: string){
+    this.selectedWorkplace = this.workplaces.find(item => item.name === value);
   }
 
   /*apply() {

@@ -7,7 +7,7 @@ import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class SkillGradesService {
-  URL = 'http://localhost:8080/skillGrades';
+  URL = 'http://77.78.198.19:8080/skillGrades';
   skillGrades: SkillGradeModel[];
   skillGradesObserver = new Subject<SkillGradeModel[]>();
 
@@ -83,7 +83,7 @@ export class SkillGradesService {
     );
   }
 
-  // private skillGradeGradesUrl = 'http://localhost:8080/rgSkillGrades';  //URL to web api
+  // private skillGradeGradesUrl = 'http://77.78.198.19:8080/rgSkillGrades';  //URL to web api
   // private headers = new Headers({'Content-Type': 'application/json'});
   //
   // constructor(private http: Http) { }

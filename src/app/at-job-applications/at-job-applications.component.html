@@ -7,10 +7,10 @@
             <div class="row">
               <div class="col-lg-6">
                 <a [routerLink] ="['/dashboard/applicantOverview/', jobApplication.applicantid.id]">
-                  <div class="user-img">
-                    <img *ngIf="jobApplication.applicantid.image_link != null" [src]="applicant.image_link" class="img-circle">
-                    <img *ngIf="jobApplication.applicantid.image_link == null" src="assets/images/users/user-male-icon.png" class="img-circle">
-                  </div>
+<!--                    <div class="user-img">
+                      <img *ngIf="jobApplication.applicantid.image_link != null" [src]="applicant.image_link" class="img-circle">
+                      <img *ngIf="jobApplication.applicantid.image_link == null" src="assets/images/users/user-male-icon.png" class="img-circle">
+                    </div>-->
                   <div class="mail-contnet">
                     <h5>{{jobApplication.applicantid.name}} <span style="color: #848a96;">- {{jobApplication.applicantid.employment_position}}</span></h5>
                     <span class="mail-desc m-b-0" style="height: auto">

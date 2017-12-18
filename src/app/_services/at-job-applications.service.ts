@@ -17,7 +17,7 @@ import {VacanciesService} from "./vacancies.service";
 @Injectable()
 export class AtJobApplicationsService {
 
-  jobApplicationsURL = 'http://localhost:8080/jobApplications'
+  jobApplicationsURL = 'http://77.78.198.19:8080/jobApplications'
   jobApplications: JobApplicationModel[] = new Array<JobApplicationModel>();
   jobApplicationsChange = new Subject<JobApplicationModel[]>();
 
@@ -71,7 +71,7 @@ export class AtJobApplicationsService {
         this.jobApplications.push(response.json());
         this.vacancyService.addJobApplicationToVacancy(response.json());
         this.jobApplicationsChange.next(this.jobApplications.slice());
-        this.toastr.success('Successfull application');
+        this.toastr.success('Successfull job application');
       }
     ).subscribe(
       response => {

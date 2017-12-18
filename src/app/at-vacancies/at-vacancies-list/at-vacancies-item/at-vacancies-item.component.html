@@ -132,22 +132,22 @@
               </div>
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-12"  *ngIf="selectedRegion">
               <div class="form-group">
                 <label class="col-md-12">Region Select:</label>
                 <div class="col-md-12">
-                  <select class="form-control p-0" [(ngModel)]="selectedRegion" name="selectedRegion">
-                    <option *ngFor="let region of regions" [selected]="region?.name == selectedRegion.name" [ngValue]="region">{{region.name}}</option>
+                  <select class="form-control p-0" (change)="onRegionSelected(t.value)" #t>
+                    <option *ngFor="let region of regions" [selected]="region?.id == selectedRegion.id" [ngValue]="region">{{region.name}}</option>
                   </select><span class="highlight"></span> <span class="bar"></span>
                 </div>
               </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12"  *ngIf="selectedWorkplace">
               <div class="form-group">
                 <label class="col-md-12">Workplace Select:</label>
                 <div class="col-md-12">
-                  <select class="form-control p-0" [(ngModel)]="selectedWorkplace" name="selectedWorkplace">
-                    <option *ngFor="let workplace of workplaces" [selected]="workplace?.name == selectedWorkplace.name" [ngValue]="workplace">{{workplace.name}}</option>
+                  <select class="form-control p-0"  (change)="onWorkplaceSelected(t.value)" #t>
+                    <option *ngFor="let workplace of workplaces" [selected]="workplace?.id == selectedWorkplace.id" [ngValue]="workplace">{{workplace.name}}</option>
                   </select><span class="highlight"></span> <span class="bar"></span>
                 </div>
             </div>
@@ -155,7 +155,7 @@
                 <div class="form-group">
                   <label class="col-md-12">Status:</label>
                   <div class="col-md-12">
-                    <select class="form-control p-0" [(ngModel)]="vacancy && vacancy.status" name="status">
+                    <select class="form-control p-0" (change)=onStatusSelected(t.value) #t>
                       <option [selected]="vacancy?.status.status == 'ACTIVE'" value="ACTIVE">Active</option>
                       <option [selected]="vacancy?.status.status == 'CLOSED'" value="CLOSED">Closed</option>
                     </select><span class="highlight"></span> <span class="bar"></span>
