@@ -150,6 +150,23 @@
   "ADDNEWTEST": "Add New Test",
   "CREATEYOURCVHERE": "Create your CV here. Start by adding personal information",
   "MARRIED": "Married",
-  "NOTMARRIED": "Not Married"
+  "NOTMARRIED": "Not Married",
+  "INSTITUTION": "Institution",
+  "CLOSEEDIT": "Close Edit",
+  "SAVECHANGES": "Save Changes",
+  "PRESENT": "Present",
+  "ADDNEWEXPERIENCE": "Add New Experience",
+  "DOCUMENTNAME": "Document Name",
+  "DOCUMENTLINK": "Document Link",
+  "DOCUMENTTYPE": "Document Type",
+  "VALIDFROM": "Valid From",
+  "VALIDTO": "Valid To",
+  "OPEN": "Open",
+  "ADDNEWDOCUMENT": "Add New Document",
+  "ADDNEWCONTACT": "Add New Contact",
+  "PROFICIENCY": "Proficiency",
+  "OCCUPATION": "Occupation",
+  "LICENCENUMBER": "Licence Number",
+  "CERTIFICATIONAUTHORITY": "Certification Authority"
 
 }
