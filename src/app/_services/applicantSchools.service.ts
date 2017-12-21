@@ -11,7 +11,7 @@ import {JsogService} from "jsog-typescript";
 @Injectable()
 export class ApplicantSchoolsService {
 
-  URL = 'http://77.78.198.19:8080/applicantSchools';
+  URL = 'http://localhost:8080/applicantSchools';
   applicantSchools: ApplicantSchoolModel[];
   applicantSchoolsObserver = new Subject<ApplicantSchoolModel[]>();
 

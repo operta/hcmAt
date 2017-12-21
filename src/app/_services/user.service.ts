@@ -17,7 +17,7 @@ export class UserService {
   accessToken: string;
   isAdmin: boolean;
   userUsername: string;
-  usersURL = 'http://77.78.198.19:8080/users';
+  usersURL = 'http://localhost:8080/users';
 
   private headers = new Headers({
     'Content-Type': 'application/json',

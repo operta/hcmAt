@@ -10,7 +10,7 @@ import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class SkillsService {
-  URL = 'http://77.78.198.19:8080/skills';
+  URL = 'http://localhost:8080/skills';
   skills: SkillModel[];
   skillsObserver = new Subject<SkillModel[]>();
 

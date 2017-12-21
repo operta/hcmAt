@@ -12,7 +12,7 @@ import {ApplicantSkillModel} from "../_models/applicantSkill.model";
 @Injectable()
 export class ApplicantSkillsService {
 
-  URL = 'http://77.78.198.19:8080/applicantSkills';
+  URL = 'http://localhost:8080/applicantSkills';
   applicantSkills: ApplicantSkillModel[];
   applicantSkillsObserver = new Subject<ApplicantSkillModel[]>();
 

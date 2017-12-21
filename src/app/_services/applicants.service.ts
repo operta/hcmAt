@@ -14,7 +14,7 @@ import {JsogService} from "jsog-typescript";
 export class ApplicantsService {
   private applicants: ApplicantModel[];
   applicantChange= new Subject<ApplicantModel[]>();
-  applicantsURL = 'http://77.78.198.19:8080/applicants';
+  applicantsURL = 'http://localhost:8080/applicants';
 
   private authHeaders = new Headers({
     'Content-Type': 'application/json',

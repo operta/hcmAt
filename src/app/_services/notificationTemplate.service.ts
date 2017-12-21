@@ -7,7 +7,7 @@ import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class NotificationTemplatesService{
-  URL = 'http://77.78.198.19:8080/notificationTemplates';
+  URL = 'http://localhost:8080/notificationTemplates';
   notificationTemplates: NotificationTemplateModel[];
   notificationTemplatesObserver = new Subject<NotificationTemplateModel[]>();
 

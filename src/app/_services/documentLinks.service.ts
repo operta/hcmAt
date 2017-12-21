@@ -7,7 +7,7 @@ import {DocumentLinkModel} from "../_models/documentLink.model";
 export class DocumentLinksService {
   private Documents: DocumentLinkModel[];
 
-  DocumentsURL = 'http://77.78.198.19:8080/documentLinks';
+  DocumentsURL = 'http://localhost:8080/documentLinks';
 
   constructor(private http: Http) { }
 

@@ -12,7 +12,7 @@ export class VacanciesService {
   private vacancies: VacancyModel[] = [];
   vacancyChange= new Subject<VacancyModel[]>();
 
-  vacanciesURL = 'http://77.78.198.19:8080/vacancies';
+  vacanciesURL = 'http://localhost:8080/vacancies';
 
   constructor(private toastr: ToastsManager, private http: Http, private jsog: JsogService) { }
 
