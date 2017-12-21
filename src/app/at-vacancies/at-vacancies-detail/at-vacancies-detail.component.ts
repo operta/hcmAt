@@ -3,7 +3,6 @@ import {VacancyModel} from '../../_models/vacancy.model';
 import {VacanciesService} from '../../_services/vacancies.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
-import {isNumber} from 'util';
 import {ApplicantModel} from '../../_models/applicant.model';
 import {JobApplicationModel} from '../../_models/jobApplication.model';
 import {Observable} from 'rxjs/Observable';

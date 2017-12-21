@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "assets/plugins/bootstrap-extension/css/bootstrap-extension.css"; 
-@import "assets/css/animate.css"; 
-@import "assets/css/style.css"; 
+@import "assets/plugins/bootstrap-extension/css/bootstrap-extension.css";
+@import "assets/css/animate.css";
+@import "assets/css/style.css";
 @import "assets/css/gray-dark.css";
+@import "assets/css/rtl.css";
