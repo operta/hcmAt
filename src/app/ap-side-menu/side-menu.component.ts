@@ -5,6 +5,7 @@ import {JobApplicationNotificationsService} from "../_services/jobApplicationNot
 import {JobApplicationNotificationModel} from "../_models/jobApplicationNotification.model";
 import {UserModel} from "../_models/user.model";
 import {getHtmlTagDefinition} from "@angular/compiler";
+import {TranslateService} from "ng2-translate";
 
 
 declare  let $:any;
@@ -25,7 +26,8 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
 
   constructor(private router: Router,
               private userService: UserService,
-              private notificationsService: JobApplicationNotificationsService) { }
+              private notificationsService: JobApplicationNotificationsService,
+              private translate: TranslateService) { }
 
   ngOnInit() {
     this.userService.getUser().subscribe(
@@ -68,12 +70,12 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
     console.log(language);
     if (language === 'GB') {
       const html: NodeListOf<HTMLHtmlElement> = document.getElementsByTagName('html');
-
+      this.translate.use('en');
       html[0].setAttribute('dir', '');
     } else {
       const html: NodeListOf<HTMLHtmlElement> = document.getElementsByTagName('html');
-
       html[0].setAttribute('dir', 'rtl');
+      this.translate.use('ar');
     }
   }
 
