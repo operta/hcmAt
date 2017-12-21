@@ -53,8 +53,9 @@ export function authHttpServiceFactory(http: Http) {
     ToastModule.forRoot(),
     TranslateModule.forRoot({
       provide: TranslateLoader,
-      useFactory: (http: Http) => new TranslateStaticLoader(http, '/assets/i18n', '.json'),
-      deps: [Http]
+      deps: [Http],
+      useFactory: function useFactory(http: Http) { return new TranslateStaticLoader(http, '/assets/i18n', '.json') }
+
     })
   ],
   providers: [

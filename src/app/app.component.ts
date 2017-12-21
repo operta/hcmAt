@@ -1,6 +1,6 @@
 import {Component, ViewContainerRef} from '@angular/core';
 import {ToastsManager} from 'ng2-toastr';
-import {TranslateService} from "ng2-translate";
+import {TranslateService} from 'ng2-translate';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +22,7 @@ export class AppComponent {
     translate.setDefaultLang('en');
 
     // the lang to use, if the lang isn't available, it will use the current loader to get them
-    translate.use('en');
+    translate.use('ar');
   }
 
 }
