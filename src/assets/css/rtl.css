@@ -10,7 +10,13 @@ html[dir="rtl"] #page-wrapper {
   html[dir="rtl"] .content-wrapper #page-wrapper {
     margin: 0 60px 0 0;
   }
+  html[dir="rtl"] .navbar-right .dropdown-menu {
+    left: 0;
+    right: auto;
+  }
 }
+
+
 
 html[dir="rtl"] .top-left-part {
   float: right;
@@ -109,6 +115,14 @@ html[dir="rtl"] .navbar-left {
 html[dir="rtl"] #notification {
   left: 0 !important;
   right: auto !important;
+}
+
+html[dir="rtl"] .drop-title {
+  text-align: right;
+}
+
+html[dir="rtl"] #notificationMore{
+  text-align: right !important;
 }
 /*html[dir="rtl"]
 html[dir="rtl"]
