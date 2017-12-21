@@ -29,11 +29,6 @@
         </li>
       </ul>
       <ul class="nav navbar-top-links navbar-right pull-right">
-        <li>
-          <a class="waves-effect">
-              English
-          </a>
-        </li>
         <li class="dropdown">
           <a data-toggle="dropdown" href="#">
             <i class="icon-envelope"></i>
@@ -76,9 +71,25 @@
           </ul>
           <!-- /.dropdown-messages -->
         </li>
-        <!-- /.dropdown -->
+        <li>
+          <div class="dropdown" style="display: block; min-height: 60px; line-height: 60px; margin: 0 10px" >
+              <button class="btn btn-default btn-rounded dropdown-toggle" type="button" data-toggle="dropdown" style="padding: 5px"><span class="flag-icon flag-icon-gb" style="line-height: 20px; min-width: 50px;"></span>
+              <span class="caret"></span></button>
+            <ul class="dropdown-menu text-center" style="min-width: 60px; padding: 0px; border: none">
+              <li><a type="button" (click)="changeLanguage('GB')" class="btn btn-default" style="font-size:30px; padding: 0px"><span class="flag-icon flag-icon-gb" style="line-height: 20px"></span></a> </li>
+              <li><a type="button" (click)="changeLanguage('SA')" class="btn btn-default" style="font-size: 30px; padding: 0px"><span class="flag-icon flag-icon-sa" style="line-height: 20px"></span></a></li>
 
-        <!-- /.dropdown -->
+            </ul>
+          </div>
+          <!--<div class="flag-icon flag-icon-gb"></div>-->
+          <!--<span class="flag-icon flag-icon-sa"></span>-->
+          <!--<div>-->
+            <!--<select  class="form-control icon-menu" name="countries" id="countries" style="vertical-align: middle; display: inline-block; max-height: 30px" (change)="changeLanguage(t.value)" #t>-->
+              <!--<option value="UK"></option>-->
+              <!--<option selected value="SA"> Arabic</option>-->
+            <!--</select><span class="highlight"></span> <span class="bar"></span>-->
+          <!--</div>-->
+        </li>
       </ul>
     </div>
     <!-- /.navbar-header -->

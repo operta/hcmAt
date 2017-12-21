@@ -1,3 +1,13 @@
 .nav li a:focus {
   background:none !important;
 }
+
+
+select.icon-menu option {
+  background-repeat:no-repeat;
+  background-position:bottom left;
+  padding-left:30px;
+}
+select#countries option[value="UK"] {
+  background-image:url('../../assets/images/gb.png');
+}

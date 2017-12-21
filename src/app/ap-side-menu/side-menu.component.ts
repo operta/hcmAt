@@ -4,6 +4,8 @@ import {UserService} from "../_services/user.service";
 import {JobApplicationNotificationsService} from "../_services/jobApplicationNotification.service";
 import {JobApplicationNotificationModel} from "../_models/jobApplicationNotification.model";
 import {UserModel} from "../_models/user.model";
+import {getHtmlTagDefinition} from "@angular/compiler";
+
 
 declare  let $:any;
 
@@ -59,6 +61,22 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
   countActiveNotifications(notifications: JobApplicationNotificationModel[]){
     this.activeNotificaitons = this.notifications.filter(item => item.is_active == 'Y');
     console.log(this.activeNotificaitons);
+  }
+
+  changeLanguage(language: string) {
+    console.log(language);
+    if (language === 'GB') {
+      const html: NodeListOf<HTMLHtmlElement> = document.getElementsByTagName('html');
+
+      html[0].setAttribute('dir', '');
+    } else {
+      const html: NodeListOf<HTMLHtmlElement> = document.getElementsByTagName('html');
+
+      html[0].setAttribute('dir', 'rtl');
+    }
+
+
+
   }
 
 }

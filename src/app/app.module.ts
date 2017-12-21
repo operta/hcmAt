@@ -23,7 +23,7 @@ import {JobApplicationStatusesService} from "./_services/jobApplicationStatuses.
 import {VacanciesService} from "./_services/vacancies.service";
 import {PaginationService} from "./_services/pagination.service";
 import {PaginationComponent} from "./dashboard/pagination/pagination.component";
-import {TranslateLoader, TranslateModule, TranslateStaticLoader} from "ng2-translate";
+import {TranslateLoader, TranslateModule, TranslateService, TranslateStaticLoader} from "ng2-translate";
 
 export function authHttpServiceFactory(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -51,12 +51,7 @@ export function authHttpServiceFactory(http: Http) {
     SharedModule,
     DashboardModule,
     ToastModule.forRoot(),
-    TranslateModule.forRoot({
-      provide: TranslateLoader,
-      deps: [Http],
-      useFactory: function useFactory(http: Http) { return new TranslateStaticLoader(http, '/assets/i18n', '.json') }
-
-    })
+    TranslateModule.forRoot(  { provide: TranslateLoader, useFactory: translateLoader, deps: [Http] })
   ],
   providers: [
     VacanciesService,
@@ -74,3 +69,4 @@ export function authHttpServiceFactory(http: Http) {
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
+export function translateLoader(http: Http) { return new TranslateStaticLoader(http, 'assets/i18n', '.json')}

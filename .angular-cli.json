@@ -24,6 +24,7 @@
         "../node_modules/metismenu/dist/metisMenu.min.css",
         "../node_modules/magnific-popup/dist/magnific-popup.css",
         "../node_modules/icheck/skins/all.css",
+        "../node_modules/flag-icon-css/css/flag-icon.min.css",
         "assets/css/magnific-popup-extensions.css",
         "assets/css/css-chart.css",
         "assets/css/ng2-toastr.css",

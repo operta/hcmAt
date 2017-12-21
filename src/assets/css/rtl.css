@@ -6,6 +6,12 @@ html[dir="rtl"] #page-wrapper {
   margin: 0 220px 0 0;
 }
 
+@media (min-width:768px) {
+  html[dir="rtl"] .content-wrapper #page-wrapper {
+    margin: 0 60px 0 0;
+  }
+}
+
 html[dir="rtl"] .top-left-part {
   float: right;
 }
