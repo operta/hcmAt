@@ -170,7 +170,12 @@
   "PROFICIENCY": "الكفاءة",
   "OCCUPATION": "المهنة",
   "LICENCENUMBER": "رقم الرخصة",
-  "CERTIFICATIONAUTHORITY": "هيئة التوثيق (الجهة المصدرة للشهادة)"
+  "CERTIFICATIONAUTHORITY": "هيئة التوثيق (الجهة المصدرة للشهادة)",
+  "MESSAGE": "",
+  "VACANCY" : "الشاغر",
+  "DATESENT" : "",
+  "NOTIFICATIONS": "الاشعارات",
+  "NEW" : ""
 
 
 }

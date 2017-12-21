@@ -6,6 +6,7 @@ import {JobApplicationNotificationModel} from "../_models/jobApplicationNotifica
 import {UserModel} from "../_models/user.model";
 import {getHtmlTagDefinition} from "@angular/compiler";
 import {TranslateService} from "ng2-translate";
+import {LanguageService} from "../_services/language.service";
 
 
 declare  let $:any;
@@ -23,13 +24,21 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
   state: string;
   notifications: JobApplicationNotificationModel[];
   activeNotificaitons: JobApplicationNotificationModel[];
+  language: string;
 
   constructor(private router: Router,
               private userService: UserService,
               private notificationsService: JobApplicationNotificationsService,
-              private translate: TranslateService) { }
+              private translate: TranslateService,
+              private languageService: LanguageService) { }
 
   ngOnInit() {
+    this.languageService.getLanguage();
+    console.log(this.languageService.getLanguage());
+    this.languageService.languageObservable.subscribe((result: string) => {
+      this.language = result;
+      console.log(this.language);
+    });
     this.userService.getUser().subscribe(
       (data: UserModel) => {
         this.user = data;
@@ -67,16 +76,7 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
   }
 
   changeLanguage(language: string) {
-    console.log(language);
-    if (language === 'GB') {
-      const html: NodeListOf<HTMLHtmlElement> = document.getElementsByTagName('html');
-      this.translate.use('en');
-      html[0].setAttribute('dir', '');
-    } else {
-      const html: NodeListOf<HTMLHtmlElement> = document.getElementsByTagName('html');
-      html[0].setAttribute('dir', 'rtl');
-      this.translate.use('ar');
-    }
+    this.languageService.changeLanguage(language);
   }
 
   navigateToNotifications() {

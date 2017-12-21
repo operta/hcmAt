@@ -167,6 +167,10 @@
   "PROFICIENCY": "Proficiency",
   "OCCUPATION": "Occupation",
   "LICENCENUMBER": "Licence Number",
-  "CERTIFICATIONAUTHORITY": "Certification Authority"
-
+  "CERTIFICATIONAUTHORITY": "Certification Authority",
+  "MESSAGE": "Message",
+  "VACANCY": "Vacancy",
+  "DATESENT" : "Date sent",
+  "NOTIFICATIONS": "Notifications",
+  "NEW" : "New"
 }

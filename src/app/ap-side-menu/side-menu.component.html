@@ -39,7 +39,7 @@
           </a>
           <ul id="notification" class="dropdown-menu mailbox animated bounceInDown">
             <li>
-              <div class="drop-title">You have {{activeNotificaitons?.length}} new messages</div>
+              <div class="drop-title">{{'YOUHAVE' | translate}} {{activeNotificaitons?.length}} {{'NEWMESSAGES' | translate}}</div>
             </li>
 
             <li>
@@ -47,25 +47,25 @@
                 <div  *ngFor="let notification of notifications | notificationStatusPipe:'Y'; let i=index">
                   <ng-template [ngIf]="i<5">
                     <a (click)="changeNotificationStatus(notification)">
-                      <div class="mail-content">
-                        <h5><strong>{{notification?.id_notification?.subject}} {{notification?.idJobApplication?.vacancyid?.name}}</strong></h5>
-                        <span class="mail-desc">{{notification?.id_notification?.template}}</span>
-                        <span class="time">{{notification?.date_sent | date:'dd/MM/yyyy'}}</span>
+                      <div class="row">
+                        <div class="mail-content col-md-10">
+                          <h5><strong>{{notification?.id_notification?.subject}} {{notification?.idJobApplication?.vacancyid?.name}}</strong></h5>
+                          <span class="mail-desc">{{notification?.id_notification?.template}}</span>
+                          <span class="time">{{notification?.date_sent | date:'dd/MM/yyyy'}}</span>
+                        </div>
+                        <div class="col-md-2">
+                          <p style="color:#fb9678">{{'NEW' | translate}}</p>
+                        </div>
                       </div>
-                      <div class="pull-right">
-                        NEW
-                      </div>
-
                     </a>
                   </ng-template>
-
-              </div>
+                </div>
               </div>
             </li>
             <li>
-              <a class="text-center" (click)="navigateToNotifications()">
-                <strong>See all notifications</strong>
-                <i class="fa fa-angle-right"></i>
+              <a id="notificationMore" class="text-center" (click)="navigateToNotifications()">
+                <strong>{{'SEEALLNOTIFICATIONS' | translate}}</strong>
+                <i [ngClass]="language == 'en' ? 'fa fa-angle-right' : 'fa fa-angle-left'"></i>
               </a>
             </li>
           </ul>
@@ -73,10 +73,10 @@
         </li>
         <li class="dropdown" id="langDrop" >
 
-              <a class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer; color: white"><span class="caret"></span> Language </a>
+              <a class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer; color: white"><span class="caret"></span> {{'LANGUAGE' | translate}} <i class="fa fa-globe" aria-hidden="true"></i></a>
             <ul class="dropdown-menu text-center" style="min-width: 60px; padding: 0px; border: none">
-              <li><a type="button" (click)="changeLanguage('GB')" class="btn btn-default" style="font-size:30px; padding: 0px"><span class="flag-icon flag-icon-gb" style="line-height: 20px"></span></a> </li>
-              <li><a type="button" (click)="changeLanguage('SA')" class="btn btn-default" style="font-size: 30px; padding: 0px"><span class="flag-icon flag-icon-sa" style="line-height: 20px"></span></a></li>
+              <li><a type="button" (click)="changeLanguage('en')" class="btn btn-default" >English</a> </li>
+              <li><a type="button" (click)="changeLanguage('ar')" class="btn btn-default" >Arabic</a></li>
 
             </ul>
 
