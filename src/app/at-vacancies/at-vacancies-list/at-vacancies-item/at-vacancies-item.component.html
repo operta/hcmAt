@@ -39,10 +39,10 @@
               <i class="fa fa-map-marker"></i> {{vacancy.id_location.name}}
             </div>
             <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
-              <b>Division: </b> {{vacancy.id_work_place.name}}
+              <b>{{'DIVISION' | translate}}: </b> {{vacancy.id_work_place.name}}
             </div>
             <div class="col-xs-12 col.sm-6 col-md-6 col-lg-6">
-              <i class="fa fa-clock-o"></i> {{vacancy.date_from | date: 'dd/MM/yyyy'}} - {{vacancy.date_to | date: 'dd/MM/yyyy'}}
+              <i class="fa fa-clock-o"></i> {{vacancy.date_from | date: 'dd/MM/yyyy'}} - <i class="fa fa-clock-o"></i> {{vacancy.date_to | date: 'dd/MM/yyyy'}}
             </div>
             <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
             </div>
@@ -55,7 +55,7 @@
               <span [ngClass]="{'label-success' : vacancy.status.status == 'ACTIVE', 'label-danger' : vacancy.status.status != 'ACTIVE'}" class="label label-table">{{vacancy.status.status}}</span>
             </div>
           </div>
-          <span class="time pull-right"><b>Last update: </b>{{vacancy.updated_at | date:'dd-MM-yyyy HH:mm'}}</span>
+          <span class="time pull-right"><b>{{'LASTUPDATE' | translate}}: </b>{{vacancy.updated_at | date:'dd-MM-yyyy HH:mm'}}</span>
         </span>
       </a>
 
@@ -65,7 +65,7 @@
 
   <app-modal #modalEdit>
     <div class="app-modal-header">
-      Edit Vacancy
+      {{'EDITVACANCY' | translate}}
     </div>
     <div class="app-modal-body">
       <form class="form-horizontal" role="form" (ngSubmit)="f.form.valid && onSubmitEdit(f)" #f="ngForm">
@@ -73,68 +73,68 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vacancy.code }">
-                <label class="col-md-12">Code:</label>
+                <label class="col-md-12">{{'CODE' | translate}}:</label>
                 <div class="col-md-12">
                   <input  type="text" class="form-control"name="code"
                           [(ngModel)]="vacancy && vacancy.code">
                   <span class="highlight"></span><span class="bar"></span>
 
-                  <div *ngIf="f.submitted && !vacancy.code" class="help-block">Field is required</div>
+                  <div *ngIf="f.submitted && !vacancy.code" class="help-block">{{'FIELDISREQUIRED' | translate}}</div>
                 </div>
               </div>
             </div>
             <div class="col-md-12">
               <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vacancy.name }">
-                <label class="col-md-12">Name:</label>
+                <label class="col-md-12">{{'NAME' | translate}}:</label>
                 <div class="col-md-12">
                   <input  type="text" class="form-control"name="name"
                           [(ngModel)]="vacancy && vacancy.name">
                   <span class="highlight"></span><span class="bar"></span>
 
-                  <div *ngIf="f.submitted && !vacancy.name" class="help-block">Field is required</div>
+                  <div *ngIf="f.submitted && !vacancy.name" class="help-block">{{'FIELDISREQUIRED' | translate}}</div>
                 </div>
               </div>
             </div>
             <div class="col-md-12">
               <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vacancy.description }">
-                <label class="col-md-12">Description:</label>
+                <label class="col-md-12">{{'DESCRIPTION' | translate}}:</label>
                 <div class="col-md-12">
                   <input  type="text" class="form-control"name="description"
                           [(ngModel)]="vacancy && vacancy.description">
                   <span class="highlight"></span><span class="bar"></span>
 
-                  <div *ngIf="f.submitted && !vacancy.description" class="help-block">Field is required</div>
+                  <div *ngIf="f.submitted && !vacancy.description" class="help-block">{{'FIELDISREQUIRED' | translate}}</div>
                 </div>
               </div>
             </div>
             <div class="col-md-12">
               <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vacancy.date_from }">
-                <label class="col-md-12">Date from:</label>
+                <label class="col-md-12">{{'DATEFROM' | translate}}:</label>
                 <div class="col-md-12">
                   <input  type="date" class="form-control"name="date_from"
                           [(ngModel)]="vacancy && vacancy.date_from">
                   <span class="highlight"></span><span class="bar"></span>
 
-                  <div *ngIf="f.submitted && !vacancy.date_from" class="help-block">Field is required</div>
+                  <div *ngIf="f.submitted && !vacancy.date_from" class="help-block">{{'FIELDISREQUIRED' | translate}}</div>
                 </div>
               </div>
             </div>
             <div class="col-md-12">
               <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vacancy.date_to }">
-                <label class="col-md-12">Date to:</label>
+                <label class="col-md-12">{{'DATETO' | translate}}:</label>
                 <div class="col-md-12">
                   <input  type="date" class="form-control"name="date_to"
                           [(ngModel)]="vacancy && vacancy.date_to">
                   <span class="highlight"></span><span class="bar"></span>
 
-                  <div *ngIf="f.submitted && !vacancy.date_to" class="help-block">Field is required</div>
+                  <div *ngIf="f.submitted && !vacancy.date_to" class="help-block">{{'FIELDISREQUIRED' | translate}}</div>
                 </div>
               </div>
             </div>
 
             <div class="col-md-12"  *ngIf="selectedRegion">
               <div class="form-group">
-                <label class="col-md-12">Region Select:</label>
+                <label class="col-md-12">{{'REGION' | translate}}:</label>
                 <div class="col-md-12">
                   <select class="form-control p-0" (change)="onRegionSelected(t.value)" #t>
                     <option *ngFor="let region of regions" [selected]="region?.id == selectedRegion.id" [ngValue]="region">{{region.name}}</option>
@@ -144,7 +144,7 @@
             </div>
             <div class="col-md-12"  *ngIf="selectedWorkplace">
               <div class="form-group">
-                <label class="col-md-12">Workplace Select:</label>
+                <label class="col-md-12">{{'WORKPLACE' | translate}}:</label>
                 <div class="col-md-12">
                   <select class="form-control p-0"  (change)="onWorkplaceSelected(t.value)" #t>
                     <option *ngFor="let workplace of workplaces" [selected]="workplace?.id == selectedWorkplace.id" [ngValue]="workplace">{{workplace.name}}</option>
@@ -153,19 +153,19 @@
             </div>
               <div class="col-md-12">
                 <div class="form-group">
-                  <label class="col-md-12">Status:</label>
+                  <label class="col-md-12">{{'STATUS' | translate}}:</label>
                   <div class="col-md-12">
                     <select class="form-control p-0" (change)=onStatusSelected(t.value) #t>
-                      <option [selected]="vacancy?.status.status == 'ACTIVE'" value="ACTIVE">Active</option>
-                      <option [selected]="vacancy?.status.status == 'CLOSED'" value="CLOSED">Closed</option>
+                      <option [selected]="vacancy?.status.status == 'ACTIVE'" value="ACTIVE">{{'ACTIVE' | translate}}</option>
+                      <option [selected]="vacancy?.status.status == 'CLOSED'" value="CLOSED">{{'CLOSED' | translate}}</option>
                     </select><span class="highlight"></span> <span class="bar"></span>
                   </div>
                 </div>
               </div>
 
           </div>
-          <button (click)="modalEdit.hide()" #cancelEdit class="pull-right saveButton btn btn-default">Cancel</button>
-          <button  class="pull-right saveButton btn btn-success" type="submit">Save</button>
+          <button (click)="modalEdit.hide()" #cancelEdit class="pull-right saveButton btn btn-default">{{'CANCEL' | translate}}</button>
+          <button  class="pull-right saveButton btn btn-success" type="submit">{{'SAVE' | translate}}</button>
           </div>
         </div>
       </form>
@@ -174,7 +174,7 @@
 
   <app-modal #modalApply>
     <div class="app-modal-header">
-     Vacancy
+      {{'VACANCY' | translate}}
     </div>
     <div class="app-modal-body">
       <form class="form-horizontal" role="form">
@@ -183,55 +183,55 @@
 
             <div class="col-md-12">
               <div class="form-group" >
-                <label>Code:</label>
+                <label>{{'CODE' | translate}}:</label>
                 <p> {{vacancy?.code}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>Name:</label>
+                <label>{{'NAME' | translate}}:</label>
                 <p> {{vacancy?.name}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>Description:</label>
+                <label>{{'DESCRIPTION' | translate}}:</label>
                 <p> {{vacancy?.description}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>Date from:</label>
+                <label>{{'DATEFROM' | translate}}:</label>
                 <p> {{vacancy?.date_from}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group" >
-                <label>Date to:</label>
+                <label>{{'DATETO' | translate}}:</label>
                 <p> {{vacancy?.date_to}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>Region:</label>
+                <label>{{'REGION' | translate}}:</label>
                 <p> {{vacancy?.id_location.name}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>Workplace:</label>
+                <label>{{'WORKPLACE' | translate}}:</label>
                 <p> {{vacancy?.id_work_place.name}} </p>
               </div>
             </div>
 
-            <button (click)="modalApply.hide()" #cancelApply class="pull-right saveButton btn btn-default">Cancel</button>
-            <button (click)="apply()" class="pull-right saveButton btn btn-success">Apply</button>
+            <button (click)="modalApply.hide()" #cancelApply class="pull-right saveButton btn btn-default">{{'CANCEL' | translate}}</button>
+            <button (click)="apply()" class="pull-right saveButton btn btn-success">{{'APPLY' | translate}}</button>
           </div>
         </div>
       </form>
@@ -241,17 +241,16 @@
 
   <app-modal #modalDelete>
     <div class="app-modal-header">
-      Confirm action
+      {{'CONFIRMACTION' | translate}}
     </div>
     <div class="app-modal-body">
-      Are you sure you want to delete this vacancy?
+      {{'AREYOUSUREYOUWANTTODELETETHISITEM' | translate}}
     </div>
     <div class="app-modal-footer">
-      <button type="button" class="btn btn-default" (click)="modalDelete.hide()">Cancel</button>
-      <button type="button" class="btn btn-danger"  (click)="deleteVacancy(this.vacancy)">Delete</button>
+      <button type="button" class="btn btn-default" (click)="modalDelete.hide()">{{'CANCEL' | translate}}</button>
+      <button type="button" class="btn btn-danger"  (click)="deleteVacancy(this.vacancy)">{{'DELETE' | translate}}</button>
     </div>
   </app-modal>
-
 
 
 

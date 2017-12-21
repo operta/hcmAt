@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label class="control-label col-md-3">Institution:</label>
+              <label class="control-label col-md-3">{{ 'INSTITUTION' | translate }}:</label>
               <div class="col-md-9">
                 <select class="form-control p-0" id="selectedSchool" [(ngModel)]="selectedSchool" name="selectedSchool">
                   <option *ngFor="let school of schools"  [ngValue]="school">{{school?.name}}</option>
@@ -17,7 +17,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label class="control-label col-md-3">Degree:</label>
+              <label class="control-label col-md-3">{{ 'DEGREE' | translate }}:</label>
               <div class="col-md-9">
                 <select class="form-control p-0" id="selectedQualificaiton" [(ngModel)]="selectedQualification" name="selectedQualification">
                   <option *ngFor="let qualification of qualifications"  [ngValue]="qualification">{{qualification?.name}}</option>
@@ -27,12 +27,12 @@
           </div>
           <div class="col-md-6">
             <div class="form-group" [ngClass]="{ 'has-error': formEducation.submitted && !major.valid }">
-              <label class="control-label col-md-3">Field of study:</label>
+              <label class="control-label col-md-3">{{ 'FIELDOFSTUDY' | translate }}:</label>
               <div class="col-md-9">
                 <input required type="text" class="form-control" id="major" name="major" ngModel #major="ngModel">
                 <span class="highlight"></span>
                 <span class="bar"></span>
-                <div *ngIf="formEducation.submitted && !major.valid" class="help-block">Field is required</div>
+                <div *ngIf="formEducation.submitted && !major.valid" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
               </div>
             </div>
           </div>
@@ -40,23 +40,23 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group" [ngClass]="{ 'has-error': formEducation.submitted && !dateFrom.valid }">
-              <label class="control-label col-md-3">From year:</label>
+              <label class="control-label col-md-3">{{ 'FROMYEAR' | translate }}:</label>
               <div class="col-md-9">
                 <input required type="date" class="form-control" id="dateFrom" name="dateFrom" #dateFrom="ngModel" ngModel>
                 <span class="highlight"></span>
                 <span class="bar"></span>
-                <div *ngIf="formEducation.submitted && !dateFrom.valid" class="help-block">Field is required</div>
+                <div *ngIf="formEducation.submitted && !dateFrom.valid" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group" [ngClass]="{ 'has-error': formEducation.submitted && !date_to.valid }">
-              <label class="control-label col-md-3">To year <br>(or expected):</label>
+              <label class="control-label col-md-3">{{ 'TOYEAR' | translate }} <br>(or expected):</label>
               <div class="col-md-9">
                 <input required type="date" class="form-control" id="date_to" name="date_to" #date_to="ngModel" ngModel>
                 <span class="highlight"></span>
                 <span class="bar"></span>
-                <div *ngIf="formEducation.submitted && !date_to.valid" class="help-block">Field is required</div>
+                <div *ngIf="formEducation.submitted && !date_to.valid" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
               </div>
             </div>
           </div>
@@ -64,18 +64,18 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group" [ngClass]="{ 'has-error': formEducation.submitted && !grade.valid }">
-              <label class="control-label col-md-3">Grade:</label>
+              <label class="control-label col-md-3">{{ 'GRADE' | translate }}:</label>
               <div class="col-md-9">
                 <input required type="number" class="form-control" id="grade" name="grade" ngModel #grade="ngModel">
                 <span class="highlight"></span>
                 <span class="bar"></span>
-                <div *ngIf="formEducation.submitted && !grade.valid" class="help-block">Field is required</div>
+                <div *ngIf="formEducation.submitted && !grade.valid" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label class="control-label col-md-3">Description:</label>
+              <label class="control-label col-md-3">{{ 'DESCRIPTION' | translate }}:</label>
               <div class="col-md-9">
                 <input type="text" class="form-control" id="description" name="description" ngModel>
                 <span class="highlight"></span>
@@ -87,7 +87,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label class="control-label col-md-3">Link:</label>
+              <label class="control-label col-md-3">{{ 'LINK' | translate }}:</label>
               <div class="col-md-9">
                 <input type="text" class="form-control" id="link" name="link" ngModel>
                 <span class="highlight"></span>
@@ -97,8 +97,8 @@
           </div>
         </div>
       </div>
-      <button (click)="close()" class="pull-right saveButton btn btn-default">Cancel</button>
-      <button  class="pull-right saveButton btn btn-success" type="submit">Add <i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button (click)="close()" class="pull-right saveButton btn btn-default">{{ 'CANCEL' | translate }}</button>
+      <button  class="pull-right saveButton btn btn-success" type="submit">{{ 'ADD' | translate }} <i class="fa fa-plus" aria-hidden="true"></i></button>
     </form>
   </div>
 </div>

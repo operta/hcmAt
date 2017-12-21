@@ -25,7 +25,7 @@
             <i class="fa fa-map-marker"></i> {{vacancy.id_location.name}}
           </div>
           <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
-            <b>Division: </b> {{vacancy.id_work_place.name}}
+            <b>{{'DIVISION' | translate}}: </b> {{vacancy.id_work_place.name}}
           </div>
 
 
@@ -46,17 +46,17 @@
               <span [ngClass]="{'label-success' : status.name == 'Accepted', 'label-danger' : status.name === 'Declined', 'label-info' : status.name !='Accepted' && status.name !='Declined' }" class="label label-table">{{status.name}}</span>
           </div>
 
-        <span class="time pull-right"><b>Last update: </b>{{vacancy.updated_at | date:'dd-MM-yyyy HH:mm'}}</span>
+        <span class="time pull-right"><b>{{'LASTUPDATE' | translate}}: </b>{{vacancy.updated_at | date:'dd-MM-yyyy HH:mm'}}</span>
 
       </span>
         <div class="d-inline-block m-t-10" *ngIf="vacancy.status.code === 1">
-          <span class="label label-rounded label-info" style="" >Pending</span>
+          <span class="label label-rounded label-info" style="" >{{ "PENDING" | translate }}</span>
         </div>
         <div class="d-inline-block m-t-10" *ngIf="vacancy.status.code === 5">
-          <span class="label label-rounded label-danger" style="" >Rejected</span>
+          <span class="label label-rounded label-danger" style="" >{{ "REJECTED" | translate }}</span>
         </div>
         <div class="d-inline-block m-t-10" *ngIf="vacancy.status.code === 9">
-          <span class="label label-rounded label-success" style="" >Accepted</span>
+          <span class="label label-rounded label-success" style="" >{{ "ACCEPTED" | translate }}</span>
         </div>
 
       </div>
