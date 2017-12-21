@@ -4,7 +4,7 @@
           <div class="col-md-9 col-lg-9">
 
               <div class="input-group stylish-input-group">
-                <input type="text" class="form-control" [(ngModel)]="searchValue" placeholder="Type to search..." >
+                <input type="text" class="form-control" [(ngModel)]="searchValue" placeholder="{{'TYPETOSEARCH' | translate}}" >
                 <span class="input-group-addon">
                         <button type="submit">
                             <span class="glyphicon glyphicon-search"></span>
@@ -17,7 +17,7 @@
 
             <div class="pull right">
 
-              <button class="btn btn-default btn-rounded" data-perform="panel-collapse">Advanced Search <i class="ti-plus"></i> </button>
+              <button class="btn btn-default btn-rounded" data-perform="panel-collapse">{{'ADVANCEDSEARCH' | translate}} <i class="ti-plus"></i> </button>
               <button *ngIf="!loading" (click)="refresh()" class="btn btn-info btn-rounded"><i class="fa fa-refresh" aria-hidden="true"></i></button>
               <button *ngIf="loading" class="btn btn-info btn-rounded pull-right"><i class="fa fa-refresh fa-spin"></i></button>
 
@@ -26,8 +26,6 @@
 
         </div>
       </div>
-  <div class="row">{{'HELLO' | translate}}</div>
-
   <div class="panel-wrapper collapse out">
         <div class="panel-body p-l-0 p-r-0">
           <div class="row">
