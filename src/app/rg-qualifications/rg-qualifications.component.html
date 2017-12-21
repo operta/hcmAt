@@ -7,12 +7,12 @@
         <div class="white-box">
           <div class="row">
             <div class="col-md-9">
-              <h3 class="box-title m-b-0">QUALIFICATIONS</h3>
-              <p class="text-muted m-b-30">Qualifications for employees and applicants</p>
+              <h3 class="box-title m-b-0">{{ 'QUALIFICATIONS' | translate }}</h3>
+              <p class="text-muted m-b-30">{{ 'QUALIFICATIONSFOREMPLOYEESANDAPPLICANTS' | translate }}</p>
             </div>
             <div class="col-md-3">
               <div class="pull-right">
-                <button (click)="modalAdd.show();" class="btn btn-info btn-rounded">Add <i class="fa fa-plus" aria-hidden="true"></i></button>
+                <button (click)="modalAdd.show();" class="btn btn-info btn-rounded">{{ 'ADD' | translate }} <i class="fa fa-plus" aria-hidden="true"></i></button>
               </div>
             </div>
           </div>
@@ -22,10 +22,10 @@
             <table id="example23" class="table table-striped">
               <thead>
               <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Actions</th>
+                <th>{{ 'CODE' | translate }}</th>
+                <th>{{ 'NAME' | translate }}</th>
+                <th>{{ 'DESCRIPTION' | translate }}</th>
+                <th>{{ 'ACTIONS' | translate }}</th>
                 <app-loader [loading]="loading"></app-loader>
               </tr>
               </thead>
@@ -53,7 +53,7 @@
 
 <app-modal #modalAdd>
   <div class="app-modal-header">
-    Add new qualification
+    {{ 'ADDNEWQUALIFICATIONS' | translate }}
   </div>
   <div class="app-modal-body">
     <form class="form-horizontal" role="form" (ngSubmit)="formAdd.form.valid && onSubmitAdd(formAdd)" #formAdd="ngForm">
@@ -61,43 +61,43 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group" [ngClass]="{ 'has-error': formAdd.submitted && !code.valid }">
-              <label class="col-md-12">Code:</label>
+              <label class="col-md-12">{{ 'CODE' | translate }}:</label>
               <div class="col-md-12">
                 <input required type="text" class="form-control" name="code"
                        #code="ngModel" ngModel>
                 <span class="highlight"></span><span class="bar"></span>
-                <div *ngIf="formAdd.submitted && !code.valid" class="help-block">Field is required</div>
+                <div *ngIf="formAdd.submitted && !code.valid" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
               </div>
             </div>
           </div>
           <div class="col-md-12">
             <div class="form-group" [ngClass]="{ 'has-error': formAdd.submitted && !name.valid }">
-              <label class="col-md-12">Name:</label>
+              <label class="col-md-12">{{ 'NAME' | translate }}:</label>
               <div class="col-md-12">
                 <input  required type="text" class="form-control" name="name"
                         #name="ngModel" ngModel>
                 <span class="highlight"></span><span class="bar"></span>
 
-                <div *ngIf="formAdd.submitted && !name.valid" class="help-block">Field is required</div>
+                <div *ngIf="formAdd.submitted && !name.valid" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
               </div>
             </div>
           </div>
           <div class="col-md-12">
             <div class="form-group" [ngClass]="{ 'has-error': formAdd.submitted && !description.valid }">
-              <label class="col-md-12">Description:</label>
+              <label class="col-md-12">{{ 'DESCRIPTION' | translate }}:</label>
               <div class="col-md-12">
                 <input required type="text" class="form-control" name="description"
                        #description="ngModel" ngModel>
                 <span class="highlight"></span><span class="bar"></span>
 
-                <div *ngIf="formAdd.submitted && !description.valid" class="help-block">Field is required</div>
+                <div *ngIf="formAdd.submitted && !description.valid" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
               </div>
             </div>
           </div>
 
         </div>
-        <button (click)="modalAdd.hide()" #cancelAdd class="pull-right saveButton btn btn-default">Cancel</button>
-        <button  class="pull-right saveButton btn btn-success" type="submit">Add</button>
+        <button (click)="modalAdd.hide()" #cancelAdd class="pull-right saveButton btn btn-default">{{ 'CANCEL' | translate }}</button>
+        <button  class="pull-right saveButton btn btn-success" type="submit">{{ 'ADD' | translate }}</button>
       </div>
     </form>
   </div>
@@ -105,7 +105,7 @@
 
 <app-modal #modalEdit>
   <div class="app-modal-header">
-    Edit qualification
+    {{ 'EDITQUALIFICATION' | translate }}
   </div>
   <div class="app-modal-body">
     <form class="form-horizontal" role="form" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm">
@@ -113,43 +113,43 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !selectedQualification.code }">
-              <label class="col-md-12">Code:</label>
+              <label class="col-md-12">{{ 'CODE' | translate }}:</label>
               <div class="col-md-12">
                 <input  type="text" class="form-control"name="code"
                         [(ngModel)]="selectedQualification && selectedQualification.code">
                 <span class="highlight"></span><span class="bar"></span>
 
-                <div *ngIf="f.submitted && !selectedQualification.code" class="help-block">Field is required</div>
+                <div *ngIf="f.submitted && !selectedQualification.code" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
               </div>
             </div>
           </div>
           <div class="col-md-12">
             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !selectedQualification.name }">
-              <label class="col-md-12">Name:</label>
+              <label class="col-md-12">{{ 'NAME' | translate }}:</label>
               <div class="col-md-12">
                 <input  type="text" class="form-control"name="name"
                         [(ngModel)]="selectedQualification && selectedQualification.name">
                 <span class="highlight"></span><span class="bar"></span>
 
-                <div *ngIf="f.submitted && !selectedQualification.name" class="help-block">Field is required</div>
+                <div *ngIf="f.submitted && !selectedQualification.name" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
               </div>
             </div>
           </div>
           <div class="col-md-12">
             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !selectedQualification.description }">
-              <label class="col-md-12">Description:</label>
+              <label class="col-md-12">{{ 'DESCRIPTION' | translate }}:</label>
               <div class="col-md-12">
                 <input  type="text" class="form-control"name="description"
                         [(ngModel)]="selectedQualification && selectedQualification.description">
                 <span class="highlight"></span><span class="bar"></span>
 
-                <div *ngIf="f.submitted && !selectedQualification.description" class="help-block">Field is required</div>
+                <div *ngIf="f.submitted && !selectedQualification.description" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
               </div>
             </div>
           </div>
         </div>
-        <button (click)="modalEdit.hide()" #cancelEdit class="pull-right saveButton btn btn-default">Cancel</button>
-        <button  class="pull-right saveButton btn btn-success" type="submit">Save</button>
+        <button (click)="modalEdit.hide()" #cancelEdit class="pull-right saveButton btn btn-default">{{ 'CANCEL' | translate }}</button>
+        <button  class="pull-right saveButton btn btn-success" type="submit">{{ 'SAVE' | translate }}</button>
       </div>
     </form>
   </div>
@@ -160,14 +160,14 @@
 
 <app-modal #modalDelete>
   <div class="app-modal-header">
-    Confirm action
+    {{ 'CONFIRMACTION' | translate }}
   </div>
   <div class="app-modal-body">
-    Are you sure you want to delete this item?
+    {{ 'AREYOUSUREYOUWANTTODELETETHISITEM' | translate }}
   </div>
   <div class="app-modal-footer">
-    <button type="button" class="btn btn-default" (click)="modalDelete.hide()">Cancel</button>
-    <button type="button" class="btn btn-danger"  (click)="removeQualification(this.selectedQualification); modalDelete.hide()">Delete</button>
+    <button type="button" class="btn btn-default" (click)="modalDelete.hide()">{{ 'CANCEL' | translate }}</button>
+    <button type="button" class="btn btn-danger"  (click)="removeQualification(this.selectedQualification); modalDelete.hide()">{{ 'DELETE' | translate }}</button>
   </div>
 </app-modal>
 

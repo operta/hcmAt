@@ -1,8 +1,8 @@
 <div *ngIf="pages.length > 1" class="row">
   <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
-    Showing
+    {{ 'SHOWING' | translate }}
     {{resultCount}}
-    results per page.
+    {{ 'RESULTSPERPAGE' | translate }}.
   </div>
 
   <ng-container *ngIf="pages.length > 1" >

@@ -1,7 +1,7 @@
 <div *ngIf="checkAccomplishmentType('Certification')">
   <div class="box-title p-b-10 p-t-10 p-r-10">
     <i class="fa icon-badge m-r-5 m-l-15 section-icon-at"></i>
-    <span class="section-title section-title-at">{{ 'CERTIFICATIOS' | translate }}</span>
+    <span class="section-title section-title-at">{{ 'CERTIFICATIONS' | translate }}</span>
   </div>
   <app-at-applicant-accomplishments-item *ngFor="let accomplishment of applicantAccomplishments | accomplishmentTypePipe:'Certification'" [applicantAccomplishment]="accomplishment" [editable]="editable"></app-at-applicant-accomplishments-item>
 </div>

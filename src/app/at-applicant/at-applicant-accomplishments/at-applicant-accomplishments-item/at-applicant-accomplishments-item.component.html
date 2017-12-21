@@ -17,7 +17,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">{{applicantAccomplishment?.id_accomplishment_type.name}} {{ 'NAME' | translate }}:</label>
+                <label class="control-label col-md-3">{{ 'NAME' | translate }}:</label>
                 <div class="col-md-9">
                   <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.title}}</p>
                   <input *ngIf="isEdit"  type="text" class="form-control" id="title" name="title"
@@ -146,7 +146,7 @@
 </div>
 <app-modal #modal>
   <div class="app-modal-header">
-    {{ 'CONFIRMACTION' | translate }}
+    {{ 'CONFIRMATION' | translate }}
   </div>
   <div class="app-modal-body">
     {{ 'AREYOUSUREYOUWANTTODELETETHISITEM' | translate }}

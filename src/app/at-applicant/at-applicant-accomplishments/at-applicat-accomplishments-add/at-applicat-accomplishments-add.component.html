@@ -11,7 +11,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group" [ngClass]="{ 'has-error': formAccomplishment.submitted && !name.valid }">
-                <label class="control-label col-md-3">{{selectedAccomplishmentType?.name}} {{ 'NAME' | translate }}:</label>
+                <label class="control-label col-md-3">{{ 'NAME' | translate }}:</label>
                 <div class="col-md-9">
                   <input required type="text" class="form-control" id="title" name="title" ngModel #name="ngModel">
                   <div *ngIf="formAccomplishment.submitted && !name.valid" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
