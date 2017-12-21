@@ -36,7 +36,7 @@ export class VacanciesService {
 
   addJobApplicationToVacancy(jobApplication: JobApplicationModel){
     console.log(jobApplication);
-    this.vacancies.filter(item => item.id == jobApplication.vacancyid.id)[0].jobApplications.push(jobApplication);
+    this.vacancies.filter(item => item.id === jobApplication.vacancyid.id)[0].jobApplications.push(jobApplication);
 
   }
 

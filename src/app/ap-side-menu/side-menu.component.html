@@ -29,15 +29,20 @@
         </li>
       </ul>
       <ul class="nav navbar-top-links navbar-right pull-right">
+        <li>
+          <a class="waves-effect">
+              English
+          </a>
+        </li>
         <li class="dropdown">
-          <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#">
+          <a data-toggle="dropdown" href="#">
             <i class="icon-envelope"></i>
             <div *ngIf="activeNotificaitons?.length != 0" class="notify">
               <span  class="heartbit"></span>
               <span class="point"></span>
             </div>
           </a>
-          <ul class="dropdown-menu mailbox animated bounceInDown">
+          <ul id="notification" class="dropdown-menu mailbox animated bounceInDown">
             <li>
               <div class="drop-title">You have {{activeNotificaitons?.length}} new messages</div>
             </li>

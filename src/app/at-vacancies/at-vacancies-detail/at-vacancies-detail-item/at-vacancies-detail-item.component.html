@@ -30,7 +30,7 @@
               </div>
               <div class="col-lg-4">
                   <div class="row">
-                      <div class="col-lg-6">
+                      <div class="col-lg-6 grades">
                           <div  class="row">
                               <div *ngIf="jobApplication.interview.length > 0" class="col-lg-12">
                                   <b>Interview</b>
@@ -68,7 +68,7 @@
           </div>
       </span>
     </a>
-    <div class="col-md-4">
+    <div class="col-md-4 changeStatus">
       <span class="label label-rounded label-default" style="color:black !important;">{{jobApplication?.id_status?.name}}</span>
       <label>Change status:</label>
       <select  class="form-control p-0" [(ngModel)]="selectedStatus" name="selectedStatus" (change)="updateStatus(selectedStatus)">

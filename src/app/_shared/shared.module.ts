@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {ModalComponent} from "./modal.component";
 import {LoaderComponent} from "./loader/loader.component";
 import {PaginationService} from "../_services/pagination.service";
+import {TranslateModule} from "ng2-translate";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {PaginationService} from "../_services/pagination.service";
     ReactiveFormsModule,
     FormsModule,
     ModalComponent,
-    LoaderComponent
+    LoaderComponent,
+    TranslateModule
   ]
 })
 
