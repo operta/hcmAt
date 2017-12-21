@@ -17,7 +17,7 @@ import {AuthGuard} from './_services/auth-guard.service';
 import {AdminAuthGuard} from './_services/admin-auth-guard.service';
 import {JsogService} from 'jsog-typescript';
 import {AtJobApplicationsService} from './_services/at-job-applications.service';
-import {ToastModule} from "ng2-toastr";
+import {ToastModule, ToastOptions} from "ng2-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {JobApplicationStatusesService} from "./_services/jobApplicationStatuses.service";
 import {VacanciesService} from "./_services/vacancies.service";
@@ -34,6 +34,12 @@ export function authHttpServiceFactory(http: Http) {
     noTokenScheme: true,
     tokenGetter: (() => localStorage.getItem(TOKEN_NAME))
   }), http);
+}
+
+
+export class CustomOption extends ToastOptions {
+  animate = 'flyLeft';
+  positionClass = 'toast-bottom-left';
 }
 
 @NgModule({
@@ -68,7 +74,8 @@ export function authHttpServiceFactory(http: Http) {
     AdminAuthGuard,
     AtJobApplicationsService,
     JobApplicationStatusesService,
-    PaginationService
+    PaginationService,
+    {provide: ToastOptions, useClass: CustomOption}
   ],
   bootstrap: [ AppComponent ]
 })

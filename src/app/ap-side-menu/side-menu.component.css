@@ -1,13 +1,23 @@
 .nav li a:focus {
   background:none !important;
 }
-
-
-select.icon-menu option {
-  background-repeat:no-repeat;
-  background-position:bottom left;
-  padding-left:30px;
+#langDrop a:active, #langDrop a:hover, #langDrop a:focus {
+  font-weight: 500;
+  background-color: transparent ;
 }
-select#countries option[value="UK"] {
-  background-image:url('../../assets/images/gb.png');
+#langDrop a {
+  background-color: transparent;
+}
+html #langDrop .dropdown-toggle::before {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: .255em;
+  vertical-align: .255em;
+  content: "";
+  border-top: .3em solid;
+  border-right: .3em solid transparent;
+  border-bottom: 0;
+  border-left: .3em solid transparent;
+  /* float: right; */
 }

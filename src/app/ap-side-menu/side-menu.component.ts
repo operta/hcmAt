@@ -23,44 +23,45 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
   notifications: JobApplicationNotificationModel[];
   activeNotificaitons: JobApplicationNotificationModel[];
 
-  constructor(private router: Router, private userService: UserService, private notificationsService: JobApplicationNotificationsService) { }
+  constructor(private router: Router,
+              private userService: UserService,
+              private notificationsService: JobApplicationNotificationsService) { }
 
   ngOnInit() {
     this.userService.getUser().subscribe(
       (data: UserModel) => {
-        this.user = data
-        console.log(this.user);
+        this.user = data;
       }
     );
     this.notificationsService.getJobApplicationNotifications();
     this.notificationsService.jobApplicationNotificationsObserver.subscribe(
       (data: JobApplicationNotificationModel[]) => {
-        this.notifications = data;
+        this.notifications = data.filter(item => item.idJobApplication.applicantid.idUser.id === this.user.id );
         this.countActiveNotifications(this.notifications);
       }
-    )
+    );
 
     this.isAdmin = this.userService.isAdminUser();
-  }
-
-  logout(){
-    this.userService.logout();
   }
 
   ngAfterViewInit() {
     $(".preloader").fadeOut();
     ($(this.sideMenu.nativeElement)).metisMenu();
     $('.slimscrollsidebar').slimScroll({
-        height: '100%'
-        , position: 'right'
-        , size: "0px"
-        , color: '#dcdcdc'
-    , });
+      height: '100%'
+      , position: 'right'
+      , size: "0px"
+      , color: '#dcdcdc'
+      , });
   }
 
-  countActiveNotifications(notifications: JobApplicationNotificationModel[]){
-    this.activeNotificaitons = this.notifications.filter(item => item.is_active == 'Y');
-    console.log(this.activeNotificaitons);
+
+  logout() {
+    this.userService.logout();
+  }
+
+  countActiveNotifications(notifications: JobApplicationNotificationModel[]) {
+    this.activeNotificaitons = this.notifications.filter(item => item.is_active === 'Y');
   }
 
   changeLanguage(language: string) {
@@ -74,9 +75,18 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
 
       html[0].setAttribute('dir', 'rtl');
     }
-
-
-
   }
+
+  navigateToNotifications() {
+    this.router.navigate(['/dashboard/notifications', this.user.id])
+  }
+
+  changeNotificationStatus(notification: JobApplicationNotificationModel) {
+    if (notification.is_active == 'Y') {
+      notification.is_active = 'N';
+      this.notificationsService.updateJobApplicationNotification(notification);
+    }
+  }
+
 
 }

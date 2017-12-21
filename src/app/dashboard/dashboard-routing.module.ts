@@ -20,6 +20,7 @@ import {AtJobApplicationStatusesComponent} from "../at-job-application-statuses/
 import {UserResolver} from "../_services/userResolver.service";
 import {CompaniesComponent} from "../companies/companies.component";
 import {ApplicantVideosComponent} from "../applicant-videos/applicant-videos.component";
+import {AtJobApplicationNotificationsComponent} from "../at-job-application-notifications/at-job-application-notifications.component";
 
 
 const dashboardRoutes: Routes = [
@@ -107,6 +108,11 @@ const dashboardRoutes: Routes = [
         component: ApplicantVideosComponent,
         canActivate: [AuthGuard]
       },
+      {
+        path: 'notifications/:id',
+        component: AtJobApplicationNotificationsComponent,
+        canActivate: [AuthGuard]
+      }
   ] }
 ];
 

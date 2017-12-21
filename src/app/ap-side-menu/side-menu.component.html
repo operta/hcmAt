@@ -46,16 +46,16 @@
               <div  class="message-center">
                 <div  *ngFor="let notification of notifications | notificationStatusPipe:'Y'; let i=index">
                   <ng-template [ngIf]="i<5">
-                    <a style="pointer-events: none;">
-                      <div class="user-img" >
-                        <img src="assets/images/users/pawandeep.jpg" alt="user" class="img-circle">
-                        <span class="profile-status offline pull-right"></span>
-                      </div>
-                      <div class="mail-contnet">
-                        <h5>{{notification?.id_notification?.subject}} {{notification?.idJobApplication?.vacancyid?.name}}</h5>
+                    <a (click)="changeNotificationStatus(notification)">
+                      <div class="mail-content">
+                        <h5><strong>{{notification?.id_notification?.subject}} {{notification?.idJobApplication?.vacancyid?.name}}</strong></h5>
                         <span class="mail-desc">{{notification?.id_notification?.template}}</span>
                         <span class="time">{{notification?.date_sent | date:'dd/MM/yyyy'}}</span>
                       </div>
+                      <div class="pull-right">
+                        NEW
+                      </div>
+
                     </a>
                   </ng-template>
 
@@ -63,7 +63,7 @@
               </div>
             </li>
             <li>
-              <a style="pointer-events: none;" class="text-center">
+              <a class="text-center" (click)="navigateToNotifications()">
                 <strong>See all notifications</strong>
                 <i class="fa fa-angle-right"></i>
               </a>
@@ -71,16 +71,15 @@
           </ul>
           <!-- /.dropdown-messages -->
         </li>
-        <li>
-          <div class="dropdown" style="display: block; min-height: 60px; line-height: 60px; margin: 0 10px" >
-              <button class="btn btn-default btn-rounded dropdown-toggle" type="button" data-toggle="dropdown" style="padding: 5px"><span class="flag-icon flag-icon-gb" style="line-height: 20px; min-width: 50px;"></span>
-              <span class="caret"></span></button>
+        <li class="dropdown" id="langDrop" >
+
+              <a class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer; color: white"><span class="caret"></span> Language </a>
             <ul class="dropdown-menu text-center" style="min-width: 60px; padding: 0px; border: none">
               <li><a type="button" (click)="changeLanguage('GB')" class="btn btn-default" style="font-size:30px; padding: 0px"><span class="flag-icon flag-icon-gb" style="line-height: 20px"></span></a> </li>
               <li><a type="button" (click)="changeLanguage('SA')" class="btn btn-default" style="font-size: 30px; padding: 0px"><span class="flag-icon flag-icon-sa" style="line-height: 20px"></span></a></li>
 
             </ul>
-          </div>
+
           <!--<div class="flag-icon flag-icon-gb"></div>-->
           <!--<span class="flag-icon flag-icon-sa"></span>-->
           <!--<div>-->

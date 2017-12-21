@@ -1,3 +1,39 @@
-<p>
-  at-job-application-notifications works!
-</p>
+<!-- Page Content -->
+
+
+<!-- /row -->
+<div class="row">
+  <div class="col-sm-12">
+    <div class="white-box">
+      <div class="row">
+        <div class="col-md-9">
+          <h3 class="box-title m-b-0">NOTIFICATIONS</h3>
+        </div>
+      </div>
+
+
+      <div class="table-responsive">
+        <table id="example23" class="table">
+          <thead>
+          <tr>
+            <th>Vacancy</th>
+            <th>Notification</th>
+            <th>Date Sent</th>
+            <app-loader [loading]="loading"></app-loader>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor="let notification of notifications" [ngStyle]="notification?.is_active == 'Y' && {'background-color': '#edf2fa'}" (click)="changeNotificationStatus(notification)">
+            <td>{{notification?.idJobApplication.vacancyid.name}}</td>
+            <td>{{notification?.id_notification.template}}</td>
+            <td>{{notification?.dateSent | date:'dd/MM/yyyy HH:mm'}}</td>
+          </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
