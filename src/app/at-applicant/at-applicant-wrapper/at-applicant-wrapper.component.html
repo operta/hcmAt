@@ -1,7 +1,3 @@
 
-<div id="page-wrapper" class="page-wrapper-at">
   <app-loader [loading]="loading"></app-loader>
-  <div class="container-fluid-at">
     <app-applicant *ngIf="!loading" [applicant]="applicant" [editable]="true" [user]="user"></app-applicant>
-  </div>
-</div>

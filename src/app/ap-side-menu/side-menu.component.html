@@ -101,9 +101,9 @@
             <!--<li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>-->
             <!--<li><a href="#"><i class="ti-email"></i> Inbox</a></li>-->
             <!--<li role="separator" class="divider"></li>-->
-            <li><a routerLinkActive="active" routerLink="/dashboard/profile" href="#"><i class="ti-settings"></i> Account Setting</a></li>
+            <li><a routerLinkActive="active" routerLink="/dashboard/profile" href="#"><i class="ti-settings"></i> {{'ACCOUNTSETTINGS' | translate}}</a></li>
             <li role="separator" class="divider"></li>
-            <li><a (click)="logout()"><i class="fa fa-power-off"></i> Logout</a></li>
+            <li><a (click)="logout()"><i class="fa fa-power-off"></i> {{'LOGOUT' | translate}}</a></li>
           </ul>
         </div>
       </div>
@@ -112,7 +112,7 @@
           <a routerLinkActive="active" routerLink="/dashboard/applicants" class="waves-effect">
             <i class="icon-people fa-fw"></i>
             <span class="hide-menu">
-                 Applicants {{state}}
+                 {{'APPLICANTS' | translate}} {{state}}
              </span>
           </a>
         </li>
@@ -121,7 +121,7 @@
             <a routerLinkActive="active" routerLink="/dashboard/applicant" class="waves-effect">
               <i class="icon-people fa-fw"></i>
               <span class="hide-menu">
-                 Your Profile
+                 {{'YOURPROFILE' | translate}}
               </span>
             </a>
           </li>
@@ -131,7 +131,7 @@
         <a routerLinkActive="active" routerLink="/dashboard/vacancies" class="waves-effect">
           <i class="ti-clipboard fa-fw"></i>
           <span class="hide-menu">
-                 Vacancies
+                 {{'VACANCIES' | translate}}
              </span>
         </a>
         </li>
@@ -139,7 +139,7 @@
           <a routerLinkActive="active" routerLink="/dashboard/myList" class="waves-effect">
             <i class="ti-clipboard fa-fw"></i>
             <span class="hide-menu">
-                 Your Job Applications
+                 {{'YOURJOBAPPLICATIONS' | translate}}
              </span>
           </a>
         </li>
@@ -147,7 +147,7 @@
           <a routerLinkActive="active" routerLink="/dashboard/applicantVideos" class="waves-effect">
             <i class="fa fa-video-camera fa-fw" aria-hidden="true"></i>
             <span class="hide-menu">
-                 Applicant Videos
+                 {{'APPLICANTVIDEOS' | translate}}
              </span>
           </a>
         </li>
@@ -155,7 +155,7 @@
           <a routerLinkActive="active" routerLink="/dashboard/companies" class="waves-effect">
             <i class="fa fa-building-o fa-fw" aria-hidden="true"></i>
             <span class="hide-menu">
-                Companies
+                {{'COMPANIES' | translate}}
              </span>
           </a>
         </li>
@@ -171,27 +171,27 @@
           <a class="waves-effect" aria-expanded="true">
              <i data-icon="P" class="linea-icon linea-basic fa-fw"></i>
              <span class="hide-menu">
-               Settings<span class="fa arrow"></span>
+               {{'SETTINGS' | translate}}<span class="fa arrow"></span>
              </span>
           </a>
           <ul class="nav nav-second-level">
-            <li><a routerLinkActive="active" routerLink="/dashboard/announcements">Announcements</a> </li>
+            <li><a routerLinkActive="active" routerLink="/dashboard/announcements">{{'ANNOUNCEMENTS' | translate}}</a> </li>
           </ul>
           <!--<ul class="nav nav-second-level">-->
             <!--<li><a routerLinkActive="active" routerLink="/dashboard/workPlaces">Work Places</a> </li>-->
           <!--</ul>-->
           <ul class="nav nav-second-level">
-            <li><a aria-expanded="true" routerLinkActive="active" routerLink="/dashboard/regions">Regions</a> </li>
+            <li><a aria-expanded="true" routerLinkActive="active" routerLink="/dashboard/regions">{{'REGIONS' | translate}}</a> </li>
           </ul>
           <ul class="nav nav-second-level">
-            <li><a aria-expanded="true" routerLinkActive="active" routerLink="/dashboard/qualifications">Qualifications</a> </li>
+            <li><a aria-expanded="true" routerLinkActive="active" routerLink="/dashboard/qualifications">{{'QUALIFICATIONS' | translate}}</a> </li>
           </ul>
           <ul class="nav nav-second-level">
-            <li><a class="collapse in" routerLinkActive="active" routerLink="/dashboard/skills">Skills</a> </li>
+            <li><a class="collapse in" routerLinkActive="active" routerLink="/dashboard/skills">{{'SKILLS' | translate}}</a> </li>
           </ul>
           <!-- OVAJ JE JOB APPLICATION STATUSES -->
           <ul class="nav nav-second-level">
-            <li><a aria-expanded="true" routerLinkActive="active" routerLink="/dashboard/applicantStatuses">Applicant statuses</a> </li>
+            <li><a aria-expanded="true" routerLinkActive="active" routerLink="/dashboard/applicantStatuses">{{'APPLICANTSTATUSES' | translate}}</a> </li>
           </ul>
           <!--<ul class="nav nav-second-level">-->
             <!--<li><a routerLinkActive="active" routerLink="/dashboard/activities">Activities</a> </li>-->
