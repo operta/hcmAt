@@ -17,7 +17,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">{{applicantAccomplishment?.id_accomplishment_type.name}} name:</label>
+                <label class="control-label col-md-3">{{applicantAccomplishment?.id_accomplishment_type.name}} {{ 'NAME' | translate }}:</label>
                 <div class="col-md-9">
                   <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.title}}</p>
                   <input *ngIf="isEdit"  type="text" class="form-control" id="title" name="title"
@@ -27,7 +27,7 @@
             </div>
             <div *ngIf="applicantAccomplishment.id_accomplishment_type.name != 'Language'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Link:</label>
+                <label class="control-label col-md-3">{{ 'LINK' | translate }}:</label>
                 <div class="col-md-9">
                   <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.link}}</p>
                   <input *ngIf="isEdit"  type="text" class="form-control" id="link" name="link"
@@ -37,7 +37,7 @@
             </div>
             <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Language'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Proficiency:</label>
+                <label class="control-label col-md-3">{{ 'PROFICIENCY' | translate }}:</label>
                 <div class="col-md-9">
                   <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.proficiency}}</p>
                   <input *ngIf="isEdit"  type="text" class="form-control" id="proficiency" name="proficiency"
@@ -49,7 +49,7 @@
           <div class="row">
             <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Project' || applicantAccomplishment.id_accomplishment_type.name == 'Course' || applicantAccomplishment.id_accomplishment_type.name == 'Certification'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">From:</label>
+                <label class="control-label col-md-3">{{ 'FROM' | translate }}:</label>
                 <div class="col-md-9">
                   <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.date_from}}</p>
                   <input *ngIf="isEdit"  type="date" class="form-control" id="date_from" name="date_from"
@@ -60,7 +60,7 @@
             </div>
             <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Publication' || applicantAccomplishment.id_accomplishment_type.name == 'Honor and Award'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Date:</label>
+                <label class="control-label col-md-3">{{ 'DATE' | translate }}:</label>
                 <div class="col-md-9">
                   <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.date_from}}</p>
                   <input *ngIf="isEdit"  type="date" class="form-control" id="date_from2" name="date_from"
@@ -73,7 +73,7 @@
 
             <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Project' || applicantAccomplishment.id_accomplishment_type.name == 'Course' || applicantAccomplishment.id_accomplishment_type.name == 'Certification'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">To:</label>
+                <label class="control-label col-md-3">{{ 'DATETO' | translate }}:</label>
                 <div class="col-md-9">
                   <p *ngIf="!isEdit && !ongoing" class="form-control-static"> {{applicantAccomplishment?.date_to}}</p>
                   <input *ngIf="isEdit && !ongoing"  type="date" class="form-control" id="date_to" name="date_to"
@@ -88,7 +88,7 @@
           <div class="row">
             <div *ngIf="applicantAccomplishment.id_accomplishment_type.name != 'Language' && applicantAccomplishment.id_accomplishment_type.name != 'Certification'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Description:</label>
+                <label class="control-label col-md-3">{{ 'DESCRIPTION' | translate }}:</label>
                 <div class="col-md-9">
                   <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.description}}</p>
                   <input *ngIf="isEdit"  type="text" class="form-control" id="description" name="description"
@@ -99,7 +99,7 @@
             </div>
             <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Project'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Ocupation:</label>
+                <label class="control-label col-md-3">{{ 'OCCUPATION' | translate }}:</label>
                 <div class="col-md-9">
                   <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.occupation}}</p>
                   <input *ngIf="isEdit"  type="text" class="form-control" id="occupation" name="occupation"
@@ -110,7 +110,7 @@
             </div>
             <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Certification'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Licence number:</label>
+                <label class="control-label col-md-3">{{ 'LICENCENUMBER' | translate }}:</label>
                 <div class="col-md-9">
                   <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.licence_number}}</p>
                   <input *ngIf="isEdit"  type="text" class="form-control" id="licence_number" name="licence_number"
@@ -121,7 +121,7 @@
             </div>
             <div *ngIf="applicantAccomplishment.id_accomplishment_type.name == 'Certification'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Certification Authority:</label>
+                <label class="control-label col-md-3">{{ 'CERTIFICATIONAUTHORITY' | translate }}:</label>
                 <div class="col-md-9">
                   <p *ngIf="!isEdit" class="form-control-static"> {{applicantAccomplishment?.association}}</p>
                   <input *ngIf="isEdit"  type="text" class="form-control" id="association" name="association"
@@ -135,8 +135,8 @@
           <div class="row">
             <div class="col-md-6"></div>
             <div class="col-md-6">
-              <button *ngIf="isEdit" (click)="isEdit=false" class="saveButton pull-right btn btn-default" type="submit">Close edit</button>
-              <button *ngIf="isEdit" class="saveButton pull-right btn btn-success" type="submit">Save changes <i class="fa fa-check" aria-hidden="true"></i></button>
+              <button *ngIf="isEdit" (click)="isEdit=false" class="saveButton pull-right btn btn-default" type="submit">{{ 'CLOSEEDIT' | translate }}</button>
+              <button *ngIf="isEdit" class="saveButton pull-right btn btn-success" type="submit">{{ 'SAVECHANGES' | translate }} <i class="fa fa-check" aria-hidden="true"></i></button>
             </div>
           </div>
         </div>
@@ -146,14 +146,14 @@
 </div>
 <app-modal #modal>
   <div class="app-modal-header">
-    Confirm action
+    {{ 'CONFIRMACTION' | translate }}
   </div>
   <div class="app-modal-body">
-    Are you sure you want to delete this item?
+    {{ 'AREYOUSUREYOUWANTTODELETETHISITEM' | translate }}
   </div>
   <div class="app-modal-footer">
-    <button type="button" class="btn btn-default" (click)="modal.hide()">Cancel</button>
-    <button type="button" class="btn btn-danger"  (click)="removeAccomplishment(this.applicantAccomplishment)">Delete</button>
+    <button type="button" class="btn btn-default" (click)="modal.hide()">{{ 'CANCEL' | translate }}</button>
+    <button type="button" class="btn btn-danger"  (click)="removeAccomplishment(this.applicantAccomplishment)">{{ 'DELETE' | translate }}</button>
   </div>
 </app-modal>
 

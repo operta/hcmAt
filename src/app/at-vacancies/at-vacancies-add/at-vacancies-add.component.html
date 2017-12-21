@@ -1,7 +1,7 @@
  <div class="row bg-title">
 
       <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-        <h3>Add New Vacancy</h3>
+        <h3>{{'ADDNEWVACANCY' | translate}}</h3>
       </div>
       <!-- /.col-lg-12 -->
     </div>
@@ -9,64 +9,64 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="white-box">
-          <h3 class="box-title">Basic Information</h3>
+          <h3 class="box-title">{{'BASICINFORMATION' | translate}}</h3>
           <form [formGroup]="newVacForm" (ngSubmit)="onSubmit()" class="form-material form-horizontal m-t-30">
             <div class="form-group">
-              <label class="col-md-12" for="example-text">Vacancy Name
+              <label class="col-md-12" for="example-text">{{'VACANCYNAME' | translate}}
               </label>
               <div class="col-md-12">
-                <input formControlName="name" type="text" id="example-text" name="example-text" class="form-control" placeholder="enter vacancy name">
+                <input formControlName="name" type="text" id="example-text" name="example-text" class="form-control" placeholder="{{'ENTERVACANCYNAME' | translate}}">
               </div>
             </div>
             <div class="form-group">
-              <label class="col-md-12" for="bdate">Vacancy Code
+              <label class="col-md-12" for="bdate">{{'VACANCYCODE' | translate}}
               </label>
               <div class="col-md-12">
-                <input formControlName="code" type="text" id="bdate" name="bdate" class="form-control mydatepicker" placeholder="enter vacancy code">
+                <input formControlName="code" type="text" id="bdate" name="bdate" class="form-control mydatepicker" placeholder="{{'ENTERVACANCYCODE' | translate}}">
               </div>
             </div>
             <div class="form-group">
-              <label class="col-md-12">Description</label>
+              <label class="col-md-12">{{'DESCRIPTION' | translate}}</label>
               <div class="col-md-12">
                 <textarea formControlName="description" class="form-control" rows="3"></textarea>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-md-12">Skills Requirements</label>
+              <label class="col-md-12">{{'SKILLREQUIREMENTS' | translate}}</label>
               <div class="col-md-12">
                 <textarea formControlName="skills_requirement" class="form-control" rows="3"></textarea>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-md-12">Experience Requirements</label>
+              <label class="col-md-12">{{'EXPERIENCEREQUIREMENTS' | translate}}</label>
               <div class="col-md-12">
                 <textarea formControlName="experience_requirement" class="form-control" rows="3"></textarea>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-md-12" for="example-text">Job Role
+              <label class="col-md-12" for="example-text">{{'JOBROLE' | translate}}
               </label>
               <div class="col-md-12">
-                <input formControlName="job_role" type="text" name="job_role" class="form-control" placeholder="enter job role">
+                <input formControlName="job_role" type="text" name="job_role" class="form-control" placeholder="{{'ENTERJOBROLE' | translate}}">
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-md-12" for="example-text">Job Working Time
+              <label class="col-md-12" for="example-text">{{'JOBWORKINGTIME' | translate}}
               </label>
               <div class="col-md-12">
-                <input formControlName="job_working_time" type="text" name="job_working_time" class="form-control" placeholder="enter job working time">
+                <input formControlName="job_working_time" type="text" name="job_working_time" class="form-control" placeholder="{{'ENTERJOBWORKINGTIME' | translate}}">
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-md-12" for="example-text">Language Requirements
+              <label class="col-md-12" for="example-text">{{'LANGUAGEREQUIREMENTS' | translate}}
               </label>
               <div class="col-md-12">
-                <input formControlName="language_requirement" type="text" name="language_requirement" class="form-control" placeholder="enter language requirements">
+                <input formControlName="language_requirement" type="text" name="language_requirement" class="form-control" placeholder="{{'ENTERLANGUAGEREQUIREMENTS' | translate}}">
               </div>
             </div>
 
@@ -79,7 +79,7 @@
             </div>-->
 
             <div class="form-group">
-              <label class="col-md-12" for="example-text">Education Requirements
+              <label class="col-md-12" for="example-text">{{'EDUCATIONREQUIREMENTS' | translate}}
               </label>
               <div class="col-md-12">
                 <select formControlName="education_requirement" class="form-control">
@@ -89,7 +89,7 @@
             </div>
 
             <div class="form-group">
-              <label class="col-sm-12">Region</label>
+              <label class="col-sm-12">{{'REGION' | translate}}</label>
               <div class="col-sm-12">
                 <select formControlName="region" class="form-control">
                   <option *ngFor="let region of regions" [ngValue]="region">{{region.name}}</option>
@@ -98,7 +98,7 @@
             </div>
 
             <div class="form-group">
-              <label class="col-sm-12">Workplace</label>
+              <label class="col-sm-12">{{'WORKPLACE' | translate}}</label>
               <div class="col-sm-12">
                 <select formControlName="workPlace" class="form-control">
                   <option  *ngFor="let workPlace of workPlaces" [ngValue]="workPlace">{{workPlace.name}}</option>
@@ -106,18 +106,18 @@
               </div>
             </div>
               <div class="form-group col-md-6">
-                <label for="date_from" >Date from:</label>
+                <label for="date_from" >{{'DATEFROM' | translate}}:</label>
                 <input formControlName="date_from" type="date" class="form-control" id="date_from" name="date_from" ><span class="highlight"></span><span
                 class="bar"></span>
               </div>
               <div class="form-group col-md-6">
-                <label for="date_to" >Date to:</label>
+                <label for="date_to" >{{'DATETO' | translate}}:</label>
                 <input formControlName="date_to" type="date" class="form-control" id="date_to"  name="date_from" ><span class="highlight"></span><span class="bar"></span>
               </div>
 
 
-            <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Submit</button>
-            <button (click)="redirect()" type="button" class="btn btn-inverse waves-effect waves-light">Cancel</button>
+            <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">{{'SUBMIT' | translate}}</button>
+            <button (click)="redirect()" type="button" class="btn btn-inverse waves-effect waves-light">{{'CANCEL' | translate}}</button>
           </form>
         </div>
       </div>

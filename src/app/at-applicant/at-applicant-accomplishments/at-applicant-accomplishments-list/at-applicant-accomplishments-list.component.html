@@ -1,42 +1,42 @@
 <div *ngIf="checkAccomplishmentType('Certification')">
   <div class="box-title p-b-10 p-t-10 p-r-10">
     <i class="fa icon-badge m-r-5 m-l-15 section-icon-at"></i>
-    <span class="section-title section-title-at">Certifications</span>
+    <span class="section-title section-title-at">{{ 'CERTIFICATIOS' | translate }}</span>
   </div>
   <app-at-applicant-accomplishments-item *ngFor="let accomplishment of applicantAccomplishments | accomplishmentTypePipe:'Certification'" [applicantAccomplishment]="accomplishment" [editable]="editable"></app-at-applicant-accomplishments-item>
 </div>
 <div *ngIf="checkAccomplishmentType('Course')">
   <div class="box-title p-b-10 p-t-10 p-r-10">
     <i class="fa icon-notebook m-r-5 m-l-15 section-icon-at"></i>
-    <span class="section-title section-title-at">Courses</span>
+    <span class="section-title section-title-at">{{ 'COURSES' | translate }}</span>
   </div>
   <app-at-applicant-accomplishments-item *ngFor="let accomplishment of applicantAccomplishments | accomplishmentTypePipe:'Course'" [applicantAccomplishment]="accomplishment" [editable]="editable"></app-at-applicant-accomplishments-item>
 </div>
 <div *ngIf="checkAccomplishmentType('Honor and Award')">
   <div class="box-title p-b-10 p-t-10 p-r-10">
     <i class="fa icon-trophy m-r-5 m-l-15 section-icon-at"></i>
-    <span class="section-title section-title-at">Honours and Awards</span>
+    <span class="section-title section-title-at">{{ 'HONORSANDAWARDS' | translate }}</span>
   </div>
   <app-at-applicant-accomplishments-item *ngFor="let accomplishment of applicantAccomplishments | accomplishmentTypePipe:'Honor and Award'" [applicantAccomplishment]="accomplishment" [editable]="editable"></app-at-applicant-accomplishments-item>
 </div>
 <div *ngIf="checkAccomplishmentType('Language')">
   <div class="box-title p-b-10 p-t-10 p-r-10">
     <i class="fa ti-announcement m-r-5 m-l-15 section-icon-at"></i>
-    <span class="section-title section-title-at">Languages</span>
+    <span class="section-title section-title-at">{{ 'LANGUAGES' | translate }}</span>
   </div>
   <app-at-applicant-accomplishments-item *ngFor="let accomplishment of applicantAccomplishments | accomplishmentTypePipe:'Language'" [applicantAccomplishment]="accomplishment" [editable]="editable"></app-at-applicant-accomplishments-item>
 </div>
 <div *ngIf="checkAccomplishmentType('Project')">
   <div class="box-title p-b-10 p-t-10 p-r-10">
     <i class="fa ti-blackboard m-r-5 m-l-15 section-icon-at"></i>
-    <span class="section-title section-title-at">Projects</span>
+    <span class="section-title section-title-at">{{ 'PROJECTS' | translate }}</span>
   </div>
   <app-at-applicant-accomplishments-item *ngFor="let accomplishment of applicantAccomplishments | accomplishmentTypePipe:'Project'" [applicantAccomplishment]="accomplishment" [editable]="editable"></app-at-applicant-accomplishments-item>
 </div>
 <div *ngIf="checkAccomplishmentType('Publication')">
   <div class="box-title p-b-10 p-t-10 p-r-10">
     <i class="fa ti-write m-r-5 m-l-15 section-icon-at"></i>
-    <span class="section-title section-title-at">Publications</span>
+    <span class="section-title section-title-at">{{ 'PUBLICATIONS' | translate }}</span>
   </div>
   <app-at-applicant-accomplishments-item *ngFor="let accomplishment of applicantAccomplishments | accomplishmentTypePipe:'Publication'" [applicantAccomplishment]="accomplishment" [editable]="editable"></app-at-applicant-accomplishments-item>
 </div>

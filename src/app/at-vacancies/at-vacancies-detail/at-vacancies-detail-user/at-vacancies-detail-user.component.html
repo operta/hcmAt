@@ -11,54 +11,54 @@
           <div class="col-xs-12 col-md-12">
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Location:</label> {{vacancy.id_location.name}}
+                <label class="control-label col-md-3">{{'LOCATION' | translate}}:</label> {{vacancy.id_location.name}}
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">From:</label> {{vacancy.date_from | date}}
+                <label class="control-label col-md-3">{{'DATEFROM' | translate}}:</label> {{vacancy.date_from | date}}
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">To:</label> {{vacancy.date_to | date}}
+                <label class="control-label col-md-3">{{'DATETO' | translate}}:</label> {{vacancy.date_to | date}}
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Work Place:</label> {{vacancy.id_work_place.name}}
+                <label class="control-label col-md-3">{{'WORKPLACE' | translate}}:</label> {{vacancy.id_work_place.name}}
               </div>
             </div>
             <div *ngIf="vacancy.job_role" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Job Role:</label> {{vacancy.job_role}}
+                <label class="control-label col-md-3">{{'JOBROLE' | translate}}:</label> {{vacancy.job_role}}
               </div>
             </div>
             <div *ngIf="vacancy.job_working_time" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Job Working Time:</label> {{vacancy.job_working_time}}
+                <label class="control-label col-md-3">{{'JOBWORKINGTIME' | translate}}:</label> {{vacancy.job_working_time}}
               </div>
             </div>
             <div *ngIf="vacancy.language_requirement" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Language Requirements:</label> {{vacancy.language_requirement}}
+                <label class="control-label col-md-3">{{'LANGUAGEREQUIREMENTS' | translate}}:</label> {{vacancy.language_requirement}}
               </div>
             </div>
             <div *ngIf="vacancy.education_requirement" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Education Requirements:</label> {{vacancy.education_requirement}}
+                <label class="control-label col-md-3">{{'EDUCATIONREQUIREMENTS' | translate}}:</label> {{vacancy.education_requirement}}
               </div>
             </div>
           </div>
           <div class="col-xs-12 col-md-12">
             <hr>
-            <h4>Description:</h4>
+            <h4>{{'DESCRIPTION' | translate}}:</h4>
             {{vacancy.description}}
           </div>
 
           <div *ngIf="vacancy.skills_requirement" class="col-xs-12 col-md-12">
             <hr>
-            <h4>Skills Requirement:</h4>
+            <h4>{{'SKILLREQUIREMENTS' | translate}}:</h4>
             {{vacancy.skills_requirement}}
 
 
@@ -66,14 +66,14 @@
 
           <div *ngIf="vacancy.experience_requirement" class="col-xs-12 col-md-12">
             <hr>
-            <h4>Experience Requirement:</h4>
+            <h4>{{'EXPERIENCEREQUIREMENTS' | translate}}:</h4>
             {{vacancy.experience_requirement}}
 
 
           </div>
           <div *ngIf="!loading">
-            <button *ngIf="!applied && applicantId" (click)="apply()" class="btn btn-default btn-rounded pull-right">Apply</button>
-            <button *ngIf="userWithoutApplicantProfile()" (click)="navigateToApplicantProfile()" class="btn btn-default btn-rounded pull-right">Create Applicant Profile</button>
+            <button *ngIf="!applied && applicantId" (click)="apply()" class="btn btn-default btn-rounded pull-right">{{'APPLY' | translate}}</button>
+            <button *ngIf="userWithoutApplicantProfile()" (click)="navigateToApplicantProfile()" class="btn btn-default btn-rounded pull-right">{{'CREATEANAPPLICANTPROFILE' | translate}}</button>
 
           </div>
         </div>

@@ -11,17 +11,17 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group" [ngClass]="{ 'has-error': formAccomplishment.submitted && !name.valid }">
-                <label class="control-label col-md-3">{{selectedAccomplishmentType?.name}} name:</label>
+                <label class="control-label col-md-3">{{selectedAccomplishmentType?.name}} {{ 'NAME' | translate }}:</label>
                 <div class="col-md-9">
                   <input required type="text" class="form-control" id="title" name="title" ngModel #name="ngModel">
-                  <div *ngIf="formAccomplishment.submitted && !name.valid" class="help-block">Field is required</div>
+                  <div *ngIf="formAccomplishment.submitted && !name.valid" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
 
                 </div>
               </div>
             </div>
             <div *ngIf="selectedAccomplishmentType.name != 'Language'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Link:</label>
+                <label class="control-label col-md-3">{{ 'LINK' | translate }}:</label>
                 <div class="col-md-9">
                   <input type="text" class="form-control" id="link" name="link" ngModel>
                 </div>
@@ -29,10 +29,10 @@
             </div>
             <div *ngIf="selectedAccomplishmentType.name == 'Language'" class="col-md-6">
               <div class="form-group" [ngClass]="{ 'has-error': formAccomplishment.submitted && !profiency.valid }">
-                <label class="control-label col-md-3">Proficiency:</label>
+                <label class="control-label col-md-3">{{ 'PROFICIENCY' | translate }}:</label>
                 <div class="col-md-9">
                   <input required ype="text" class="form-control" id="proficiency" name="proficiency" ngModel #profiency="ngModel" >
-                  <div *ngIf="formAccomplishment.submitted && !company.valid" class="help-block">Field is required</div>
+                  <div *ngIf="formAccomplishment.submitted && !company.valid" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
                 </div>
               </div>
             </div>
@@ -40,7 +40,7 @@
           <div class="row">
             <div *ngIf="selectedAccomplishmentType.name == 'Project' || selectedAccomplishmentType.name == 'Course' || selectedAccomplishmentType.name == 'Certification'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">From:</label>
+                <label class="control-label col-md-3">{{ 'DATEFROM' | translate }}:</label>
                 <div class="col-md-9">
                   <input type="date" class="form-control" id="date_from" name="date_from" ngModel>
                 </div>
@@ -48,7 +48,7 @@
             </div>
             <div *ngIf="selectedAccomplishmentType.name == 'Publication' || selectedAccomplishmentType.name == 'Honor and Award'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Date:</label>
+                <label class="control-label col-md-3">{{ 'DATE' | translate }}:</label>
                 <div class="col-md-9">
                   <input type="date" class="form-control" id="date_from2" name="date_from" ngModel>
                 </div>
@@ -57,7 +57,7 @@
 
             <div *ngIf="selectedAccomplishmentType.name == 'Project' || selectedAccomplishmentType.name == 'Course' || selectedAccomplishmentType.name == 'Certification'" class="col-md-6">
               <div  class="form-group">
-                <label class="control-label col-md-3">To:</label>
+                <label class="control-label col-md-3">{{ 'DATETO' | translate }}:</label>
                 <div class="col-md-9">
                   <input *ngIf="!ongoing" type="date" class="form-control" id="date_to" name="date_to" ngModel>
                   <button class="btn btn-success btn-rounded" type="button" (click)="ongoing = !ongoing" name="ongoing">Present <i *ngIf="ongoing" class="fa fa-check" aria-hidden="true"></i></button>
@@ -68,7 +68,7 @@
           <div class="row">
             <div *ngIf="selectedAccomplishmentType.name != 'Language' && selectedAccomplishmentType.name != 'Certification'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Description:</label>
+                <label class="control-label col-md-3">{{ 'DESCRIPTION' | translate }}:</label>
                 <div class="col-md-9">
                   <input type="text" class="form-control" id="description" name="description" ngModel>
                 </div>
@@ -76,7 +76,7 @@
             </div>
             <div *ngIf="selectedAccomplishmentType.name == 'Project'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Ocupation:</label>
+                <label class="control-label col-md-3">{{ 'OCCUPATION' | translate }}:</label>
                 <div class="col-md-9">
                   <input type="text" class="form-control" id="occupation" name="occupation" ngModel>
                 </div>
@@ -84,7 +84,7 @@
             </div>
             <div *ngIf="selectedAccomplishmentType.name == 'Certification'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Licence number:</label>
+                <label class="control-label col-md-3">{{ 'LICENCENUMBER' | translate }}:</label>
                 <div class="col-md-9">
                   <input type="text" class="form-control" id="licence_number" name="licence_number" ngModel>
                 </div>
@@ -92,7 +92,7 @@
             </div>
             <div *ngIf="selectedAccomplishmentType.name == 'Certification'" class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Certification Authority:</label>
+                <label class="control-label col-md-3">{{ 'CERTIFICATIONAUTHORITY' | translate }}:</label>
                 <div class="col-md-9">
                   <input type="text" class="form-control" id="association" name="association" ngModel>
                 </div>
@@ -101,8 +101,8 @@
           </div>
         </div>
       </div>
-      <button (click)="close()" class="pull-right saveButton btn btn-default">Cancel</button>
-      <button  class="pull-right saveButton btn btn-success" type="submit">Add <i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button (click)="close()" class="pull-right saveButton btn btn-default">{{ 'CANCEL' | translate }}</button>
+      <button  class="pull-right saveButton btn btn-success" type="submit">{{ 'ADD' | translate }} <i class="fa fa-plus" aria-hidden="true"></i></button>
     </form>
   </div>
 </div>

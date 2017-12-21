@@ -9,7 +9,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Document name:</label>
+                <label class="control-label col-md-3">{{ 'DOCUMENTNAME' | translate }}:</label>
                 <div class="col-md-9">
                   <p  class="form-control-static"> {{document?.name}}</p>
                 </div>
@@ -17,10 +17,10 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Document Link:</label>
+                <label class="control-label col-md-3">{{ 'DOCUMENTLINK' | translate }}:</label>
                 <div class="col-md-9">
-                  <button class="btn btn-default" (click)="openFile()">Open</button>
-                  <button class="btn btn-default" (click)="saveFile()">Save</button>
+                  <button class="btn btn-default" (click)="openFile()">{{ 'OPEN' | translate }}</button>
+                  <button class="btn btn-default" (click)="saveFile()">{{ 'SAVE' | translate }}</button>
                 </div>
               </div>
             </div>
@@ -34,7 +34,7 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Description:</label>
+                <label class="control-label col-md-3">{{ 'DESCRIPTION' | translate }}:</label>
                 <div class="col-md-9">
                   <p  class="form-control-static"> {{document?.description}}</p>
                 </div>
@@ -44,7 +44,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Valid from:</label>
+                <label class="control-label col-md-3">{{ 'VALIDFROM' | translate }}:</label>
                 <div class="col-md-9">
                   <p  class="form-control-static"> {{document?.valid_from}}</p>
                 </div>
@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label class="control-label col-md-3">Valid to:</label>
+                <label class="control-label col-md-3">{{ 'VALIDTO' | translate }}:</label>
                 <div class="col-md-9">
                   <p  class="form-control-static"> {{document?.valid_to}}</p>
                 </div>
@@ -65,13 +65,13 @@
 
 <app-modal #modal>
   <div class="app-modal-header">
-    Confirm action
+    {{ 'CONFIRMACTION' | translate }}
   </div>
   <div class="app-modal-body">
-    Are you sure you want to delete this item?
+    {{ 'AREYOUSUREYOUWANTTODELETETHISITEM' | translate }}
   </div>
   <div class="app-modal-footer">
-    <button type="button" class="btn btn-default" (click)="modal.hide()">Cancel</button>
-    <button type="button" class="btn btn-danger"  (click)="removeDocument(this.document)">Delete</button>
+    <button type="button" class="btn btn-default" (click)="modal.hide()">{{ 'CANCEL' | translate }}</button>
+    <button type="button" class="btn btn-danger"  (click)="removeDocument(this.document)">{{ 'DELETE' | translate }}</button>
   </div>
 </app-modal>
