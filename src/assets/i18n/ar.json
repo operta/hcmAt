@@ -194,5 +194,7 @@
   "ADDANEWSKILLGRADE": "/",
   "NUMERICAL": "/",
   "FORSKILL": "/",
-  "EDITSKILLGRADE": "/"
+  "EDITSKILLGRADE": "/",
+  "RETYPEPASSWORD": "/",
+  "NEWPASSWORD": "/"
 }

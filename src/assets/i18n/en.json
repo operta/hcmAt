@@ -192,6 +192,8 @@
   "ADDANEWSKILLGRADE": "Add a New Skill Grade",
   "NUMERICAL": "Numerical",
   "FORSKILL": "For Skill",
-  "EDITSKILLGRADE": "Edit Skill Grade"
+  "EDITSKILLGRADE": "Edit Skill Grade",
+  "RETYPEPASSWORD": "Retype Password",
+  "NEWPASSWORD": "New Password"
 
 }
