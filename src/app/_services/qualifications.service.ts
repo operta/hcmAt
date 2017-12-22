@@ -4,14 +4,20 @@ import {QualificationModel} from "../_models/qualification";
 import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
+import {LanguageService} from "./language.service";
 
 @Injectable()
 export class QualificationsService{
   URL = 'http://localhost:8080/qualifications';
   qualifications: QualificationModel[];
   qualificationsObserver = new Subject<QualificationModel[]>();
+  language = 'en';
 
-  constructor(private toastr: ToastsManager, private http: Http) {
+  constructor(private toastr: ToastsManager,
+              private http: Http,
+              private languageService: LanguageService) {
+    this.languageService.getLanguage();
+    this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
   getQualifications(){
@@ -26,7 +32,11 @@ export class QualificationsService{
         this.qualificationsObserver.next(this.qualifications.slice());
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -40,10 +50,19 @@ export class QualificationsService{
       response => {
         this.qualifications.map(qualification => qualification.id == qualification.id ? qualification : qualification);
         this.qualificationsObserver.next(this.qualifications.slice());
-        this.toastr.success(qualification.name + " successfully updated.");
+        if (this.language == 'en') {
+          this.toastr.success(qualification.name + " successfully updated.");
+        } else {
+          this.toastr.success(qualification.name + "تم التحديث بنجاح");
+        }
+
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -56,11 +75,20 @@ export class QualificationsService{
       (response: Response) => {
         this.qualifications.push(response.json());
         this.qualificationsObserver.next(this.qualifications.slice());
-        this.toastr.success(qualification.name + " successfully added.");
+        if (this.language == 'en') {
+          this.toastr.success(qualification.name + " successfully added.");
+        } else {
+          this.toastr.success(qualification.name + "تم الاضافة بنجاح");
+        }
+
       }
     ).catch(
       (error: any) => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
         return Observable.throw(new Error(error.status));
       }
     ).subscribe();
@@ -75,13 +103,22 @@ export class QualificationsService{
       }
     ).subscribe(
       response => {
-        let index = this.qualifications.indexOf(qualification);
+        const index = this.qualifications.indexOf(qualification);
         this.qualifications.splice(index, 1);
         this.qualificationsObserver.next(this.qualifications.slice());
-        this.toastr.success(qualification.name + " successfully removed.");
+        if (this.language == 'en') {
+          this.toastr.success(qualification.name + " successfully removed.");
+        } else {
+          this.toastr.success(qualification.name + "تم الازالة بنجاح");
+        }
+
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }

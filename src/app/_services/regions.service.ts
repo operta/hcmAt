@@ -4,14 +4,20 @@ import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
+import {LanguageService} from "./language.service";
 
 @Injectable()
 export class RegionsService {
   URL = 'http://localhost:8080/regions';
   regions: RegionModel[];
   regionsObserver = new Subject<RegionModel[]>();
+  language = 'en';
 
-  constructor(private toastr: ToastsManager, private http: Http) {
+  constructor(private toastr: ToastsManager,
+              private http: Http,
+              private languageService: LanguageService) {
+    this.languageService.getLanguage();
+    this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
   // getRegions(){
@@ -79,12 +85,21 @@ export class RegionsService {
       (response: Response) => response.json()
     ).subscribe(
       response => {
+        console.log(response);
         this.regions.map(item => item.id == region.id ? region : item);
         this.regionsObserver.next(this.regions.slice());
-        this.toastr.success(region.name + " successfully updated.");
+        if (this.language == 'en') {
+          this.toastr.success(region.name + " successfully updated.");
+        } else {
+          this.toastr.success(region.name + " تم التحديث بنجاح");
+        }
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -97,11 +112,19 @@ export class RegionsService {
       (response: Response) => {
         this.regions.push(response.json());
         this.regionsObserver.next(this.regions.slice());
-        this.toastr.success(region.name + " successfully added.");
+        if (this.language == 'en') {
+          this.toastr.success(region.name + " successfully added.");
+        } else {
+          this.toastr.success(region.name + " تم الاضافة بنجاح");
+        }
       }
     ).catch(
       (error: any) => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, " تم حدوث خط");
+        }
         return Observable.throw(new Error(error.status));
       }
     ).subscribe();
@@ -116,13 +139,22 @@ export class RegionsService {
       }
     ).subscribe(
       response => {
-        let index = this.regions.indexOf(region);
+        const index = this.regions.indexOf(region);
         this.regions.splice(index, 1);
         this.regionsObserver.next(this.regions.slice());
-        this.toastr.success(region.name + " successfully removed.");
+        if (this.language == 'en') {
+          this.toastr.success(region.name + " successfully removed.");
+        } else {
+          this.toastr.success(region.name + " تم الازالة بنجاح");
+        }
+
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }

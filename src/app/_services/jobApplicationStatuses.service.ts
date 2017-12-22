@@ -4,14 +4,20 @@ import {JobApplicationStatusModel} from "../_models/jobApplicationStatus.model";
 import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
+import {LanguageService} from "./language.service";
 
 @Injectable()
 export class JobApplicationStatusesService {
   URL = 'http://localhost:8080/jobApplicationStatuses';
   jobApplicationStatus: JobApplicationStatusModel[];
   jobApplicationStatusObserver = new Subject<JobApplicationStatusModel[]>();
+  language = 'en'
 
-  constructor(private toastr: ToastsManager, private http: Http) {
+  constructor(private toastr: ToastsManager,
+              private http: Http,
+              private languageService: LanguageService) {
+    this.languageService.getLanguage();
+    this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
   getJobApplicationStatuses(){
@@ -26,7 +32,11 @@ export class JobApplicationStatusesService {
         this.jobApplicationStatusObserver.next(this.jobApplicationStatus.slice());
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -40,10 +50,18 @@ export class JobApplicationStatusesService {
       response => {
         this.jobApplicationStatus.map(jobApplicationStatus => jobApplicationStatus.id == jobApplicationStatus.id ? jobApplicationStatus : jobApplicationStatus);
         this.jobApplicationStatusObserver.next(this.jobApplicationStatus.slice());
-        this.toastr.success("Status successfully updated.");
+        if (this.language == 'en') {
+          this.toastr.success("Status successfully updated.");
+        } else {
+          this.toastr.success("تم تحديث الحالة بنجاح");
+        }
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -56,7 +74,11 @@ export class JobApplicationStatusesService {
       (response: Response) => {
         this.jobApplicationStatus.push(response.json());
         this.jobApplicationStatusObserver.next(this.jobApplicationStatus.slice());
-        this.toastr.success("Status successfully added.");
+        if (this.language == 'en') {
+          this.toastr.success("Status successfully added.");
+        } else {
+          this.toastr.success("تم اضافة الحالة بنجاح");
+        }
       }
     ).subscribe( response => console.log(response));
   }
@@ -70,13 +92,21 @@ export class JobApplicationStatusesService {
       }
     ).subscribe(
       response => {
-        let index = this.jobApplicationStatus.indexOf(jobApplicationStatus);
+        const index = this.jobApplicationStatus.indexOf(jobApplicationStatus);
         this.jobApplicationStatus.splice(index, 1);
         this.jobApplicationStatusObserver.next(this.jobApplicationStatus.slice());
-        this.toastr.success("Status successfully removed.");
+        if (this.language == 'en') {
+          this.toastr.success("Status successfully removed.");
+        } else {
+          this.toastr.success("تم ازالة الحالة بنجاح");
+        }
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }

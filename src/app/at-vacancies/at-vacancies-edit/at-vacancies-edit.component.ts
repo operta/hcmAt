@@ -61,7 +61,7 @@ export class AtVacanciesEditComponent implements OnInit, OnDestroy {
     this.vacancy.date_from = form.value.date_from;
     this.vacancy.date_to = form.value.date_to;
     this.vacancy.id_location = this.selectedRegion;
-    this.vacancy.id_work_place = this.selectedWorkplace
+    this.vacancy.id_work_place = this.selectedWorkplace;
 
 
     console.log(this.vacancy);

@@ -3,7 +3,6 @@ import {UserStatus} from "./userStatus.model";
 export class UserModel{
 
   public id: string;
-  public name: string;
   public username: string;
   public password: string;
   public email:string;
@@ -14,9 +13,8 @@ export class UserModel{
   public updated_by: string;
   public updated_at: Date;
 
-  constructor(id: string, name: string, username: string, password: string, email: string, role: string, id_status: UserStatus, created_by: string, created_at: Date, updated_by: string, updated_at: Date) {
+  constructor(id: string, username: string, password: string, email: string, role: string, id_status: UserStatus, created_by: string, created_at: Date, updated_by: string, updated_at: Date) {
     this.id = id;
-    this.name = name;
     this.username = username;
     this.password = password;
     this.email = email;

@@ -13,18 +13,26 @@ import {JobApplicationNotificationsService} from "./jobApplicationNotification.s
 import {JobApplicationNotificationModel} from "../_models/jobApplicationNotification.model";
 import {NotificationTemplateModel} from "../_models/notificationTemplate.model";
 import {VacanciesService} from "./vacancies.service";
+import {LanguageService} from "./language.service";
 
 @Injectable()
 export class AtJobApplicationsService {
 
-  jobApplicationsURL = 'http://localhost:8080/jobApplications'
+  jobApplicationsURL = 'http://localhost:8080/jobApplications';
   jobApplications: JobApplicationModel[] = new Array<JobApplicationModel>();
   jobApplicationsChange = new Subject<JobApplicationModel[]>();
+  language = 'en';
 
-  constructor(private jsogService: JsogService, private http: Http, private toastr: ToastsManager,
+  constructor(private jsogService: JsogService,
+              private http: Http,
+              private toastr: ToastsManager,
               private jobApplicationHistoryService: JobApplicationHistoryService,
               private jobApplicationNotificationService: JobApplicationNotificationsService,
-              private vacancyService: VacanciesService) { }
+              private vacancyService: VacanciesService,
+              private languageService: LanguageService) {
+    this.languageService.getLanguage();
+    this.languageService.languageObservable.subscribe((language: string) => this.language = language);
+  }
 
   initJobApplications(vacancy: VacancyModel) {
     this.jobApplications = vacancy.jobApplications;
@@ -71,15 +79,22 @@ export class AtJobApplicationsService {
         this.jobApplications.push(response.json());
         this.vacancyService.addJobApplicationToVacancy(response.json());
         this.jobApplicationsChange.next(this.jobApplications.slice());
-        this.toastr.success('Successfull job application');
+        if (this.language == 'en') {
+          this.toastr.success('Successfull job application');
+        } else {
+          this.toastr.success('طلب توظيف ناجح   (أو مستوفي للشروط)');
+        }
+
       }
     ).subscribe(
       response => {
-        console.log(response);
       },
       error => {
-        console.log(error);
-        this.toastr.error('An error occured.');
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -124,10 +139,18 @@ export class AtJobApplicationsService {
         this.jobApplicationNotificationService.addJobApplicationNotification(notification);
         this.jobApplications.map(item => item.id == jobApplication.id ? jobApplication : item);
         this.jobApplicationsChange.next(this.jobApplications.slice());
-        this.toastr.success('Job application successfully updated.');
+        if (this.language == 'en') {
+          this.toastr.success('Job application successfully updated.');
+        } else {
+          this.toastr.success('تم تحديث طلب التوظيف بنجاح');
+        }
       },
       error => {
-        this.toastr.error( error.status, 'An error occured');
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }

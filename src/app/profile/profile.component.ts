@@ -29,7 +29,6 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    this.user.name = form.value.name;
     this.user.username = form.value.email;
     console.log(form.value);
 

@@ -175,7 +175,24 @@
   "VACANCY" : "الشاغر",
   "DATESENT" : "",
   "NOTIFICATIONS": "الاشعارات",
-  "NEW" : ""
+  "NEW" : "",
+  "USERNAMEISREQUIRED" : "",
+  "PASSWORDISREQUIRED" : "",
+  "CREATEYOURACCOUNT" : "أنشئ حسابك الخاص بك",
+  "EMAILISREQUIRED" : "",
+  "EMAILISINVALID" : "",
+  "ALREADYHAVEANACCOUNT" : "لديك حساب",
+  "PASSWORD(ATLEASTSIXCHARACTERS)" : "Password (at least six characters)",
+  "PASSWORDMUSTBEATLEASTSIXCHARACTERSLONG" : "",
+  "CONFIRMPASSWORD" : "تأكيد كلمة السر",
+  "PASSWORDCONFIRMATIONISREQUIRED" : "",
+  "SIGNIN" : " تسجيل دخول",
+  "CERTIFICATION" : "الشهادة",
+  "COURSE" : "الدورة",
+  "PROJECT" : "المشروع",
+  "PUBLICATION" : "المنشور (أو النشر حسب السياق)",
+  "HONORANDAWARD" : ""
+
 
 
 }

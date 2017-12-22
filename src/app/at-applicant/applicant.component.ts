@@ -114,10 +114,9 @@ export class ApplicantComponent implements OnInit, OnDestroy {
       this.applicant.employment_position = form.value.employment_position;
       this.applicant.description = form.value.description;
       this.applicantService.updateApplicant(this.applicant);
-      this.toastr.success("Applicant profile updated");
     }
     else{
-      var newApplicant = new ApplicantModel(
+      const newApplicant = new ApplicantModel(
         null,
         form.value.name,
         form.value.surname,
@@ -144,7 +143,6 @@ export class ApplicantComponent implements OnInit, OnDestroy {
         this.selectedQualification,
         null
       );
-      console.log(newApplicant);
       this.applicantService.addApplicant(newApplicant).subscribe(
         (data: ApplicantModel) => {
           this.applicantService.getApplicant(this.user.id).subscribe(

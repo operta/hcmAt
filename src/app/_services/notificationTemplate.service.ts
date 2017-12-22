@@ -4,17 +4,23 @@ import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
 import {NotificationTemplateModel} from "../_models/notificationTemplate.model";
 import {Observable} from "rxjs/Observable";
+import {LanguageService} from "./language.service";
 
 @Injectable()
 export class NotificationTemplatesService{
   URL = 'http://localhost:8080/notificationTemplates';
   notificationTemplates: NotificationTemplateModel[];
   notificationTemplatesObserver = new Subject<NotificationTemplateModel[]>();
+  language = 'en';
 
-  constructor(private toastr: ToastsManager, private http: Http) {
+  constructor(private toastr: ToastsManager,
+              private http: Http,
+              private languageService: LanguageService) {
+    this.languageService.getLanguage();
+    this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
-  getNotificationTemplates(){
+  getNotificationTemplates() {
     return this.http.get(this.URL).map(
       (response: Response) => {
         const notificationTemplates: NotificationTemplateModel[] = response.json();
@@ -26,7 +32,11 @@ export class NotificationTemplatesService{
         this.notificationTemplatesObserver.next(this.notificationTemplates.slice());
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -40,10 +50,18 @@ export class NotificationTemplatesService{
       response => {
         this.notificationTemplates.map(notificationTemplate => notificationTemplate.id == notificationTemplate.id ? notificationTemplate : notificationTemplate);
         this.notificationTemplatesObserver.next(this.notificationTemplates.slice());
-        this.toastr.success(notificationTemplate.code + "template successfully updated.");
+        if (this.language == 'en') {
+          this.toastr.success(notificationTemplate.code + "template successfully updated.");
+        } else {
+          this.toastr.success(notificationTemplate.code + "تم تحديث القالب بنجاح");
+        }
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -56,11 +74,19 @@ export class NotificationTemplatesService{
       (response: Response) => {
         this.notificationTemplates.push(response.json());
         this.notificationTemplatesObserver.next(this.notificationTemplates.slice());
-        this.toastr.success(notificationTemplate.code + "template successfully added.");
+        if (this.language == 'en') {
+          this.toastr.success(notificationTemplate.code + "template successfully added.");
+        } else {
+          this.toastr.success(notificationTemplate.code + "تم اضافة القالب بنجاح");
+        }
       }
     ).catch(
       (error: any) => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
         return Observable.throw(new Error(error.status));
       }
     ).subscribe();
@@ -75,13 +101,22 @@ export class NotificationTemplatesService{
       }
     ).subscribe(
       response => {
-        let index = this.notificationTemplates.indexOf(notificationTemplate);
+        const index = this.notificationTemplates.indexOf(notificationTemplate);
         this.notificationTemplates.splice(index, 1);
         this.notificationTemplatesObserver.next(this.notificationTemplates.slice());
-        this.toastr.success(notificationTemplate.code + "template successfully removed.");
+        if (this.language == 'en') {
+          this.toastr.success(notificationTemplate.code + "template successfully removed.");
+        } else {
+          this.toastr.success(notificationTemplate.code + "تم ازالة القالب بنجاح");
+        }
+
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }

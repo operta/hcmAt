@@ -7,17 +7,23 @@ import { SkillModel} from '../_models/skill.model';
 import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
+import {LanguageService} from "./language.service";
 
 @Injectable()
 export class SkillsService {
   URL = 'http://localhost:8080/skills';
   skills: SkillModel[];
   skillsObserver = new Subject<SkillModel[]>();
+  language = 'en';
 
-  constructor(private toastr: ToastsManager, private http: Http) {
+  constructor(private toastr: ToastsManager,
+              private http: Http,
+              private languageService: LanguageService) {
+    this.languageService.getLanguage();
+    this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
-  getSkills(){
+  getSkills() {
     return this.http.get(this.URL).map(
       (response: Response) => {
         const skills: SkillModel[] = response.json();
@@ -29,7 +35,11 @@ export class SkillsService {
         this.skillsObserver.next(this.skills.slice());
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error(error.status, "An error occured");
+        } else {
+          this.toastr.error(error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -43,10 +53,18 @@ export class SkillsService {
       response => {
         this.skills.map(skill => skill.id == skill.id ? skill : skill);
         this.skillsObserver.next(this.skills.slice());
-        this.toastr.success(skill.name + " successfully updated.");
+        if (this.language == 'en') {
+          this.toastr.success(skill.name + " successfully updated.");
+        } else {
+          this.toastr.success(skill.name + " تم التحديث بنجاح");
+        }
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error(error.status, "An error occured");
+        } else {
+          this.toastr.error(error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -59,11 +77,19 @@ export class SkillsService {
       (response: Response) => {
         this.skills.push(response.json());
         this.skillsObserver.next(this.skills.slice());
-        this.toastr.success(skill.name + " successfully added.");
+        if (this.language == 'en') {
+          this.toastr.success(skill.name + " successfully added.");
+        } else {
+          this.toastr.success(skill.name + " تم الاضافة بنجاح");
+        }
       }
     ).catch(
       (error: any) => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error(error.status, "An error occured");
+        } else {
+          this.toastr.error(error.status, "تم حدوث خط");
+        }
         return Observable.throw(new Error(error.status));
       }
     ).subscribe();
@@ -78,13 +104,22 @@ export class SkillsService {
       }
     ).subscribe(
       response => {
-        let index = this.skills.indexOf(skill);
+        const index = this.skills.indexOf(skill);
         this.skills.splice(index, 1);
         this.skillsObserver.next(this.skills.slice());
-        this.toastr.success(skill.name + " successfully removed.");
+        if (this.language == 'en') {
+          this.toastr.success(skill.name + " successfully removed.");
+        } else {
+          this.toastr.success(skill.name + " تم الازالة بنجاح");
+        }
+
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error(error.status, "An error occured");
+        } else {
+          this.toastr.error(error.status, "تم حدوث خط");
+        }
       }
     );
   }

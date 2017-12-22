@@ -6,15 +6,22 @@ import 'rxjs/Rx';
 import {JsogService} from 'jsog-typescript';
 import {ToastsManager} from "ng2-toastr";
 import {JobApplicationModel} from "../_models/jobApplication.model";
+import {LanguageService} from "./language.service";
 
 @Injectable()
 export class VacanciesService {
   private vacancies: VacancyModel[] = [];
   vacancyChange= new Subject<VacancyModel[]>();
-
   vacanciesURL = 'http://localhost:8080/vacancies';
+  language = 'en';
 
-  constructor(private toastr: ToastsManager, private http: Http, private jsog: JsogService) { }
+  constructor(private toastr: ToastsManager,
+              private http: Http,
+              private jsog: JsogService,
+              private languageService: LanguageService) {
+    this.languageService.getLanguage();
+    this.languageService.languageObservable.subscribe((language: string) => this.language = language);
+  }
 
   // getVacanciesWithRefresh(refresh: boolean) {
   //
@@ -65,7 +72,11 @@ export class VacanciesService {
           this.vacancyChange.next(this.vacancies.slice());
         },
         error => {
-          this.toastr.error(error.status, "An error occured");
+          if (this.language == 'en') {
+            this.toastr.error(error.status, "An error occured");
+          } else {
+            this.toastr.error(error.status, "تم حدوث خط");
+          }
         }
       );
 
@@ -86,7 +97,11 @@ export class VacanciesService {
         this.vacancyChange.next(this.vacancies.slice());
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error(error.status, "An error occured");
+        } else {
+          this.toastr.error(error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -114,9 +129,19 @@ export class VacanciesService {
         console.log('RESPONSE:' + response);
         this.vacancies.push(response);
         this.vacancyChange.next(this.vacancies.slice());
-        this.toastr.success(vacancy.name + " successfully added.");
+        if (this.language == 'en') {
+          this.toastr.success(vacancy.name + " successfully added.");
+        } else {
+          this.toastr.success(vacancy.name + " تم الاضافة بنجاح");
+        }
       },
-      error => this.toastr.error( error.status, "An error occured")
+      error => {
+        if (this.language == 'en') {
+          this.toastr.error(error.status, "An error occured");
+        } else {
+          this.toastr.error(error.status, "تم حدوث خط");
+        }
+      }
     );
   }
 
@@ -129,10 +154,18 @@ export class VacanciesService {
       response => {
         this.vacancies.map(item => item.id == vacancy.id ? vacancy : item);
         this.vacancyChange.next(this.vacancies.slice());
-        this.toastr.success(vacancy.name + " successfully updated.");
+        if (this.language == 'en') {
+          this.toastr.success(vacancy.name + " successfully updated.");
+        } else {
+          this.toastr.success(vacancy.name + " تم التحديث بنجاح");
+        }
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error(error.status, "An error occured");
+        } else {
+          this.toastr.error(error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -143,10 +176,19 @@ export class VacanciesService {
         console.log(response);
         this.vacancies = this.vacancies.filter(vacancy => vacancy.id !== id);
         this.vacancyChange.next(this.vacancies.slice());
-        this.toastr.success("Vacancy successfully removed.");
+        if (this.language == 'en') {
+          this.toastr.success("Vacancy successfully removed.");
+        } else {
+          this.toastr.success("تم ازالة الشاغر بنجاح");
+        }
+
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error(error.status, "An error occured");
+        } else {
+          this.toastr.error(error.status, "تم حدوث خط");
+        }
       }
     );
 

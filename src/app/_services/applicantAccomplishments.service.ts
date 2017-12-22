@@ -7,6 +7,7 @@ import {JsogService} from "jsog-typescript";
 import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
+import {LanguageService} from "./language.service";
 
 
 @Injectable()
@@ -15,8 +16,15 @@ export class ApplicantAccomplishmentsService {
   URL = 'http://localhost:8080/applicantAccomplishments';
   accomplishments: ApplicantAccomplishmentModel[] = [];
   accomplishmentsObserver= new Subject<ApplicantAccomplishmentModel[]>();
+  language = 'en';
 
-  constructor(private http: Http, private toastr: ToastsManager, private jsog: JsogService) {}
+  constructor(private http: Http,
+              private toastr: ToastsManager,
+              private jsog: JsogService,
+              private languageService: LanguageService) {
+    this.languageService.getLanguage();
+    this.languageService.languageObservable.subscribe((language: string) => this.language = language);
+  }
 
   getApplicantAccomplishments(applicant: ApplicantModel){
     return this.http.get(this.URL + '/' + applicant.id).map(
@@ -30,7 +38,12 @@ export class ApplicantAccomplishmentsService {
         this.accomplishmentsObserver.next(this.accomplishments.slice());
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
+
       }
     );
   }
@@ -44,11 +57,20 @@ export class ApplicantAccomplishmentsService {
       response => {
         this.accomplishments.map(accomplishment => accomplishment.id == applicantAccomplishment.id ? applicantAccomplishment : accomplishment);
         this.accomplishmentsObserver.next(this.accomplishments.slice());
-        this.toastr.success(applicantAccomplishment.id_accomplishment_type.name + " successfully updated.");
+        if (this.language == 'en') {
+          this.toastr.success(applicantAccomplishment.id_accomplishment_type.name + " successfully updated.");
+        } else {
+          this.toastr.success(" تم التحديث بنجاح" + applicantAccomplishment.id_accomplishment_type.name);
+        }
+
 
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -61,11 +83,19 @@ export class ApplicantAccomplishmentsService {
       res => {
         this.accomplishments.push(res.json());
         this.accomplishmentsObserver.next(this.accomplishments.slice());
-        this.toastr.success(applicantAccomplishment.id_accomplishment_type.name + " successfully added.");
+        if (this.language == 'en') {
+          this.toastr.success(applicantAccomplishment.id_accomplishment_type.name + " successfully added.");
+        } else {
+          this.toastr.success(" تم الاضافة بنجاح" + applicantAccomplishment.id_accomplishment_type.name);
+        }
       }
     ).catch(
     (error: any) => {
-      this.toastr.error( error.status, "An error occured");
+      if (this.language == 'en') {
+        this.toastr.error( error.status, "An error occured");
+      } else {
+        this.toastr.error( error.status, "تم حدوث خط");
+      }
       return Observable.throw(new Error(error.status));
       }
     ).subscribe();
@@ -80,13 +110,21 @@ export class ApplicantAccomplishmentsService {
       }
     ).subscribe(
       response => {
-        let index = this.accomplishments.indexOf(applicantAccomplishment);
+        const index = this.accomplishments.indexOf(applicantAccomplishment);
         this.accomplishments.splice(index, 1);
         this.accomplishmentsObserver.next(this.accomplishments.slice());
-        this.toastr.success(applicantAccomplishment.id_accomplishment_type.name + " successfully removed.");
+        if (this.language == 'en') {
+          this.toastr.success(applicantAccomplishment.id_accomplishment_type.name + " successfully removed.");
+        } else {
+          this.toastr.success("تم الازالة بنجاح" + applicantAccomplishment.id_accomplishment_type.name);
+        }
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }

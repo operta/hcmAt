@@ -31,14 +31,20 @@ export class RgRegionsComponent implements OnInit, OnDestroy {
   constructor(private paginationService: PaginationService, private regionsService: RegionsService, private regionTypesService: RegionTypesService) { }
 
   ngOnInit() {
+
     this.loading = true;
     this.regionTypesService.getRegionTypes().subscribe(
-      (data: RegionTypeModel[]) => this.regionTypes = data
+      (data: RegionTypeModel[]) => {
+        this.regionTypes = data;
+        console.log(this.regionTypes);
+      }
     );
 
     this.subscription = this.regionsService.getRegions().subscribe(
       (data: RegionModel[]) => {
+
         this.regions = data;
+        this.selectedRegion = this.regions[0];
         this.loading = false;
 
         this.paginationService.setPages(this.regions.length);
@@ -59,6 +65,7 @@ export class RgRegionsComponent implements OnInit, OnDestroy {
     this.selectedRegion.description = form.value.description;
     this.selectedRegion.id_parent = this.selectedParent;
     this.selectedRegion.idType = this.selectedRegionType;
+    console.log(this.selectedRegion);
     this.regionsService.updateRegion(this.selectedRegion);
     this.closeEditModal();
   }
@@ -100,11 +107,11 @@ export class RgRegionsComponent implements OnInit, OnDestroy {
   }
 
   onRegionTypeSelected(value: string){
-    this.selectedRegionType = this.regionTypes.find(item => item.name === value);
+    this.selectedRegionType = this.regionTypes.find(item => item.name == value);
   }
 
   onParentSelected(value: string){
-    this.selectedParent = this.regions.find(item => item.name === value);
+    this.selectedParent = this.regions.find(item => item.name == value);
   }
 
 }

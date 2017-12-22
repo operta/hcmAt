@@ -11,21 +11,13 @@
             <!--<img src="assets/images/is-logo-text.png" alt="home" class="dark-logo" />-->
             <!--<img src="assets/images/eliteadmin-text-dark.png" alt="home" class="light-logo" />-->
           <!--</span>-->
-        <h3 class="box-title  m-b-0 text-center">Create your account</h3>
-
-        <div class="form-group m-t-20" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
-          <div class="col-xs-12">
-            <input type="text" class="form-control" name="name" [(ngModel)]="model.name" #name="ngModel"
-                   required placeholder="Name"/>
-            <div *ngIf="f.submitted && !name.valid" class="help-block">Name is required</div>
-          </div>
-        </div>
+        <h3 class="box-title  m-b-0 text-center">{{'CREATEYOURACCOUNT' | translate}}</h3>
 
         <div class="form-group m-t-20" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
           <div class="col-xs-12">
             <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel"
-                   required placeholder="Username"/>
-            <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+                   required placeholder="{{'USERNAME' | translate}}"/>
+            <div *ngIf="f.submitted && !username.valid" class="help-block">{{'USERNAMEISREQUIRED' | translate}}</div>
           </div>
         </div>
 
@@ -38,27 +30,27 @@
                    #email="ngModel"
                    required
                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                   placeholder="Email"
+                   placeholder="{{'EMAIL' | translate}}"
             />
 
-              <div [hidden]="!f.submitted || email.valid" *ngIf="f.submitted && email.errors?.required" class="help-block">Email is required</div>
-              <div  *ngIf="f.submitted && email.errors?.pattern && !email.errors?.required" class="help-block">Email is invalid</div>
+              <div [hidden]="!f.submitted || email.valid" *ngIf="f.submitted && email.errors?.required" class="help-block">{{'EMAILISREQUIRED' | translate}}</div>
+              <div  *ngIf="f.submitted && email.errors?.pattern && !email.errors?.required" class="help-block">{{'EMAILISINVALID' | translate}}</div>
 
           </div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
           <div class="col-xs-12">
             <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel"
-                   required minlength="5" placeholder="Password"/>
-            <div *ngIf="f.submitted && password.errors && password.errors.required" class="help-block">Password is required</div>
-            <div *ngIf="f.submitted && password.errors && password.errors.minlength" class="help-block">Password must have at least 5 characters</div>
+                   required minlength="5" placeholder="{{'PASSWORD(ATLEASTSIXCHARACTERS)' | translate}}"/>
+            <div *ngIf="f.submitted && password.errors && password.errors.required" class="help-block">{{'PASSWORDISREQUIRED' | translate}}</div>
+            <div *ngIf="f.submitted && password.errors && password.errors.minlength" class="help-block">{{'PASSWORDMUSTBEATLEASTSIXCHARACTERSLONG' | translate}}</div>
           </div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !passwordc.valid }">
           <div class="col-xs-12">
             <input type="password" class="form-control" name="passwordc" [(ngModel)]="model.passwordc" #passwordc="ngModel"
-                   required placeholder="Confirm Password"/>
-            <div *ngIf="f.submitted && !passwordc.valid" class="help-block">Password confirmation is required</div>
+                   required placeholder="{{'CONFIRMPASSWORD' | translate}}"/>
+            <div *ngIf="f.submitted && !passwordc.valid" class="help-block">{{'PASSWORDCONFIRMATIONISREQUIRED' | translate}}</div>
           </div>
         </div>
         <!--<div class="form-group">-->
@@ -71,13 +63,19 @@
         <!--</div>-->
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
-            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" [disabled]="loading">Sign Up</button>
+            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" [disabled]="loading">{{'SIGNUP' | translate}}</button>
           </div>
         </div>
         <div *ngIf="error" class="alert alert-danger">{{error}}</div>
         <div class="form-group m-b-0">
           <div class="col-sm-12 text-center">
-            <p>Already have an account? <a [routerLink]="['/login']" class="text-primary m-l-5"><b>Sign In</b></a></p>
+            <p>{{'ALREADYHAVEANACCOUNT' | translate}}? <a [routerLink]="['/login']" class="text-primary m-l-5"><b>{{'SIGNIN' | translate}}</b></a></p>
+          </div>
+        </div>
+        <div class="form-group m-b-0">
+          <div class="col-sm-12 text-center">
+            <p *ngIf="language == 'en'"><i class="fa fa-globe" aria-hidden="true"></i><button (click)="changeLanguage('ar')" class="btn m-l-5"><b>Arabic</b></button></p>
+            <p *ngIf="language == 'ar'"><i class="fa fa-globe" aria-hidden="true"></i><button (click)="changeLanguage('en')" class="btn m-l-5"><b>English</b></button></p>
           </div>
         </div>
       </form>

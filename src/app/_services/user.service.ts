@@ -8,6 +8,7 @@ import {UserStatusService} from './userStatus.service';
 import {AuthenticationService} from './authentication.service';
 import {Router} from "@angular/router";
 import {ToastsManager} from "ng2-toastr";
+import {LanguageService} from "./language.service";
 
 
 
@@ -18,6 +19,7 @@ export class UserService {
   isAdmin: boolean;
   userUsername: string;
   usersURL = 'http://localhost:8080/users';
+  language = 'en';
 
   private headers = new Headers({
     'Content-Type': 'application/json',
@@ -25,7 +27,13 @@ export class UserService {
   });
 
 
-  constructor(private toastr: ToastsManager, private router: Router, private http: Http, private authenticationService: AuthenticationService) {
+  constructor(private toastr: ToastsManager,
+              private router: Router,
+              private http: Http,
+              private authenticationService: AuthenticationService,
+              private languageService: LanguageService) {
+    this.languageService.getLanguage();
+    this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
   login(accessToken: string) {
@@ -34,7 +42,12 @@ export class UserService {
     this.isAdmin = decodedToken.authorities.some(el => el === 'ADMIN');
     this.accessToken = accessToken;
     localStorage.setItem(TOKEN_NAME, accessToken);
-    this.toastr.success("Successfull authentication");
+    if (this.language == 'en') {
+      this.toastr.success("Successfull authentication");
+    } else {
+      this.toastr.success("تم التحقق من صحة الهوية");
+    }
+
     this.router.navigateByUrl('/dashboard');
   }
 
@@ -58,7 +71,12 @@ export class UserService {
 
   logout() {
     this.purge();
-    this.toastr.info("Logged out");
+    if (this.language == 'en') {
+      this.toastr.info("Logged out");
+    } else {
+      this.toastr.info("تم تسجيل الخروج");
+    }
+
     this.router.navigateByUrl('/login');
   }
 
