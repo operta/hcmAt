@@ -3,7 +3,7 @@
 
       <div class="row bg-title">
         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-          <h4 class="page-title">Account Settings</h4>
+          <h4 class="page-title">{{ 'ACCOUNTSETTINGS' | translate }}</h4>
         </div>
       </div>
       <!-- /.row -->
@@ -33,17 +33,17 @@
             <ul class="nav customtab nav-tabs" style="padding: 25px; padding-bottom: 0" role="tablist">
               <li role="presentation" class="nav-item">
                 <a [class.active]="state == 'profile'" (click)="state='profile';" href="#profile" class="nav-link" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">
-                  <span class="visible-xs"><i class="fa fa-user"></i></span> <span class="hidden-xs">Profile</span>
+                  <span class="visible-xs"><i class="fa fa-user"></i></span> <span class="hidden-xs">{{ 'PROFILE' | translate }}</span>
                 </a>
               </li>
               <li role="presentation" class="nav-item">
                 <a [class.active]="state == 'settings'" (click)="state='settings';" href="#settings" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">
-                  <span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">Settings</span>
+                  <span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">{{ 'SETTINGS' | translate }}</span>
                 </a>
               </li>
               <li role="presentation" class="nav-item">
                 <a [class.active]="state == 'password'" (click)="state='password';" href="#password" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">
-                  <span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">Change Password</span>
+                  <span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">{{ 'CHANGEPASSWORD' | translate }}</span>
                 </a>
               </li>
             </ul>
@@ -52,15 +52,15 @@
 
               <div class="tab-pane active" id="profile">
                 <div class="row">
-                  <!--<div class="col-md-3 col-xs-6 b-r"> <strong>Name</strong>-->
+                  <!--<div class="col-md-3 col-xs-6 b-r"> <strong>{{ 'NAME' | translate }}</strong>-->
                     <!--<br>-->
                     <!--<p class="text-muted">{{user?.name}}</p>-->
                   <!--</div>-->
-                  <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
+                  <div class="col-md-3 col-xs-6 b-r"> <strong>{{ 'EMAIL' | translate }}</strong>
                     <br>
                     <p class="text-muted">{{user?.username}}</p>
                   </div>
-                  <div class="col-md-3 col-xs-6"> <strong>Profile Type</strong>
+                  <div class="col-md-3 col-xs-6"> <strong>{{ 'PROFILETYPE' | translate }}</strong>
                     <br>
                     <p class="text-muted">{{user?.role}}</p>
                   </div>
@@ -74,12 +74,12 @@
                     <!--<input type="text" class="form-control form-control-line" name="name"  [(ngModel)]="user && user.name" #name="ngModel" required>-->
                   <!--</div>-->
                   <div class="form-group">
-                    <label class="col-md-12">Email:</label>
+                    <label class="col-md-12">{{ 'EMAIL' | translate }}:</label>
                     <input type="email" class="form-control form-control-line" name="email" [(ngModel)]="user && user.username" #email="ngModel" required>
                   </div>
                   <div class="form-group">
                     <div class="col-sm-12">
-                      <button class="btn btn-success" disabled>Update Profile</button>
+                      <button class="btn btn-success" disabled>{{ 'UPDATEPROFILE' | translate }}</button>
                     </div>
                   </div>
                 </form>
@@ -88,16 +88,16 @@
               <div class="tab-pane" id="password">
                 <form class="form-horizontal form-material" role="form" (ngSubmit)="onSubmitPassword(formPassword)" #formPassword="ngForm"e>
                   <div class="form-group">
-                    <label class="col-md-12">New Password:</label>
+                    <label class="col-md-12">{{ 'NEWPASSWORD' | translate }}:</label>
                     <input type="password" class="form-control form-control-line" name="password1" [ngModel]="password1">
                   </div>
                   <div class="form-group">
-                    <label class="col-md-12">Retype password:</label>
+                    <label class="col-md-12">{{ 'RETYPEPASSWORD' | translate }}:</label>
                     <input type="password" class="form-control form-control-line" name="password2" [ngModel]="password2">
                   </div>
                   <div class="form-group">
                     <div class="col-sm-12">
-                      <button class="btn btn-success" disabled>Update Password</button>
+                      <button class="btn btn-success" disabled>{{ 'UPDATEPASSWORD' | translate }}</button>
                     </div>
                   </div>
                 </form>
