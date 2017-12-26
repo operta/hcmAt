@@ -213,5 +213,7 @@
   "PUBLICATION" : "Publication",
   "HONORANDAWARD" : "Honor and award",
   "VACANCYLIST": "Vacancy List",
-  "YOURPROFILE": "Your profile"
+  "YOURPROFILE": "Your profile",
+  "OPENVACANCIESLIST": "Open Vacancies List",
+  "MYJOBAPPLICATIONS": "My Job Applications"
 }

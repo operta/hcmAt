@@ -213,7 +213,9 @@
   "PROJECT" : "المشروع",
   "PUBLICATION" : "المنشور (أو النشر حسب السياق)",
   "HONORANDAWARD" : "/",
-  "VACANCYLIST": ""
+  "VACANCYLIST": "/",
+  "OPENVACANCIESLIST": "/",
+  "MYJOBAPPLICATIONS": "/"
 
 
 
