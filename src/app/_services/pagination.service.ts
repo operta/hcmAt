@@ -2,7 +2,7 @@ import {Subject} from "rxjs/Subject";
 
 export class PaginationService {
   pages = [];
-  resultCount = 2;
+  resultCount = 15;
   page = 1;
   pagesObserver = new Subject<any[]>();
   startObserver = new Subject<number>();
