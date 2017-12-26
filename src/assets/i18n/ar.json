@@ -195,7 +195,6 @@
   "NUMERICAL": "/",
   "FORSKILL": "/",
   "EDITSKILLGRADE": "/",
-  "RETYPEPASSWORD": "/",
   "NEWPASSWORD": "/",
   "USERNAMEISREQUIRED" : "/",
   "PASSWORDISREQUIRED" : "/",
@@ -213,7 +212,10 @@
   "PROJECT" : "المشروع",
   "PUBLICATION" : "المنشور (أو النشر حسب السياق)",
   "HONORANDAWARD" : "/",
-  "VACANCYLIST": ""
+  "VACANCYLIST": "",
+  "CURRENTPASSWORD" : "/",
+  "UPDATEPASSWORD" : "/",
+  "UPDATEPROFILE" : "/"
 
 
 

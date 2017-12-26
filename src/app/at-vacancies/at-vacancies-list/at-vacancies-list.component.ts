@@ -127,7 +127,19 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
   // onEdit() {
   //     this.allAtVacanciesItemComponents.forEach((atVacanciesItemComponent) => atVacanciesItemComponent.closeEdit());
   // }
+  resetSearchByDateFrom(result: string) {
+    if (result == '') {
+      console.log(result);
+      this.searchByDateFrom = null;
+    }
+  }
 
+  resetSearchByDateTo(result: string) {
+    if (result == '') {
+      console.log(result);
+      this.searchByDateTo = null;
+    }
+  }
 
 
 }

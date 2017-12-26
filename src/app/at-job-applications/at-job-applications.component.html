@@ -2,7 +2,7 @@
     <div class="row bg-title">
       <div class="col-md-12">
         <div class="comment-center">
-          <div class="comment-body b-none" style="width: 100%;padding: 5px 25px">
+          <div class="comment-body b-none" style="width: 100%;">
             <div class="row">
               <div class="col-lg-6">
                 <a [routerLink] ="['/dashboard/applicantOverview/', jobApplication.applicantid.id]">
@@ -50,7 +50,7 @@
             <li role="presentation" class="nav-item">
               <a [class.active]="state == 'interview'" (click)="state='interview'; resetLink();"  href="#interviews" class="nav-link" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">
                                         <span class="visible-xs">
-                                            <i class="ti-home"></i>
+                                            <i class="fa fa-users" aria-hidden="true"></i>
                                         </span>
                 <span class="hidden-xs">{{'INTERVIEWS' | translate}}</span>
               </a>
@@ -58,7 +58,7 @@
             <li role="presentation" class="nav-item">
               <a [class.active]="state == 'test'" (click)="state='test'; resetLink();" href="#tests" class="nav-link" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">
                                         <span class="visible-xs">
-                                            <i class="ti-user"></i>
+                                            <i class="ti-pencil-alt"></i>
                                         </span>
                 <span class="hidden-xs">{{'TESTS' | translate}}</span>
               </a>
@@ -66,7 +66,7 @@
             <li role="presentation" class="nav-item">
               <a [class.active]="state == 'history'" (click)="state='history'; resetLink();" href="#history" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">
                                         <span class="visible-xs">
-                                            <i class="ti-email"></i>
+                                            <i class="ti-signal"></i>
                                         </span>
                 <span class="hidden-xs">{{'STATUSHISTORY' | translate}}</span>
               </a>

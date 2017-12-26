@@ -48,7 +48,7 @@ export class ApplicantSchoolsService {
 
   updateApplicantSchool(applicantSchool: ApplicantSchoolModel) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
-    const body = JSON.stringify(applicantSchool);
+    const body = this.jsog.serialize(applicantSchool);
     return this.http.put(this.URL, body, {headers: headers}).map(
       (response: Response) => response.json()
     ).subscribe(

@@ -66,6 +66,7 @@ export class RegisterComponent implements OnInit {
         null,
         null,
         null,
+        null,
         null
       );
 

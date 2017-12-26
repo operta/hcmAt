@@ -23,18 +23,18 @@
       <div class="row">
         <div class="col-sm-12 col-xs-12">
           <div class="row">
-            <!--<div class="col-md-6">-->
-              <!--<div class="form-group">-->
-                <!--<label>Date From</label>-->
-                <!--<input type="date" [(ngModel)]="searchByDateFrom" class="form-control">-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-md-6">-->
-              <!--<div class="form-group">-->
-                <!--<label>Date To</label>-->
-                <!--<input type="date" [(ngModel)]="searchByDateTo" class="form-control">-->
-              <!--</div>-->
-            <!--</div>-->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Date From</label>
+                <input type="date" [(ngModel)]="searchByDateFrom" (change)="resetSearchByDateFrom($event.target.value)" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Date To</label>
+                <input type="date" [(ngModel)]="searchByDateTo" (change)="resetSearchByDateTo($event.target.value)" class="form-control">
+              </div>
+            </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label>Region</label>
@@ -78,22 +78,16 @@
 <!-- ADD VACANCY -->
 <div *ngIf="isAdmin">
   <router-outlet></router-outlet>
-
-
   <div class="row m-b-20 p-l-5 p-r-10">
     <div class="col-lg-12">
-
-      <h2 style="display: inline-block;">{{ 'VACANCYLIST' | translate }}</h2>
-
       <div class="pull-right">
         <button routerLink="addVacancy" class="btn btn-rounded btn-default">{{'ADDVACANCY' | translate}}</button>
-        <button *ngIf="!loading" (click)="refresh()" class="btn btn-info btn-rounded"><i class="fa fa-refresh" aria-hidden="true"></i></button>
-        <button *ngIf="loading" class="btn btn-info btn-rounded"><i class="fa fa-refresh fa-spin"></i></button>
       </div>
     </div>
   </div>
+  <hr>
 </div>
-<hr>
+
 
 
 <!-- page number i item number -->
@@ -101,7 +95,11 @@
 
 
 <!-- vacancy list -->
-
+<h2 style="display: inline-block;">{{ 'VACANCYLIST' | translate }}</h2>
+<div class="pull-right">
+  <button *ngIf="!loading" (click)="refresh()" class="btn btn-info btn-rounded"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+  <button *ngIf="loading" class="btn btn-info btn-rounded"><i class="fa fa-refresh fa-spin"></i></button>
+</div>
 <div class="row">
   <div class="col-xs-12 col-lg-12 col-md-12">
 

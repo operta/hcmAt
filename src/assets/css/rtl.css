@@ -130,12 +130,17 @@ html[dir="rtl"] .pull-right > .dropdown-menu {
 
 /* MOBILE */
 @media (max-width:768px) {
-  html[dir="rtl"] .content-wrapper #page-wrapper {
+  html[dir="rtl"] #page-wrapper {
     margin: 0 0 0 0;
   }
 }
 
 html[dir="rtl"] b {
   margin-left: 0.5em !important;
+}
+
+html[dir="rtl"]  .tab-content {
+  padding-left: 0px;
+  padding-right: 25px;
 }
 

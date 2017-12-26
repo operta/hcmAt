@@ -49,7 +49,7 @@ export class ApplicantExperiencesService {
 
   updateApplicantExperience(applicantExperience: ApplicantExperienceModel) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
-    const body = JSON.stringify(applicantExperience);
+    const body = this.jsog.serialize(applicantExperience);
     return this.http.put(this.URL, body, {headers: headers}).map(
       (response: Response) => response.json()
     ).subscribe(

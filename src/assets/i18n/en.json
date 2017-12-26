@@ -136,7 +136,7 @@
   "AREYOUSUREYOUWANTODELETETHISITEM": "Are you sure you want to delete this item?",
   "CONFIRMACTION": "Confirm Action",
   "DELETE": "Delete",
-  "FIELDISREQURIED": "Field is required",
+  "FIELDISREQUIRED": "Field is required",
   "EDITVACANCY": "Edit Vacancy",
   "STATUS": "Status",
   "ACCEPTED": "ACCEPTED",
@@ -194,7 +194,6 @@
   "NUMERICAL": "Numerical",
   "FORSKILL": "For Skill",
   "EDITSKILLGRADE": "Edit Skill Grade",
-  "RETYPEPASSWORD": "Retype Password",
   "NEWPASSWORD": "New Password",
   "USERNAMEISREQUIRED" : "Username is required",
   "PASSWORDISREQUIRED" : "Password is required",
@@ -213,5 +212,8 @@
   "PUBLICATION" : "Publication",
   "HONORANDAWARD" : "Honor and award",
   "VACANCYLIST": "Vacancy List",
-  "YOURPROFILE": "Your profile"
+  "YOURPROFILE": "Your profile",
+  "CURRENTPASSWORD" : "Current password",
+  "UPDATEPASSWORD" : "Update password",
+  "UPDATEPROFILE" : "Update profile"
 }

@@ -45,11 +45,11 @@ export class AtApplicantDocumentsAddComponent implements OnInit {
     this.filestring = btoa(this.binaryString);
   }
 
-  close(){
+  close() {
     this.onClose.emit();
   }
 
-  onSubmit(form:NgForm){
+  onSubmit(form: NgForm) {
     console.log(form.value);
     this.document = new DocumentLinkModel(
       null,
@@ -70,9 +70,7 @@ export class AtApplicantDocumentsAddComponent implements OnInit {
     this.documentLinksService.addDocument(this.document).subscribe(
       (data: DocumentLinkModel) => {
         this.document = data;
-        console.log("HERE");
-        console.log(form.value);
-        var applicantDocument = new ApplicantDocumentModel(
+        const applicantDocument = new ApplicantDocumentModel(
           null,
           this.applicant,
           this.document,
@@ -90,10 +88,6 @@ export class AtApplicantDocumentsAddComponent implements OnInit {
         this.applicantDocumentsService.addApplicantDocument(applicantDocument);
       }
     );
-
-
-
-
 
     this.close();
   }
