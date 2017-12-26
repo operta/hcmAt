@@ -39,7 +39,8 @@
               <i class="fa fa-map-marker"></i> {{vacancy.id_location.name}}
             </div>
             <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
-              <b>{{'DIVISION' | translate}}: </b> {{vacancy.id_work_place.name}}
+              <b>{{'DIVISION' | translate}}: </b>
+               {{vacancy.id_work_place.name}}
             </div>
             <div class="col-xs-12 col.sm-6 col-md-6 col-lg-6">
               <i class="fa fa-clock-o"></i> {{vacancy.date_from | date: 'dd/MM/yyyy'}} - <i class="fa fa-clock-o"></i> {{vacancy.date_to | date: 'dd/MM/yyyy'}}
@@ -144,7 +145,7 @@
             </div>
             <div class="col-md-12"  *ngIf="selectedWorkplace">
               <div class="form-group">
-                <label class="col-md-12">{{'WORKPLACE' | translate}}:</label>
+                <label class="col-md-12">{{'WORKPLACE' | translate}}: </label>
                 <div class="col-md-12">
                   <select class="form-control p-0"  (change)="onWorkplaceSelected(t.value)" #t>
                     <option *ngFor="let workplace of workplaces" [selected]="workplace?.id == selectedWorkplace.id" [ngValue]="workplace">{{workplace.name}}</option>
@@ -225,7 +226,7 @@
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>{{'WORKPLACE' | translate}}:</label>
+                 <label>{{'WORKPLACE' | translate}}: </label>
                 <p> {{vacancy?.id_work_place.name}} </p>
               </div>
             </div>

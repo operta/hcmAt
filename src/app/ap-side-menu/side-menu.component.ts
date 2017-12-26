@@ -24,7 +24,7 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
   state: string;
   notifications: JobApplicationNotificationModel[];
   activeNotificaitons: JobApplicationNotificationModel[];
-  language: string;
+  language = 'en';
 
   constructor(private router: Router,
               private userService: UserService,
@@ -42,15 +42,16 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
     this.userService.getUser().subscribe(
       (data: UserModel) => {
         this.user = data;
+        this.notificationsService.getJobApplicationNotifications();
+        this.notificationsService.jobApplicationNotificationsObserver.subscribe(
+          (data2: JobApplicationNotificationModel[]) => {
+            this.notifications = data2.filter(item => item.idJobApplication.applicantid.idUser.id === this.user.id );
+            this.countActiveNotifications(this.notifications);
+          }
+        );
       }
     );
-    this.notificationsService.getJobApplicationNotifications();
-    this.notificationsService.jobApplicationNotificationsObserver.subscribe(
-      (data: JobApplicationNotificationModel[]) => {
-        this.notifications = data.filter(item => item.idJobApplication.applicantid.idUser.id === this.user.id );
-        this.countActiveNotifications(this.notifications);
-      }
-    );
+
 
     this.isAdmin = this.userService.isAdminUser();
   }

@@ -8,6 +8,7 @@ import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
 import {JsogService} from "jsog-typescript";
 import {ApplicantDocumentModel} from "../_models/applicantDocument.model";
+import {LanguageService} from "./language.service";
 
 @Injectable()
 export class ApplicantDocumentsService {
@@ -15,8 +16,14 @@ export class ApplicantDocumentsService {
   URL = 'http://localhost:8080/applicantDocuments';
   applicantDocuments: ApplicantDocumentModel[];
   applicantDocumentsObserver = new Subject<ApplicantDocumentModel[]>();
+  language = 'en';
 
-  constructor(private toastr: ToastsManager, private http: Http, private jsog: JsogService) {
+  constructor(private toastr: ToastsManager,
+              private http: Http,
+              private jsog: JsogService,
+              private languageService: LanguageService) {
+    this.languageService.getLanguage();
+    this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
   getApplicantDocuments(applicant: ApplicantModel){
@@ -31,7 +38,11 @@ export class ApplicantDocumentsService {
         this.applicantDocumentsObserver.next(this.applicantDocuments.slice());
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -45,10 +56,18 @@ export class ApplicantDocumentsService {
       response => {
         this.applicantDocuments.map(item => item.id == applicantDocument.id ? applicantDocument : item);
         this.applicantDocumentsObserver.next(this.applicantDocuments.slice());
-        this.toastr.success(applicantDocument.name + " successfully updated.");
+        if (this.language == 'en') {
+          this.toastr.success(applicantDocument.name + " successfully updated.");
+        } else {
+          this.toastr.success(applicantDocument.name + " تم التحديث بنجاح");
+        }
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -61,11 +80,19 @@ export class ApplicantDocumentsService {
       (response: Response) => {
         this.applicantDocuments.push(response.json());
         this.applicantDocumentsObserver.next(this.applicantDocuments.slice());
-        this.toastr.success(applicantDocument.name + " successfully added.");
+        if (this.language == 'en') {
+          this.toastr.success(applicantDocument.name + " successfully added.");
+        } else {
+          this.toastr.success(applicantDocument.name + " تم الاضافة بنجاح");
+        }
       }
     ).catch(
       (error: any) => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
         return Observable.throw(new Error(error.status));
       }
     ).subscribe();
@@ -80,13 +107,21 @@ export class ApplicantDocumentsService {
       }
     ).subscribe(
       response => {
-        let index = this.applicantDocuments.indexOf(applicantDocument);
+        const index = this.applicantDocuments.indexOf(applicantDocument);
         this.applicantDocuments.splice(index, 1);
         this.applicantDocumentsObserver.next(this.applicantDocuments.slice());
-        this.toastr.success(applicantDocument.name + " successfully removed.");
+        if (this.language == 'en') {
+          this.toastr.success(applicantDocument.name + " successfully removed.");
+        } else {
+          this.toastr.success(applicantDocument.name + " تم الازالة بنجاح");
+        }
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }

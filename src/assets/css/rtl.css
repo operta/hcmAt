@@ -124,6 +124,15 @@ html[dir="rtl"] .drop-title {
 html[dir="rtl"] #notificationMore{
   text-align: right !important;
 }
+
+html[dir="rtl"] .pull-right > .dropdown-menu {
+  right: auto;
+  left: 0;
+}
+
+html[dir="rtl"] b {
+  margin-left: 0.5em !important;
+}
 /*html[dir="rtl"]
 html[dir="rtl"]
 html[dir="rtl"]

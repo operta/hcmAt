@@ -5,20 +5,26 @@ import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
 import {JsogService} from "jsog-typescript";
+import {LanguageService} from "./language.service";
 
 @Injectable()
 export class JobApplicationNotificationsService {
   URL = 'http://localhost:8080/jobApplicationNotifications';
   jobApplicationNotifications: JobApplicationNotificationModel[] = [];
   jobApplicationNotificationsObserver = new Subject<JobApplicationNotificationModel[]>();
+  language = 'en';
 
-  constructor(private toastr: ToastsManager, private http: Http, private jsogService: JsogService) {
+  constructor(private toastr: ToastsManager,
+              private http: Http,
+              private jsogService: JsogService,
+              private languageService: LanguageService) {
+    this.languageService.getLanguage();
+    this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
   getJobApplicationNotifications() {
     return this.http.get(this.URL).map(
       (response: Response) => {
-        //const jobApplicationNotifications: JobApplicationNotificationModel[] = response.json();
         const jobApplicationNotifications: JobApplicationNotificationModel[] = (<JobApplicationNotificationModel[]>this.jsogService.deserialize(response.json()));
         return jobApplicationNotifications;
       }
@@ -28,7 +34,11 @@ export class JobApplicationNotificationsService {
         this.jobApplicationNotificationsObserver.next(this.jobApplicationNotifications.slice());
       },
       error => {
-        this.toastr.error(error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -45,7 +55,11 @@ export class JobApplicationNotificationsService {
         this.jobApplicationNotificationsObserver.next(this.jobApplicationNotifications.slice());
       },
       error => {
-        this.toastr.error(error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -59,7 +73,12 @@ export class JobApplicationNotificationsService {
         // this.jobApplicationNotifications.push(response.json());
         // this.jobApplicationNotificationsObserver.next(this.jobApplicationNotifications.slice());
         this.getJobApplicationNotifications();
-        this.toastr.success("Notification sent.");
+        if (this.language == 'en') {
+          this.toastr.success("Notification sent.");
+        } else {
+          this.toastr.success("تم ارسال الاشعارات.");
+        }
+
       }
     ).subscribe(
       response => console.log(response)
@@ -75,13 +94,22 @@ export class JobApplicationNotificationsService {
       }
     ).subscribe(
       response => {
-        let index = this.jobApplicationNotifications.indexOf(jobApplicationNotification);
+        const index = this.jobApplicationNotifications.indexOf(jobApplicationNotification);
         this.jobApplicationNotifications.splice(index, 1);
         this.jobApplicationNotificationsObserver.next(this.jobApplicationNotifications.slice());
-        this.toastr.success( "Notification successfully removed.");
+        if (this.language == 'en') {
+          this.toastr.success( "Notification successfully removed.");
+        } else {
+          this.toastr.success("Notification successfully removed.");
+        }
+
       },
       error => {
-        this.toastr.error(error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }

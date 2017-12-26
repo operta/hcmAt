@@ -85,7 +85,7 @@
                                         <!--/row-->
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !applicant?.gender }">
+                                                <div class="form-group">
                                                     <label class="control-label col-md-3">{{ 'GENDER' | translate}}:</label>
                                                     <div class="col-md-9">
                                                         <p *ngIf="!isEditPersonal" class="form-control-static"> {{applicant?.gender}} </p>
@@ -93,7 +93,6 @@
                                                           <option [selected]="applicant?.gender == 'Male' || !applicant?.gender" value="Male">Male</option>
                                                           <option [selected]="applicant?.gender == 'Female'" value="Female">Female</option>
                                                         </select><span class="highlight"></span> <span class="bar"></span>
-                                                      <div *ngIf="f.submitted && !applicant?.gender" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
                                                     </div>
                                                 </div>
                                             </div>

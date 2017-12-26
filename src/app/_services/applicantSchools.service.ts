@@ -7,6 +7,7 @@ import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
 import {JsogService} from "jsog-typescript";
+import {LanguageService} from "./language.service";
 
 @Injectable()
 export class ApplicantSchoolsService {
@@ -14,8 +15,14 @@ export class ApplicantSchoolsService {
   URL = 'http://localhost:8080/applicantSchools';
   applicantSchools: ApplicantSchoolModel[];
   applicantSchoolsObserver = new Subject<ApplicantSchoolModel[]>();
+  language = 'en';
 
-  constructor(private toastr: ToastsManager, private http: Http, private jsog: JsogService) {
+  constructor(private toastr: ToastsManager,
+              private http: Http,
+              private jsog: JsogService,
+              private languageService: LanguageService) {
+    this.languageService.getLanguage();
+    this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
   getApplicantSchools(applicant: ApplicantModel){
@@ -30,7 +37,11 @@ export class ApplicantSchoolsService {
         this.applicantSchoolsObserver.next(this.applicantSchools.slice());
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -44,10 +55,18 @@ export class ApplicantSchoolsService {
       response => {
         this.applicantSchools.map(school => school.id == applicantSchool.id ? applicantSchool : school);
         this.applicantSchoolsObserver.next(this.applicantSchools.slice());
-        this.toastr.success(applicantSchool.school + " successfully updated.");
+        if (this.language == 'en') {
+          this.toastr.success(applicantSchool.school + " successfully updated.");
+        } else {
+          this.toastr.success(applicantSchool.school + "تم التحديث بنجاح");
+        }
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -60,11 +79,19 @@ export class ApplicantSchoolsService {
       (response: Response) => {
         this.applicantSchools.push(response.json());
         this.applicantSchoolsObserver.next(this.applicantSchools.slice());
-        this.toastr.success(applicantSchool.school + " successfully added.");
+        if (this.language == 'en') {
+          this.toastr.success(applicantSchool.school + " successfully added.");
+        } else {
+          this.toastr.success(applicantSchool.school + "تم الاضافة بنجاح");
+        }
       }
     ).catch(
       (error: any) => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
         return Observable.throw(new Error(error.status));
       }
     ).subscribe();
@@ -79,13 +106,21 @@ export class ApplicantSchoolsService {
       }
     ).subscribe(
       response => {
-        let index = this.applicantSchools.indexOf(applicantSchool);
+        const index = this.applicantSchools.indexOf(applicantSchool);
         this.applicantSchools.splice(index, 1);
         this.applicantSchoolsObserver.next(this.applicantSchools.slice());
-        this.toastr.success(applicantSchool.school + " successfully removed.");
+        if (this.language == 'en') {
+          this.toastr.success(applicantSchool.school + " successfully removed.");
+        } else {
+          this.toastr.success(applicantSchool.school + "تم الازالة بنجاح");
+        }
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }

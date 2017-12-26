@@ -2,7 +2,6 @@
       <div>
         <div class="row">
           <div class="col-md-9 col-lg-9">
-
               <div class="input-group stylish-input-group">
                 <input type="text" class="form-control" [(ngModel)]="searchValue" placeholder="{{'TYPETOSEARCH' | translate}}" >
                 <span class="input-group-addon">
@@ -90,7 +89,11 @@
 
   <div class="row m-b-20 p-l-5 p-r-10">
     <div class="col-lg-12">
+
+      <h2 style="display: inline-block;">{{ 'VACANCYLIST' | translate }}</h2>
+
       <div class="pull-right">
+
         <button routerLink="addVacancy" class="btn btn-rounded btn-default">{{'ADDVACANCY' | translate}}</button>
 
       </div>
@@ -104,6 +107,7 @@
 
 
 <!-- vacancy list -->
+
 <div class="row">
   <div class="col-xs-12 col-lg-12 col-md-12">
 

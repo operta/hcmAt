@@ -8,6 +8,7 @@ import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
 import {JsogService} from "jsog-typescript";
 import {ApplicantSkillModel} from "../_models/applicantSkill.model";
+import {LanguageService} from "./language.service";
 
 @Injectable()
 export class ApplicantSkillsService {
@@ -15,8 +16,14 @@ export class ApplicantSkillsService {
   URL = 'http://localhost:8080/applicantSkills';
   applicantSkills: ApplicantSkillModel[];
   applicantSkillsObserver = new Subject<ApplicantSkillModel[]>();
+  language = 'en';
 
-  constructor(private toastr: ToastsManager, private http: Http, private jsog: JsogService) {
+  constructor(private toastr: ToastsManager,
+              private http: Http,
+              private jsog: JsogService,
+              private languageService: LanguageService) {
+    this.languageService.getLanguage();
+    this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
   getApplicantSkills(applicant: ApplicantModel){
@@ -31,7 +38,11 @@ export class ApplicantSkillsService {
         this.applicantSkillsObserver.next(this.applicantSkills.slice());
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -45,10 +56,18 @@ export class ApplicantSkillsService {
       response => {
         this.applicantSkills.map(skill => skill.id == applicantSkill.id ? applicantSkill : skill);
         this.applicantSkillsObserver.next(this.applicantSkills.slice());
-        this.toastr.success(applicantSkill.skill + " successfully updated.");
+        if (this.language == 'en') {
+          this.toastr.success(applicantSkill.skill + " successfully updated.");
+        } else {
+          this.toastr.success(applicantSkill.skill + "تم التحديث بنجاح");
+        }
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -61,11 +80,19 @@ export class ApplicantSkillsService {
       (response: Response) => {
         this.applicantSkills.push(response.json());
         this.applicantSkillsObserver.next(this.applicantSkills.slice());
-        this.toastr.success(applicantSkill.skill + " successfully added.");
+        if (this.language == 'en') {
+          this.toastr.success(applicantSkill.skill + " successfully added.");
+        } else {
+          this.toastr.success(applicantSkill.skill + "تم الاضافة بنجاح");
+        }
       }
     ).catch(
       (error: any) => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
         return Observable.throw(new Error(error.status));
       }
     ).subscribe();
@@ -80,13 +107,21 @@ export class ApplicantSkillsService {
       }
     ).subscribe(
       response => {
-        let index = this.applicantSkills.indexOf(applicantSkill);
+        const index = this.applicantSkills.indexOf(applicantSkill);
         this.applicantSkills.splice(index, 1);
         this.applicantSkillsObserver.next(this.applicantSkills.slice());
-        this.toastr.success(applicantSkill.skill + " successfully removed.");
+        if (this.language == 'en') {
+          this.toastr.success(applicantSkill.skill + " successfully removed.");
+        } else {
+          this.toastr.success(applicantSkill.skill + "تم الازالة بنجاح");
+        }
       },
       error => {
-        this.toastr.error( error.status, "An error occured");
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }

@@ -27,7 +27,8 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
   /*  subscription: Subscription;*/
   private vacancies: VacancyModel[];
   jobApplications: JobApplicationModel[];
-  isApplicant: boolean = true;
+  isApplicant = true;
+  @Input() onApplicantOverview: boolean;
 
   start: number;
   end: number;
@@ -64,16 +65,17 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
         this.jobApplications = data;
 
 
-        this.paginationService.setPages(this.jobApplications.length);
-        this.start = this.paginationService.start();
-        this.paginationService.startObserver.subscribe(
-          start => this.start = start
-        )
-        this.end = this.paginationService.end();
-        this.paginationService.endObserver.subscribe(
-          end => this.end = end
-        );
-        console.log(this.jobApplications);
+        if (!this.onApplicantOverview) {
+          this.paginationService.setPages(this.jobApplications.length);
+          this.start = this.paginationService.start();
+          this.paginationService.startObserver.subscribe(
+            start => this.start = start
+          );
+          this.end = this.paginationService.end();
+          this.paginationService.endObserver.subscribe(
+            end => this.end = end
+          );
+        }
       }
     );
     /*.subscribe(

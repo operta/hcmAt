@@ -6,6 +6,8 @@ import {ApplicantExperienceModel} from "../_models/applicantExperience.model";
 import {JsogService} from "jsog-typescript";
 import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
+import {LanguageService} from "./language.service";
+import {Observable} from "rxjs/Observable";
 
 
 @Injectable()
@@ -14,8 +16,15 @@ export class ApplicantExperiencesService {
   URL = 'http://localhost:8080/applicantExperiences';
   Experiences: ApplicantExperienceModel[];
   ExperiencesObserver= new Subject<ApplicantExperienceModel[]>();
+  language = 'en';
 
-  constructor(private http: Http, private jsog: JsogService, private toastr: ToastsManager) {}
+  constructor(private http: Http,
+              private jsog: JsogService,
+              private toastr: ToastsManager,
+              private languageService: LanguageService) {
+    this.languageService.getLanguage();
+    this.languageService.languageObservable.subscribe((language: string) => this.language = language);
+  }
 
   getApplicantExperiences(applicant: ApplicantModel){
     return this.http.get(this.URL + '/' + applicant.id).map(
@@ -27,6 +36,13 @@ export class ApplicantExperiencesService {
       (data: ApplicantExperienceModel[]) => {
         this.Experiences = data;
         this.ExperiencesObserver.next(this.Experiences.slice());
+      },
+      error => {
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -41,7 +57,18 @@ export class ApplicantExperiencesService {
         console.log(response);
         this.Experiences.map(Experience => Experience.id == applicantExperience.id ? applicantExperience : Experience);
         this.ExperiencesObserver.next(this.Experiences.slice());
-        this.toastr.success("Experience successfully updated.");
+        if (this.language == 'en') {
+          this.toastr.success("Experience successfully updated.");
+        } else {
+          this.toastr.success("تم تحديث الخبرة بنجاح");
+        }
+      },
+      error => {
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }
@@ -55,15 +82,22 @@ export class ApplicantExperiencesService {
         console.log(response);
         this.Experiences.push(response.json());
         this.ExperiencesObserver.next(this.Experiences.slice());
-        this.toastr.success("Experience successfully added.");
+        if (this.language == 'en') {
+          this.toastr.success("Experience successfully added.");
+        } else {
+          this.toastr.success("تم اضافة الخبرة بنجاح");
+        }
       }
-    ).subscribe(
-      response => {
-        console.log(response);
-
-
+    ).catch(
+      (error: any) => {
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
+        return Observable.throw(new Error(error.status));
       }
-    );
+    ).subscribe();
   }
 
   removeApplicantExperience(applicantExperience: ApplicantExperienceModel){
@@ -76,10 +110,21 @@ export class ApplicantExperiencesService {
     ).subscribe(
       response => {
         console.log(response);
-        let index = this.Experiences.indexOf(applicantExperience);
+        const index = this.Experiences.indexOf(applicantExperience);
         this.Experiences.splice(index, 1);
         this.ExperiencesObserver.next(this.Experiences.slice());
-        this.toastr.success("Experience successfully removed.");
+        if (this.language == 'en') {
+          this.toastr.success("Experience successfully removed.");
+        } else {
+          this.toastr.success("تم ازالة الخبرة بنجاح");
+        }
+      },
+      error => {
+        if (this.language == 'en') {
+          this.toastr.error( error.status, "An error occured");
+        } else {
+          this.toastr.error( error.status, "تم حدوث خط");
+        }
       }
     );
   }

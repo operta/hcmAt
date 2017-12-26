@@ -17,7 +17,7 @@
                 <img src="assets/images/users/1.jpg" />
               </div>
               <div class="el-card-content">
-                <h3 class="box-title">{{user?.name}}</h3>
+                <!--<h3 class="box-title">{{user?.name}}</h3>-->
                 <small>{{user?.role}}</small>
                 <br/>
               </div>
@@ -52,10 +52,10 @@
 
               <div class="tab-pane active" id="profile">
                 <div class="row">
-                  <div class="col-md-3 col-xs-6 b-r"> <strong>{{ 'NAME' | translate }}</strong>
-                    <br>
-                    <p class="text-muted">{{user?.name}}</p>
-                  </div>
+                  <!--<div class="col-md-3 col-xs-6 b-r"> <strong>{{ 'NAME' | translate }}</strong>-->
+                    <!--<br>-->
+                    <!--<p class="text-muted">{{user?.name}}</p>-->
+                  <!--</div>-->
                   <div class="col-md-3 col-xs-6 b-r"> <strong>{{ 'EMAIL' | translate }}</strong>
                     <br>
                     <p class="text-muted">{{user?.username}}</p>
@@ -69,10 +69,10 @@
 
               <div class="tab-pane" id="settings">
                 <form class="form-horizontal form-material" role="form" (ngSubmit)="onSubmit(formUserInformation)" #formUserInformation="ngForm"e>
-                  <div class="form-group">
-                    <label class="col-md-12">{{ 'NAME' | translate }}:</label>
-                    <input type="text" class="form-control form-control-line" name="name"  [(ngModel)]="user && user.name" #name="ngModel" required>
-                  </div>
+                  <!--<div class="form-group">-->
+                    <!--<label class="col-md-12">Name:</label>-->
+                    <!--<input type="text" class="form-control form-control-line" name="name"  [(ngModel)]="user && user.name" #name="ngModel" required>-->
+                  <!--</div>-->
                   <div class="form-group">
                     <label class="col-md-12">{{ 'EMAIL' | translate }}:</label>
                     <input type="email" class="form-control form-control-line" name="email" [(ngModel)]="user && user.username" #email="ngModel" required>

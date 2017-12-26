@@ -194,6 +194,22 @@
   "FORSKILL": "For Skill",
   "EDITSKILLGRADE": "Edit Skill Grade",
   "RETYPEPASSWORD": "Retype Password",
-  "NEWPASSWORD": "New Password"
-
+  "NEWPASSWORD": "New Password",
+  "USERNAMEISREQUIRED" : "Username is required",
+  "PASSWORDISREQUIRED" : "Password is required",
+  "CREATEYOURACCOUNT" : "Create your account",
+  "EMAILISREQUIRED" : "Email is required",
+  "EMAILISINVALID" : "Email is invalid",
+  "ALREADYHAVEANACCOUNT" : "Already have an account",
+  "PASSWORD(ATLEASTSIXCHARACTERS)" : "Password (at least 6 characters)",
+  "PASSWORDMUSTBEATLEASTSIXCHARACTERSLONG" : "Password must be at least 6 characters long",
+  "CONFIRMPASSWORD" : "Confirm password",
+  "PASSWORDCONFIRMATIONISREQUIRED" : "Password confirmation is required",
+  "SIGNIN" : "Sign in",
+  "CERTIFICATION": "Certification",
+  "COURSE" : "Course",
+  "PROJECT" : "Project",
+  "PUBLICATION" : "Publication",
+  "HONORANDAWARD" : "Honor and award",
+  "VACANCYLIST": "Vacancy List"
 }
