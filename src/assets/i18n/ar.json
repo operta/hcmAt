@@ -212,10 +212,16 @@
   "PROJECT" : "المشروع",
   "PUBLICATION" : "المنشور (أو النشر حسب السياق)",
   "HONORANDAWARD" : "/",
-  "VACANCYLIST": "",
-  "CURRENTPASSWORD" : "/",
-  "UPDATEPASSWORD" : "/",
-  "UPDATEPROFILE" : "/"
+  "VACANCYLIST": "/",
+  "OPENVACANCIESLIST": "/",
+  "MYJOBAPPLICATIONS": "/",
+  "FULLTIME": "/",
+  "PARTTIME": "/",
+  "UPDATEPROFILE": "/",
+  "UPDATEPASSWORD": "/",
+  "THEREARENOAPPLICANTSONTHISVACANCY": "dsadsadasdas",
+  "CURRENTPASSWORD" : "/"
+
 
 
 

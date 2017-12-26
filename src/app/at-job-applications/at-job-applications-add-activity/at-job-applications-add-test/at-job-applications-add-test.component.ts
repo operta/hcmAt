@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {JobApplicationTestModel} from '../../../_models/jobApplicationTest.model';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {RegionModel} from '../../../_models/region.model';
 import {JobApplicationModel} from '../../../_models/jobApplication.model';
@@ -37,10 +37,10 @@ export class AtJobApplicationsAddTestComponent implements OnInit {
 
   initForm() {
     this.newTestForm = new FormGroup({
-      'score': new FormControl(''),
+      'score': new FormControl('', Validators.required),
       'review': new FormControl(''),
-      'region': new FormControl(''),
-      'date': new FormControl(''),
+      'region': new FormControl('', Validators.required),
+      'date': new FormControl('', Validators.required),
       'short_description': new FormControl('')
     });
   }

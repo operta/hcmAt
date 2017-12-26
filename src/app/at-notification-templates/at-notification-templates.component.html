@@ -36,9 +36,9 @@
                 <td>{{row.template}}</td>
                 <td>
                   <a role="button" class="popup-with-form" (click)="modalEdit.show(); selectedTemplate = row">
-                    <i class="fa fa-pencil action-button-at"></i>
+                    <i class="fa fa-pencil text-inverse m-r-10"></i>
                   </a>
-                  <a role="button" (click)="modalDelete.show(); selectedTemplate = row" class="popup-with-form"><i class="fa fa-times action-button-at" aria-hidden="true"></i></a>
+                  <a role="button" (click)="modalDelete.show(); selectedTemplate = row" class="popup-with-form"><i class="fa fa-close text-danger" aria-hidden="true"></i></a>
                 </td>
               </tr>
 

@@ -51,7 +51,7 @@
                 <label class="control-label col-md-3">{{ 'DATETO' | translate }}:</label>
                 <div class="col-md-9">
                   <input *ngIf="!ongoing" type="date" class="form-control" name="date_to" ngModel>
-                  <button class="btn btn-success btn-rounded" type="button" (click)="ongoing = !ongoing" name="ongoing">{{ 'PRESENT' | translate }} <i *ngIf="ongoing" class="fa fa-check" aria-hidden="true"></i></button>
+                  <button class="btn btn-success btn-rounded btn-sm" type="button" (click)="ongoing = !ongoing" name="ongoing">{{ 'PRESENT' | translate }} <i *ngIf="ongoing" class="fa fa-check" aria-hidden="true"></i></button>
 
                 </div>
               </div>

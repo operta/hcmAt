@@ -133,7 +133,7 @@
   "ACTIVE": "ACTIVE",
   "CLOSED": "CLOSED",
   "SAVE": "SAVE",
-  "AREYOUSUREYOUWANTODELETETHISITEM": "Are you sure you want to delete this item?",
+  "AREYOUSUREYOUWANTTODELETETHISITEM": "Are you sure you want to delete this item?",
   "CONFIRMACTION": "Confirm Action",
   "DELETE": "Delete",
   "FIELDISREQUIRED": "Field is required",
@@ -212,8 +212,13 @@
   "PUBLICATION" : "Publication",
   "HONORANDAWARD" : "Honor and award",
   "VACANCYLIST": "Vacancy List",
+  "OPENVACANCIESLIST": "Open Vacancies List",
+  "MYJOBAPPLICATIONS": "My Job Applications",
+  "FULLTIME": "Full Time",
+  "PARTTIME": "Part Time",
+  "UPDATEPROFILE": "Update Profile",
+  "UPDATEPASSWORD": "Update Password",
+  "THEREARENOAPPLICANTSONTHISVACANCY": "There are no applicants on this vacancy"
   "YOURPROFILE": "Your profile",
-  "CURRENTPASSWORD" : "Current password",
-  "UPDATEPASSWORD" : "Update password",
-  "UPDATEPROFILE" : "Update profile"
+  "CURRENTPASSWORD" : "Current password"
 }

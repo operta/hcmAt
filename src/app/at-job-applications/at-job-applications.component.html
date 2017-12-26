@@ -1,27 +1,27 @@
-
-    <div class="row bg-title">
-      <div class="col-md-12">
-        <div class="comment-center">
-          <div class="comment-body b-none" style="width: 100%;">
-            <div class="row">
-              <div class="col-lg-6">
-                <a [routerLink] ="['/dashboard/applicantOverview/', jobApplication.applicantid.id]">
-<!--                    <div class="user-img">
-                      <img *ngIf="jobApplication.applicantid.image_link != null" [src]="applicant.image_link" class="img-circle">
-                      <img *ngIf="jobApplication.applicantid.image_link == null" src="assets/images/users/user-male-icon.png" class="img-circle">
-                    </div>-->
-                  <div class="mail-contnet">
-                    <h5>{{jobApplication.applicantid.name}} <span style="color: #848a96;">- {{jobApplication.applicantid.employment_position}}</span></h5>
-                    <span class="mail-desc m-b-0" style="height: auto">
+<ng-container *ngIf="jobApplication">
+  <div class="row bg-title">
+    <div class="col-md-12">
+      <div class="comment-center">
+        <div class="comment-body b-none" style="width: 100%;">
+          <div class="row">
+            <div class="col-lg-6">
+              <a [routerLink] ="['/dashboard/applicantOverview/', jobApplication.applicantid.id]">
+                <!--                    <div class="user-img">
+                                      <img *ngIf="jobApplication.applicantid.image_link != null" [src]="applicant.image_link" class="img-circle">
+                                      <img *ngIf="jobApplication.applicantid.image_link == null" src="assets/images/users/user-male-icon.png" class="img-circle">
+                                    </div>-->
+                <div class="mail-contnet">
+                  <h5>{{jobApplication.applicantid.name}} <span style="color: #848a96;">- {{jobApplication.applicantid.employment_position}}</span></h5>
+                  <span class="mail-desc m-b-0" style="height: auto">
                                             <i class="ti-calendar" style="color: black"></i> {{jobApplication.applicantid.birthdate | date}}
                                             <i class="ti-email m-l-15" style="color: black"></i> {{jobApplication.applicantid.email}}
                                             <i class="ti-mobile m-l-15" style="color: black"></i> {{jobApplication.applicantid.phone_number}}
                     </span>
-                  </div>
-                </a>
-              </div>
-              <div class="col-lg-6 text-right">
-                <a [routerLink]="['../../vacancies/',jobApplication.vacancyid.id]">
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-6 text-right">
+              <a [routerLink]="['../../vacancies/',jobApplication.vacancyid.id]">
                 <div class="user-img text-right pull-right">
                   <i class="fa fa-2x fa-building"></i>
                 </div>
@@ -32,75 +32,77 @@
                                                 <i class="fa fa-map-marker m-l-15" style="color: black"></i> {{jobApplication.vacancyid.id_location.name}}
                                             </span>
                 </div>
-                </a>
-              </div>
+              </a>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-      </div>
     </div>
-    <!--.row-->
-    <div class="row">
-      <div class="col-md-12">
-        <div class="white-box">
-          <a *ngIf="state != 'history'"(click)="navigate(state)" class="btn btn-circle btn-success pull-right"><i class="fa fa-plus"></i></a>
-          <ul class="nav customtab nav-tabs" role="tablist">
-            <li role="presentation" class="nav-item">
-              <a [class.active]="state == 'interview'" (click)="state='interview'; resetLink();"  href="#interviews" class="nav-link" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+    </div>
+  </div>
+  <!--.row-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="white-box">
+        <a *ngIf="state != 'history'"(click)="navigate(state)" class="btn btn-circle btn-success pull-right"><i class="fa fa-plus"></i></a>
+        <ul class="nav customtab nav-tabs" role="tablist">
+          <li role="presentation" class="nav-item">
+            <a [class.active]="state == 'interview'" (click)="state='interview'; resetLink();"  href="#interviews" class="nav-link" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">
                                         <span class="visible-xs">
                                             <i class="fa fa-users" aria-hidden="true"></i>
                                         </span>
-                <span class="hidden-xs">{{'INTERVIEWS' | translate}}</span>
-              </a>
-            </li>
-            <li role="presentation" class="nav-item">
-              <a [class.active]="state == 'test'" (click)="state='test'; resetLink();" href="#tests" class="nav-link" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">
+              <span class="hidden-xs">{{'INTERVIEWS' | translate}}</span>
+            </a>
+          </li>
+          <li role="presentation" class="nav-item">
+            <a [class.active]="state == 'test'" (click)="state='test'; resetLink();" href="#tests" class="nav-link" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">
                                         <span class="visible-xs">
                                             <i class="ti-pencil-alt"></i>
                                         </span>
-                <span class="hidden-xs">{{'TESTS' | translate}}</span>
-              </a>
-            </li>
-            <li role="presentation" class="nav-item">
-              <a [class.active]="state == 'history'" (click)="state='history'; resetLink();" href="#history" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">
+              <span class="hidden-xs">{{'TESTS' | translate}}</span>
+            </a>
+          </li>
+          <li role="presentation" class="nav-item">
+            <a [class.active]="state == 'history'" (click)="state='history'; resetLink();" href="#history" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">
                                         <span class="visible-xs">
                                             <i class="ti-signal"></i>
                                         </span>
-                <span class="hidden-xs">{{'STATUSHISTORY' | translate}}</span>
-              </a>
-            </li>
-          </ul>
-          <div class="tab-content">
-            <router-outlet></router-outlet>
-            <div role="tabpanel" class="tab-pane fade in active" id="interviews" aria-expanded="true">
-              <div class="row">
-                <div class="col-xs-12 col-lg-12 col-md-12">
-                  <div class="comment-center">
-                    <app-at-job-application-interviews *ngFor="let interview of interviews" [interview]="interview"></app-at-job-application-interviews>
-                  </div>
+              <span class="hidden-xs">{{'STATUSHISTORY' | translate}}</span>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <router-outlet></router-outlet>
+          <div role="tabpanel" class="tab-pane fade in active" id="interviews" aria-expanded="true">
+            <div class="row">
+              <div class="col-xs-12 col-lg-12 col-md-12">
+                <div class="comment-center">
+                  <app-at-job-application-interviews *ngFor="let interview of interviews" [interview]="interview"></app-at-job-application-interviews>
                 </div>
               </div>
             </div>
-            <div role="tabpanel" class="tab-pane fade" id="tests" aria-expanded="false">
-              <div class="row">
-                <div class="col-xs-12 col-lg-12 col-md-12">
-                  <div class="comment-center">
-                    <app-at-job-application-tests *ngFor="let test of tests" [test]="test"></app-at-job-application-tests>
-                  </div>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="tests" aria-expanded="false">
+            <div class="row">
+              <div class="col-xs-12 col-lg-12 col-md-12">
+                <div class="comment-center">
+                  <app-at-job-application-tests *ngFor="let test of tests" [test]="test"></app-at-job-application-tests>
                 </div>
               </div>
             </div>
-            <div role="tabpanel" class="tab-pane fade" id="history" aria-expanded="false">
-              <div class="row">
-                <div class="col-md-12">
-                  <app-at-job-application-status-history [jobApplication]="jobApplication"></app-at-job-application-status-history>
-                </div>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="history" aria-expanded="false">
+            <div class="row">
+              <div class="col-md-12">
+                <app-at-job-application-status-history [jobApplication]="jobApplication"></app-at-job-application-status-history>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</ng-container>
+
 

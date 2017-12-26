@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RegionsService} from '../../_services/regions.service';
 import {RegionModel} from '../../_models/region.model';
 import {Subscription} from 'rxjs/Subscription';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {VacancyModel} from '../../_models/vacancy.model';
 import {VacanciesService} from '../../_services/vacancies.service';
 import {WorkPlaceModel} from '../../_models/workPlace.model';
@@ -63,13 +63,13 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.newVacForm = new FormGroup({
-      'name': new FormControl(''),
+      'name': new FormControl('', Validators.required),
       'code': new FormControl(''),
       'description': new FormControl(''),
-      'region': new FormControl(''),
-      'workPlace': new FormControl(''),
-      'date_from': new FormControl(''),
-      'date_to': new FormControl(''),
+      'region': new FormControl('', Validators.required),
+      'workPlace': new FormControl('', Validators.required),
+      'date_from': new FormControl('', Validators.required),
+      'date_to': new FormControl('', Validators.required),
       'job_role': new FormControl(''),
       'job_working_time': new FormControl(''),
       'skills_requirement': new FormControl(''),

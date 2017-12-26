@@ -6,6 +6,8 @@ import {JobApplicationInterviewModel} from "../_models/jobApplicationInterview.m
 import {JobApplicationTestModel} from "../_models/jobApplicationTest.model";
 import {JobApplicationInterviewService} from "../_services/jobApplicationInterview.service";
 import {JobApplicationTestService} from "../_services/jobApplicationTest.service";
+import {ApplicantModel} from "../_models/applicant.model";
+import {VacancyModel} from "../_models/vacancy.model";
 
 @Component({
   selector: 'app-at-job-applications',
@@ -24,25 +26,44 @@ export class AtJobApplicationsComponent implements OnInit {
   constructor(private testService: JobApplicationTestService, private interviewService: JobApplicationInterviewService, private router: Router, private route: ActivatedRoute, private jobApplicationsService: AtJobApplicationsService) { }
 
   ngOnInit() {
+
+    this.interviewService.interviewChange.subscribe(
+      (data: JobApplicationInterviewModel[]) => {
+        this.interviews = data;
+      }
+    );
+
+
+    this.testService.testChange.subscribe(
+      (data: JobApplicationTestModel[]) => {
+        this.tests = data;
+        console.log(this.tests);
+      }
+    );
+
+    this.jobApplicationsService.jobApplicationChange.subscribe(
+      data => {
+        console.log('subscribe na change');
+        console.log(data);
+        this.jobApplication = data;
+        this.interviewService.initInterviews(this.jobApplication.interview);
+        this.testService.initTests(this.jobApplication.test);
+      }
+    );
+
     this.route.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
-        this.jobApplication = this.jobApplicationsService.getJobApplicationById(+this.id);
 
-        this.interviewService.interviewChange.subscribe(
-          (data: JobApplicationInterviewModel[]) => {
-            this.interviews = data;
-          }
-        );
-        this.interviewService.initInterviews(this.jobApplication.interview);
+        if (this.jobApplicationsService.isEmpty()) {
+          this.jobApplicationsService.getJobApplicationByIdHTTP(this.id);
+        } else {
+          this.jobApplication = this.jobApplicationsService.getJobApplicationById(+this.id);
+          this.interviewService.initInterviews(this.jobApplication.interview);
+          this.testService.initTests(this.jobApplication.test);
+        }
 
-        this.testService.testChange.subscribe(
-          (data: JobApplicationTestModel[]) => {
-            this.tests = data;
-            console.log(this.tests);
-          }
-        );
-        this.testService.initTests(this.jobApplication.test);
+
       }
     )
 
