@@ -35,6 +35,7 @@
   "EMPLOYMENTPOSITION": "Employment Position",
   "EXPERIENCE": "Experience",
   "COMPANY": "Company",
+  "COMPANIES": "Companies",
   "POSITION": "Position",
   "LOCATION": "Location",
   "FROM": "From",
@@ -193,6 +194,8 @@
   "NUMERICAL": "Numerical",
   "FORSKILL": "For Skill",
   "EDITSKILLGRADE": "Edit Skill Grade",
+  "RETYPEPASSWORD": "Retype Password",
+  "NEWPASSWORD": "New Password",
   "USERNAMEISREQUIRED" : "Username is required",
   "PASSWORDISREQUIRED" : "Password is required",
   "CREATEYOURACCOUNT" : "Create your account",
@@ -208,5 +211,6 @@
   "COURSE" : "Course",
   "PROJECT" : "Project",
   "PUBLICATION" : "Publication",
-  "HONORANDAWARD" : "Honor and award"
+  "HONORANDAWARD" : "Honor and award",
+  "VACANCYLIST": "Vacancy List"
 }

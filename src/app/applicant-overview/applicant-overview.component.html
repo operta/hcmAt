@@ -24,7 +24,7 @@
               <app-applicant [applicant]="applicant" [editable]="false"></app-applicant>
             </div>
             <div class="tab-pane" id="applications">
-             <app-at-vacancies-mylist [id]="applicant.id"></app-at-vacancies-mylist>
+             <app-at-vacancies-mylist [onApplicantOverview]="true" [id]="applicant.id"></app-at-vacancies-mylist>
             </div>
 
             <div class="tab-pane" id="activities">

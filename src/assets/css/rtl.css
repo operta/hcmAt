@@ -134,3 +134,8 @@ html[dir="rtl"] .pull-right > .dropdown-menu {
     margin: 0 0 0 0;
   }
 }
+
+html[dir="rtl"] b {
+  margin-left: 0.5em !important;
+}
+
