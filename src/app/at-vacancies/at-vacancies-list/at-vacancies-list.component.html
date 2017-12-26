@@ -1,82 +1,75 @@
 <div class="panel panel-default m-b-10">
-      <div>
-        <div class="row">
-          <div class="col-md-9 col-lg-9">
-              <div class="input-group stylish-input-group">
-                <input type="text" class="form-control" [(ngModel)]="searchValue" placeholder="{{'TYPETOSEARCH' | translate}}" >
-                <span class="input-group-addon">
-                        <button type="submit">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-              </div>
-
-          </div>
-
-
-            <div class="pull right">
-
-              <button class="btn btn-default btn-rounded" data-perform="panel-collapse">{{'ADVANCEDSEARCH' | translate}} <i class="ti-plus"></i> </button>
-              <button *ngIf="!loading" (click)="refresh()" class="btn btn-info btn-rounded"><i class="fa fa-refresh" aria-hidden="true"></i></button>
-              <button *ngIf="loading" class="btn btn-info btn-rounded pull-right"><i class="fa fa-refresh fa-spin"></i></button>
-
-            </div>
-
-
+  <div class="row">
+    <div class="col-md-9 col-xs-9">
+        <div class="input-group stylish-input-group">
+          <input type="text" class="form-control" [(ngModel)]="searchValue" placeholder="{{'TYPETOSEARCH' | translate}}" >
+          <span class="input-group-addon">
+            <button type="submit">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </span>
         </div>
+    </div>
+    <div class="pull-right">
+      <div class="col-md-3 col-xs-3">
+        <button class="btn btn-default btn-rounded btn-margin-mobile" data-perform="panel-collapse">{{'ADVANCEDSEARCH' | translate}} <i class="ti-plus"></i> </button>
       </div>
-  <div class="panel-wrapper collapse out">
-        <div class="panel-body p-l-0 p-r-0">
-          <div class="row">
-            <div class="col-sm-12 col-xs-12">
+    </div>
 
-              <div class="row">
-                <!--<div class="col-md-6">-->
-                  <!--<div class="form-group">-->
-                    <!--<label>Date From</label>-->
-                    <!--<input type="date" [(ngModel)]="searchByDateFrom" class="form-control">-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="col-md-6">-->
-                  <!--<div class="form-group">-->
-                    <!--<label>Date To</label>-->
-                    <!--<input type="date" [(ngModel)]="searchByDateTo" class="form-control">-->
-                  <!--</div>-->
-                <!--</div>-->
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Region</label>
-                    <select [(ngModel)]="searchByRegion" class="form-control">
-                      <option value="">All</option>
-                      <option *ngFor="let region of regions" [ngValue]="region.name">{{region.name}}</option>
-                    </select>
-                  </div>
-                </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Workplace</label>
-                      <select [(ngModel)]="searchByWorkplace" class="form-control">
-                        <option value="">All</option>
-                        <option *ngFor="let workplace of workplaces" [ngValue]="workplace.name">{{workplace.name}}</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Status</label>
-                      <select [(ngModel)]="searchByStatus" class="form-control">
-                        <option value="">All</option>
-                        <option value="ACTIVE">Active</option>
-                        <option value="CLOSED">Closed</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
+  </div>
+  <hr>
+  <div class="panel-wrapper collapse out">
+    <div class="panel-body p-l-0 p-r-0">
+      <div class="row">
+        <div class="col-sm-12 col-xs-12">
+          <div class="row">
+            <!--<div class="col-md-6">-->
+              <!--<div class="form-group">-->
+                <!--<label>Date From</label>-->
+                <!--<input type="date" [(ngModel)]="searchByDateFrom" class="form-control">-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-6">-->
+              <!--<div class="form-group">-->
+                <!--<label>Date To</label>-->
+                <!--<input type="date" [(ngModel)]="searchByDateTo" class="form-control">-->
+              <!--</div>-->
+            <!--</div>-->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Region</label>
+                <select [(ngModel)]="searchByRegion" class="form-control">
+                  <option value="">All</option>
+                  <option *ngFor="let region of regions" [ngValue]="region.name">{{region.name}}</option>
+                </select>
+              </div>
             </div>
-          </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Workplace</label>
+                  <select [(ngModel)]="searchByWorkplace" class="form-control">
+                    <option value="">All</option>
+                    <option *ngFor="let workplace of workplaces" [ngValue]="workplace.name">{{workplace.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Status</label>
+                  <select [(ngModel)]="searchByStatus" class="form-control">
+                    <option value="">All</option>
+                    <option value="ACTIVE">Active</option>
+                    <option value="CLOSED">Closed</option>
+                  </select>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
     </div>
+    <hr>
+  </div>
+</div>
 
 <!-- gotov search-->
 
@@ -93,9 +86,9 @@
       <h2 style="display: inline-block;">{{ 'VACANCYLIST' | translate }}</h2>
 
       <div class="pull-right">
-
         <button routerLink="addVacancy" class="btn btn-rounded btn-default">{{'ADDVACANCY' | translate}}</button>
-
+        <button *ngIf="!loading" (click)="refresh()" class="btn btn-info btn-rounded"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+        <button *ngIf="loading" class="btn btn-info btn-rounded"><i class="fa fa-refresh fa-spin"></i></button>
       </div>
     </div>
   </div>
@@ -128,8 +121,7 @@
                   | searchWorkplacePipe:searchByWorkplace
                   | searchRegionPipe: searchByRegion
                   | searchDatePipe: searchByDateFrom: searchByDateTo
-                  | slice: start : end
-"
+                  | slice: start : end"
                              [vacancy]="vacancy"
                              [regions]="regions"
                              [workplaces]="workplaces">

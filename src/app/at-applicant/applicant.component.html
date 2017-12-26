@@ -26,10 +26,10 @@
                                         <span class="heading-at">{{ 'PERSONINFO' | translate}}</span>
                                         <div *ngIf="editable" class="pull-right">
                                           <a *ngIf="!addApplicant && this.applicant == null" (click)="addApplicant=true; isEditPersonal=true">
-                                            <i class="fa fa-plus action-button-at"></i>
+                                            <i class="fa fa-plus text-inverse m-r-10"></i>
                                           </a>
                                             <a *ngIf="!isEditPersonal && this.applicant !=null && editable" (click)="isEditPersonal=true">
-                                              <i class="fa fa-pencil action-button-at"></i>
+                                              <i class="fa fa-pencil text-inverse m-r-10"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -271,7 +271,7 @@
                                   <span class="heading-at">{{ 'EDUCATION' | translate }}</span>
                                   <div class="pull-right">
                                     <a *ngIf="editable" class="popup-with-form" (click)="addEducation=true">
-                                      <i class="fa fa-plus action-button-at"></i>
+                                      <i class="fa fa-plus text-inverse m-r-10"></i>
                                     </a>
                                   </div>
                                 </div>

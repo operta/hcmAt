@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RegionModel} from '../../../_models/region.model';
 import {Subscription} from 'rxjs/Subscription';
 import {RegionsService} from '../../../_services/regions.service';
@@ -37,11 +37,10 @@ export class AtJobApplicationsAddInterviewComponent implements OnInit {
 
   initForm() {
     this.newInterviewForm = new FormGroup({
-      'grade': new FormControl(''),
+      'grade': new FormControl('', Validators.required),
       'description': new FormControl(''),
-      'region': new FormControl(''),
-      'date': new FormControl(''),
-      'time': new FormControl('')
+      'region': new FormControl('', Validators.required),
+      'date': new FormControl('', Validators.required)
     });
   }
 
