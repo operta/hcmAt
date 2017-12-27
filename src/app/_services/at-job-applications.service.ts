@@ -18,7 +18,7 @@ import {LanguageService} from "./language.service";
 @Injectable()
 export class AtJobApplicationsService {
 
-  jobApplicationsURL = 'http://localhost:8080/jobApplications';
+  jobApplicationsURL = 'http://77.78.198.19:8080/jobApplications';
   jobApplications: JobApplicationModel[] = new Array<JobApplicationModel>();
   jobApplicationsChange = new Subject<JobApplicationModel[]>();
   language = 'en';

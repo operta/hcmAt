@@ -12,7 +12,7 @@ import {LanguageService} from "./language.service";
 @Injectable()
 export class ApplicantSchoolsService {
 
-  URL = 'http://localhost:8080/applicantSchools';
+  URL = 'http://77.78.198.19:8080/applicantSchools';
   applicantSchools: ApplicantSchoolModel[];
   applicantSchoolsObserver = new Subject<ApplicantSchoolModel[]>();
   language = 'en';

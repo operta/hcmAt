@@ -8,7 +8,7 @@ import {LanguageService} from "./language.service";
 
 @Injectable()
 export class SkillGradesService {
-  URL = 'http://localhost:8080/skillGrades';
+  URL = 'http://77.78.198.19:8080/skillGrades';
   skillGrades: SkillGradeModel[];
   skillGradesObserver = new Subject<SkillGradeModel[]>();
   language = 'en';

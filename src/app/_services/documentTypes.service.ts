@@ -5,7 +5,7 @@ import {DocumentTypeModel} from "../_models/documentType.model";
 @Injectable()
 export class DocumentTypesService {
 
-  URL = 'http://localhost:8080/documentTypes';
+  URL = 'http://77.78.198.19:8080/documentTypes';
 
   constructor(private http: Http) { }
 

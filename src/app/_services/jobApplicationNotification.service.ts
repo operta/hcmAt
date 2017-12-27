@@ -9,7 +9,7 @@ import {LanguageService} from "./language.service";
 
 @Injectable()
 export class JobApplicationNotificationsService {
-  URL = 'http://localhost:8080/jobApplicationNotifications';
+  URL = 'http://77.78.198.19:8080/jobApplicationNotifications';
   jobApplicationNotifications: JobApplicationNotificationModel[] = [];
   jobApplicationNotificationsObserver = new Subject<JobApplicationNotificationModel[]>();
   language = 'en';

@@ -4,7 +4,7 @@ import {WorkPlaceModel} from '../_models/workPlace.model';
 
 @Injectable()
 export class WorkPlacesService {
-  workPlacesURL = 'http://localhost:8080/workPlaces';
+  workPlacesURL = 'http://77.78.198.19:8080/workPlaces';
 
   constructor(private http: Http) { }
 

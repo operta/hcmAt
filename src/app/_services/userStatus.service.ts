@@ -5,7 +5,7 @@ import {UserStatus} from "../_models/userStatus.model";
 @Injectable()
 export class UserStatusService {
 
-  userStatusURL = 'http://localhost:8080/userStatuses';
+  userStatusURL = 'http://77.78.198.19:8080/userStatuses';
 
   constructor(private http: Http) { }
 

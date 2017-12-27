@@ -73,7 +73,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vacancy.code }">
-                <label class="col-md-12">{{'CODE' | translate}}:</label>
+                <label class="col-md-12">{{'CODE' | translate}}: </label>
                 <div class="col-md-12">
                   <input  type="text" class="form-control"name="code"
                           [(ngModel)]="vacancy && vacancy.code">
@@ -85,7 +85,7 @@
             </div>
             <div class="col-md-12">
               <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vacancy.name }">
-                <label class="col-md-12">{{'NAME' | translate}}:</label>
+                <label class="col-md-12">{{'NAME' | translate}}: </label>
                 <div class="col-md-12">
                   <input  type="text" class="form-control"name="name"
                           [(ngModel)]="vacancy && vacancy.name">
@@ -97,7 +97,7 @@
             </div>
             <div class="col-md-12">
               <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vacancy.description }">
-                <label class="col-md-12">{{'DESCRIPTION' | translate}}:</label>
+                <label class="col-md-12">{{'DESCRIPTION' | translate}}: </label>
                 <div class="col-md-12">
                   <input  type="text" class="form-control"name="description"
                           [(ngModel)]="vacancy && vacancy.description">
@@ -109,7 +109,7 @@
             </div>
             <div class="col-md-12">
               <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vacancy.date_from }">
-                <label class="col-md-12">{{'DATEFROM' | translate}}:</label>
+                <label class="col-md-12">{{'DATEFROM' | translate}}: </label>
                 <div class="col-md-12">
                   <input  type="date" class="form-control"name="date_from"
                           [(ngModel)]="vacancy && vacancy.date_from">
@@ -134,7 +134,7 @@
 
             <div class="col-md-12"  *ngIf="selectedRegion">
               <div class="form-group">
-                <label class="col-md-12">{{'REGION' | translate}}:</label>
+                <label class="col-md-12">{{'REGION' | translate}}: </label>
                 <div class="col-md-12">
                   <select class="form-control p-0" (change)="onRegionSelected(t.value)" #t>
                     <option *ngFor="let region of regions" [selected]="region?.id == selectedRegion.id" [ngValue]="region">{{region.name}}</option>
@@ -144,7 +144,7 @@
             </div>
             <div class="col-md-12"  *ngIf="selectedWorkplace">
               <div class="form-group">
-                <label class="col-md-12">{{'WORKPLACE' | translate}}:</label>
+                <label class="col-md-12">{{'WORKPLACE' | translate}}: </label>
                 <div class="col-md-12">
                   <select class="form-control p-0"  (change)="onWorkplaceSelected(t.value)" #t>
                     <option *ngFor="let workplace of workplaces" [selected]="workplace?.id == selectedWorkplace.id" [ngValue]="workplace">{{workplace.name}}</option>
@@ -153,7 +153,7 @@
             </div>
               <div class="col-md-12">
                 <div class="form-group">
-                  <label class="col-md-12">{{'STATUS' | translate}}:</label>
+                  <label class="col-md-12">{{'STATUS' | translate}}: </label>
                   <div class="col-md-12">
                     <select class="form-control p-0" (change)=onStatusSelected(t.value) #t>
                       <option [selected]="vacancy?.status.status == 'ACTIVE'" value="ACTIVE">{{'ACTIVE' | translate}}</option>
@@ -183,49 +183,49 @@
 
             <div class="col-md-12">
               <div class="form-group" >
-                <label>{{'CODE' | translate}}:</label>
+                <label>{{'CODE' | translate}}: </label>
                 <p> {{vacancy?.code}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>{{'NAME' | translate}}:</label>
+                <label>{{'NAME' | translate}}: </label>
                 <p> {{vacancy?.name}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>{{'DESCRIPTION' | translate}}:</label>
+                <label>{{'DESCRIPTION' | translate}}: </label>
                 <p> {{vacancy?.description}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>{{'DATEFROM' | translate}}:</label>
+                <label>{{'DATEFROM' | translate}}: </label>
                 <p> {{vacancy?.date_from}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group" >
-                <label>{{'DATETO' | translate}}:</label>
+                <label>{{'DATETO' | translate}}: </label>
                 <p> {{vacancy?.date_to}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>{{'REGION' | translate}}:</label>
+                <label>{{'REGION' | translate}}: </label>
                 <p> {{vacancy?.id_location.name}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>{{'WORKPLACE' | translate}}:</label>
+                <label> {{'WORKPLACE' | translate}}: </label>
                 <p> {{vacancy?.id_work_place.name}} </p>
               </div>
             </div>
