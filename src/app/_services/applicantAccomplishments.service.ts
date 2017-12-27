@@ -13,7 +13,7 @@ import {LanguageService} from "./language.service";
 @Injectable()
 export class ApplicantAccomplishmentsService {
 
-  URL = 'http://localhost:8080/applicantAccomplishments';
+  URL = 'http://77.78.198.19:8080/applicantAccomplishments';
   accomplishments: ApplicantAccomplishmentModel[] = [];
   accomplishmentsObserver= new Subject<ApplicantAccomplishmentModel[]>();
   language = 'en';

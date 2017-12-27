@@ -12,7 +12,7 @@ import {LanguageService} from "./language.service";
 export class VacanciesService {
   private vacancies: VacancyModel[] = [];
   vacancyChange= new Subject<VacancyModel[]>();
-  vacanciesURL = 'http://localhost:8080/vacancies';
+  vacanciesURL = 'http://77.78.198.19:8080/vacancies';
   language = 'en';
 
   constructor(private toastr: ToastsManager,

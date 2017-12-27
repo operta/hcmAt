@@ -29,7 +29,7 @@
 
 
                                     <tr *ngFor="let applicant of applicants | slice:start:end; let i = index"
-                                        (click)="selectRow(i)" [class]="(i === selectedRow)?'selectedRow':''">
+                                        [class]="(i === selectedRow)?'selectedRow':''">
 
                                         <td><a [routerLink]="['../','applicantOverview',applicant.id]"><i class="fa fa-search"></i></a></td>
                                         <td>{{ applicant?.name }} {{applicant?.surname}}</td>
