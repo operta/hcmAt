@@ -14,9 +14,30 @@
       <div class="col-md-12 col-xs-12">
         <div class="white-box">
           <ul class="nav customtab nav-tabs" role="tablist">
-            <li role="presentation" class="nav-item"><a href="#applicant" (click)="state = 'personalInfo'" [class.active]="state == 'personalInfo'" class="nav-link" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-user"></i></span> <span class="hidden-xs">{{ 'PERSONALINFORMATION' | translate }}</span></a></li>
-            <li role="presentation" class="nav-item"><a href="#applications" (click)="state = 'applications'" [class.active]="state == 'applications'" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-cog"></i></span> <span class="hidden-xs">{{ 'JOBAPPLICATIONS' | translate }}</span></a></li>
-            <li role="presentation" class="nav-item"><a href="#activities" (click)="state = 'activities'" [class.active]="state == 'activities'" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false"><span class="visible-xs"><i class="fa fa-envelope-o"></i></span> <span class="hidden-xs">{{ 'ACTIVITIES' | translate }}</span></a></li>
+            <li role="presentation" class="nav-item">
+              <a href="#applicant" (click)="state = 'personalInfo'" [class.active]="state == 'personalInfo'" class="nav-link" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">
+                <span class="visible-xs">
+                  <i class="fa fa-user"></i>
+                </span>
+                <span class="hidden-xs">{{ 'PERSONALINFORMATION' | translate }}</span>
+              </a>
+            </li>
+            <li role="presentation" class="nav-item">
+              <a href="#applications" (click)="state = 'applications'" [class.active]="state == 'applications'" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">
+                <span class="visible-xs">
+                   <i class="ti-clipboard"></i>
+                </span>
+                <span class="hidden-xs">{{ 'JOBAPPLICATIONS' | translate }}</span>
+              </a>
+            </li>
+            <li role="presentation" class="nav-item">
+              <a href="#activities" (click)="state = 'activities'" [class.active]="state == 'activities'" class="nav-link" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">
+                <span class="visible-xs">
+                  <i class="fa fa-envelope-o"></i>
+                </span>
+                <span class="hidden-xs">{{ 'ACTIVITIES' | translate }}</span>
+              </a>
+            </li>
           </ul>
           <div class="tab-content">
 
@@ -24,7 +45,7 @@
               <app-applicant [applicant]="applicant" [editable]="false"></app-applicant>
             </div>
             <div class="tab-pane" id="applications">
-             <app-at-vacancies-mylist [id]="applicant.id"></app-at-vacancies-mylist>
+             <app-at-vacancies-mylist [onApplicantOverview]="true" [id]="applicant.id"></app-at-vacancies-mylist>
             </div>
 
             <div class="tab-pane" id="activities">

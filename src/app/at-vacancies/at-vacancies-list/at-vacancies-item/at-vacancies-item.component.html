@@ -7,10 +7,12 @@
       <!-- PRIKAZATI VACANCY EDIT I DELETE SAMO AKO MATCHA COMPANIJU -->
       <div class="box-title p-b-10 p-r-10" *ngIf="isCompany">
         <div class="pull-right">
-          <a  role="button"  class="popup-with-form" (click)="modalEdit.show()">
-            <i class="fa fa-pencil action-button-at"></i>
+          <a role="button"  class="popup-with-form" (click)="modalEdit.show()">
+            <i class="fa fa-pencil text-inverse m-r-10"></i>
           </a>
-          <a role="button"  (click)="modalDelete.show()" class="popup-with-form"><i class="fa fa-times action-button-at" aria-hidden="true"></i></a>
+          <a role="button"  (click)="modalDelete.show()" class="popup-with-form">
+            <i class="fa fa-close text-danger" aria-hidden="true"></i>
+          </a>
         </div>
       </div>
 
@@ -39,7 +41,8 @@
               <i class="fa fa-map-marker"></i> {{vacancy.id_location.name}}
             </div>
             <div class="col-xs-12 col.sm-6 col-md-6 col-lg-4">
-              <b>{{'DIVISION' | translate}}: </b> {{vacancy.id_work_place.name}}
+              <b>{{'DIVISION' | translate}}: </b>
+               {{vacancy.id_work_place.name}}
             </div>
             <div class="col-xs-12 col.sm-6 col-md-6 col-lg-6">
               <i class="fa fa-clock-o"></i> {{vacancy.date_from | date: 'dd/MM/yyyy'}} - <i class="fa fa-clock-o"></i> {{vacancy.date_to | date: 'dd/MM/yyyy'}}
@@ -73,7 +76,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vacancy.code }">
-                <label class="col-md-12">{{'CODE' | translate}}: </label>
+                <label class="col-md-12">{{'CODE' | translate}}:</label>
                 <div class="col-md-12">
                   <input  type="text" class="form-control"name="code"
                           [(ngModel)]="vacancy && vacancy.code">
@@ -85,7 +88,7 @@
             </div>
             <div class="col-md-12">
               <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vacancy.name }">
-                <label class="col-md-12">{{'NAME' | translate}}: </label>
+                <label class="col-md-12">{{'NAME' | translate}}:</label>
                 <div class="col-md-12">
                   <input  type="text" class="form-control"name="name"
                           [(ngModel)]="vacancy && vacancy.name">
@@ -97,7 +100,7 @@
             </div>
             <div class="col-md-12">
               <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vacancy.description }">
-                <label class="col-md-12">{{'DESCRIPTION' | translate}}: </label>
+                <label class="col-md-12">{{'DESCRIPTION' | translate}}:</label>
                 <div class="col-md-12">
                   <input  type="text" class="form-control"name="description"
                           [(ngModel)]="vacancy && vacancy.description">
@@ -109,7 +112,7 @@
             </div>
             <div class="col-md-12">
               <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !vacancy.date_from }">
-                <label class="col-md-12">{{'DATEFROM' | translate}}: </label>
+                <label class="col-md-12">{{'DATEFROM' | translate}}:</label>
                 <div class="col-md-12">
                   <input  type="date" class="form-control"name="date_from"
                           [(ngModel)]="vacancy && vacancy.date_from">
@@ -134,7 +137,7 @@
 
             <div class="col-md-12"  *ngIf="selectedRegion">
               <div class="form-group">
-                <label class="col-md-12">{{'REGION' | translate}}: </label>
+                <label class="col-md-12">{{'REGION' | translate}}:</label>
                 <div class="col-md-12">
                   <select class="form-control p-0" (change)="onRegionSelected(t.value)" #t>
                     <option *ngFor="let region of regions" [selected]="region?.id == selectedRegion.id" [ngValue]="region">{{region.name}}</option>
@@ -153,7 +156,7 @@
             </div>
               <div class="col-md-12">
                 <div class="form-group">
-                  <label class="col-md-12">{{'STATUS' | translate}}: </label>
+                  <label class="col-md-12">{{'STATUS' | translate}}:</label>
                   <div class="col-md-12">
                     <select class="form-control p-0" (change)=onStatusSelected(t.value) #t>
                       <option [selected]="vacancy?.status.status == 'ACTIVE'" value="ACTIVE">{{'ACTIVE' | translate}}</option>
@@ -164,7 +167,7 @@
               </div>
 
           </div>
-          <button (click)="modalEdit.hide()" #cancelEdit class="pull-right saveButton btn btn-default">{{'CANCEL' | translate}}</button>
+          <button (click)="modalEdit.hide()" #cancelEdit class="pull-right saveButton btn btn-default" type="button">{{'CANCEL' | translate}}</button>
           <button  class="pull-right saveButton btn btn-success" type="submit">{{'SAVE' | translate}}</button>
           </div>
         </div>
@@ -183,49 +186,49 @@
 
             <div class="col-md-12">
               <div class="form-group" >
-                <label>{{'CODE' | translate}}: </label>
+                <label>{{'CODE' | translate}}:</label>
                 <p> {{vacancy?.code}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>{{'NAME' | translate}}: </label>
+                <label>{{'NAME' | translate}}:</label>
                 <p> {{vacancy?.name}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>{{'DESCRIPTION' | translate}}: </label>
+                <label>{{'DESCRIPTION' | translate}}:</label>
                 <p> {{vacancy?.description}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>{{'DATEFROM' | translate}}: </label>
+                <label>{{'DATEFROM' | translate}}:</label>
                 <p> {{vacancy?.date_from}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group" >
-                <label>{{'DATETO' | translate}}: </label>
+                <label>{{'DATETO' | translate}}:</label>
                 <p> {{vacancy?.date_to}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label>{{'REGION' | translate}}: </label>
+                <label>{{'REGION' | translate}}:</label>
                 <p> {{vacancy?.id_location.name}} </p>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
-                <label> {{'WORKPLACE' | translate}}: </label>
+                 <label>{{'WORKPLACE' | translate}}: </label>
                 <p> {{vacancy?.id_work_place.name}} </p>
               </div>
             </div>

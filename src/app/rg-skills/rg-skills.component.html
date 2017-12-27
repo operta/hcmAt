@@ -10,7 +10,7 @@
               <h3 class="box-title m-b-0">{{ 'SKILLS' | translate }}</h3>
               <p class="text-muted m-b-30">{{ 'SKILLSFOREMPLOYEESANDAPPLICANTS' | translate }}</p>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="margin-bottom: 10px">
               <div class="pull-right">
                 <button (click)="modalAdd.show(); add = true;" class="btn btn-info btn-rounded">{{ 'ADD' | translate }}<i class="fa fa-plus" aria-hidden="true"></i></button>
               </div>
@@ -38,9 +38,9 @@
                 <td>{{skill.field}}</td>
                 <td>
                     <a role="button" class="popup-with-form" (click)="modalEdit.show(); selectedSkill = skill">
-                      <i class="fa fa-pencil action-button-at"></i>
+                      <i class="fa fa-pencil text-inverse m-r-10  "></i>
                     </a>
-                    <a role="button" (click)="modalDelete.show(); selectedSkill = skill" class="popup-with-form"><i class="fa fa-times action-button-at" aria-hidden="true"></i></a>
+                    <a role="button" (click)="modalDelete.show(); selectedSkill = skill" class="popup-with-form"><i class="fa fa-close text-danger" aria-hidden="true"></i></a>
                 </td>
               </tr>
 

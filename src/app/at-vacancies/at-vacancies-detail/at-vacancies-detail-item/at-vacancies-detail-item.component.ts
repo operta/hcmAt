@@ -5,6 +5,8 @@ import {JobApplicationStatusModel} from '../../../_models/jobApplicationStatus.m
 import {AtJobApplicationsService} from '../../../_services/at-job-applications.service';
 import {VacancyModel} from '../../../_models/vacancy.model';
 import {JobApplicationHistoryService} from "../../../_services/jobApplicationHistory.service";
+import {JsogService} from "jsog-typescript";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -25,7 +27,7 @@ export class AtVacanciesDetailItemComponent implements OnInit {
 
   changeStatus = false;
 
-  constructor(private jobApplicationService: AtJobApplicationsService) { }
+  constructor(private router: Router, private jobApplicationService: AtJobApplicationsService) { }
 
   ngOnInit() {
     this.currentStatus = this.jobApplication.id_status;
@@ -35,9 +37,12 @@ export class AtVacanciesDetailItemComponent implements OnInit {
     this.testsAvg = this.testsAvg / this.jobApplication.test.length;
     this.totalAvg = (this.testsAvg + this.interviewsAvg) / 2;
     console.log(this.jobApplication);
+    console.log(this.applicant);
+
+
   }
 
-  updateStatus(status: JobApplicationStatusModel){
+  updateStatus(status: JobApplicationStatusModel) {
     const newStatus = new JobApplicationStatusModel(
       status.id, null, status.name, null, null, null, null, null
     );

@@ -53,7 +53,7 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
     this.isCompany = this.userService.isAdmin;
     this.isAdmin = this.userService.isAdmin;
     this.isUser = this.userService.isUser();
-    if(this.isUser){
+    if (this.isUser) {
       this.getApplicantInformation();
     }
     this.selectedWorkplace = this.vacancy.id_work_place;
@@ -61,7 +61,7 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
     this.selectedStatus = this.vacancy.status.status;
   }
 
-  ngOnChanges(){
+  ngOnChanges() {
     this.checkApplicantApplied();
   }
 

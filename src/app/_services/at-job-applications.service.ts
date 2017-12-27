@@ -21,6 +21,7 @@ export class AtJobApplicationsService {
   jobApplicationsURL = 'http://77.78.198.19:8080/jobApplications';
   jobApplications: JobApplicationModel[] = new Array<JobApplicationModel>();
   jobApplicationsChange = new Subject<JobApplicationModel[]>();
+  jobApplicationChange = new Subject<JobApplicationModel>();
   language = 'en';
 
   constructor(private jsogService: JsogService,
@@ -35,15 +36,31 @@ export class AtJobApplicationsService {
   }
 
   initJobApplications(vacancy: VacancyModel) {
+
     this.jobApplications = vacancy.jobApplications;
+    console.log("INITJOBAPPLICATIONS");
+    console.log(this.jobApplications);
   }
 
   getJobApplications() {
+    console.log("GETJOBAPPLICATIONS");
+    console.log(this.jobApplications);
     return this.jobApplications.slice();
+  }
+
+  isEmpty() {
+    return this.jobApplications.length === 0;
   }
 
   getJobApplicationById(id: number) {
     return this.jobApplications.find(jobApplication => +jobApplication.id === id);
+  }
+
+  getJobApplicationByIdHTTP(id: number) {
+    return this.http.get(this.jobApplicationsURL + '/' + id).subscribe( response => {
+      const jobApplication: JobApplicationModel = <JobApplicationModel>this.jsogService.deserialize(response.json());
+      this.jobApplicationChange.next(jobApplication);
+    });
   }
 
   getJobApplicationsByApplicantId(id: number) {

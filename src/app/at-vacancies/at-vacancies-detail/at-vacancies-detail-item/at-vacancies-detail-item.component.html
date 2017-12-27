@@ -69,13 +69,27 @@
       </span>
     </a>
     <div class="col-md-4 changeStatus">
-      <span class="label label-rounded label-default" style="color:black !important;">{{jobApplication?.id_status?.name}}</span>
-      <label>{{'CHANGESTATUS' | translate}}:</label>
-      <select  class="form-control p-0" [(ngModel)]="selectedStatus" name="selectedStatus" (change)="updateStatus(selectedStatus)">
-        <!--<option selected="selected">Change status</option>-->
-        <option *ngFor="let status of jobApplicationStatuses"  [ngValue]="status">{{status.name}}</option>
-      </select><span class="highlight"></span> <span class="bar"></span>
-    </div>
+      <div class="row">
+        <div class="col-md-12">
+          <span class="label label-rounded label-default" style="color:black !important;">{{jobApplication?.id_status?.name}}</span>
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <div class="col-md-6">
+          <label>{{'CHANGESTATUS' | translate}}:</label>
+        </div>
+        <div class="col-3 col-md-6 ">
+          <select class="form-control p-0" [(ngModel)]="selectedStatus" name="selectedStatus" (change)="updateStatus(selectedStatus)">
+            <!--<option selected="selected" value="null">{{'CHANGESTATUS' | translate}}</option>-->
+            <option *ngFor="let status of jobApplicationStatuses"  [ngValue]="status">{{status.name}}</option>
+          </select><span class="highlight"></span> <span class="bar"></span>
+        </div>
+      </div>
+
+      </div>
+
+
+
 
 
     <a style="color: rgb(132, 138, 150);" class="btn pull-right"><i class="fa fa-envelope-o"></i> {{'SENDANEMAIL' | translate}}</a>

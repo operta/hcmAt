@@ -8,12 +8,17 @@
     </ol>
   </div>
 </div>
+<hr>
 <!-- /row -->
 <div class="row">
   <div class="col-sm-12">
       <div class="row">
         <div class="col-xs-12 col-lg-12 col-md-12">
           <div class="comment-center">
+            <div *ngIf="!jobApplications" style="width: 100%; padding-left: 1.8em;">
+              <h2 >{{ 'THEREARENOAPPLICANTSONTHISVACANCY' | translate }}</h2>
+            </div>
+
             <app-at-vacancies-detail-item *ngFor="let jobApplication of jobApplications | slice:start:end;" [jobApplication]="jobApplication" [applicant]="jobApplication.applicantid" [jobApplicationStatuses]="jobApplicationStatuses"></app-at-vacancies-detail-item>
           </div>
         </div>

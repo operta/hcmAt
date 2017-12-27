@@ -21,3 +21,6 @@ li {
   background:transparent;
   pointer-events: none;
 }
+.panel {
+  box-shadow: none;
+}

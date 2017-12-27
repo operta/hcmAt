@@ -7,9 +7,9 @@
           <div class="box-title p-b-10 p-t-10 p-r-10">
             <div *ngIf="editable" class="pull-right">
               <a role="button" *ngIf="!isEdit" class="popup-with-form" (click)="isEdit=true">
-                <i class="fa fa-pencil action-button-at"></i>
+                <i class="fa fa-pencil text-inverse m-r-10"></i>
               </a>
-              <a role="button" *ngIf="!isEdit" (click)="modal.show()" class="popup-with-form"><i class="fa fa-times action-button-at" aria-hidden="true"></i></a>
+              <a role="button" *ngIf="!isEdit" (click)="modal.show()" class="popup-with-form"><i class="fa fa-close text-danger" aria-hidden="true"></i></a>
             </div>
           </div>
       <div class="clear"></div>
@@ -78,7 +78,7 @@
                   <p *ngIf="!isEdit && !ongoing" class="form-control-static"> {{applicantAccomplishment?.date_to}}</p>
                   <input *ngIf="isEdit && !ongoing"  type="date" class="form-control" id="date_to" name="date_to"
                          [(ngModel)]="applicantAccomplishment && applicantAccomplishment.date_to"><span class="highlight"></span><span class="bar"></span>
-                  <button *ngIf="isEdit || ongoing" class="btn btn-success btn-rounded" type="button" (click)="ongoing = !ongoing" [disabled]="!isEdit" name="ongoing">Present <i *ngIf="ongoing" class="fa fa-check" aria-hidden="true"></i></button>
+                  <button *ngIf="isEdit || ongoing" class="btn btn-success btn-rounded btn-sm" type="button" (click)="ongoing = !ongoing" [disabled]="!isEdit" name="ongoing">Present <i *ngIf="ongoing" class="fa fa-check" aria-hidden="true"></i></button>
 
                 </div>
               </div>

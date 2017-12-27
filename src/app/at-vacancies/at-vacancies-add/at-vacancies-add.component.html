@@ -12,7 +12,7 @@
           <h3 class="box-title">{{'BASICINFORMATION' | translate}}</h3>
           <form [formGroup]="newVacForm" (ngSubmit)="onSubmit()" class="form-material form-horizontal m-t-30">
             <div class="form-group">
-              <label class="col-md-12" for="example-text">{{'VACANCYNAME' | translate}}
+              <label class="col-md-12" for="example-text">{{'VACANCYNAME' | translate}} *
               </label>
               <div class="col-md-12">
                 <input formControlName="name" type="text" id="example-text" name="example-text" class="form-control" placeholder="{{'ENTERVACANCYNAME' | translate}}">
@@ -58,7 +58,13 @@
               <label class="col-md-12" for="example-text">{{'JOBWORKINGTIME' | translate}}
               </label>
               <div class="col-md-12">
+                <select formControlName="job_working_time" name="job_working_time" class="form-control" >
+                  <option>{{'FULLTIME' | translate}}</option>
+                  <option>{{'PARTTIME' | translate}}</option>
+                </select>
+<!--
                 <input formControlName="job_working_time" type="text" name="job_working_time" class="form-control" placeholder="{{'ENTERJOBWORKINGTIME' | translate}}">
+-->
               </div>
             </div>
 
@@ -89,7 +95,7 @@
             </div>
 
             <div class="form-group">
-              <label class="col-sm-12">{{'REGION' | translate}}</label>
+              <label class="col-sm-12">{{'REGION' | translate}} *</label>
               <div class="col-sm-12">
                 <select formControlName="region" class="form-control">
                   <option *ngFor="let region of regions" [ngValue]="region">{{region.name}}</option>
@@ -98,7 +104,7 @@
             </div>
 
             <div class="form-group">
-              <label class="col-sm-12">{{'WORKPLACE' | translate}}</label>
+              <label class="col-sm-12">{{'WORKPLACE' | translate}} *</label>
               <div class="col-sm-12">
                 <select formControlName="workPlace" class="form-control">
                   <option  *ngFor="let workPlace of workPlaces" [ngValue]="workPlace">{{workPlace.name}}</option>
@@ -106,17 +112,17 @@
               </div>
             </div>
               <div class="form-group col-md-6">
-                <label for="date_from" >{{'DATEFROM' | translate}}:</label>
+                <label for="date_from" >{{'DATEFROM' | translate}} *:</label>
                 <input formControlName="date_from" type="date" class="form-control" id="date_from" name="date_from" ><span class="highlight"></span><span
                 class="bar"></span>
               </div>
               <div class="form-group col-md-6">
-                <label for="date_to" >{{'DATETO' | translate}}:</label>
+                <label for="date_to" >{{'DATETO' | translate}} *:</label>
                 <input formControlName="date_to" type="date" class="form-control" id="date_to"  name="date_from" ><span class="highlight"></span><span class="bar"></span>
               </div>
 
 
-            <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">{{'SUBMIT' | translate}}</button>
+            <button [disabled] = "!newVacForm.valid" type="submit" class="btn btn-info waves-effect waves-light m-r-10">{{'SUBMIT' | translate}}</button>
             <button (click)="redirect()" type="button" class="btn btn-inverse waves-effect waves-light">{{'CANCEL' | translate}}</button>
           </form>
         </div>

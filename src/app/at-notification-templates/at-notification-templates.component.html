@@ -7,21 +7,19 @@
           <div class="row">
             <div class="col-md-9">
               <h3 class="box-title m-b-30">{{'NOTIFICATIONTEMPLATES' | translate}}</h3>
-
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="margin-bottom: 10px">
               <div class="pull-right">
                 <button (click)="modalAdd.show(); add = true;" class="btn btn-info btn-rounded">{{'ADD' | translate}} <i class="fa fa-plus" aria-hidden="true"></i></button>
                 <button *ngIf="!loading" class="btn btn-info btn-rounded"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                 <button *ngIf="loading" class="btn btn-info btn-rounded"><i class="fa fa-refresh fa-spin"></i></button>
-
               </div>
             </div>
           </div>
 
 
           <div class="table-responsive">
-            <table id="example23" class="table table-striped">
+            <table class="table table-striped">
               <thead>
               <tr>
                 <th>{{'CODE' | translate}}</th>
@@ -38,9 +36,9 @@
                 <td>{{row.template}}</td>
                 <td>
                   <a role="button" class="popup-with-form" (click)="modalEdit.show(); selectedTemplate = row">
-                    <i class="fa fa-pencil action-button-at"></i>
+                    <i class="fa fa-pencil text-inverse m-r-10"></i>
                   </a>
-                  <a role="button" (click)="modalDelete.show(); selectedTemplate = row" class="popup-with-form"><i class="fa fa-times action-button-at" aria-hidden="true"></i></a>
+                  <a role="button" (click)="modalDelete.show(); selectedTemplate = row" class="popup-with-form"><i class="fa fa-close text-danger" aria-hidden="true"></i></a>
                 </td>
               </tr>
 
