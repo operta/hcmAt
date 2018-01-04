@@ -7,18 +7,25 @@ import {JsogService} from 'jsog-typescript';
 import {ToastsManager} from "ng2-toastr";
 import {JobApplicationModel} from "../_models/jobApplication.model";
 import {LanguageService} from "./language.service";
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class VacanciesService {
   private vacancies: VacancyModel[] = [];
   vacancyChange= new Subject<VacancyModel[]>();
-  vacanciesURL = 'http://77.78.198.19:8080/vacancies';
+  vacanciesURL = 'http://localhost:8080/vacancies';
   language = 'en';
+
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
 
   constructor(private toastr: ToastsManager,
               private http: Http,
               private jsog: JsogService,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private authenticationService: AuthenticationService) {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
@@ -42,7 +49,6 @@ export class VacanciesService {
   // }
 
   addJobApplicationToVacancy(jobApplication: JobApplicationModel){
-    console.log(jobApplication);
     this.vacancies.filter(item => item.id === jobApplication.vacancyid.id)[0].jobApplications.push(jobApplication);
 
   }
@@ -61,7 +67,9 @@ export class VacanciesService {
 
 
   getVacancies() {
-      this.http.get(this.vacanciesURL).map(
+    const headers = this.authHeaders;
+    const options = new RequestOptions({headers: headers});
+      this.http.get(this.vacanciesURL, options).map(
         (response: Response) => {
           const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json()));
           return vacancies;
@@ -83,10 +91,11 @@ export class VacanciesService {
   }
 
   getActiveVacancies() {
-    this.http.get(this.vacanciesURL + '/active').map(
+    const headers = this.authHeaders;
+    const options = new RequestOptions({headers: headers});
+    this.http.get(this.vacanciesURL + '/active', options).map(
       (response: Response) => {
         const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json()));
-        console.log(vacancies);
         // const vacancies: VacancyModel[] = response.json();
 
         return vacancies;
@@ -118,7 +127,7 @@ export class VacanciesService {
   }
 
   saveVacancy(vacancy: VacancyModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     this.http.post(this.vacanciesURL + '/add', vacancy, options).map(
       (response: Response) => {
@@ -126,7 +135,6 @@ export class VacanciesService {
       }
     ).subscribe(
       response => {
-        console.log('RESPONSE:' + response);
         this.vacancies.push(response);
         this.vacancyChange.next(this.vacancies.slice());
         if (this.language == 'en') {
@@ -146,7 +154,7 @@ export class VacanciesService {
   }
 
   updateVacancy(vacancy: VacancyModel) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.authHeaders;
     const body = JSON.stringify(vacancy);
     return this.http.put(this.vacanciesURL, body, {headers: headers}).map(
       (response: Response) => response.json()
@@ -171,9 +179,9 @@ export class VacanciesService {
   }
 
   deleteVacancy(id: number) {
-    this.http.delete(this.vacanciesURL + '/delete/' + id).subscribe(
+    const headers = this.authHeaders;
+    this.http.delete(this.vacanciesURL + '/delete/' + id, {headers: headers}).subscribe(
       (response: Response) => {
-        console.log(response);
         this.vacancies = this.vacancies.filter(vacancy => vacancy.id !== id);
         this.vacancyChange.next(this.vacancies.slice());
         if (this.language == 'en') {

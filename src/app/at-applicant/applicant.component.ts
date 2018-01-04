@@ -141,7 +141,7 @@ export class ApplicantComponent implements OnInit, OnDestroy {
         this.selectedCountry,
         this.user,
         this.selectedQualification,
-        null
+        'assets/images/users/user.png'
       );
       this.applicantService.addApplicant(newApplicant).subscribe(
         (data: ApplicantModel) => {
@@ -162,37 +162,35 @@ export class ApplicantComponent implements OnInit, OnDestroy {
   }
 
 
-  getCurrentSchool(school){
+  getCurrentSchool(school) {
     this.currentSchool = school;
-    console.log(this.currentSchool);
   }
 
-  getCurrentExperience(experience){
+  getCurrentExperience(experience) {
     this.currentExperience = experience;
-    console.log(this.currentExperience);
   }
 
-  onQualificationSelected(value:string){
+  onQualificationSelected(value: string) {
     this.selectedQualification = this.qualifications.find(item => item.name === value);
   }
 
-  onRegionSelected(value:string){
+  onRegionSelected(value: string) {
     this.selectedRegion = this.regions.find(item => item.name === value);
     this.filteredCountries = this.countries.filter((item) => item.id_parent.id == this.selectedRegion.id);
-    if(this.filteredCountries.length > 0)
+    if (this.filteredCountries.length > 0)
     this.selectedCountry = this.filteredCountries[0];
     this.filteredCities = [];
   }
 
-  onCitySelected(value:string){
+  onCitySelected(value: string) {
     this.selectedCity = this.cities.find(item => item.name === value);
 
   }
 
-  onCountrySelected(value:string){
+  onCountrySelected(value: string) {
     this.selectedCountry = this.countries.find(item => item.name === value);
     this.filteredCities = this.cities.filter((city) => city.id_parent.id == this.selectedCountry.id);
-    if(this.filteredCities.length >0)
+    if (this.filteredCities.length > 0)
     this.selectedCity = this.filteredCities[0];
   }
 

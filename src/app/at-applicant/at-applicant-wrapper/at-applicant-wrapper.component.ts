@@ -20,9 +20,8 @@ export class AtApplicantWrapperComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.userService.getUser().subscribe(
-      (data: UserModel) =>{
+      (data: UserModel) => {
         this.user = data;
-        console.log("HERE");
         this.getApplicant(data.id);
       },
       error => {
@@ -32,10 +31,9 @@ export class AtApplicantWrapperComponent implements OnInit {
     );
   }
 
-  getApplicant(userId: string){
+  getApplicant(userId: string) {
     this.applicantService.getApplicant(userId).subscribe(
       (data: ApplicantModel) => {
-
         this.applicant = data;
         this.loading = false;
       },

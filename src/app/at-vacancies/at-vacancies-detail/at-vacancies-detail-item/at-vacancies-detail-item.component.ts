@@ -7,6 +7,7 @@ import {VacancyModel} from '../../../_models/vacancy.model';
 import {JobApplicationHistoryService} from "../../../_services/jobApplicationHistory.service";
 import {JsogService} from "jsog-typescript";
 import {Router} from "@angular/router";
+import {UserService} from "../../../_services/user.service";
 
 
 @Component({

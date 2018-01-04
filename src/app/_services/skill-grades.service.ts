@@ -5,23 +5,31 @@ import {ToastsManager} from "ng2-toastr";
 import {Http, Headers, RequestOptions, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {LanguageService} from "./language.service";
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class SkillGradesService {
-  URL = 'http://77.78.198.19:8080/skillGrades';
+  URL = 'http://localhost:8080/skillGrades';
   skillGrades: SkillGradeModel[];
   skillGradesObserver = new Subject<SkillGradeModel[]>();
   language = 'en';
 
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
+
   constructor(private toastr: ToastsManager,
               private http: Http,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private authenticationService: AuthenticationService) {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
   getSkillGrades() {
-    return this.http.get(this.URL).map(
+    const headers = this.authHeaders;
+    return this.http.get(this.URL, {headers: headers}).map(
       (response: Response) => {
         const skillGrades: SkillGradeModel[] = response.json();
         return skillGrades;
@@ -35,7 +43,7 @@ export class SkillGradesService {
   }
 
   updateSkillGrade(skillGrade: SkillGradeModel) {
-    const headers = new Headers({'Content-Type': 'application/json'});
+    const headers = this.authHeaders;
     const body = JSON.stringify(skillGrade);
     return this.http.put(this.URL, body, {headers: headers}).map(
       (response: Response) => response.json()
@@ -61,7 +69,7 @@ export class SkillGradesService {
   }
 
   addSkillGrade(skillGrade: SkillGradeModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(skillGrade);
     this.http.post(this.URL + '/add', body, options).map(
@@ -87,7 +95,7 @@ export class SkillGradesService {
   }
 
   removeSkillGrade(skillGrade: SkillGradeModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     this.http.delete(this.URL + '/remove' + '/' + skillGrade.id, options).map(
       (response: Response) => {

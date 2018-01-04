@@ -8,23 +8,31 @@ import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
 import {LanguageService} from "./language.service";
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class SkillsService {
-  URL = 'http://77.78.198.19:8080/skills';
+  URL = 'http://localhost:8080/skills';
   skills: SkillModel[];
   skillsObserver = new Subject<SkillModel[]>();
   language = 'en';
 
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
+
   constructor(private toastr: ToastsManager,
               private http: Http,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private authenticationService: AuthenticationService) {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
   getSkills() {
-    return this.http.get(this.URL).map(
+    const headers = this.authHeaders;
+    return this.http.get(this.URL, {headers: headers}).map(
       (response: Response) => {
         const skills: SkillModel[] = response.json();
         return skills;
@@ -45,7 +53,7 @@ export class SkillsService {
   }
 
   updateSkill(skill: SkillModel) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.authHeaders;
     const body = JSON.stringify(skill);
     return this.http.put(this.URL, body, {headers: headers}).map(
       (response: Response) => response.json()
@@ -70,7 +78,7 @@ export class SkillsService {
   }
 
   addSkill(skill: SkillModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(skill);
     this.http.post(this.URL + '/add', body, options).map(
@@ -95,8 +103,8 @@ export class SkillsService {
     ).subscribe();
   }
 
-  removeSkill(skill: SkillModel){
-    const headers = new Headers({'Content-type': 'application/json'});
+  removeSkill(skill: SkillModel) {
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     this.http.delete(this.URL + '/remove' + '/' + skill.id, options).map(
       (response: Response) => {

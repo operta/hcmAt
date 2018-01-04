@@ -6,24 +6,31 @@ import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
 import {JsogService} from "jsog-typescript";
 import {LanguageService} from "./language.service";
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class JobApplicationNotificationsService {
-  URL = 'http://77.78.198.19:8080/jobApplicationNotifications';
+  URL = 'http://localhost:8080/jobApplicationNotifications';
   jobApplicationNotifications: JobApplicationNotificationModel[] = [];
   jobApplicationNotificationsObserver = new Subject<JobApplicationNotificationModel[]>();
   language = 'en';
 
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
+
   constructor(private toastr: ToastsManager,
               private http: Http,
               private jsogService: JsogService,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private authenticationService: AuthenticationService) {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
   getJobApplicationNotifications() {
-    return this.http.get(this.URL).map(
+    return this.http.get(this.URL, {headers: this.authHeaders}).map(
       (response: Response) => {
         const jobApplicationNotifications: JobApplicationNotificationModel[] = (<JobApplicationNotificationModel[]>this.jsogService.deserialize(response.json()));
         return jobApplicationNotifications;
@@ -44,7 +51,7 @@ export class JobApplicationNotificationsService {
   }
 
   updateJobApplicationNotification(jobApplicationNotification: JobApplicationNotificationModel) {
-    const headers = new Headers({'Content-Type': 'application/json'});
+    const headers = this.authHeaders;
     const body = this.jsogService.serialize(jobApplicationNotification)
      // const body = JSON.stringify(jobApplicationNotification);
     return this.http.put(this.URL, body, {headers: headers}).map(
@@ -65,7 +72,7 @@ export class JobApplicationNotificationsService {
   }
 
   addJobApplicationNotification(jobApplicationNotification: JobApplicationNotificationModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(jobApplicationNotification);
     this.http.post(this.URL + '/add', body, options).map(
@@ -86,7 +93,7 @@ export class JobApplicationNotificationsService {
   }
 
   removeJobApplicationNotification(jobApplicationNotification: JobApplicationNotificationModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     this.http.delete(this.URL + '/' + jobApplicationNotification.id, options).map(
       (response: Response) => {

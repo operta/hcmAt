@@ -1,18 +1,25 @@
 import { Injectable } from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Http, Response, Headers} from '@angular/http';
 import {WorkPlaceModel} from '../_models/workPlace.model';
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class WorkPlacesService {
-  workPlacesURL = 'http://77.78.198.19:8080/workPlaces';
+  workPlacesURL = 'http://localhost:8080/workPlaces';
 
-  constructor(private http: Http) { }
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
+
+  constructor(private http: Http,
+              private authenticationService: AuthenticationService) { }
 
   getWorkPlaces() {
-    return this.http.get(this.workPlacesURL).map(
+    const headers = this.authHeaders;
+    return this.http.get(this.workPlacesURL, {headers: headers}).map(
       (response: Response) => {
         const workPlaces: WorkPlaceModel[] = response.json();
-        console.log(workPlaces);
         return response.json();
       }
     );

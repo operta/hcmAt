@@ -9,25 +9,34 @@ import {Observable} from "rxjs/Observable";
 import {JsogService} from "jsog-typescript";
 import {ApplicantDocumentModel} from "../_models/applicantDocument.model";
 import {LanguageService} from "./language.service";
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class ApplicantDocumentsService {
 
-  URL = 'http://77.78.198.19:8080/applicantDocuments';
+  URL = 'http://localhost:8080/applicantDocuments';
   applicantDocuments: ApplicantDocumentModel[];
   applicantDocumentsObserver = new Subject<ApplicantDocumentModel[]>();
   language = 'en';
 
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
+
   constructor(private toastr: ToastsManager,
               private http: Http,
               private jsog: JsogService,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private authenticationService: AuthenticationService) {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
-  getApplicantDocuments(applicant: ApplicantModel){
-    return this.http.get(this.URL + '/' + applicant.id).map(
+  getApplicantDocuments(applicant: ApplicantModel) {
+    const headers = this.authHeaders;
+    const options = new RequestOptions({headers: headers});
+    return this.http.get(this.URL + '/' + applicant.id, options).map(
       (response: Response) => {
         const applicantDocuments: ApplicantDocumentModel[] = (<ApplicantDocumentModel[]>this.jsog.deserialize(response.json()));
         return applicantDocuments;
@@ -48,7 +57,7 @@ export class ApplicantDocumentsService {
   }
 
   updateApplicantDocument(applicantDocument: ApplicantDocumentModel) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.authHeaders;
     const body = JSON.stringify(applicantDocument);
     return this.http.put(this.URL, body, {headers: headers}).map(
       (response: Response) => response.json()
@@ -73,7 +82,7 @@ export class ApplicantDocumentsService {
   }
 
   addApplicantDocument(applicantDocument: ApplicantDocumentModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(applicantDocument);
     this.http.post(this.URL + '/add', body, options).map(
@@ -98,8 +107,8 @@ export class ApplicantDocumentsService {
     ).subscribe();
   }
 
-  removeApplicantDocument(applicantDocument: ApplicantDocumentModel){
-    const headers = new Headers({'Content-type': 'application/json'});
+  removeApplicantDocument(applicantDocument: ApplicantDocumentModel) {
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     this.http.delete(this.URL + '/remove' + '/' + applicantDocument.id, options).map(
       (response: Response) => {

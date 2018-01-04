@@ -5,23 +5,30 @@ import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
 import {LanguageService} from "./language.service";
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class JobApplicationStatusesService {
-  URL = 'http://77.78.198.19:8080/jobApplicationStatuses';
+  URL = 'http://localhost:8080/jobApplicationStatuses';
   jobApplicationStatus: JobApplicationStatusModel[];
   jobApplicationStatusObserver = new Subject<JobApplicationStatusModel[]>();
-  language = 'en'
+  language = 'en';
+
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
 
   constructor(private toastr: ToastsManager,
               private http: Http,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private authenticationService: AuthenticationService) {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
-  getJobApplicationStatuses(){
-    return this.http.get(this.URL).map(
+  getJobApplicationStatuses() {
+    return this.http.get(this.URL, {headers: this.authHeaders}).map(
       (response: Response) => {
         const jobApplicationStatus: JobApplicationStatusModel[] = response.json();
         return jobApplicationStatus;
@@ -42,7 +49,7 @@ export class JobApplicationStatusesService {
   }
 
   updateJobApplicationStatus(jobApplicationStatus: JobApplicationStatusModel) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.authHeaders;
     const body = JSON.stringify(jobApplicationStatus);
     return this.http.put(this.URL, body, {headers: headers}).map(
       (response: Response) => response.json()
@@ -67,7 +74,7 @@ export class JobApplicationStatusesService {
   }
 
   addJobApplicationStatus(jobApplicationStatus: JobApplicationStatusModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(jobApplicationStatus);
     this.http.post(this.URL + '/add', body, options).map(
@@ -83,8 +90,8 @@ export class JobApplicationStatusesService {
     ).subscribe( response => console.log(response));
   }
 
-  removeJobApplicationStatus(jobApplicationStatus: JobApplicationStatusModel){
-    const headers = new Headers({'Content-type': 'application/json'});
+  removeJobApplicationStatus(jobApplicationStatus: JobApplicationStatusModel) {
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     this.http.delete(this.URL + '/' + jobApplicationStatus.id, options).map(
       (response: Response) => {

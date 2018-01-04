@@ -25,23 +25,21 @@ export class AtApplicantDocumentsComponent implements OnInit, OnDestroy {
     this.documentTypesService.getDocumentTypes().subscribe(
       (data: DocumentTypeModel[]) => {
         this.documentTypes = data;
-        console.log(this.documentTypes);
       }
     );
     this.applicantDocumentsService.getApplicantDocuments(this.applicant);
     this.subscription = this.applicantDocumentsService.applicantDocumentsObserver.subscribe(
       (data: ApplicantDocumentModel[]) => {
-        this.documents = data
-        console.log(this.documents);
+        this.documents = data;
       }
     );
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  onClose(){
+  onClose() {
     this.add = false;
   }
 

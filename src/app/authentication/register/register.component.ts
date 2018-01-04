@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit {
         null,
         null,
         null,
-        null
+        'assets/images/users/user.png'
       );
 
       this.userService.register(newUser).subscribe(

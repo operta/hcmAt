@@ -101,7 +101,7 @@
     <div class="sidebar-nav navbar-collapse slimscrollsidebar">
       <div class="user-profile">
         <div class="dropdown user-pro-body">
-          <div><img src="assets/images/users/1.jpg" alt="user-img" class="img-circle"></div>
+          <div><img [src]="user?.image_path" alt="user-img" class="img-circle"></div>
           <a class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button"
               aria-haspopup="true" aria-expanded="false">
             {{user?.username}}<span class="caret"></span>

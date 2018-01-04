@@ -3,6 +3,8 @@ import {UserService} from "../_services/user.service";
 import {UserModel} from "../_models/user.model";
 import {FormControl, FormGroup, NgForm} from "@angular/forms";
 import {LanguageService} from "../_services/language.service";
+import {environment} from "../../environments/environment";
+import {async} from "rxjs/scheduler/async";
 
 
 @Component({
@@ -20,8 +22,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
-    this.state ="profile";
-    this.userService.getUser().subscribe(
+    this.state = "profile";
+     this.userService.getUser().subscribe(
       (data: UserModel) => {
         this.user = data;
         console.log(this.user);
@@ -72,7 +74,10 @@ export class ProfileComponent implements OnInit {
 
       reader.readAsDataURL(fileInput.target.files[0]);
 
-      this.userService.saveImage(fileInput.target.files[0]);
+      this.userService.saveImage(fileInput.target.files[0]).subscribe((fileName: string) => {
+        this.user.image_path =  environment.storagePath + fileName;
+        this.userService.updateUser(this.user);
+      });
     }
   }
 

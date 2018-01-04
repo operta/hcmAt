@@ -31,12 +31,8 @@ export class ApplicantsComponent implements OnInit, OnDestroy {
     this.applicantsService.getApplicants();
      this.subscription = this.applicantsService.applicantChange.subscribe(
       (data: ApplicantModel[]) => {
-
         this.applicants = data;
-        console.log(this.applicants);
         this.loading = false;
-
-
         this.paginationService.setPages(this.applicants.length);
         this.start = this.paginationService.start();
         this.paginationService.startObserver.subscribe(

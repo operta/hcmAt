@@ -14,15 +14,21 @@ import {JobApplicationNotificationModel} from "../_models/jobApplicationNotifica
 import {NotificationTemplateModel} from "../_models/notificationTemplate.model";
 import {VacanciesService} from "./vacancies.service";
 import {LanguageService} from "./language.service";
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class AtJobApplicationsService {
 
-  jobApplicationsURL = 'http://77.78.198.19:8080/jobApplications';
+  jobApplicationsURL = 'http://localhost:8080/jobApplications';
   jobApplications: JobApplicationModel[] = new Array<JobApplicationModel>();
   jobApplicationsChange = new Subject<JobApplicationModel[]>();
   jobApplicationChange = new Subject<JobApplicationModel>();
   language = 'en';
+
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
 
   constructor(private jsogService: JsogService,
               private http: Http,
@@ -30,21 +36,17 @@ export class AtJobApplicationsService {
               private jobApplicationHistoryService: JobApplicationHistoryService,
               private jobApplicationNotificationService: JobApplicationNotificationsService,
               private vacancyService: VacanciesService,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private authenticationService: AuthenticationService) {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
   initJobApplications(vacancy: VacancyModel) {
-
     this.jobApplications = vacancy.jobApplications;
-    console.log("INITJOBAPPLICATIONS");
-    console.log(this.jobApplications);
   }
 
   getJobApplications() {
-    console.log("GETJOBAPPLICATIONS");
-    console.log(this.jobApplications);
     return this.jobApplications.slice();
   }
 
@@ -57,14 +59,14 @@ export class AtJobApplicationsService {
   }
 
   getJobApplicationByIdHTTP(id: number) {
-    return this.http.get(this.jobApplicationsURL + '/' + id).subscribe( response => {
+    return this.http.get(this.jobApplicationsURL + '/' + id, {headers: this.authHeaders}).subscribe( response => {
       const jobApplication: JobApplicationModel = <JobApplicationModel>this.jsogService.deserialize(response.json());
       this.jobApplicationChange.next(jobApplication);
     });
   }
 
   getJobApplicationsByApplicantId(id: number) {
-    return this.http.get(this.jobApplicationsURL + '/byApplicant/' + id).map(
+    return this.http.get(this.jobApplicationsURL + '/byApplicant/' + id, {headers: this.authHeaders}).map(
       (response: Response) => {
         const jobApplications: JobApplicationModel[] = (<JobApplicationModel[]>this.jsogService.deserialize(response.json()));
         return jobApplications;
@@ -76,7 +78,7 @@ export class AtJobApplicationsService {
   }
 
   addJobApplication(jobApplication: JobApplicationModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(jobApplication);
     this.http.post(this.jobApplicationsURL + '/add', body, options).map(
@@ -117,7 +119,7 @@ export class AtJobApplicationsService {
   }
 
   updateJobApplication(jobApplication: JobApplicationModel, currentStatus: JobApplicationStatusModel) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.authHeaders;
     const body = JSON.stringify(jobApplication);
     return this.http.put(this.jobApplicationsURL, body, {headers: headers}).map(
       (response: Response) => response.json()

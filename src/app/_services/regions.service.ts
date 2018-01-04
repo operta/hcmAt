@@ -5,17 +5,25 @@ import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
 import {LanguageService} from "./language.service";
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class RegionsService {
-  URL = 'http://77.78.198.19:8080/regions';
+  URL = 'http://localhost:8080/regions';
   regions: RegionModel[];
   regionsObserver = new Subject<RegionModel[]>();
   language = 'en';
 
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
+
+
   constructor(private toastr: ToastsManager,
               private http: Http,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private authenticationService: AuthenticationService) {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
@@ -39,11 +47,10 @@ export class RegionsService {
 
 
   getRegions() {
-    return this.http.get(this.URL).map(
+    const headers = this.authHeaders;
+    return this.http.get(this.URL, {headers: headers}).map(
       (response: Response) => {
-
         const regions: RegionModel[] = response.json();
-        console.log(regions);
         this.regions = regions;
         this.regionsObserver.next(this.regions.slice());
         return regions;
@@ -52,7 +59,8 @@ export class RegionsService {
   }
 
   getCities() {
-    return this.http.get(this.URL + '/cities').map(
+    const headers = this.authHeaders;
+    return this.http.get(this.URL + '/cities', {headers: headers}).map(
       (response: Response) => {
         const regions: RegionModel[] = response.json();
         return regions;
@@ -61,7 +69,8 @@ export class RegionsService {
   }
 
   getCountries() {
-    return this.http.get(this.URL + '/countries').map(
+    const headers = this.authHeaders;
+    return this.http.get(this.URL + '/countries', {headers: headers}).map(
       (response: Response) => {
         const regions: RegionModel[] = response.json();
         return regions;
@@ -70,7 +79,8 @@ export class RegionsService {
   }
 
   getRRegions() {
-    return this.http.get(this.URL + '/regions').map(
+    const headers = this.authHeaders;
+    return this.http.get(this.URL + '/regions', {headers: headers}).map(
       (response: Response) => {
         const regions: RegionModel[] = response.json();
         return regions;
@@ -79,13 +89,12 @@ export class RegionsService {
   }
 
   updateRegion(region: RegionModel) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.authHeaders;
     const body = JSON.stringify(region);
     return this.http.put(this.URL, body, {headers: headers}).map(
       (response: Response) => response.json()
     ).subscribe(
       response => {
-        console.log(response);
         this.regions.map(item => item.id == region.id ? region : item);
         this.regionsObserver.next(this.regions.slice());
         if (this.language == 'en') {
@@ -105,7 +114,7 @@ export class RegionsService {
   }
 
   addRegion(region: RegionModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(region);
     this.http.post(this.URL + '/add', body, options).map(

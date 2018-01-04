@@ -5,23 +5,30 @@ import {ToastsManager} from "ng2-toastr";
 import {NotificationTemplateModel} from "../_models/notificationTemplate.model";
 import {Observable} from "rxjs/Observable";
 import {LanguageService} from "./language.service";
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class NotificationTemplatesService{
-  URL = 'http://77.78.198.19:8080/notificationTemplates';
+  URL = 'http://localhost:8080/notificationTemplates';
   notificationTemplates: NotificationTemplateModel[];
   notificationTemplatesObserver = new Subject<NotificationTemplateModel[]>();
   language = 'en';
 
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
+
   constructor(private toastr: ToastsManager,
               private http: Http,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private authenticationService: AuthenticationService) {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
   getNotificationTemplates() {
-    return this.http.get(this.URL).map(
+    return this.http.get(this.URL, {headers: this.authHeaders}).map(
       (response: Response) => {
         const notificationTemplates: NotificationTemplateModel[] = response.json();
         return notificationTemplates;
@@ -42,7 +49,7 @@ export class NotificationTemplatesService{
   }
 
   updateNotificationTemplate(notificationTemplate: NotificationTemplateModel) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.authHeaders;
     const body = JSON.stringify(notificationTemplate);
     return this.http.put(this.URL, body, {headers: headers}).map(
       (response: Response) => response.json()
@@ -67,7 +74,7 @@ export class NotificationTemplatesService{
   }
 
   addNotificationTemplate(notificationTemplate: NotificationTemplateModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(notificationTemplate);
     this.http.post(this.URL + '/add', body, options).map(
@@ -92,8 +99,8 @@ export class NotificationTemplatesService{
     ).subscribe();
   }
 
-  removeNotificationTemplate(notificationTemplate: NotificationTemplateModel){
-    const headers = new Headers({'Content-type': 'application/json'});
+  removeNotificationTemplate(notificationTemplate: NotificationTemplateModel) {
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     this.http.delete(this.URL + '/' + notificationTemplate.id, options).map(
       (response: Response) => {
