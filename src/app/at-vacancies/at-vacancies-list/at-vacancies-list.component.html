@@ -96,7 +96,7 @@
 
 <!-- vacancy list -->
 
-<h2 style="display: inline-block;">{{ 'VACANCYLIST' | translate }}</h2>
+<h2 *ngIf="!isUser" style="display: inline-block;">{{ 'VACANCYLIST' | translate }}</h2>
 <h2 *ngIf="isUser">{{'OPENVACANCIESLIST' | translate}}</h2>
 <div class="pull-right">
   <button *ngIf="!loading" (click)="refresh()" class="btn btn-info btn-rounded"><i class="fa fa-refresh" aria-hidden="true"></i></button>
