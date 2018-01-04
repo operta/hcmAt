@@ -11,6 +11,14 @@ export class LanguageService {
 
   }
 
+  getDateFormat() {
+    if (this.language === 'en') {
+      return 'dd/MM/yyyy';
+    } else if (this.language === 'ar') {
+      return 'yyyy.MM.dd';
+    }
+  }
+
   getLanguage() {
     this.languageObservable.next(this.language);
     return this.language;

@@ -6,7 +6,7 @@ import {JwtHelper} from 'angular2-jwt';
 @Injectable()
 export class AuthenticationService {
   jwtHelper: JwtHelper = new JwtHelper();
-  static AUTH_TOKEN = 'http://localhost:8080/oauth/token';
+  static AUTH_TOKEN = 'http://77.78.198.19:8080/oauth/token';
 
   constructor(private http: Http) {
   }

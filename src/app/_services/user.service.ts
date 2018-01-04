@@ -15,7 +15,7 @@ export class UserService {
   accessToken: string;
   isAdmin: boolean;
   userUsername: string;
-  usersURL = 'http://localhost:8080/users';
+  usersURL = 'http://77.78.198.19:8080/users';
   language = 'en';
 
   private headers = new Headers({

@@ -5,7 +5,7 @@ import {AccomplishmentTypeModel} from "../_models/accomplishmentType.model";
 @Injectable()
 export class AccomplishmentTypesService {
 
-  URL = 'http://localhost:8080/accomplishmentTypes';
+  URL = 'http://77.78.198.19:8080/accomplishmentTypes';
 
   constructor(private http: Http) { }
 
