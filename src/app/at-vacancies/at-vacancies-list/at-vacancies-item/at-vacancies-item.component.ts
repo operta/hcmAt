@@ -82,10 +82,9 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
 
   onSubmitEdit(form: NgForm) {
     let status = this.vacancy.status;
-    if(this.selectedStatus == 'ACTIVE'){
+    if (this.selectedStatus == 'ACTIVE') {
       status = new VacanciesStatusModel(1, 'ACTIVE');
-    }
-    else {
+    } else {
       status = new VacanciesStatusModel(2, 'CLOSED');
     }
     this.vacancy.name = form.value.name;
@@ -93,7 +92,6 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
     this.vacancy.description = form.value.description;
     this.vacancy.date_from = form.value.date_from;
     this.vacancy.date_to = form.value.date_to;
-    console.log(form.value.selectedRegion);
     this.vacancy.id_location = this.selectedRegion;
     this.vacancy.id_work_place = this.selectedWorkplace;
     this.vacancy.status = status;
@@ -126,7 +124,6 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
       this.vacancy.education_requirement,
       this.vacancy.experience_requirement
     );
-    console.log(updateVac);
     this.vacancyService.updateVacancy(updateVac);
     this.closeEditModal();
   }

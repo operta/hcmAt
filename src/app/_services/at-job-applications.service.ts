@@ -138,7 +138,6 @@ export class AtJobApplicationsService {
           null,
           new Date
         );
-        console.log(history);
         this.jobApplicationHistoryService.addJobApplicationHistory(history);
         const notificationTemplate = new NotificationTemplateModel(
           418,null,null, null, null, null, null, null

@@ -75,8 +75,9 @@ export class ProfileComponent implements OnInit {
       reader.readAsDataURL(fileInput.target.files[0]);
 
       this.userService.saveImage(fileInput.target.files[0]).subscribe((fileName: string) => {
-        this.user.image_path =  environment.storagePath + fileName;
-        this.userService.updateUser(this.user);
+        const userCopy = new UserModel(this.user.id, this.user.username, this.user.password, this.user.email, this.user.role, this.user.id_status,
+          this.user.created_by, this.user.created_at, this.user.updated_by, new Date, environment.storagePath + fileName)
+        this.userService.updateUser(userCopy);
       });
     }
   }

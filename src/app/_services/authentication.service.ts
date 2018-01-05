@@ -20,7 +20,7 @@ export class AuthenticationService {
     headers.append('Authorization', 'Basic ' + btoa(TOKEN_AUTH_USERNAME + ':' + TOKEN_AUTH_PASSWORD));
 
     return this.http.post(AuthenticationService.AUTH_TOKEN, body, {headers})
-      .map((res:any) => {
+      .map((res: any) => {
         if (res.json().access_token) {
           return res.json().access_token;
         }

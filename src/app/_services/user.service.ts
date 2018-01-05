@@ -54,10 +54,23 @@ export class UserService {
       const options = new RequestOptions({headers: headers});
       return this.http.post(this.usersURL + '/add', newUser, options ).map(
         (response: Response) => {
-          return response.json();
+          return response.statusText;
         }
       )
 
+  }
+
+  resetPassword(email: string) {
+    return this.http.get(this.usersURL + '/resetPassword/' + email)
+      .map(
+        (response: Response) => {
+          return response.text();
+        }
+      )
+      .subscribe(response => {
+        this.purge();
+        this.toastr.success(response);
+      })
   }
 
   purge() {
@@ -81,7 +94,7 @@ export class UserService {
     this.accessToken = this.authenticationService.getToken().toString();
     const decodedToken = this.jwtHelper.decodeToken(this.accessToken);
     this.isAdmin = decodedToken.authorities.some(el => el === 'ADMIN');
-    return this.accessToken &&this.isAdmin;
+    return this.accessToken && this.isAdmin;
   }
 
   isUser(): boolean {

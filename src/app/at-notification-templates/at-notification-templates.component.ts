@@ -47,6 +47,7 @@ export class AtNotificationTemplatesComponent implements OnInit, OnDestroy {
     )
   }
   onSubmit(form: NgForm) {
+    console.log("onSubmit");
     this.selectedTemplate.code = form.value.code;
     this.selectedTemplate.subject = form.value.subject;
     this.selectedTemplate.template = form.value.template;

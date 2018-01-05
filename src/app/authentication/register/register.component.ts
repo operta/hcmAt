@@ -30,11 +30,6 @@ export class RegisterComponent implements OnInit {
               private userService: UserService,
               private userStatusService: UserStatusService,
               private languageService: LanguageService) {
-    this.userStatusService.getUserStatuses().subscribe(
-      (data: UserStatus[]) => {
-        this.userStatuses = data;
-      }
-    );
   }
 
   ngOnInit() {
@@ -56,23 +51,25 @@ export class RegisterComponent implements OnInit {
       this.loading = false;
     } else {
 
+      const newStatus = new UserStatus(1, null, null, null, null, null, null, null);
+
       const newUser = new UserModel(
         null,
         this.model.username,
         this.model.password,
         this.model.email,
         'USER',
-        this.userStatuses[0],
+        newStatus,
         null,
+        new Date,
         null,
-        null,
-        null,
+        new Date,
         'assets/images/users/user.png'
       );
 
       this.userService.register(newUser).subscribe(
         (status: any) => {
-          if (status == true) {
+          if (status == "OK") {
             if (this.language == 'en') {
               this.toastr.success("Successful registration");
             } else {
@@ -81,14 +78,21 @@ export class RegisterComponent implements OnInit {
             }
 
             this.navigateAfterSuccess();
-          }
-          else{
+          } else if (status == "Username") {
             this.loading = false;
             if (this.language == 'en') {
               this.toastr.error("Username already exists");
             } else {
               // PROMIJENITI OVDJE
               this.toastr.error("Username already exists");
+            }
+          } else {
+            this.loading = false;
+            if (this.language == 'en') {
+              this.toastr.error("Email already exists");
+            } else {
+              // PROMIJENITI OVDJE
+              this.toastr.error("Email already exists");
             }
 
           }

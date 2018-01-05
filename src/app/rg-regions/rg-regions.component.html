@@ -177,23 +177,30 @@
           <div class="form-group">
             <label class="col-md-12">{{ 'REGIONTYPE' | translate }}:</label>
             <div class="col-md-12">
-              <select class="form-control p-0" (change)="onRegionTypeSelected(t.value)" #t>
+              <select class="form-control p-0" (change)="onRegionTypeSelected(t.value)" (close)="onRegionTypeSelected(t.value)" #t>
                 <option *ngFor="let regionType of regionTypes" [selected]="regionType.id == selectedRegion.idType.id" [ngValue]="regionType">{{regionType?.name}}</option>
               </select><span class="highlight"></span> <span class="bar"></span>
             </div>
           </div>
         </div>
-        <div class="col-md-12" *ngIf="selectedRegion && selectedRegion.id_parent">
+        <div class="col-md-12" *ngIf="selectedRegion">
           <div class="form-group">
             <label class="col-md-12">{{ 'PARENT' | translate }}:</label>
             <div class="col-md-12">
-              <select class="form-control p-0" (change)="onParentSelected(t.value)" #t>
+              <select *ngIf="selectedRegion.id_parent; else default" class="form-control p-0" (change)="onParentSelected(t.value)" (close)="onParentSelected(t.value)" #t>
                 <option *ngFor="let region of regions"  [selected]="region.id == selectedRegion.id_parent.id" [ngValue]="region">{{region?.name}}</option>
               </select><span class="highlight"></span> <span class="bar"></span>
+              <ng-template #default>
+                <select class="form-control p-0" (change)="onParentSelected(t.value)" #t>
+                  <option selected value="">---</option>
+                  <option *ngFor="let region of regions"   [ngValue]="region">{{region?.name}}</option>
+                </select><span class="highlight"></span> <span class="bar"></span>
+              </ng-template>
+
             </div>
           </div>
         </div>
-        <a (click)="modalEdit.hide()" #cancelEdit class="pull-right saveButton btn btn-default">{{ 'CANCEL' | translate }}</a>
+        <a (click)="modalEdit.hide()" #cancelEdit class="pull-right saveButton btn btn-default" type="button">{{ 'CANCEL' | translate }}</a>
         <button  class="pull-right saveButton btn btn-success" type="submit">{{ 'SAVE' | translate }}</button>
       </div>
     </form>

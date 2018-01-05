@@ -100,6 +100,8 @@
                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
 
                     <div *ngIf="formUserInformation.submitted && user.email == ''" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
+                    <div  *ngIf="formUserInformation.submitted && email.errors" class="help-block">{{'EMAILISINVALID' | translate}}</div>
+
                     <!--<div [hidden]="!email.hasError('pattern')">Email format should be-->
                       <!--<small><b>joe@abc.com</b></small>-->
                     <!--</div>-->
@@ -126,14 +128,18 @@
                   </div>
                   <div class="form-group" [ngClass]="{ 'has-error': formPassword.submitted && !password1.valid }">
                     <label class="col-md-12">{{ 'NEWPASSWORD' | translate }}: *</label>
-                    <input type="password" required class="form-control form-control-line" name="password1" ngModel #password1="ngModel">
+                    <input type="password" required  minlength="6" class="form-control form-control-line" name="password1" ngModel #password1="ngModel">
                     <div *ngIf="formPassword.submitted && !password1.valid" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
+                    <div *ngIf="formPassword.submitted && password1.errors && password1.errors.minlength" class="help-block">{{'PASSWORDMUSTBEATLEASTSIXCHARACTERSLONG' | translate}}</div>
+
                   </div>
                   <div class="form-group" [ngClass]="{ 'has-error': formPassword.submitted && !password2.valid }">
                     <label class="col-md-12">{{ 'CONFIRMPASSWORD' | translate }}: *</label>
                     <input type="password" required class="form-control form-control-line" name="password2" ngModel #password2="ngModel">
                     <div *ngIf="formPassword.submitted && !password2.valid" class="help-block">{{ 'FIELDISREQUIRED' | translate }}</div>
                   </div>
+
+
                   <div class="form-group">
                     <div class="col-sm-12">
                       <button class="btn btn-default btn-rounded pull-right">{{ 'UPDATEPASSWORD' | translate }}</button>

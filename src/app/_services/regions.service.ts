@@ -139,8 +139,8 @@ export class RegionsService {
     ).subscribe();
   }
 
-  removeRegion(region: RegionModel){
-    const headers = new Headers({'Content-type': 'application/json'});
+  removeRegion(region: RegionModel) {
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     this.http.delete(this.URL + '/remove' + '/' + region.id, options).map(
       (response: Response) => {

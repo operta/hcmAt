@@ -70,6 +70,10 @@ export class LoginComponent implements OnInit {
     this.languageService.changeLanguage(language);
   }
 
+  resetPassword(email: string) {
+    this.userService.resetPassword(email);
+  }
+
   private navigateAfterSuccess() {
     if (this.redirectUrl) {
       this.router.navigateByUrl(this.redirectUrl);

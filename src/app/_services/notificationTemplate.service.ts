@@ -49,6 +49,7 @@ export class NotificationTemplatesService{
   }
 
   updateNotificationTemplate(notificationTemplate: NotificationTemplateModel) {
+    console.log("updateNotifTempl");
     const headers = this.authHeaders;
     const body = JSON.stringify(notificationTemplate);
     return this.http.put(this.URL, body, {headers: headers}).map(

@@ -55,7 +55,6 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
 
       this.subscription = this.vacanciesService.vacancyChange.subscribe(
         (data: VacancyModel[]) => {
-          console.log('OBSERVER');
           this.vacancies = data;
           this.loading = false;
 
