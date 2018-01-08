@@ -220,9 +220,7 @@
   "UPDATEPROFILE": "/",
   "UPDATEPASSWORD": "/",
   "THEREARENOAPPLICANTSONTHISVACANCY": "dsadsadasdas",
-  "CURRENTPASSWORD" : "/"
-
-
-
-
+  "CURRENTPASSWORD" : "/",
+  "OUTOF": "out of",
+  "TOTALRECORDS": "total records"
 }

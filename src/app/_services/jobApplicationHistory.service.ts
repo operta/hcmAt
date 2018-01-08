@@ -6,7 +6,7 @@ import {ToastsManager} from "ng2-toastr";
 @Injectable()
 export class JobApplicationHistoryService {
 
-  URL = 'http://77.78.198.19:8080/jobApplicationHistory';
+  URL = 'http://localhost:8080/jobApplicationHistory';
 
 
   constructor(private toastr: ToastsManager, private http: Http) {

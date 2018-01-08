@@ -22,7 +22,7 @@ export class RgRegionsComponent implements OnInit, OnDestroy {
   selectedRegion: RegionModel;
   selectedParent: RegionModel;
   subscription: Subscription;
-  loading: boolean = false;
+  loading = false;
 
   start: number;
   end: number;

@@ -220,5 +220,7 @@
   "UPDATEPASSWORD": "Update Password",
   "THEREARENOAPPLICANTSONTHISVACANCY": "There are no applicants on this vacancy",
   "YOURPROFILE": "Your profile",
-  "CURRENTPASSWORD" : "Current password"
+  "CURRENTPASSWORD" : "Current password",
+  "OUTOF": "out of",
+  "TOTALRECORDS": "total records"
 }

@@ -6,7 +6,7 @@ import {ContactTypeModel} from "../_models/contactType.model";
 @Injectable()
 export class ContactTypesService {
 
-  URL = 'http://77.78.198.19:8080/contactTypes';
+  URL = 'http://localhost:8080/contactTypes';
 
   constructor(private http: Http) { }
 

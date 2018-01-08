@@ -14,7 +14,7 @@ import {LanguageService} from "./language.service";
 @Injectable()
 export class ApplicantContactsService {
 
-  URL = 'http://77.78.198.19:8080/applicantContacts';
+  URL = 'http://localhost:8080/applicantContacts';
   applicantContacts: ApplicantContactModel[];
   applicantContactsObserver = new Subject<ApplicantContactModel[]>();
   language = 'en';

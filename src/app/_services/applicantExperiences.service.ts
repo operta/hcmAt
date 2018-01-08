@@ -13,7 +13,7 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class ApplicantExperiencesService {
 
-  URL = 'http://77.78.198.19:8080/applicantExperiences';
+  URL = 'http://localhost:8080/applicantExperiences';
   Experiences: ApplicantExperienceModel[];
   ExperiencesObserver= new Subject<ApplicantExperienceModel[]>();
   language = 'en';

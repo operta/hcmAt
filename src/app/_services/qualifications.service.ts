@@ -8,7 +8,7 @@ import {LanguageService} from "./language.service";
 
 @Injectable()
 export class QualificationsService{
-  URL = 'http://77.78.198.19:8080/qualifications';
+  URL = 'http://localhost:8080/qualifications';
   qualifications: QualificationModel[];
   qualificationsObserver = new Subject<QualificationModel[]>();
   language = 'en';

@@ -8,7 +8,7 @@ export class JobApplicationTestService {
 
   testChange= new Subject<JobApplicationTestModel[]>();
   tests: JobApplicationTestModel[];
-  testPath = 'http://77.78.198.19:8080/test';
+  testPath = 'http://localhost:8080/test';
 
   constructor(private http: Http) {
 

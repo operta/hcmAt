@@ -21,17 +21,30 @@ export class AtVacanciesDetailUserComponent implements OnInit {
   id: string;
   applicantId: number;
   applied = true;
-  loading: boolean = false;
+  loading = false;
 
-  constructor(private router: Router, private applicantService: ApplicantsService, private userService: UserService, private jobApplicationService: AtJobApplicationsService, private vacanciesService: VacanciesService, private route: ActivatedRoute) { }
+  constructor(private vacancyService: VacanciesService, private router: Router, private applicantService: ApplicantsService, private userService: UserService, private jobApplicationService: AtJobApplicationsService, private vacanciesService: VacanciesService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this.vacancyService.vacancyObservable.subscribe(
+    data => this.vacancy = data
+    );
+
     this.route.params.subscribe(
       params => {
+
         this.id = params['id'];
-        this.vacancy = this.vacanciesService.getVacancy(+this.id);
-        this.loading = true;
-        this.getApplicantInformation();
+
+        if (!this.vacancyService.vacancyServiceHasVacancies()) {
+          this.vacancyService.getVacancyHTTP(+this.id);
+          this.loading = true;
+          this.getApplicantInformation();
+        } else {
+          this.vacancy = this.vacanciesService.getVacancy(+this.id);
+          this.loading = true;
+          this.getApplicantInformation();
+        }
       }
     );
 
@@ -42,10 +55,11 @@ export class AtVacanciesDetailUserComponent implements OnInit {
 
 
   userWithoutApplicantProfile() {
-    if(this.userService.isUser() && !this.applicantId)
+    if (this.userService.isUser() && !this.applicantId)
       return true;
-    else
+    else {
       return false;
+    }
   }
 
   navigateToApplicantProfile() {
@@ -58,7 +72,7 @@ export class AtVacanciesDetailUserComponent implements OnInit {
         (data: UserModel) => {
           this.applicantService.getApplicant(data.id).subscribe(
             (applicant: ApplicantModel) => {
-              if(applicant)
+              if (applicant)
                 this.applicantId = applicant.id;
               if (!this.vacancy.jobApplications.find(x => x.applicantid.id === this.applicantId)) {
                 this.applied = false;

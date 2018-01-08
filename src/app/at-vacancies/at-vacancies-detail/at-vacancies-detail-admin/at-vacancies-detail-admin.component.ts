@@ -42,46 +42,31 @@ export class AtVacanciesDetailAdminComponent implements OnInit, OnDestroy {
 
       }
     );
+
+    this.vacancyService.vacancyObservable.subscribe(
+      data => {
+        this.vacancy = data;
+        console.log('VACANCY:');
+        console.log(this.vacancy);
+        this.loaded = true;
+        this.initJobApplications();
+        this.initPagination();
+      }
+    );
+
     this.subscriptionParams = this.route.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
 
         // DIO ZA RELOAD
         if (!this.vacancyService.vacancyServiceHasVacancies()) {
-          this.vacancyService.getVacancies();
+          this.vacancyService.getVacancyHTTP(+this.id);
         } else {
           this.vacancy = this.vacancyService.getVacancy(+this.id);
-          this.jobApplicationsService.initJobApplications(this.vacancy);
-          this.jobApplications = this.jobApplicationsService.getJobApplications();
-
-          this.paginationService.setPages(this.jobApplications.length);
-          this.start = this.paginationService.start();
-          this.paginationService.startObserver.subscribe(
-            start => this.start = start
-          );
-          this.end = this.paginationService.end();
-          this.paginationService.endObserver.subscribe(
-            end => this.end = end
-          );
+          this.initJobApplications();
+          this.loaded = true;
+          this.initPagination();
         }
-
-        this.vacancyService.vacancyChange.subscribe(
-          data => {
-            this.vacancy = this.vacancyService.getVacancy(+this.id);
-            this.jobApplicationsService.initJobApplications(this.vacancy);
-            this.jobApplications = this.jobApplicationsService.getJobApplications();
-
-            this.paginationService.setPages(this.jobApplications.length);
-            this.start = this.paginationService.start();
-            this.paginationService.startObserver.subscribe(
-              start => this.start = start
-            );
-            this.end = this.paginationService.end();
-            this.paginationService.endObserver.subscribe(
-              end => this.end = end
-            );
-          }
-        );
 
         /*        this.subscriptionVacancy = this.vacancyService.getVacancy(this.id).subscribe(
                   (data: VacancyModel) => {
@@ -92,6 +77,23 @@ export class AtVacanciesDetailAdminComponent implements OnInit, OnDestroy {
                 );*/
       }
 
+    );
+  }
+
+  initJobApplications() {
+    this.jobApplicationsService.initJobApplications(this.vacancy);
+    this.jobApplications = this.jobApplicationsService.getJobApplications();
+  }
+
+  initPagination() {
+    this.paginationService.setPages(this.jobApplications.length);
+    this.start = this.paginationService.start();
+    this.paginationService.startObserver.subscribe(
+      start => this.start = start
+    );
+    this.end = this.paginationService.end();
+    this.paginationService.endObserver.subscribe(
+      end => this.end = end
     );
   }
 

@@ -1,8 +1,30 @@
-<div *ngIf="pages.length > 1" class="row" style="padding: 0px 10px;">
+<div *ngIf="vacancyList && pages.length > 1" class="row" style="padding: 0px 10px;">
   <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
     {{ 'SHOWING' | translate }}
+    {{numberOfElements}}
+    {{ 'OUTOF' | translate }}
+    {{ totalElements }}
+    {{ 'TOTALRECORDS' | translate }}
+  </div>
+
+  <ng-container>
+    <div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 m-r-0 m-l-0">
+      <div class="pull-right">
+        <ul class="pagination m-b-0" ([ngModel])="pagingService.page">
+          <li [ngClass]="{noClick: first()}"> <a (click)="decrementPage()"><i class="fa fa-angle-left"></i></a> </li>
+          <li [ngClass]="{active: compare(pageIterator.num)}" *ngFor="let pageIterator of pages;"><a (click)="setPage(pageIterator.num)">{{pageIterator.num + 1}}</a></li>
+          <li [ngClass]="{noClick: last()}"> <a (click)="incrementPage()" ><i class="fa fa-angle-right"></i></a> </li>
+        </ul>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<div *ngIf="pages.length > 1 && !vacancyList" class="row">
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 p-t-20 m-r-0 m-l-0">
+    Showing
     {{resultCount}}
-    {{ 'RESULTSPERPAGE' | translate }}.
+    results per page.
   </div>
 
   <ng-container *ngIf="pages.length > 1" >

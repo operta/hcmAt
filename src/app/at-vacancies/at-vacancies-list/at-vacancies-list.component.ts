@@ -8,7 +8,7 @@ import {RegionModel} from '../../_models/region.model';
 import {WorkPlaceModel} from '../../_models/workPlace.model';
 import {RegionsService} from '../../_services/regions.service';
 import {WorkPlacesService} from '../../_services/work-places.service';
-import {PaginationService} from "../../_services/pagination.service";
+import {PagingService} from "../../_services/paging.service";
 
 
 @Component({
@@ -43,52 +43,38 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
               private vacanciesService: VacanciesService,
               private regionsService: RegionsService,
               private workplacesService: WorkPlacesService,
-              private paginationService: PaginationService) { }
+              private pagingService: PagingService) { }
 
   ngOnInit() {
     this.searchableList = ['name', 'description', 'code'];
     this.isAdmin = this.userService.isAdmin;
     this.isCompany = this.userService.isAdmin;
     this.isUser = this.userService.isUser();
-
-    if (this.isAdmin) {
-
-      this.subscription = this.vacanciesService.vacancyChange.subscribe(
-        (data: VacancyModel[]) => {
-          console.log('OBSERVER');
-          this.vacancies = data;
-          this.loading = false;
-
-          this.paginationService.setPages(this.vacancies.length);
-          this.start = this.paginationService.start();
-          this.paginationService.startObserver.subscribe(
-            start => this.start = start
-          )
-          this.end = this.paginationService.end();
-          this.paginationService.endObserver.subscribe(
-            end => this.end = end
-          );
+    this.pagingService.vacancylist.next(true);
+    this.pagingService.pageObservable.subscribe(
+      page => {
+        if (this.isAdmin) {
+          this.loading = true;
+          this.vacanciesService.getVacancies(page, this.pagingService.resultCount);
         }
-      );
-      if (!this.vacanciesService.vacancyServiceHasVacancies()) {
-        this.loading = true;
-        this.vacanciesService.getVacancies();
-      }
-
-    }
-    if (this.isUser) {
-
-      this.subscription = this.vacanciesService.vacancyChange.subscribe(
-        (data: VacancyModel[]) => {
-          this.vacancies = data;
-          this.loading = false;
+        if (this.isUser) {
+          this.loading = true;
+          this.vacanciesService.getActiveVacancies(page, this.pagingService.resultCount);
         }
-      );
-      if (!this.vacanciesService.vacancyServiceHasVacancies()) {
-        this.loading = true;
-        this.vacanciesService.getActiveVacancies();
       }
-    }
+    );
+
+    this.pagingService.setPage(0);
+
+    this.subscription = this.vacanciesService.vacancyChange.subscribe(
+      (data: VacancyModel[]) => {
+        this.vacancies = data;
+        this.loading = false;
+      }
+    );
+
+
+
     this.subscriptionRegions = this.regionsService.getRegions().subscribe(
       (data: RegionModel[]) => {
         this.regions = data;
@@ -110,9 +96,9 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
   refresh() {
     this.loading = true;
     if (this.isUser) {
-      this.vacanciesService.getActiveVacancies();
+      this.vacanciesService.getActiveVacancies(0, 15);
     } else {
-      this.vacanciesService.getVacancies();
+      this.vacanciesService.getVacancies(0, 15);
     }
 
   }
@@ -121,7 +107,9 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
     this.subscriptionWorkplaces.unsubscribe();
     this.subscriptionRegions.unsubscribe();
-    this.paginationService.setPages(0);
+    this.pagingService.setPages(0, 0);
+    this.pagingService.vacancylist.next(false);
+
   }
 
   // onEdit() {

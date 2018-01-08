@@ -4,21 +4,27 @@ import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/Rx';
 import {JsogService} from 'jsog-typescript';
-import {ToastsManager} from "ng2-toastr";
-import {JobApplicationModel} from "../_models/jobApplication.model";
-import {LanguageService} from "./language.service";
+import {ToastsManager} from 'ng2-toastr';
+import {JobApplicationModel} from '../_models/jobApplication.model';
+import {LanguageService} from './language.service';
+import {PagingModel} from "../_models/paging.model";
+import {PagingService} from "./paging.service";
 
 @Injectable()
 export class VacanciesService {
-  private vacancies: VacancyModel[] = [];
+  vacancies: VacancyModel[] = [];
+  vacancy: VacancyModel;
+  vacancyObservable = new Subject<VacancyModel>();
   vacancyChange= new Subject<VacancyModel[]>();
-  vacanciesURL = 'http://77.78.198.19:8080/vacancies';
+  pagingInfoChange = new Subject<PagingModel>();
+  vacanciesURL = 'http://localhost:8080/vacancies';
   language = 'en';
 
   constructor(private toastr: ToastsManager,
               private http: Http,
               private jsog: JsogService,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private pagingService: PagingService) {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
@@ -49,9 +55,9 @@ export class VacanciesService {
 
   vacancyServiceHasVacancies() {
 
-    if (this.vacancies.length == 0)
+    if (this.vacancies.length == 0) {
       return false;
-    else{
+    } else{
       this.vacancyChange.next(this.vacancies.slice());
       return true;
     }
@@ -60,10 +66,15 @@ export class VacanciesService {
 
 
 
-  getVacancies() {
-      this.http.get(this.vacanciesURL).map(
+  getVacancies(page: number, size: number) {
+      this.http.get(this.vacanciesURL + '/' + page + '/' + size).map(
         (response: Response) => {
-          const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json()));
+          const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json().content));
+          this.pagingService.first = response.json().first;
+          this.pagingService.last = response.json().last;
+          this.pagingService.totalElements = response.json().totalElements;
+          this.pagingService.numberOfElements = response.json().numberOfElements;
+          this.pagingService.setPages(response.json().totalPages, response.json().number);
           return vacancies;
         }
       ).subscribe(
@@ -73,22 +84,24 @@ export class VacanciesService {
         },
         error => {
           if (this.language == 'en') {
-            this.toastr.error(error.status, "An error occured");
+            this.toastr.error(error.status, 'An error occured');
           } else {
-            this.toastr.error(error.status, "تم حدوث خط");
+            this.toastr.error(error.status, 'تم حدوث خط');
           }
         }
       );
 
   }
 
-  getActiveVacancies() {
-    this.http.get(this.vacanciesURL + '/active').map(
+  getActiveVacancies(page: number, size: number) {
+    this.http.get(this.vacanciesURL + '/active/' + page + '/' + size).map(
       (response: Response) => {
-        const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json()));
-        console.log(vacancies);
-        // const vacancies: VacancyModel[] = response.json();
-
+        const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json().content));
+        this.pagingService.first = response.json().first;
+        this.pagingService.last = response.json().last;
+        this.pagingService.totalElements = response.json().totalElements;
+        this.pagingService.numberOfElements = response.json().numberOfElements;
+        this.pagingService.setPages(response.json().totalPages, response.json().number);
         return vacancies;
       }
     ).subscribe(
@@ -98,9 +111,9 @@ export class VacanciesService {
       },
       error => {
         if (this.language == 'en') {
-          this.toastr.error(error.status, "An error occured");
+          this.toastr.error(error.status, 'An error occured');
         } else {
-          this.toastr.error(error.status, "تم حدوث خط");
+          this.toastr.error(error.status, 'تم حدوث خط');
         }
       }
     );
@@ -117,6 +130,15 @@ export class VacanciesService {
     );*/
   }
 
+  getVacancyHTTP(id: number) {
+    return this.http.get(this.vacanciesURL + '/' + id).subscribe(
+      response => {
+        this.vacancy = (<VacancyModel>this.jsog.deserialize(response.json()));
+        this.vacancyObservable.next(this.vacancy);
+      }
+    );
+  }
+
   saveVacancy(vacancy: VacancyModel) {
     const headers = new Headers({'Content-type': 'application/json'});
     const options = new RequestOptions({headers: headers});
@@ -130,16 +152,16 @@ export class VacanciesService {
         this.vacancies.push(response);
         this.vacancyChange.next(this.vacancies.slice());
         if (this.language == 'en') {
-          this.toastr.success(vacancy.name + " successfully added.");
+          this.toastr.success(vacancy.name + ' successfully added.');
         } else {
-          this.toastr.success(vacancy.name + " تم الاضافة بنجاح");
+          this.toastr.success(vacancy.name + ' تم الاضافة بنجاح');
         }
       },
       error => {
         if (this.language == 'en') {
-          this.toastr.error(error.status, "An error occured");
+          this.toastr.error(error.status, 'An error occured');
         } else {
-          this.toastr.error(error.status, "تم حدوث خط");
+          this.toastr.error(error.status, 'تم حدوث خط');
         }
       }
     );
@@ -155,16 +177,16 @@ export class VacanciesService {
         this.vacancies.map(item => item.id == vacancy.id ? vacancy : item);
         this.vacancyChange.next(this.vacancies.slice());
         if (this.language == 'en') {
-          this.toastr.success(vacancy.name + " successfully updated.");
+          this.toastr.success(vacancy.name + ' successfully updated.');
         } else {
-          this.toastr.success(vacancy.name + " تم التحديث بنجاح");
+          this.toastr.success(vacancy.name + ' تم التحديث بنجاح');
         }
       },
       error => {
         if (this.language == 'en') {
-          this.toastr.error(error.status, "An error occured");
+          this.toastr.error(error.status, 'An error occured');
         } else {
-          this.toastr.error(error.status, "تم حدوث خط");
+          this.toastr.error(error.status, 'تم حدوث خط');
         }
       }
     );
@@ -177,17 +199,17 @@ export class VacanciesService {
         this.vacancies = this.vacancies.filter(vacancy => vacancy.id !== id);
         this.vacancyChange.next(this.vacancies.slice());
         if (this.language == 'en') {
-          this.toastr.success("Vacancy successfully removed.");
+          this.toastr.success('Vacancy successfully removed.');
         } else {
-          this.toastr.success("تم ازالة الشاغر بنجاح");
+          this.toastr.success('تم ازالة الشاغر بنجاح');
         }
 
       },
       error => {
         if (this.language == 'en') {
-          this.toastr.error(error.status, "An error occured");
+          this.toastr.error(error.status, 'An error occured');
         } else {
-          this.toastr.error(error.status, "تم حدوث خط");
+          this.toastr.error(error.status, 'تم حدوث خط');
         }
       }
     );

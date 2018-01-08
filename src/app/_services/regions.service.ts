@@ -8,7 +8,7 @@ import {LanguageService} from "./language.service";
 
 @Injectable()
 export class RegionsService {
-  URL = 'http://77.78.198.19:8080/regions';
+  URL = 'http://localhost:8080/regions';
   regions: RegionModel[];
   regionsObserver = new Subject<RegionModel[]>();
   language = 'en';

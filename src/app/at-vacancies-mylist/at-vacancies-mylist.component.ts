@@ -1,6 +1,5 @@
 import {Component, Input, OnDestroy, OnInit, ViewChildren} from '@angular/core';
 import {VacancyModel} from '../_models/vacancy.model';
-import {VacanciesService} from '../_services/vacancies.service';
 import {AtJobApplicationsService} from '../_services/at-job-applications.service';
 import {JobApplicationModel} from '../_models/jobApplication.model';
 import {JobApplicationStatusModel} from '../_models/jobApplicationStatus.model';
@@ -25,7 +24,6 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
   page = 1;
   @Input() id: number;
   /*  subscription: Subscription;*/
-  private vacancies: VacancyModel[];
   jobApplications: JobApplicationModel[];
   isApplicant = true;
   @Input() onApplicantOverview: boolean;
@@ -33,7 +31,7 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
   start: number;
   end: number;
 
-  constructor(private paginationService: PaginationService, private userService: UserService, private applicantService: ApplicantsService, private jobApplicationsService: AtJobApplicationsService, private vacanciesService: VacanciesService) {
+  constructor(private paginationService: PaginationService, private userService: UserService, private applicantService: ApplicantsService, private jobApplicationsService: AtJobApplicationsService) {
   }
 
   ngOnInit() {
@@ -45,10 +43,9 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
         (response: UserModel) => {
           this.applicantService.getApplicant(response.id).subscribe(
             (data: ApplicantModel) => {
-              if(data && data.id){
+              if (data && data.id) {
                 this.jobApplicationsService.getJobApplicationsByApplicantId(data.id);
-              }
-              else {
+              } else {
                 this.isApplicant = false;
               }
 

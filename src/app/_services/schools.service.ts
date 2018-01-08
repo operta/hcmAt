@@ -5,7 +5,7 @@ import {SchoolModel} from "../_models/school.model";
 @Injectable()
 export class SchoolsService {
 
-  URL = 'http://77.78.198.19:8080/schools';
+  URL = 'http://localhost:8080/schools';
 
   constructor(private http: Http) { }
 

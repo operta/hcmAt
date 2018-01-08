@@ -15,7 +15,6 @@ export class PaginationService {
 
   setPage(num: number) {
     this.page = num;
-    console.log(this.page)
     this.startObserver.next(this.start());
     this.endObserver.next(this.end());
   }
@@ -29,6 +28,7 @@ export class PaginationService {
   }
 
   setPages(length: number) {
+    console.log(length);
     this.pages = [];
     this.page = 1;
     // pagination number of pages
