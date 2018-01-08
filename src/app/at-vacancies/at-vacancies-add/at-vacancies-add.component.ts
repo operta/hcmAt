@@ -80,7 +80,6 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log()
     const name = this.newVacForm.value.name;
     const code = this.newVacForm.value.code;
     const description = this.newVacForm.value.description;
@@ -122,7 +121,6 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
   }
 
   redirect() {
-    console.log(this.router.url);
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 }

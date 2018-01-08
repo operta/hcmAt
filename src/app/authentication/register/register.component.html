@@ -41,7 +41,7 @@
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
           <div class="col-xs-12">
             <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel"
-                   required minlength="5" placeholder="{{'PASSWORD(ATLEASTSIXCHARACTERS)' | translate}}"/>
+                   required minlength="6" placeholder="{{'PASSWORD(ATLEASTSIXCHARACTERS)' | translate}}"/>
             <div *ngIf="f.submitted && password.errors && password.errors.required" class="help-block">{{'PASSWORDISREQUIRED' | translate}}</div>
             <div *ngIf="f.submitted && password.errors && password.errors.minlength" class="help-block">{{'PASSWORDMUSTBEATLEASTSIXCHARACTERSLONG' | translate}}</div>
           </div>

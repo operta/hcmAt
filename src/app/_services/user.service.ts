@@ -7,7 +7,7 @@ import {AuthenticationService} from './authentication.service';
 import {Router} from "@angular/router";
 import {ToastsManager} from "ng2-toastr";
 import {LanguageService} from "./language.service";
-import {Observable} from "rxjs/Observable";
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class UserService {
@@ -54,13 +54,26 @@ export class UserService {
       const options = new RequestOptions({headers: headers});
       return this.http.post(this.usersURL + '/add', newUser, options ).map(
         (response: Response) => {
-          return response.json();
+          return response.statusText;
         }
       )
 
   }
 
-  purge(){
+  resetPassword(email: string) {
+    return this.http.get(this.usersURL + '/resetPassword/' + email)
+      .map(
+        (response: Response) => {
+          return response.text();
+        }
+      )
+      .subscribe(response => {
+        this.purge();
+        this.toastr.success(response);
+      })
+  }
+
+  purge() {
     this.accessToken = null;
     this.isAdmin = false;
     localStorage.removeItem(TOKEN_NAME);
@@ -81,7 +94,7 @@ export class UserService {
     this.accessToken = this.authenticationService.getToken().toString();
     const decodedToken = this.jwtHelper.decodeToken(this.accessToken);
     this.isAdmin = decodedToken.authorities.some(el => el === 'ADMIN');
-    return this.accessToken &&this.isAdmin;
+    return this.accessToken && this.isAdmin;
   }
 
   isUser(): boolean {
@@ -109,7 +122,7 @@ export class UserService {
   }
 
   comparePassword(password: string, userId: string) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.headers;
     const options = new RequestOptions({ headers: headers, params: {'password': password}});
     return this.http.get(this.usersURL + '/passwordOf/' + userId, options).map(
       (response) => {
@@ -119,7 +132,7 @@ export class UserService {
   }
 
   updatePassword(password: string, userId: string) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.headers;
     const options = new RequestOptions({ headers: headers});
     const body = password;
     return this.http.put(this.usersURL + '/passwordOf/' + userId, body, options).map(
@@ -145,7 +158,7 @@ export class UserService {
   }
 
   updateUser(user: UserModel) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.headers;
     const body = JSON.stringify(user);
     return this.http.put(this.usersURL, body, {headers: headers}).map(
       (response: Response) => response.json()
@@ -169,22 +182,19 @@ export class UserService {
 
 
   saveImage(fileInput: any) {
-    const fileList: FileList = fileInput;
-    if (fileList.length > 0) {
-      const file: File = fileList[0];
+    if (fileInput != null) {
+      const file: File = fileInput;
       const formData: FormData = new FormData();
       formData.append('uploadFile', file, file.name);
       const headers = new Headers();
-      headers.append('Content-Type', 'multipart/form-data');
       headers.append('Accept', 'application/json');
+      headers.append('Authorization', 'Bearer ' + this.authenticationService.getToken());
       const options = new RequestOptions({ headers: headers });
-      this.http.post(this.usersURL + '/image', formData, options)
-        .map(res => res.json())
-        .catch(error => Observable.throw(error))
-        .subscribe(
-          data => console.log('success'),
-          error => console.log(error)
-        )
+      return this.http.post(environment.apiURL + '/uploadFile', formData, options).map(
+        (response: Response) => {
+          return response.text();
+        }
+      )
     }
   }
 

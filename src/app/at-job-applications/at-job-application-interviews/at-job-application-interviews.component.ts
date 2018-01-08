@@ -13,7 +13,6 @@ export class AtJobApplicationInterviewsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.interview);
   }
 
 

@@ -50,7 +50,6 @@ export class AtApplicantDocumentsAddComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
     this.document = new DocumentLinkModel(
       null,
       form.value.document_name,
@@ -84,7 +83,6 @@ export class AtApplicantDocumentsAddComponent implements OnInit {
           null,
           new Date
         );
-        console.log(applicantDocument);
         this.applicantDocumentsService.addApplicantDocument(applicantDocument);
       }
     );

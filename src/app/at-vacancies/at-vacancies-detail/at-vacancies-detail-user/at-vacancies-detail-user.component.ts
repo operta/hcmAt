@@ -127,7 +127,6 @@ export class AtVacanciesDetailUserComponent implements OnInit {
       null,
       null
     );
-    console.log(newJobApplication);
     this.jobApplicationService.addJobApplication(newJobApplication);
     this.applied = true;
   }

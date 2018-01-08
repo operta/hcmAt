@@ -33,7 +33,9 @@ export class ApplicantsService {
   }
 
   getApplicants() {
-    return this.http.get(this.applicantsURL).map(
+    const headers = this.authHeaders;
+    const options = new RequestOptions({headers: headers});
+    return this.http.get(this.applicantsURL, options).map(
       (response: Response) => {
         const applicants: ApplicantModel[] =  (<ApplicantModel[]>this.jsog.deserialize(response.json()));
         return applicants;
@@ -54,7 +56,9 @@ export class ApplicantsService {
   }
 
   getApplicant(id: string) {
-    return this.http.get(this.applicantsURL + '/' + id).map(
+    const headers = this.authHeaders;
+    const options = new RequestOptions({headers: headers});
+    return this.http.get(this.applicantsURL + '/' + id, options).map(
       (response: Response) => {
         if (response.arrayBuffer().byteLength == 0) {
           return null;
@@ -67,7 +71,9 @@ export class ApplicantsService {
   }
 
   getApplicantByApplicantId(id: string) {
-    return this.http.get(this.applicantsURL + '/applicant/' + id).map(
+    const headers = this.authHeaders;
+    const options = new RequestOptions({headers: headers});
+    return this.http.get(this.applicantsURL + '/applicant/' + id, options).map(
       (response: Response) => {
         const applicant: ApplicantModel = response.json();
         return applicant;
@@ -77,10 +83,9 @@ export class ApplicantsService {
 
 
   addApplicant(applicant: ApplicantModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(applicant);
-
     return this.http.post(this.applicantsURL + '/add', body, options).map(
       (response: Response) => {
         this.applicants.push(response.json());

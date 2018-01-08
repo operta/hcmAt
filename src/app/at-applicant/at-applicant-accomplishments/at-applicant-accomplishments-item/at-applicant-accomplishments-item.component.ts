@@ -59,7 +59,6 @@ export class AtApplicantAccomplishmentsItemComponent implements OnInit, OnChange
     this.applicantAccomplishment.licence_number = form.value.licence_number;
     this.applicantAccomplishment.occupation = form.value.occupation;
 
-    console.log(this.applicantAccomplishment);
 
     this.applicantAccomplishmentsService.updateApplicantAccomplishment(this.applicantAccomplishment);
     this.isEdit = false;

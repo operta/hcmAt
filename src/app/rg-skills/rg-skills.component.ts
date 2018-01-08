@@ -47,7 +47,7 @@ export class RgSkillsComponent implements OnInit, OnDestroy {
       }
     );
   }
-  onSubmit(form: NgForm){
+  onSubmit(form: NgForm) {
     this.selectedSkill.code = form.value.code;
     this.selectedSkill.name = form.value.name;
     this.selectedSkill.description = form.value.description;

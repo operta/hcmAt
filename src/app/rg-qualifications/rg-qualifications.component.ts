@@ -55,8 +55,7 @@ export class RgQualificationsComponent implements OnInit, OnDestroy {
   }
 
   onSubmitAdd(form: NgForm){
-    console.log(form.value);
-    var newQualification = new QualificationModel(
+    let newQualification = new QualificationModel(
       null,
       form.value.code,
       form.value.name,
@@ -66,7 +65,6 @@ export class RgQualificationsComponent implements OnInit, OnDestroy {
       null,
       new Date
     );
-    console.log(newQualification);
     this.qualificationsService.addQualification(newQualification);
     this.closeAddModal();
     form.reset();

@@ -34,10 +34,8 @@ export class SideMenuComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.languageService.getLanguage();
-    console.log(this.languageService.getLanguage());
     this.languageService.languageObservable.subscribe((result: string) => {
       this.language = result;
-      console.log(this.language);
     });
     this.userService.getUser().subscribe(
       (data: UserModel) => {

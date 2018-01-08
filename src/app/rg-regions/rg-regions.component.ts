@@ -36,7 +36,6 @@ export class RgRegionsComponent implements OnInit, OnDestroy {
     this.regionTypesService.getRegionTypes().subscribe(
       (data: RegionTypeModel[]) => {
         this.regionTypes = data;
-        console.log(this.regionTypes);
       }
     );
 
@@ -59,13 +58,16 @@ export class RgRegionsComponent implements OnInit, OnDestroy {
       }
     );
   }
-  onSubmit(form: NgForm){
+  onSubmit(form: NgForm) {
     this.selectedRegion.code = form.value.code;
     this.selectedRegion.name = form.value.name;
     this.selectedRegion.description = form.value.description;
-    this.selectedRegion.id_parent = this.selectedParent;
-    this.selectedRegion.idType = this.selectedRegionType;
-    console.log(this.selectedRegion);
+    if (this.selectedParent != null) {
+      this.selectedRegion.id_parent = this.selectedParent;
+    }
+    if (this.selectedRegionType != null) {
+      this.selectedRegion.idType = this.selectedRegionType;
+    }
     this.regionsService.updateRegion(this.selectedRegion);
     this.closeEditModal();
   }
@@ -83,7 +85,6 @@ export class RgRegionsComponent implements OnInit, OnDestroy {
       null,
       new Date
     );
-    console.log(newRegion);
     this.regionsService.addRegion(newRegion);
     this.closeAddModal();
     form.reset();
@@ -95,7 +96,7 @@ export class RgRegionsComponent implements OnInit, OnDestroy {
 
   }
 
-  removeRegion(region: RegionModel){
+  removeRegion(region: RegionModel) {
     this.regionsService.removeRegion(region);
   }
 
@@ -106,11 +107,12 @@ export class RgRegionsComponent implements OnInit, OnDestroy {
     this.closeBtnEdit.nativeElement.click();
   }
 
-  onRegionTypeSelected(value: string){
+  onRegionTypeSelected(value: string) {
+    console.log(value);
     this.selectedRegionType = this.regionTypes.find(item => item.name == value);
   }
 
-  onParentSelected(value: string){
+  onParentSelected(value: string) {
     this.selectedParent = this.regions.find(item => item.name == value);
   }
 

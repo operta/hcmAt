@@ -9,6 +9,7 @@ import {Observable} from "rxjs/Observable";
 import {JsogService} from "jsog-typescript";
 import {ApplicantContactModel} from "../_models/applicantContact.model";
 import {LanguageService} from "./language.service";
+import {AuthenticationService} from "./authentication.service";
 
 
 @Injectable()
@@ -19,16 +20,24 @@ export class ApplicantContactsService {
   applicantContactsObserver = new Subject<ApplicantContactModel[]>();
   language = 'en';
 
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
+
   constructor(private toastr: ToastsManager,
               private http: Http,
               private jsog: JsogService,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private authenticationService: AuthenticationService) {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
-  getApplicantContacts(applicant: ApplicantModel){
-    return this.http.get(this.URL + '/' + applicant.id).map(
+  getApplicantContacts(applicant: ApplicantModel) {
+    const headers = this.authHeaders;
+    const options = new RequestOptions({headers: headers});
+    return this.http.get(this.URL + '/' + applicant.id, options).map(
       (response: Response) => {
         const applicantContacts: ApplicantContactModel[] = (<ApplicantContactModel[]>this.jsog.deserialize(response.json()));
         return applicantContacts;
@@ -49,7 +58,7 @@ export class ApplicantContactsService {
   }
 
   updateApplicantContact(applicantContact: ApplicantContactModel) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.authHeaders;
     const body = this.jsog.serialize(applicantContact);
     return this.http.put(this.URL, body, {headers: headers}).map(
       (response: Response) => response.json()
@@ -74,7 +83,7 @@ export class ApplicantContactsService {
   }
 
   addApplicantContact(applicantContact: ApplicantContactModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(applicantContact);
     this.http.post(this.URL + '/add', body, options).map(
@@ -99,8 +108,8 @@ export class ApplicantContactsService {
     ).subscribe();
   }
 
-  removeApplicantContact(applicantContact: ApplicantContactModel){
-    const headers = new Headers({'Content-type': 'application/json'});
+  removeApplicantContact(applicantContact: ApplicantContactModel) {
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     this.http.delete(this.URL + '/remove' + '/' + applicantContact.id, options).map(
       (response: Response) => {

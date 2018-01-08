@@ -2,6 +2,7 @@ import {JobApplicationTestModel} from '../_models/jobApplicationTest.model';
 import {Http, RequestOptions, Headers, Response} from '@angular/http';
 import {Subject} from 'rxjs/Subject';
 import {Injectable} from '@angular/core';
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class JobApplicationTestService {
@@ -10,9 +11,13 @@ export class JobApplicationTestService {
   tests: JobApplicationTestModel[];
   testPath = 'http://localhost:8080/test';
 
-  constructor(private http: Http) {
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
 
-  }
+  constructor(private http: Http,
+              private authenticationService: AuthenticationService) {}
 
   initTests(tests: JobApplicationTestModel[]) {
     this.tests = tests;
@@ -24,7 +29,7 @@ export class JobApplicationTestService {
   }
 
   saveTest(test: JobApplicationTestModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     this.http.post(this.testPath + '/add', test, options).map(
       (response: Response) => response.json()

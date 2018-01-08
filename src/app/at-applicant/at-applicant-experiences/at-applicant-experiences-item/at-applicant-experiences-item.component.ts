@@ -42,7 +42,6 @@ export class AtApplicantExperiencesItemComponent implements OnInit {
     this.experience.date_from = form.value.date_from;
     this.experience.date_to = form.value.date_to;
 
-    console.log(this.experience);
 
     this.applicantExperiencesService.updateApplicantExperience(this.experience);
     this.isEdit = false;

@@ -8,6 +8,7 @@ import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
 import {JsogService} from "jsog-typescript";
 import {LanguageService} from "./language.service";
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class ApplicantSchoolsService {
@@ -17,16 +18,24 @@ export class ApplicantSchoolsService {
   applicantSchoolsObserver = new Subject<ApplicantSchoolModel[]>();
   language = 'en';
 
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
+
   constructor(private toastr: ToastsManager,
               private http: Http,
               private jsog: JsogService,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private authenticationService: AuthenticationService) {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
-  getApplicantSchools(applicant: ApplicantModel){
-    return this.http.get(this.URL + '/' + applicant.id).map(
+  getApplicantSchools(applicant: ApplicantModel) {
+    const headers = this.authHeaders;
+    const options = new RequestOptions({headers: headers});
+    return this.http.get(this.URL + '/' + applicant.id, options).map(
       (response: Response) => {
         const applicantSchools: ApplicantSchoolModel[] = (<ApplicantSchoolModel[]>this.jsog.deserialize(response.json()));
         return applicantSchools;
@@ -47,7 +56,7 @@ export class ApplicantSchoolsService {
   }
 
   updateApplicantSchool(applicantSchool: ApplicantSchoolModel) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.authHeaders;
     const body = this.jsog.serialize(applicantSchool);
     return this.http.put(this.URL, body, {headers: headers}).map(
       (response: Response) => response.json()
@@ -72,7 +81,7 @@ export class ApplicantSchoolsService {
   }
 
   addApplicantSchool(applicantSchool: ApplicantSchoolModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(applicantSchool);
     this.http.post(this.URL + '/add', body, options).map(
@@ -97,8 +106,8 @@ export class ApplicantSchoolsService {
     ).subscribe();
   }
 
-  removeApplicantSchool(applicantSchool: ApplicantSchoolModel){
-    const headers = new Headers({'Content-type': 'application/json'});
+  removeApplicantSchool(applicantSchool: ApplicantSchoolModel) {
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     this.http.delete(this.URL + '/remove' + '/' + applicantSchool.id, options).map(
       (response: Response) => {

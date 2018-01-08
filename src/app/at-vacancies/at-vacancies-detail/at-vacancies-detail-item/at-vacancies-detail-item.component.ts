@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {JobApplicationModel} from '../../../_models/jobApplication.model';
 import {ApplicantModel} from '../../../_models/applicant.model';
 import {JobApplicationStatusModel} from '../../../_models/jobApplicationStatus.model';
@@ -7,6 +7,12 @@ import {VacancyModel} from '../../../_models/vacancy.model';
 import {JobApplicationHistoryService} from "../../../_services/jobApplicationHistory.service";
 import {JsogService} from "jsog-typescript";
 import {Router} from "@angular/router";
+import {UserService} from "../../../_services/user.service";
+import {EmailService} from "../../../_services/email.service";
+import {Timestamp} from "rxjs/Rx";
+import {JobApplicationTestService} from "../../../_services/jobApplicationTest.service";
+import {JobApplicationInterviewService} from "../../../_services/jobApplicationInterview.service";
+import {JobApplicationTestModel} from "../../../_models/jobApplicationTest.model";
 
 
 @Component({
@@ -15,7 +21,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./at-vacancies-detail-item.component.css']
 })
 export class AtVacanciesDetailItemComponent implements OnInit {
-
+  @ViewChild('cancelActivity') closeBtn: ElementRef;
+  model: any = {};
   @Input() jobApplication: JobApplicationModel;
   currentStatus: JobApplicationStatusModel;
   @Input() applicant: ApplicantModel;
@@ -24,10 +31,15 @@ export class AtVacanciesDetailItemComponent implements OnInit {
   interviewsAvg = 0;
   testsAvg = 0;
   totalAvg = 0;
+  content = '';
 
   changeStatus = false;
 
-  constructor(private router: Router, private jobApplicationService: AtJobApplicationsService) { }
+  constructor(private router: Router,
+              private jobApplicationService: AtJobApplicationsService,
+              private emailService: EmailService,
+              private jobApplicationTestService: JobApplicationTestService,
+              private jobApplicationInterviewService: JobApplicationInterviewService) { }
 
   ngOnInit() {
     this.currentStatus = this.jobApplication.id_status;
@@ -36,10 +48,11 @@ export class AtVacanciesDetailItemComponent implements OnInit {
     this.jobApplication.test.forEach(x => { this.testsAvg = this.testsAvg + x.score});
     this.testsAvg = this.testsAvg / this.jobApplication.test.length;
     this.totalAvg = (this.testsAvg + this.interviewsAvg) / 2;
-    console.log(this.jobApplication);
-    console.log(this.applicant);
+  }
 
 
+  sendEmail(content: string) {
+    this.emailService.sendEmail(this.applicant.id, content);
   }
 
   updateStatus(status: JobApplicationStatusModel) {
@@ -64,6 +77,33 @@ export class AtVacanciesDetailItemComponent implements OnInit {
     this.jobApplication.vacancyid = oldVacancy;
     this.currentStatus = this.jobApplication.id_status;
 
+  }
+
+  scheduleActivity() {
+    // if (this.model.type == "Interview") {
+    //   this.jobApplicationInterviewService.saveInterview(newInterview);
+    // }
+    //
+    // if (this.model.type == "Test") {
+    //   const newTest = new JobApplicationTestModel(null,
+    //     null,
+    //     null,
+    //     new Date,
+    //     null,
+    //     new Date,
+    //     this.model.date,
+    //     null,
+    //     this.jobApplication,
+    //     this.model.description,
+    //     null);
+    //   this.jobApplicationTestService.saveTest(newTest);
+    // }
+    this.closeModal()
+
+  }
+
+  private closeModal(): void {
+    this.closeBtn.nativeElement.click();
   }
 
   // function that dynamically creates the circle for the grade

@@ -25,19 +25,17 @@ export class AtApplicantContactsComponent implements OnInit {
     this.contactTypeService.getContactTypes().subscribe(
       (data: ContactTypeModel[]) => {
         this.contactTypes = data;
-        console.log(this.contactTypes);
       }
     );
     this.applicantContactsService.getApplicantContacts(this.applicant);
     this.subscription = this.applicantContactsService.applicantContactsObserver.subscribe(
       (data: ApplicantContactModel[]) => {
         this.contacts = data
-        console.log(this.contacts);
       }
     );
   }
 
-  onClose(){
+  onClose() {
     this.add = false;
   }
 

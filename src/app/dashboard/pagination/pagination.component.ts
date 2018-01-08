@@ -81,7 +81,6 @@ export class PaginationComponent implements OnInit {
   }
 
   first() {
-    console.log(this.pagingService.first);
     return this.pagingService.first;
   }
 

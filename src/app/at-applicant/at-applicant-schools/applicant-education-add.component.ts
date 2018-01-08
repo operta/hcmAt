@@ -45,8 +45,7 @@ export class ApplicantEducationAddComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
-     var applicantSchool = new ApplicantSchoolModel(
+     let applicantSchool = new ApplicantSchoolModel(
        null,
        this.selectedSchool,
        this.applicant,

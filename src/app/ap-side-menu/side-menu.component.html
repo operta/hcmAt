@@ -71,6 +71,30 @@
           </ul>
           <!-- /.dropdown-messages -->
         </li>
+        <!-- /.dropdown -->
+        <li class="dropdown"> <a class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#"><i class="icon-note"></i>
+          <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+        </a>
+          <ul class="dropdown-menu dropdown-tasks animated bounceInDown">
+            <li>
+              <a href="#">
+                <div>
+                  <p> <strong>Task 1</strong> <span class="pull-right text-muted">40% Complete</span> </p>
+                  <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a class="text-center" href="#"> <strong>See All Tasks</strong> <i class="fa fa-angle-right"></i> </a>
+            </li>
+          </ul>
+          <!-- /.dropdown-tasks -->
+        </li>
+        <!-- /.dropdown -->
+
         <li class="dropdown" id="langDrop" >
 
               <a class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer; color: white"><span class="caret"></span> {{'LANGUAGE' | translate}} <i class="fa fa-globe" aria-hidden="true"></i></a>
@@ -101,7 +125,10 @@
     <div class="sidebar-nav navbar-collapse slimscrollsidebar">
       <div class="user-profile">
         <div class="dropdown user-pro-body">
-          <div><img src="assets/images/users/1.jpg" alt="user-img" class="img-circle"></div>
+          <img *ngIf="user; else default" [src]="user?.image_path" alt="user-img" class="img-circle">
+          <ng-template #default>
+            <img src="assets/images/users/user.png" alt="user-img" class="img-circle">
+          </ng-template>
           <a class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button"
               aria-haspopup="true" aria-expanded="false">
             {{user?.username}}<span class="caret"></span>

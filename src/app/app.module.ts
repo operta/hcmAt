@@ -26,6 +26,7 @@ import {PaginationComponent} from "./dashboard/pagination/pagination.component";
 import {TranslateLoader, TranslateModule, TranslateStaticLoader} from "ng2-translate";
 import {LanguageService} from "./_services/language.service";
 import {PagingService} from "./_services/paging.service";
+import {EmailService} from "./_services/email.service";
 
 export function authHttpServiceFactory(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -79,6 +80,7 @@ export class CustomOption extends ToastOptions {
     PaginationService,
     PagingService,
     LanguageService,
+    EmailService,
     {provide: ToastOptions, useClass: CustomOption}
   ],
   bootstrap: [ AppComponent ]

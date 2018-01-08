@@ -46,8 +46,6 @@ export class AtVacanciesDetailAdminComponent implements OnInit, OnDestroy {
     this.vacancyService.vacancyObservable.subscribe(
       data => {
         this.vacancy = data;
-        console.log('VACANCY:');
-        console.log(this.vacancy);
         this.loaded = true;
         this.initJobApplications();
         this.initPagination();

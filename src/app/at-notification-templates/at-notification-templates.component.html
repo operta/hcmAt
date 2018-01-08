@@ -149,14 +149,12 @@
             </div>
           </div>
         </div>
-        <button (click)="modalEdit.hide()" #cancelEdit class="pull-right saveButton btn btn-default">{{'CANCEL' | translate}}</button>
+        <button (click)="modalEdit.hide()" #cancelEdit class="pull-right saveButton btn btn-default" type="button">{{'CANCEL' | translate}}</button>
         <button  class="pull-right saveButton btn btn-success" type="submit">{{'SAVE' | translate}}</button>
       </div>
     </form>
   </div>
 </app-modal>
-
-
 
 
 <app-modal #modalDelete>

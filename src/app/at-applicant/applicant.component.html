@@ -7,8 +7,8 @@
                         <div class="col-sm-3">
                             <div class="at-img-align m-b-30">
 
-                              <img src="assets/images/users/user-male-icon.png" class="img-fluid" />
-                              <!--<img *ngIf="applicant" [src]="applicant.image_link" class="img-fluid" />-->
+
+                              <img *ngIf="applicant" [src]="applicant?.image_link" class="img-fluid" />
                             </div>
                           <div *ngIf="applicant">
                             <h5 *ngIf="currentExperience"><b>{{currentExperience?.company}} &middot; {{currentExperience?.location}}</b></h5>

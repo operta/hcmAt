@@ -37,14 +37,11 @@ export class AtJobApplicationsComponent implements OnInit {
     this.testService.testChange.subscribe(
       (data: JobApplicationTestModel[]) => {
         this.tests = data;
-        console.log(this.tests);
       }
     );
 
     this.jobApplicationsService.jobApplicationChange.subscribe(
       data => {
-        console.log('subscribe na change');
-        console.log(data);
         this.jobApplication = data;
         this.interviewService.initInterviews(this.jobApplication.interview);
         this.testService.initTests(this.jobApplication.test);

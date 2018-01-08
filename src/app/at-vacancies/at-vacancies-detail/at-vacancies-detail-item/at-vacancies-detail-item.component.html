@@ -92,120 +92,52 @@
 
 
 
-    <a style="color: rgb(132, 138, 150);" class="btn pull-right"><i class="fa fa-envelope-o"></i> {{'SENDANEMAIL' | translate}}</a>
-    <a style="color: rgb(132, 138, 150);" class="btn m-r-10 pull-right"><i
-      class="fa fa-calendar-o"></i>{{'SCHEDULEANACTIVITY' | translate}}</a>
+    <a style="color: rgb(132, 138, 150);" class="btn pull-right" type="button" (click)="modalEmail.show()"><i class="fa fa-envelope-o"></i> {{'SENDANEMAIL' | translate}}</a>
+    <a style="color: rgb(132, 138, 150);" class="btn m-r-10 pull-right" type="button" (click)="modalActivity.show()"><i class="fa fa-calendar-o"></i> {{'SCHEDULEANACTIVITY' | translate}}</a>
   </div>
 
 </div>
 
+<app-modal #modalEmail>
+  <div class="app-modal-header">
+    {{ 'SENDANEMAIL' | translate }}
+  </div>
+  <div class="app-modal-body">
+    <textarea class="form-control" rows="5" placeholder="Enter your message here..."  [(ngModel)]="content"></textarea>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="modalEmail.hide()">{{ 'CANCEL' | translate }}</button>
+    <button type="button" class="btn btn-success"  (click)="sendEmail(content); modalEmail.hide()">{{ 'SEND' | translate }}</button>
+  </div>
+</app-modal>
 
 
-<!--
-<div class="comment-body" style="width: 100%;">
-
-&lt;!&ndash;  <div class="row el-element-overlay m-b-40">
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div class="el-card-item">
-          <div class="el-card-avatar el-overlay-1">
-            <img [src]="applicant.image_link" />
-            <div class="el-overlay">
-              <ul class="el-info">
-                <li><a class="btn default btn-outline image-popup-vertical-fit" href="../plugins/images/users/1.jpg"><i class="icon-magnifier"></i></a></li>
-                <li><a class="btn default btn-outline" href="javascript:void(0);"><i class="icon-link"></i></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+<app-modal #modalActivity>
+  <div class="app-modal-header">
+    {{ 'SCHEDULEANACTIVITY' | translate }}
+  </div>
+  <div class="app-modal-body">
+    <form class="form-horizontal form-material" name="form" (ngSubmit)="f.form.valid && scheduleActivity()" #f="ngForm">
+    <div class="col-md-6" [ngClass]="{ 'has-error': model.date == null && f.submitted}">
+      <label>For Date: *</label>
+      <input required class="form-control" type="datetime-local" name="date"
+             [(ngModel)]="model.date"
+             #date="ngModel">
     </div>
-
-  </div>&ndash;&gt;
-  <div class="row el-element-overlay m-b-40" style="margin: 0 !important;">
-    <div class="mail-contnet">
-      <a [routerLink]="['../../','jobApplication',jobApplication.id]">
-
-
-        <div class="col-xs-4 col-md-4">
-          <div class="el-card-item" style="padding: 0 !important;">
-            <div class="el-card-avatar el-overlay-1" style="margin: 0 !important;">
-              <img [src]="applicant.image_link"/>
-              <div class="el-overlay">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <h5>{{jobApplication.applicantid.name}}</h5>
-        <span class="mail-desc" style="height:100px;">
-              <div class="col-xs-8 col-md-8 col-lg-8">
-                  <div class="col.sm-6 col-md-6 col-lg-6">
-                      <b>Birth:</b> {{jobApplication.applicantid.birthdate | date}}
-                  </div>
-                  <div class="col.sm-6 col-md-6 col-lg-6">
-                      <b>Email:</b> {{jobApplication.applicantid.email}}
-                  </div>
-                  <div class="col.sm-6 col-md-6 col-lg-6">
-                      <b>Phone:</b> {{jobApplication.applicantid.phone_number}}
-                  </div>
-
-              <div>
-                  {{jobApplication.review}}
-              </div>
-              </div>
-              <div class="col-xs-4 col-md-4 col-lg-4">
-                  <div class="row">
-                      <div class="col-lg-6">
-                          <div *ngIf="jobApplication.interview" class="row">
-                              <div>
-                                  <b>Interview</b>
-                                  <div class="progress progress-sm">
-                                      <div class="progress-bar progress-bar-info"
-                                           [style.width]="jobApplication.interview_grade + '%'"
-                                           role="progressbar"> <span
-                                        class="sr-only">{{jobApplication.interview_grade}}% </span> </div>
-                                  </div>
-                              </div>
-                          </div>
-                          <div *ngIf="jobApplication.test" class="row">
-                              <div>
-                                  <b>Test</b>
-                                  <div class="progress progress-sm">
-                                      <div
-                                        class="progress-bar progress-bar-warning"
-                                        [style.width]="jobApplication.test_grade + '%'"
-                                        role="progressbar"> <span
-                                        class="sr-only">{{jobApplication.test_grade}}% </span> </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                    &lt;!&ndash;                                                            <div class="col-lg-7">
-                                                                                    <div data-label="4.7" class="css-bar css-bar-95 css-bar-lg m-b-0 m-r-10 css-bar-info pull-right"></div>
-                                                                                </div>&ndash;&gt;
-                      <div [attr.data-label]="jobApplication.grade"
-                           [ngClass]="getBar(jobApplication.grade)"
-                           class="css-bar css-bar-lg m-b-0 m-r-10 css-bar-info pull-right"></div>
-
-                  </div>
-          </div>
-      </span>
-      </a>
-      <div class="col-md-4">
-        <span class="label label-rounded label-default" style="color:black !important;">{{jobApplication?.id_status?.name}}</span>
-        <label>Change status:</label>
-        <select  class="form-control p-0" [(ngModel)]="selectedStatus" name="selectedStatus" (change)="updateStatus(selectedStatus)">
-          <option selected="selected">Change status</option>
-          <option *ngFor="let status of jobApplicationStatuses"  [ngValue]="status">{{status.name}}</option>
-        </select><span class="highlight"></span> <span class="bar"></span>
+    <div class="col-md-6" [ngClass]="{ 'has-error': model.type == null && f.submitted }">
+      <label>Activity type: *</label>
+      <select required class="form-control" [(ngModel)]="model.type" #type="ngModel" name="type">
+        <option selected value="">---</option>
+        <option value="Interview">Interview</option>
+        <option value="Test">Test</option>
+      </select>
+    </div>
+      <div class="col-md-12" style="margin-top: 10px;">
+        <button type="button"  #cancelActivity class="pull-right btn btn-default" (click)="modalActivity.hide()">{{ 'CANCEL' | translate }}</button>
+        <button type="submit" class="pull-right btn btn-success">{{ 'SEND' | translate }}</button>
       </div>
-
-
-      <a href="#" style="color: rgb(132, 138, 150);" class="btn pull-right"><i class="fa fa-envelope-o"></i> Send an email</a>
-      <a routerLink="activities" style="color: rgb(132, 138, 150);" class="btn m-r-10 pull-right"><i
-        class="fa fa-calendar-o"></i> Schedule an activity</a>
-    </div>
+    </form>
   </div>
-</div>
-
-
--->
+  <div class="app-modal-footer">
+   </div>
+</app-modal>

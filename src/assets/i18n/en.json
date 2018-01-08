@@ -222,5 +222,9 @@
   "YOURPROFILE": "Your profile",
   "CURRENTPASSWORD" : "Current password",
   "OUTOF": "out of",
-  "TOTALRECORDS": "total records"
+  "TOTALRECORDS": "total records",
+  "RESET" : "Reset",
+  "RECOVEREMAIL" : "Recover email",
+  "ENTERYOUREMAILANDINSTRUCTIONSWILLBESENTTOYOU" : "Enter your Email and instructions will be sent to you!",
+  "SEND" : "Send"
 }

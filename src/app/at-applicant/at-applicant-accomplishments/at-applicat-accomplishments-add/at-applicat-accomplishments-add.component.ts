@@ -15,33 +15,28 @@ export class AtApplicatAccomplishmentsAddComponent implements OnInit {
   @Input() selectedAccomplishmentType: AccomplishmentTypeModel;
   @Input() applicant: ApplicantModel;
   @Output() onClose = new EventEmitter();
-  ongoing:boolean;
-  ongoingString : string;
-
-
+  ongoing: boolean;
+  ongoingString: string;
 
   constructor(public toastr: ToastsManager, private applicantAccomplishmentsService: ApplicantAccomplishmentsService) {
   }
-
 
   ngOnInit() {
     this.ongoing = false;
   }
 
-  onSubmit(form:NgForm){
-    if(this.ongoing){
+  onSubmit(form: NgForm) {
+    if (this.ongoing) {
       this.ongoingString = "T";
-    }
-    else {
+    } else {
       this.ongoingString = "F";
     }
-    console.log(form.value);
     const newApplicant = new ApplicantModel(
       this.applicant.id,
       null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null, null, null,null,
       null,null,null,null
     );
-    var applicantAccomplishment = new ApplicantAccomplishmentModel(
+    const applicantAccomplishment = new ApplicantAccomplishmentModel(
       null,
       newApplicant,
       this.selectedAccomplishmentType,
@@ -62,13 +57,12 @@ export class AtApplicatAccomplishmentsAddComponent implements OnInit {
       null,
       new Date
     );
-    console.log(applicantAccomplishment);
 
     this.applicantAccomplishmentsService.addApplicantAccomplishment(applicantAccomplishment);
     this.close();
   }
 
-  close(){
+  close() {
     this.onClose.emit();
   }
 

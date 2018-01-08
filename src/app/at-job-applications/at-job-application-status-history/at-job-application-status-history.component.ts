@@ -17,7 +17,6 @@ export class AtJobApplicationStatusHistoryComponent implements OnInit {
   ngOnInit() {
     this.jobApplicationHistoryService.getJobApplicationHistoryByJobApplicationId(this.jobApplication.id.toString()).subscribe(
       (data: JobApplicationHistoryModel[]) => {
-        console.log(data);
         this.history = data;
       }
     )

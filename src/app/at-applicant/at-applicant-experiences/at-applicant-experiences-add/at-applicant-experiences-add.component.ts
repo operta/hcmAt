@@ -21,15 +21,13 @@ export class AtApplicantExperiencesAddComponent implements OnInit {
     this.ongoing = false;
   }
 
-  onSubmit(form:NgForm){
-    if(this.ongoing){
+  onSubmit(form: NgForm) {
+    if (this.ongoing) {
       this.ongoingString = "T";
-    }
-    else {
+    } else {
       this.ongoingString = "F";
     }
-    console.log(form.value);
-    var applicantExperience = new ApplicantExperienceModel(
+    const applicantExperience = new ApplicantExperienceModel(
       null,
       this.applicant,
       form.value.company,

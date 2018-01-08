@@ -28,7 +28,6 @@ export class PaginationService {
   }
 
   setPages(length: number) {
-    console.log(length);
     this.pages = [];
     this.page = 1;
     // pagination number of pages

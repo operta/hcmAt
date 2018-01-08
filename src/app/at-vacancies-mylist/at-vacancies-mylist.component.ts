@@ -60,9 +60,6 @@ export class AtVacanciesMylistComponent implements OnInit, OnDestroy {
     this.jobApplicationsService.jobApplicationsChange.subscribe(
       data => {
         this.jobApplications = data;
-
-
-        console.log(this.onApplicantOverview);
         if (!this.onApplicantOverview) {
           this.paginationService.setPages(this.jobApplications.length);
           this.start = this.paginationService.start();

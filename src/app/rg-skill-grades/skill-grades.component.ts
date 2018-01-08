@@ -26,9 +26,8 @@ export class SkillGradesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.skillGradesService.getSkillGrades();
     this.subscription = this.skillGradesService.skillGradesObserver.subscribe(
-      (data : SkillGradeModel[]) => {
+      (data: SkillGradeModel[]) => {
         this.skillGrades = data;
-        console.log(this.skillGrades);
       }
     )
   }
@@ -44,9 +43,8 @@ export class SkillGradesComponent implements OnInit, OnDestroy {
     this.closeEditModal();
   }
 
-  onSubmitAdd(form: NgForm){
-    console.log(form.value);
-    var newSkillGrade = new SkillGradeModel(
+  onSubmitAdd(form: NgForm) {
+    const newSkillGrade = new SkillGradeModel(
       null,
       form.value.code,
       form.value.name,
@@ -59,7 +57,6 @@ export class SkillGradesComponent implements OnInit, OnDestroy {
       null,
       new Date
     );
-  console.log(newSkillGrade);
     this.skillGradesService.addSkillGrade(newSkillGrade);
     this.closeAddModal();
     form.reset();

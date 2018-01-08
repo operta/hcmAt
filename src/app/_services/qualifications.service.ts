@@ -5,6 +5,7 @@ import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
 import {LanguageService} from "./language.service";
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class QualificationsService{
@@ -13,15 +14,23 @@ export class QualificationsService{
   qualificationsObserver = new Subject<QualificationModel[]>();
   language = 'en';
 
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
+
   constructor(private toastr: ToastsManager,
               private http: Http,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private authenticationService: AuthenticationService) {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
-  getQualifications(){
-    return this.http.get(this.URL).map(
+  getQualifications() {
+    const headers = this.authHeaders;
+    const options = new RequestOptions({headers: headers});
+    return this.http.get(this.URL, options).map(
       (response: Response) => {
         const qualifications: QualificationModel[] = response.json();
         return qualifications;
@@ -42,7 +51,7 @@ export class QualificationsService{
   }
 
   updateQualification(qualification: QualificationModel) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.authHeaders;
     const body = JSON.stringify(qualification);
     return this.http.put(this.URL, body, {headers: headers}).map(
       (response: Response) => response.json()
@@ -68,7 +77,7 @@ export class QualificationsService{
   }
 
   addQualification(qualification: QualificationModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(qualification);
     this.http.post(this.URL + '/add', body, options).map(
@@ -95,7 +104,7 @@ export class QualificationsService{
   }
 
   removeQualification(qualification: QualificationModel){
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     this.http.delete(this.URL + '/remove' + '/' + qualification.id, options).map(
       (response: Response) => {

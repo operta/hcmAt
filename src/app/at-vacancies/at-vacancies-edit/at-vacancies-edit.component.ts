@@ -64,7 +64,6 @@ export class AtVacanciesEditComponent implements OnInit, OnDestroy {
     this.vacancy.id_work_place = this.selectedWorkplace;
 
 
-    console.log(this.vacancy);
     // this.subscriptionVacancy = this.vacancyService.updateVacancy(this.vacancy)
     //   .subscribe(
     //     result => console.log(result)

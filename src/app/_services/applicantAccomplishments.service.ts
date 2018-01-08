@@ -8,6 +8,7 @@ import {Subject} from "rxjs/Subject";
 import {ToastsManager} from "ng2-toastr";
 import {Observable} from "rxjs/Observable";
 import {LanguageService} from "./language.service";
+import {AuthenticationService} from "./authentication.service";
 
 
 @Injectable()
@@ -18,18 +19,28 @@ export class ApplicantAccomplishmentsService {
   accomplishmentsObserver= new Subject<ApplicantAccomplishmentModel[]>();
   language = 'en';
 
+  private authHeaders = new Headers({
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.authenticationService.getToken()
+  });
+
   constructor(private http: Http,
               private toastr: ToastsManager,
               private jsog: JsogService,
-              private languageService: LanguageService) {
+              private languageService: LanguageService,
+              private authenticationService: AuthenticationService) {
     this.languageService.getLanguage();
     this.languageService.languageObservable.subscribe((language: string) => this.language = language);
   }
 
   getApplicantAccomplishments(applicant: ApplicantModel){
-    return this.http.get(this.URL + '/' + applicant.id).map(
+    const headers = this.authHeaders;
+    const options = new RequestOptions({headers: headers});
+    return this.http.get(this.URL + '/' + applicant.id, options).map(
       (response: Response) => {
-        const applicantAccomplishments: ApplicantAccomplishmentModel[] = (<ApplicantAccomplishmentModel[]>this.jsog.deserialize(response.json()));
+        const applicantAccomplishments: ApplicantAccomplishmentModel[] = (
+          <ApplicantAccomplishmentModel[]>this.jsog.deserialize(response.json())
+        );
         return applicantAccomplishments;
       }
     ).subscribe(
@@ -49,13 +60,15 @@ export class ApplicantAccomplishmentsService {
   }
 
   updateApplicantAccomplishment(applicantAccomplishment: ApplicantAccomplishmentModel) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.authHeaders;
     const body = JSON.stringify(applicantAccomplishment);
     return this.http.put(this.URL, body, {headers: headers}).map(
       (response: Response) => response.json()
     ).subscribe(
       response => {
-        this.accomplishments.map(accomplishment => accomplishment.id == applicantAccomplishment.id ? applicantAccomplishment : accomplishment);
+        this.accomplishments.map(
+          accomplishment => accomplishment.id == applicantAccomplishment.id ? applicantAccomplishment : accomplishment
+        );
         this.accomplishmentsObserver.next(this.accomplishments.slice());
         if (this.language == 'en') {
           this.toastr.success(applicantAccomplishment.id_accomplishment_type.name + " successfully updated.");
@@ -76,7 +89,7 @@ export class ApplicantAccomplishmentsService {
   }
 
   addApplicantAccomplishment(applicantAccomplishment: ApplicantAccomplishmentModel) {
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     const body = JSON.stringify(applicantAccomplishment);
     this.http.post(this.URL + '/add', body, options).map(
@@ -102,11 +115,10 @@ export class ApplicantAccomplishmentsService {
   }
 
   removeApplicantAccomplishment(applicantAccomplishment: ApplicantAccomplishmentModel){
-    const headers = new Headers({'Content-type': 'application/json'});
+    const headers = this.authHeaders;
     const options = new RequestOptions({headers: headers});
     this.http.delete(this.URL + '/remove' + '/' + applicantAccomplishment.id, options).map(
       (response: Response) => {
-        console.log(response);
       }
     ).subscribe(
       response => {
