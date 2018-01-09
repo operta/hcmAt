@@ -1,4 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {JobApplicationTestModel} from "../../_models/jobApplicationTest.model";
+import {JobApplicationTestService} from "../../_services/jobApplicationTest.service";
 
 @Component({
   selector: 'app-at-job-application-tests',
@@ -6,10 +8,22 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./at-job-application-tests.component.css']
 })
 export class AtJobApplicationTestsComponent implements OnInit {
+  @ViewChild('cancelGrade') closeBtn: ElementRef;
+  model: any = {};
+  @Input() test: JobApplicationTestModel;
 
-  @Input() test: AtJobApplicationTestsComponent;
+  constructor(private jobApplicationTestService: JobApplicationTestService) { }
 
-  constructor() { }
+  onEdit() {
+    this.test.score = this.model.score;
+    this.test.review = this.model.review;
+    this.jobApplicationTestService.updateTest(this.test);
+    this.closeModal()
+  }
+
+  private closeModal(): void {
+    this.closeBtn.nativeElement.click();
+  }
 
   ngOnInit() {
   }

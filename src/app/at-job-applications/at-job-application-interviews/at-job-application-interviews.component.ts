@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {JobApplicationInterviewModel} from "../../_models/jobApplicationInterview.model";
+import {JobApplicationInterviewService} from "../../_services/jobApplicationInterview.service";
 
 @Component({
   selector: 'app-at-job-application-interviews',
@@ -7,12 +8,24 @@ import {JobApplicationInterviewModel} from "../../_models/jobApplicationIntervie
   styleUrls: ['./at-job-application-interviews.component.css']
 })
 export class AtJobApplicationInterviewsComponent implements OnInit {
-
+  @ViewChild('cancelGrade') closeBtn: ElementRef;
+  model: any = {};
   @Input() interview: JobApplicationInterviewModel;
 
-  constructor() { }
+  constructor(private jobApplicationInterviewService: JobApplicationInterviewService) { }
 
   ngOnInit() {
+  }
+
+  onEdit() {
+    this.interview.grade = this.model.grade;
+    this.interview.description = this.model.description;
+    this.jobApplicationInterviewService.updateInterview(this.interview);
+    this.closeModal()
+  }
+
+  private closeModal(): void {
+    this.closeBtn.nativeElement.click();
   }
 
 

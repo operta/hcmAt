@@ -15,6 +15,8 @@ import {NotificationTemplateModel} from "../_models/notificationTemplate.model";
 import {VacanciesService} from "./vacancies.service";
 import {LanguageService} from "./language.service";
 import {AuthenticationService} from "./authentication.service";
+import {JobApplicationInterviewModel} from "../_models/jobApplicationInterview.model";
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Injectable()
 export class AtJobApplicationsService {
@@ -44,6 +46,24 @@ export class AtJobApplicationsService {
 
   initJobApplications(vacancy: VacancyModel) {
     this.jobApplications = vacancy.jobApplications;
+  }
+
+  addInterviewToJobApplication(interview: any) {
+    this.jobApplications.forEach(function(item, index, array) {
+      if (item.id == interview.job_application_id.id) {
+        item.interview.push(interview);
+      }
+    });
+    this.jobApplicationsChange.next(this.jobApplications.slice());
+  }
+
+  addTestToJobApplication(test: any){
+    this.jobApplications.forEach(function(item, index, array) {
+      if (item.id == test.job_application_id.id) {
+        item.test.push(test);
+      }
+    });
+    this.jobApplicationsChange.next(this.jobApplications.slice());
   }
 
   getJobApplications() {

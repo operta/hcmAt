@@ -118,12 +118,19 @@
   </div>
   <div class="app-modal-body">
     <form class="form-horizontal form-material" name="form" (ngSubmit)="f.form.valid && scheduleActivity()" #f="ngForm">
-    <div class="col-md-6" [ngClass]="{ 'has-error': model.date == null && f.submitted}">
+    <!--<div class="col-md-6" [ngClass]="{ 'has-error': model.date == null && f.submitted}">-->
+      <!--<label>For Date: *</label>-->
+      <!--<input required class="form-control" type="datetime-local" name="date"-->
+             <!--[(ngModel)]="model.date"-->
+             <!--#date="ngModel">-->
+    <!--</div>-->
+
+      <div class="col-md-6" [ngClass]="{ 'has-error': model.date == null && f.submitted}">
       <label>For Date: *</label>
-      <input required class="form-control" type="datetime-local" name="date"
-             [(ngModel)]="model.date"
-             #date="ngModel">
-    </div>
+      <input required class="form-control" type="date" name="date"
+      [(ngModel)]="model.date"
+      #date="ngModel">
+      </div>
     <div class="col-md-6" [ngClass]="{ 'has-error': model.type == null && f.submitted }">
       <label>Activity type: *</label>
       <select required class="form-control" [(ngModel)]="model.type" #type="ngModel" name="type">
@@ -132,6 +139,22 @@
         <option value="Test">Test</option>
       </select>
     </div>
+
+      <div *ngIf="model.type && model.type == 'Test'" class="col-md-6" [ngClass]="{ 'has-error': model.short_description == null && f.submitted}">
+        <label>Test name: *</label>
+        <input required class="form-control" type="text" name="short_description"
+               [(ngModel)]="model.short_description"
+               #short_description="ngModel">
+      </div>
+
+      <div class="col-md-6" [ngClass]="{ 'has-error': this.selectedLocation == null && f.submitted }">
+        <label>Location: *</label>
+        <select  class="form-control" (change)="onRegionSelected(t.value)" #t>
+          <option required *ngFor="let region of locations" [ngValue]="region">{{region.name}}</option>
+        </select>
+      </div>
+
+
       <div class="col-md-12" style="margin-top: 10px;">
         <button type="button"  #cancelActivity class="pull-right btn btn-default" (click)="modalActivity.hide()">{{ 'CANCEL' | translate }}</button>
         <button type="submit" class="pull-right btn btn-success">{{ 'SEND' | translate }}</button>

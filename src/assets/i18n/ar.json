@@ -226,5 +226,7 @@
   "RESET" : "/",
   "RECOVEREMAIL" : "/",
   "ENTERYOUREMAILANDINSTRUCTIONSWILLBESENTTOYOU" : "/",
-  "SEND" : "/"
+  "SEND" : "/",
+  "REVIEWINTERVIEW": "/",
+  "REVIEWTEST": "/"
 }

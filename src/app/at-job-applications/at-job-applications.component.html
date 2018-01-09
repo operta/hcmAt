@@ -45,7 +45,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="white-box">
-        <a *ngIf="state != 'history'"(click)="navigate(state)" class="btn btn-circle btn-success pull-right"><i class="fa fa-plus"></i></a>
+        <!--<a *ngIf="state != 'history'"(click)="navigate(state)" class="btn btn-circle btn-success pull-right"><i class="fa fa-plus"></i></a>-->
         <ul class="nav customtab nav-tabs" role="tablist">
           <li role="presentation" class="nav-item">
             <a [class.active]="state == 'interview'" (click)="state='interview'; resetLink();"  href="#interviews" class="nav-link" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="true">

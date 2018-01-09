@@ -3,21 +3,27 @@
     <i class="fa fa-comment fa-2x"></i>
   </div>
   <div class="mail-contnet">
+    <div class="box-title p-b-10 p-r-10">
+      <div class="pull-right">
+        <button class="btn btn-rounded btn-success btn-small" (click)="modalGrade.show()">Grade</button>
+      </div>
+    </div>
     <h5>{{'INTERVIEW' | translate}}</h5>
+
     <span class="mail-desc" style="height:100px;">
-      <div class="row">
-          <div class="col-lg-10">
+    <div class="row">
+          <div class="col-8 col-md-10">
               <div class="row">
-                  <div class="col-xs-12 col.sm-6 col-md-6 col-lg-6">
+                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                       <i class="fa fa-clock-o"></i> {{interview.interview_date}}
                   </div>
-                  <div class="col-xs-12 col.sm-6 col-md-6 col-lg-6">
+                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                       &nbsp;
                   </div>
-                  <div class="col-xs-12 col.sm-6 col-md-6 col-lg-6">
+                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                       <i class="fa fa-map-marker"></i> {{interview.location_id.name}}
                   </div>
-                  <div class="col-xs-12 col.sm-6 col-md-6 col-lg-6">
+                  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                       &nbsp;
                   </div>
               </div>
@@ -25,17 +31,56 @@
                   {{interview.description}}
               </div>
           </div>
-          <div class="col-lg-2">
+          <div class="col-4 col-md-2" *ngIf="interview.grade;">
               <div class="row">
-                  <div class="col-lg-6">
+                  <div class="col-md-6">
 
                   </div>
-                  <div class="col-lg-6">
+                  <div class="col-md-6">
                       <div [attr.data-label]="interview.grade" [ngClass]="getBar(interview.grade)" class="css-bar css-bar-lg m-b-0 m-r-10 css-bar-info pull-right"></div>
                   </div>
               </div>
           </div>
-      </div>
+
+  </div>
+
     </span>
+
   </div>
 </div>
+
+<app-modal #modalGrade>
+  <div class="app-modal-header">
+    {{ 'REVIEWINTERVIEW' | translate }}
+  </div>
+  <div class="app-modal-body">
+    <form class="form-horizontal form-material" name="form" (ngSubmit)="f.form.valid && onEdit()" #f="ngForm">
+      <!--<div class="col-md-6" [ngClass]="{ 'has-error': model.date == null && f.submitted}">-->
+      <!--<label>For Date: *</label>-->
+      <!--<input required class="form-control" type="datetime-local" name="date"-->
+      <!--[(ngModel)]="model.date"-->
+      <!--#date="ngModel">-->
+      <!--</div>-->
+
+      <div class="col-md-6">
+        <label>Description: </label>
+        <input class="form-control" type="text" name="description"
+               [(ngModel)]="model.description"
+               #description="ngModel">
+      </div>
+      <div class="col-md-6">
+        <label>Grade: </label>
+        <input class="form-control" type="number" name="grade"
+               [(ngModel)]="model.grade"
+               #grade="ngModel">
+      </div>
+
+      <div class="col-md-12" style="margin-top: 10px;">
+        <button type="button"  #cancelGrade class="pull-right btn btn-default" (click)="modalGrade.hide()">{{ 'CANCEL' | translate }}</button>
+        <button type="submit" class="pull-right btn btn-success">{{ 'SEND' | translate }}</button>
+      </div>
+    </form>
+  </div>
+  <div class="app-modal-footer">
+  </div>
+</app-modal>
