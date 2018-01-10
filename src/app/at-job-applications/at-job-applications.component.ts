@@ -23,22 +23,13 @@ export class AtJobApplicationsComponent implements OnInit {
   active: string;
   state = 'interview';
 
-  constructor(private testService: JobApplicationTestService, private interviewService: JobApplicationInterviewService, private router: Router, private route: ActivatedRoute, private jobApplicationsService: AtJobApplicationsService) { }
+  constructor(private testService: JobApplicationTestService,
+              private interviewService: JobApplicationInterviewService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private jobApplicationsService: AtJobApplicationsService) { }
 
   ngOnInit() {
-
-    this.interviewService.interviewChange.subscribe(
-      (data: JobApplicationInterviewModel[]) => {
-        this.interviews = data;
-      }
-    );
-
-
-    this.testService.testChange.subscribe(
-      (data: JobApplicationTestModel[]) => {
-        this.tests = data;
-      }
-    );
 
     this.jobApplicationsService.jobApplicationChange.subscribe(
       data => {
@@ -47,6 +38,21 @@ export class AtJobApplicationsComponent implements OnInit {
         this.testService.initTests(this.jobApplication.test);
       }
     );
+
+    this.interviewService.interviewChange.subscribe(
+      (data: JobApplicationInterviewModel[]) => {
+        this.interviews = data;
+        console.log(this.interviews);
+      }
+    );
+
+    this.testService.testChange.subscribe(
+      (data: JobApplicationTestModel[]) => {
+        this.tests = data;
+      }
+    );
+
+
 
     this.route.params.subscribe(
       (params: Params) => {
@@ -59,11 +65,8 @@ export class AtJobApplicationsComponent implements OnInit {
           this.interviewService.initInterviews(this.jobApplication.interview);
           this.testService.initTests(this.jobApplication.test);
         }
-
-
       }
     )
-
   }
 
   navigate(state: string) {

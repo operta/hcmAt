@@ -13,6 +13,9 @@ import {Timestamp} from "rxjs/Rx";
 import {JobApplicationTestService} from "../../../_services/jobApplicationTest.service";
 import {JobApplicationInterviewService} from "../../../_services/jobApplicationInterview.service";
 import {JobApplicationTestModel} from "../../../_models/jobApplicationTest.model";
+import {JobApplicationInterviewModel} from "../../../_models/jobApplicationInterview.model";
+import {RegionModel} from "../../../_models/region.model";
+import {RegionsService} from "../../../_services/regions.service";
 
 
 @Component({
@@ -32,6 +35,8 @@ export class AtVacanciesDetailItemComponent implements OnInit {
   testsAvg = 0;
   totalAvg = 0;
   content = '';
+  locations: [RegionModel];
+  selectedLocation: RegionModel;
 
   changeStatus = false;
 
@@ -39,15 +44,22 @@ export class AtVacanciesDetailItemComponent implements OnInit {
               private jobApplicationService: AtJobApplicationsService,
               private emailService: EmailService,
               private jobApplicationTestService: JobApplicationTestService,
-              private jobApplicationInterviewService: JobApplicationInterviewService) { }
+              private jobApplicationInterviewService: JobApplicationInterviewService,
+              private regionService: RegionsService,
+              private jsogService: JsogService) { }
 
   ngOnInit() {
+    this.regionService.getRegions().subscribe((regions: [RegionModel]) => this.locations = regions);
     this.currentStatus = this.jobApplication.id_status;
     this.jobApplication.interview.forEach(x => {this.interviewsAvg = this.interviewsAvg + x.grade});
     this.interviewsAvg = this.interviewsAvg / this.jobApplication.interview.length;
     this.jobApplication.test.forEach(x => { this.testsAvg = this.testsAvg + x.score});
     this.testsAvg = this.testsAvg / this.jobApplication.test.length;
     this.totalAvg = (this.testsAvg + this.interviewsAvg) / 2;
+  }
+
+  onRegionSelected(value: string) {
+    this.selectedLocation = this.locations.find(item => item.name === value);
   }
 
 
@@ -80,26 +92,36 @@ export class AtVacanciesDetailItemComponent implements OnInit {
   }
 
   scheduleActivity() {
-    // if (this.model.type == "Interview") {
-    //   this.jobApplicationInterviewService.saveInterview(newInterview);
-    // }
-    //
-    // if (this.model.type == "Test") {
-    //   const newTest = new JobApplicationTestModel(null,
-    //     null,
-    //     null,
-    //     new Date,
-    //     null,
-    //     new Date,
-    //     this.model.date,
-    //     null,
-    //     this.jobApplication,
-    //     this.model.description,
-    //     null);
-    //   this.jobApplicationTestService.saveTest(newTest);
-    // }
-    this.closeModal()
+    if (this.model.type == "Interview") {
+      const newInterview = new JobApplicationInterviewModel(
+        null,
+        null,
+        null,
+        null,
+        new Date,
+        null,
+        new Date,
+        this.model.date,
+        this.jsogService.serialize(this.jobApplication),
+        this.selectedLocation);
+      this.jobApplicationInterviewService.saveInterview(newInterview);
+    }
 
+    if (this.model.type == "Test") {
+      const newTest = new JobApplicationTestModel(null,
+        null,
+        null,
+        new Date,
+        null,
+        new Date,
+        this.model.date,
+        this.selectedLocation,
+        this.jsogService.serialize(this.jobApplication),
+        this.model.short_description,
+        null);
+      this.jobApplicationTestService.saveTest(newTest);
+    }
+    this.closeModal()
   }
 
   private closeModal(): void {

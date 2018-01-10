@@ -226,5 +226,7 @@
   "RESET" : "Reset",
   "RECOVEREMAIL" : "Recover email",
   "ENTERYOUREMAILANDINSTRUCTIONSWILLBESENTTOYOU" : "Enter your Email and instructions will be sent to you!",
-  "SEND" : "Send"
+  "SEND" : "Send",
+  "REVIEWINTERVIEW": "Review interview",
+  "REVIEWTEST": "Review test"
 }
