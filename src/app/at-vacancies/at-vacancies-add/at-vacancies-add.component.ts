@@ -5,8 +5,6 @@ import {Subscription} from 'rxjs/Subscription';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {VacancyModel} from '../../_models/vacancy.model';
 import {VacanciesService} from '../../_services/vacancies.service';
-import {WorkPlaceModel} from '../../_models/workPlace.model';
-import {WorkPlacesService} from '../../_services/work-places.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {VacanciesStatusModel} from '../../_models/vacanciesStatus.model';
 import {QualificationModel} from "../../_models/qualification";
@@ -21,13 +19,11 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
 
   newVacForm: FormGroup;
   regions: RegionModel[];
-  workPlaces: WorkPlaceModel[];
   subscription1: Subscription;
-  subscription2: Subscription;
   qualifications: QualificationModel[];
 
 
-  constructor(private qualificationsService: QualificationsService, private route: ActivatedRoute, private regionsService: RegionsService, private vacancyService: VacanciesService, private workPlacesService: WorkPlacesService, private router: Router) { }
+  constructor(private qualificationsService: QualificationsService, private route: ActivatedRoute, private regionsService: RegionsService, private vacancyService: VacanciesService, private router: Router) { }
 
   ngOnInit() {
     this.initData();
@@ -42,7 +38,6 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription1.unsubscribe();
-    this.subscription2.unsubscribe();
   }
 
 
@@ -53,11 +48,6 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.subscription2 = this.workPlacesService.getWorkPlaces().subscribe(
-      (data: WorkPlaceModel[]) => {
-        this.workPlaces = data;
-      }
-    );
   }
 
 
@@ -67,7 +57,6 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
       'code': new FormControl(''),
       'description': new FormControl(''),
       'region': new FormControl('', Validators.required),
-      'workPlace': new FormControl('', Validators.required),
       'date_from': new FormControl('', Validators.required),
       'date_to': new FormControl('', Validators.required),
       'job_role': new FormControl(''),
@@ -84,7 +73,6 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
     const code = this.newVacForm.value.code;
     const description = this.newVacForm.value.description;
     const region = this.newVacForm.value.region;
-    const workPlace = this.newVacForm.value.workPlace;
     const date_from = this.newVacForm.value.date_from;
     const date_to = this.newVacForm.value.date_to;
     const job_role = this.newVacForm.value.job_role;
@@ -102,7 +90,6 @@ export class AtVacanciesAddComponent implements OnInit, OnDestroy {
       region,
       date_from,
       date_to,
-      workPlace,
       '',
       new Date,
       '',

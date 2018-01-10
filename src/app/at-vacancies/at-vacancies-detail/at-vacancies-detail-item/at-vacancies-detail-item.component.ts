@@ -64,7 +64,7 @@ export class AtVacanciesDetailItemComponent implements OnInit {
       null, null, null, null, null, null, null, null, null, null
     );
     const vacancy = new VacancyModel(
-      this.jobApplication.vacancyid.id, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+      this.jobApplication.vacancyid.id, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
     );
     this.jobApplication.id_status = newStatus;
     const oldApplicant = this.jobApplication.applicantid;

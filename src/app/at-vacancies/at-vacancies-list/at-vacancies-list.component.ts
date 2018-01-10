@@ -5,9 +5,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {AtVacanciesItemComponent} from './at-vacancies-item/at-vacancies-item.component';
 import {UserService} from '../../_services/user.service';
 import {RegionModel} from '../../_models/region.model';
-import {WorkPlaceModel} from '../../_models/workPlace.model';
 import {RegionsService} from '../../_services/regions.service';
-import {WorkPlacesService} from '../../_services/work-places.service';
 import {PagingService} from "../../_services/paging.service";
 
 
@@ -20,17 +18,14 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
   @ViewChildren(AtVacanciesItemComponent) allAtVacanciesItemComponents: QueryList<AtVacanciesItemComponent>;
   vacancies: VacancyModel[];
   regions: RegionModel[];
-  workplaces: WorkPlaceModel[];
   isUser = false;
   isAdmin = false;
   isCompany = false;
   subscription: Subscription;
   subscriptionRegions: Subscription;
-  subscriptionWorkplaces: Subscription;
   loading = false;
   searchValue = '';
   searchByStatus = '';
-  searchByWorkplace = '';
   searchByRegion = '';
   searchByDateFrom: Date = null;
   searchByDateTo: Date = null;
@@ -42,7 +37,6 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService,
               private vacanciesService: VacanciesService,
               private regionsService: RegionsService,
-              private workplacesService: WorkPlacesService,
               private pagingService: PagingService) { }
 
   ngOnInit() {
@@ -80,11 +74,6 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
         this.regions = data;
       }
     );
-    this.subscriptionWorkplaces = this.workplacesService.getWorkPlaces().subscribe(
-      (data: WorkPlaceModel[]) => {
-        this.workplaces = data;
-      }
-    );
     /*.subscribe(
       (data: VacancyModel[]) => {
         this.vacancies = data;
@@ -105,7 +94,6 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    this.subscriptionWorkplaces.unsubscribe();
     this.subscriptionRegions.unsubscribe();
     this.pagingService.setPages(0, 0);
     this.pagingService.vacancylist.next(false);

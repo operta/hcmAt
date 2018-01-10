@@ -12,7 +12,6 @@ export class VacancyModel {
   public id_location: RegionModel;
   public date_from: Date;
   public date_to: Date;
-  public id_work_place: WorkPlaceModel;
   public created_by: string;
   public created_at: Date;
   public updated_by: string;
@@ -27,7 +26,7 @@ export class VacancyModel {
   public experience_requirement: string;
 
 
-  constructor(id: number, code: string, name: string, description: string, id_location: RegionModel, date_from: Date, date_to: Date, id_work_place: WorkPlaceModel, created_by: string, created_at: Date, updated_by: string, updated_at: Date, jobApplications: JobApplicationModel[], status: VacanciesStatusModel, job_role: string, job_working_time: string, skills_requirement: string, language_requirement: string, education_requirement: string, experience_requirement: string) {
+  constructor(id: number, code: string, name: string, description: string, id_location: RegionModel, date_from: Date, date_to: Date, created_by: string, created_at: Date, updated_by: string, updated_at: Date, jobApplications: JobApplicationModel[], status: VacanciesStatusModel, job_role: string, job_working_time: string, skills_requirement: string, language_requirement: string, education_requirement: string, experience_requirement: string) {
     this.id = id;
     this.code = code;
     this.name = name;
@@ -35,7 +34,6 @@ export class VacancyModel {
     this.id_location = id_location;
     this.date_from = date_from;
     this.date_to = date_to;
-    this.id_work_place = id_work_place;
     this.created_by = created_by;
     this.created_at = created_at;
     this.updated_by = updated_by;

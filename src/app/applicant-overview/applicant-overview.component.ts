@@ -18,14 +18,14 @@ export class ApplicantOverviewComponent implements OnInit, OnDestroy{
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.subscriptionRoute= this.route.data.subscribe(
+    this.subscriptionRoute = this.route.data.subscribe(
       (data: {applicant: ApplicantModel}) => {
         this.applicant = data.applicant;
       }
     );
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscriptionRoute.unsubscribe();
   }
 

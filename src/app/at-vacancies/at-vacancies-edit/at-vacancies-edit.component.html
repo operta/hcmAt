@@ -46,12 +46,6 @@
               <label for="input6">Region Select</label>
             </div>
 
-            <div class="form-group m-b-40 col-md-6">
-              <select class="form-control p-0" id="input7" [(ngModel)]="selectedWorkplace" name="selectedWorkplace">
-                <option *ngFor="let workplace of workplaces" [selected]="workplace.name == selectedWorkplace.name" [ngValue]="workplace">{{workplace.name}}</option>
-              </select><span class="highlight"></span> <span class="bar"></span>
-              <label for="input6">Workplace Select</label>
-            </div>
 
             <!--<div class="form-group m-b-40 col-md-6">-->
               <!--<select class="form-control p-0" id="input6" name="region" [(ngModel)]="vacancy && vacancy.workPlace">-->

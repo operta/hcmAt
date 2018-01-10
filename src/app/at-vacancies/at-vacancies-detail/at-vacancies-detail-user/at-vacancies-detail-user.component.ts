@@ -108,7 +108,7 @@ export class AtVacanciesDetailUserComponent implements OnInit {
       null, null, null, null, null, null, null, null, null, null
     );
     const vacancy = new VacancyModel(
-      this.vacancy.id, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+      this.vacancy.id, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
     );
     const newJobApplication = new JobApplicationModel(
       null,

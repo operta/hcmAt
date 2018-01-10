@@ -7,7 +7,6 @@ import {VacanciesService} from '../../../_services/vacancies.service';
 import {Router} from '@angular/router';
 import {UserService} from "../../../_services/user.service";
 import {RegionModel} from "../../../_models/region.model";
-import {WorkPlaceModel} from "../../../_models/workPlace.model";
 import {NgForm} from "@angular/forms";
 import {UserModel} from "../../../_models/user.model";
 import {ApplicantModel} from "../../../_models/applicant.model";
@@ -29,9 +28,7 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
   @ViewChild('cancelApply') closeBtnApply: ElementRef;
   @Input() vacancy: VacancyModel;
   @Input() regions: RegionModel[];
-  @Input() workplaces: WorkPlaceModel[];
   selectedRegion = null;
-  selectedWorkplace = null;
 
   isUser = false;
   isAdmin = false;
@@ -56,7 +53,6 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
     if (this.isUser) {
       this.getApplicantInformation();
     }
-    this.selectedWorkplace = this.vacancy.id_work_place;
     this.selectedRegion = this.vacancy.id_location;
     this.selectedStatus = this.vacancy.status.status;
   }
@@ -93,7 +89,6 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
     this.vacancy.date_from = form.value.date_from;
     this.vacancy.date_to = form.value.date_to;
     this.vacancy.id_location = this.selectedRegion;
-    this.vacancy.id_work_place = this.selectedWorkplace;
     this.vacancy.status = status;
     this.vacancy.job_role = '';
     this.vacancy.job_working_time = '';
@@ -110,7 +105,6 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
       this.vacancy.id_location,
       this.vacancy.date_from,
       this.vacancy.date_to,
-      this.vacancy.id_work_place,
       null,
       null,
       null,
@@ -156,9 +150,6 @@ export class AtVacanciesItemComponent implements OnInit, OnChanges {
     this.selectedStatus = value;
   }
 
-  onWorkplaceSelected(value: string){
-    this.selectedWorkplace = this.workplaces.find(item => item.name === value);
-  }
 
   /*apply() {
     this.createJobApplication();

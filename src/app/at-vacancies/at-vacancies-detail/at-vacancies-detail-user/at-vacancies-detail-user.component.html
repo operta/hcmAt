@@ -25,11 +25,6 @@
                   <label class="control-label col-md-3">{{'DATETO' | translate}}:</label> {{vacancy.date_to | date}}
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="control-label col-md-3">{{'WORKPLACE' | translate}}:</label> {{vacancy.id_work_place.name}}
-                </div>
-              </div>
               <div *ngIf="vacancy.job_role" class="col-md-6">
                 <div class="form-group">
                   <label class="control-label col-md-3">{{'JOBROLE' | translate}}:</label> {{vacancy.job_role}}
