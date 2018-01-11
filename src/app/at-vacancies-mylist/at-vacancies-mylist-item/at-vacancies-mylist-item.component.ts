@@ -13,7 +13,7 @@ import {UserService} from "../../_services/user.service";
 export class AtVacanciesMylistItemComponent implements OnInit {
 
   @Input() vacancy: VacancyModel;
-  @Input() status: JobApplicationStatusModel
+  @Input() status: JobApplicationStatusModel;
   admin = false;
 
   constructor(private userService: UserService, private vacancyService: VacanciesService, private router: Router) { }
