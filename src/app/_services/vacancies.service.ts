@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {VacancyModel} from '../_models/vacancy.model';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import {Http, Response, Headers, RequestOptions, BaseRequestOptions, URLSearchParams} from '@angular/http';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/Rx';
 import {JsogService} from 'jsog-typescript';
@@ -10,6 +10,7 @@ import {LanguageService} from './language.service';
 import {PagingModel} from "../_models/paging.model";
 import {PagingService} from "./paging.service";
 import {AuthenticationService} from "./authentication.service";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class VacanciesService {
@@ -77,6 +78,7 @@ export class VacanciesService {
     const options = new RequestOptions({headers: headers});
       this.http.get(this.vacanciesURL + '/' + page + '/' + size, options).map(
         (response: Response) => {
+          console.log(response);
           const vacancies: VacancyModel[] = (<VacancyModel[]>this.jsog.deserialize(response.json().content));
           this.pagingService.first = response.json().first;
           this.pagingService.last = response.json().last;
@@ -116,6 +118,7 @@ export class VacanciesService {
       }
     ).subscribe(
       (data: VacancyModel[]) => {
+        console.log(data);
         this.vacancies = data;
         this.vacancyChange.next(this.vacancies.slice());
       },
@@ -129,7 +132,57 @@ export class VacanciesService {
     );
   }
 
-  // made for getting vacancy detail
+
+  querySearch(req?: any) {
+    const params2: URLSearchParams = new URLSearchParams();
+    params2.set('page', req.page);
+    params2.set('size', req.size);
+    params2.set('query', req.query);
+    params2.set('filter', req.filter);
+    params2.set('fromDate', req.fromDate);
+    params2.set('toDate', req.toDate);
+    params2.set('name', req.name);
+    params2.set('statusId', req.statusId);
+    params2.set('regionId', req.regionId);
+    params2.set('dateFormat', req.dateFormat);
+    const headers = this.authHeaders;
+    const options =  new BaseRequestOptions();
+    options.headers = headers;
+    options.params = params2;
+    this.http.get(`${this.vacanciesURL}/search/`, options)
+      .map((response: Response) => {
+        this.pagingService.first = response.json().first;
+        this.pagingService.last = response.json().last;
+        this.pagingService.totalElements = response.json().totalElements;
+        this.pagingService.numberOfElements = response.json().numberOfElements;
+        this.pagingService.setPages(response.json().totalPages, response.json().number);
+        return response.json().content;
+      }).subscribe(
+        (data: VacancyModel[]) => {
+          this.vacancies = data;
+          this.vacancyChange.next(this.vacancies.slice());
+        },
+        error => {
+          if (this.language == 'en') {
+            this.toastr.error(error.status, 'An error occured');
+          } else {
+            this.toastr.error(error.status, 'تم حدوث خط');
+          }
+        }
+      );
+  }
+
+  private convertResponse(res: Response): ResponseWrapper {
+    return new ResponseWrapper(res.headers, res.json(), res.status);
+  }
+
+
+
+
+
+
+
+// made for getting vacancy detail
   getVacancy(id: number) {
     return this.vacancies.find( vacancy => vacancy.id === id);
 /*    return this.http.get(this.vacanciesURL + '/' + id ).map(
@@ -227,3 +280,12 @@ export class VacanciesService {
 
   }
 }
+
+export class ResponseWrapper {
+  constructor(
+    public headers: Headers,
+    public json: any,
+    public status: number
+  ) { }
+}
+

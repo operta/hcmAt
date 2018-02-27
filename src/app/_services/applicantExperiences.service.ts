@@ -39,7 +39,7 @@ export class ApplicantExperiencesService {
     const options = new RequestOptions({headers: headers});
     return this.http.get(this.URL + '/' + applicant.id, options).map(
       (response: Response) => {
-        const applicantExperiences: ApplicantExperienceModel[] = (<ApplicantExperienceModel[]>this.jsog.deserialize(response.json()));;
+        const applicantExperiences: ApplicantExperienceModel[] = (<ApplicantExperienceModel[]>this.jsog.deserialize(response.json()));
         return applicantExperiences;
       }
     ).subscribe(

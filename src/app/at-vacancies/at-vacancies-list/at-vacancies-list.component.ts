@@ -30,9 +30,15 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
   searchByDateFrom: Date = null;
   searchByDateTo: Date = null;
   searchableList: string[];
-
+  page: any;
   start: number;
   end: number;
+  fromDate: string;
+  toDate: string;
+  name: string;
+  regionId: string;
+  statusId: string;
+  toggleAdvSearch = false;
 
   constructor(private userService: UserService,
               private vacanciesService: VacanciesService,
@@ -47,13 +53,33 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
     this.pagingService.vacancylist.next(true);
     this.pagingService.pageObservable.subscribe(
       page => {
+
         if (this.isAdmin) {
           this.loading = true;
-          this.vacanciesService.getVacancies(page, this.pagingService.resultCount);
+          this.vacanciesService.querySearch({
+            page: page,
+            size: 15,
+            fromDate: this.fromDate,
+            toDate: this.toDate,
+            name: this.name,
+            statusId: this.statusId,
+            regionId: this.regionId,
+            dateFormat: "yyyy-MM-dd"
+          });
         }
         if (this.isUser) {
           this.loading = true;
-          this.vacanciesService.getActiveVacancies(page, this.pagingService.resultCount);
+
+          this.vacanciesService.querySearch({
+            page: page,
+            size: 15,
+            fromDate: this.fromDate,
+            toDate: this.toDate,
+            name: this.name,
+            statusId: "ACTIVE",
+            regionId: this.regionId,
+            dateFormat: "yyyy-MM-dd"
+          });
         }
       }
     );
@@ -82,12 +108,52 @@ export class AtVacanciesListComponent implements OnInit, OnDestroy {
     );*/
   }
 
+  clearFilters() {
+    this.name = null;
+    this.statusId = null;
+    this.fromDate = null;
+    this.toDate = null;
+    this.regionId = null;
+    this.onSearchChange();
+  }
+
+  onSearchChange() {
+    this.vacanciesService.querySearch({
+      page: 0,
+      size: 15,
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      name: this.name,
+      statusId: this.statusId,
+      regionId: this.regionId
+    });
+    this.pagingService.setPage(0);
+  }
+
   refresh() {
     this.loading = true;
     if (this.isUser) {
-      this.vacanciesService.getActiveVacancies(0, 15);
+      this.vacanciesService.querySearch({
+        page: 0,
+        size: 15,
+        fromDate: this.fromDate,
+        toDate: this.toDate,
+        name: this.name,
+        statusId: this.statusId,
+        regionId: this.regionId,
+        dateFormat: "yyyy-MM-dd"
+      });
     } else {
-      this.vacanciesService.getVacancies(0, 15);
+      this.vacanciesService.querySearch({
+        page: 0,
+        size: 15,
+        fromDate: this.fromDate,
+        toDate: this.toDate,
+        name: this.name,
+        statusId: "ACTIVE",
+        regionId: this.regionId,
+        dateFormat: "yyyy-MM-dd"
+      });
     }
 
   }

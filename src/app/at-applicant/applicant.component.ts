@@ -177,7 +177,7 @@ export class ApplicantComponent implements OnInit, OnDestroy {
   onRegionSelected(value: string) {
     this.selectedRegion = this.regions.find(item => item.name === value);
     this.filteredCountries = this.countries.filter((item) => item.id_parent.id == this.selectedRegion.id);
-    if (this.filteredCountries.length > 0)
+    if(this.filteredCountries.length > 0)
     this.selectedCountry = this.filteredCountries[0];
     this.filteredCities = [];
   }
